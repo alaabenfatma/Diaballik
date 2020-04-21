@@ -5,4 +5,5 @@ public interface IPiece {
     public void removeBall();
     public void move(int l, int c);
     public String toString();
+    public Piece Clone();
 }

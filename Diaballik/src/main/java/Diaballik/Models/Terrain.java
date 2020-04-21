@@ -12,14 +12,14 @@ public class Terrain implements ITerrain {
         _terrain = new Piece[7][7];
         for (int l = 0; l < 7; l++) {
             for (int c = 0; c < 7; c++) {
-                _terrain[l][c] = new Piece(PieceType.Empty, false, l, c);
+                _terrain[l][c] = new Piece(PieceType.Empty, false, l, c,this);
             }
         }
         for (int i = 0; i < 7; i++) {
-            _terrain[0][i].Type = PieceType.White;
+            _terrain[0][i].Type = PieceType.Black;
         }
         for (int i = 0; i < 7; i++) {
-            _terrain[6][i].Type = PieceType.Black;
+            _terrain[6][i].Type = PieceType.White;
         }
 
     }
@@ -76,8 +76,7 @@ public class Terrain implements ITerrain {
 
     @Override
     public Piece[][] getTerrain() {
-        // TODO Auto-generated method stub
-        return null;
+        return _terrain;
     }
 
 }

@@ -1,15 +1,19 @@
 package Diaballik.Models;
 
-public class Piece implements IPiece {
+import javax.swing.*;
+
+import Diaballik.Controllers.TerrainUtils;
+
+public class Piece extends JButton implements IPiece{
     public PieceType Type = PieceType.Empty;
     public Position Position;
     public boolean HasBall = false;
-
-    public Piece(PieceType type, boolean hasBall, int l, int c) {
+    public Terrain Parent;
+    public Piece(PieceType type, boolean hasBall, int l, int c, Terrain parent) {
         this.Type = type;
         this.Position = new Position(l, c);
         this.HasBall = hasBall;
-        this.move(l, c);
+        this.Parent = parent;
     }
 
     @Override
@@ -30,7 +34,12 @@ public class Piece implements IPiece {
 
     @Override
     public void move(int l, int c) {
+        TerrainUtils.Swap(this, );
+    }
 
+    @Override
+    public Piece Clone() {
+        return new Piece(this.Type, this.HasBall, this.Position.l, this.Position.c,this.Parent);
     }
 
 }
