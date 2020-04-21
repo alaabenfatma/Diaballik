@@ -1,14 +1,17 @@
 package Diaballik.Models;
 
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 import Diaballik.Controllers.TerrainUtils;
 
-public class Piece extends JButton implements IPiece{
+public class Piece extends JButton implements IPiece {
     public PieceType Type = PieceType.Empty;
     public Position Position;
     public boolean HasBall = false;
     public Terrain Parent;
+
     public Piece(PieceType type, boolean hasBall, int l, int c, Terrain parent) {
         this.Type = type;
         this.Position = new Position(l, c);
@@ -34,15 +37,21 @@ public class Piece extends JButton implements IPiece{
 
     @Override
     public void move(int l, int c) {
-        TerrainUtils.Swap(this,Parent.getTerrain()[l][c] );
+        TerrainUtils.Swap(this, Parent.getTerrain()[l][c]);
     }
 
     @Override
     public Piece Clone() {
-        return new Piece(this.Type, this.HasBall, this.Position.l, this.Position.c,this.Parent);
+        return new Piece(this.Type, this.HasBall, this.Position.l, this.Position.c, this.Parent);
     }
 
-    public String toString(){
-        return "["+this.Type+","+this.HasBall+","+this.Position+"]";
+    public String toString() {
+        return "[" + this.Type + "," + this.HasBall + "," + this.Position + "]";
+    }
+
+    @Override
+    public ArrayList<Diaballik.Models.Position> PossiblePositions() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
