@@ -21,7 +21,7 @@ public class Terrain implements ITerrain {
         for (int i = 0; i < 7; i++) {
             _terrain[6][i].Type = PieceType.Black;
         }
-        
+
     }
 
     @Override
