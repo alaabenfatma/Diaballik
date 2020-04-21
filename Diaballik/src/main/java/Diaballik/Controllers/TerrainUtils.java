@@ -1,30 +1,43 @@
 package Diaballik.Controllers;
 
-import Diaballik.Models.Piece;
+import Diaballik.Models.*;
 
 public class TerrainUtils {
     /**
      * Échangez deux cellules de la matrice
      */
     public static void Swap(Piece a, Piece b) {
-        Piece c = a.Clone();
-        a = b.Clone();
-        b = c;
+        if(a.Parent != b.Parent){
+            throw new IllegalStateException("Not on the same terrain.");
+        }
+        Piece x = a.Clone();
+        a.Parent.getTerrain()[a.Position.l][a.Position.c] = b;
+        b.Parent.getTerrain()[b.Position.l][b.Position.c] = x;
+        SwapPosition(a, b);
     }
 
-    public static void ExchangeBall(Piece a, Piece b){
-        if(a.Type == b.Type){
-            if(a.HasBall){
+    public static void SwapPosition(Piece a, Piece b) {
+        Position p = new Position(a.Position.l, a.Position.c);
+        a.Position.l = b.Position.l;
+        a.Position.c = b.Position.c;
+        b.Position.l = p.l;
+        b.Position.c = p.c;
+    }
+
+    public static void ExchangeBall(Piece a, Piece b) {
+        if (a.Type == b.Type) {
+            if (a.HasBall) {
                 a.removeBall();
                 b.addBall();
-            }
-            else if(b.HasBall){
+            } else if (b.HasBall) {
                 a.addBall();
                 b.removeBall();
-            }
-            else{
+            } else {
                 throw new IllegalAccessError("Aucun des deux joueurs n'a le ballon");
             }
+        }
+        else{
+            throw new IllegalAccessError("Les deux joueurs sont de deux types différents");
         }
     }
 }

@@ -14,5 +14,7 @@ public class Diaballik {
         tr.PrintTerrain();
         TerrainUtils.Swap(tr.getTerrain()[0][0], tr.getTerrain()[1][0]);
         tr.PrintTerrain();
+        TerrainUtils.ExchangeBall(tr.getTerrain()[1][0], tr.getTerrain()[0][3]);
+        tr.PrintTerrain();
     }
 }

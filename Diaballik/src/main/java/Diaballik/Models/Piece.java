@@ -34,7 +34,7 @@ public class Piece extends JButton implements IPiece{
 
     @Override
     public void move(int l, int c) {
-        TerrainUtils.Swap(this, );
+        TerrainUtils.Swap(this,Parent.getTerrain()[l][c] );
     }
 
     @Override
@@ -42,4 +42,7 @@ public class Piece extends JButton implements IPiece{
         return new Piece(this.Type, this.HasBall, this.Position.l, this.Position.c,this.Parent);
     }
 
+    public String toString(){
+        return "["+this.Type+","+this.HasBall+","+this.Position+"]";
+    }
 }
