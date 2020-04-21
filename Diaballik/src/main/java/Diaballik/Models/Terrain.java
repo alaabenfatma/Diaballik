@@ -39,8 +39,8 @@ public class Terrain implements ITerrain {
         /*******/
         /*******/
         /*** B ***/
-        _terrain[0][4].addBall();
-        _terrain[6][4].addBall();
+        _terrain[0][3].addBall();
+        _terrain[6][3].addBall();
     }
 
     @Override
