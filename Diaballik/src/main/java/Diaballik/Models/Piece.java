@@ -8,23 +8,27 @@ public class Piece implements IPiece {
         this.Type  = type;
         this.Position = new Position(l, c);
         this.HasBall = hasBall;
+        this.move(l, c);
     }
     @Override
     public void addBall() {
-        // TODO Auto-generated method stub
-
+        if(this.HasBall){
+            throw new IllegalStateException("Le joueur ne peut avoir qu'une seule balle.");
+        }
+        this.HasBall = true;
     }
 
     @Override
     public void removeBall() {
-        // TODO Auto-generated method stub
-
+        if(!this.HasBall){
+            throw new IllegalStateException("le joueur n'a pas déjà de balle.");
+        }
+        this.HasBall = false;
     }
 
     @Override
     public void move(int l, int c) {
-        // TODO Auto-generated method stub
-
+        
     }
 
 }
