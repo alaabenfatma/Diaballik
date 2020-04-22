@@ -15,4 +15,7 @@ public interface ITerrain {
 
     // Prints the terrain on the console.
     public void PrintTerrain();
+
+    //Returns true if a pos is occupied by a player
+    public boolean isOccupied(Position pos);
 }

@@ -8,17 +8,20 @@ public class Terrain implements ITerrain {
     /**
      * Mettre tous les case = vide
      */
+    private int taille;
+
     private void init() {
-        _terrain = new Piece[7][7];
-        for (int l = 0; l < 7; l++) {
-            for (int c = 0; c < 7; c++) {
+        this.taille = 7;
+        _terrain = new Piece[taille][taille];
+        for (int l = 0; l < taille; l++) {
+            for (int c = 0; c < taille; c++) {
                 _terrain[l][c] = new Piece(PieceType.Empty, false, l, c,this);
             }
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < taille; i++) {
             _terrain[0][i].Type = PieceType.Black;
         }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < taille; i++) {
             _terrain[6][i].Type = PieceType.White;
         }
 
@@ -79,5 +82,22 @@ public class Terrain implements ITerrain {
     public Piece[][] getTerrain() {
         return _terrain;
     }
+
+    public int taille(){
+        return this.taille;
+    }
+
+    public boolean isOccupied(Position pos){
+        for(int i=0;i<this.taille;i++){
+            for(Piece p : _terrain[i]){
+                
+                if(p.Position.equals(pos) && p.Type != PieceType.Empty){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
 }

@@ -1,7 +1,7 @@
 package Diaballik;
 
 import Diaballik.Controllers.TerrainUtils;
-import Diaballik.Models.Terrain;
+import Diaballik.Models.*;
 
 /**
  * Hello world!
@@ -12,9 +12,9 @@ public class Diaballik {
         Terrain tr = new Terrain();
         tr.Create();
         tr.PrintTerrain();
-        TerrainUtils.Swap(tr.getTerrain()[0][0], tr.getTerrain()[1][0]);
+        
+        //tr.getTerrain()[6][6].move(1, 2);
         tr.PrintTerrain();
-        TerrainUtils.ExchangeBall(tr.getTerrain()[1][0], tr.getTerrain()[0][3]);
-        tr.PrintTerrain();
+        System.out.println(tr.getTerrain()[6][6].PossiblePositions());
     }
 }

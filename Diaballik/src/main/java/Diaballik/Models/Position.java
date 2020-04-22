@@ -8,6 +8,11 @@ public class Position {
         this.c = _c;
     }
 
+    public boolean equals(Position p) {
+        return (this.l == p.l && this.c == p.c);
+    }
+
+    @Override
     public String toString(){
         return "("+l+","+c+")";
     }

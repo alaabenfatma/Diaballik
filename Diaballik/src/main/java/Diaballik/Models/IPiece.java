@@ -39,5 +39,5 @@ public interface IPiece {
      * @return Toutes les positions possibles autour de cette pièce
      * @author Alaa
      */
-    public ArrayList<Position> PossiblePositions();
+    //public ArrayList<Diaballik.Models.Position> PossiblePositions();
 }
