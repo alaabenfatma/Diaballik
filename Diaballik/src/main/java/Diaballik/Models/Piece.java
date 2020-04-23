@@ -53,82 +53,66 @@ public class Piece extends JButton implements IPiece {
 
     //@Override
     public ArrayList<Position> PossiblePositions() {
-        int j = this.Position.l;
-        int i = this.Position.c;
-        int index = i;
-        int compteur = 0;
         ArrayList<Position> result = new ArrayList<Position>();
-        /*
-        while((index<Parent.taille()) && (compteur !=2) && (!Parent.isOccupied(new Position(this.Position.l,this.Position.c + compteur +1)))){
-            result.add(new Position(this.Position.l,this.Position.c + compteur +1));
-            index++;
-            compteur++;
-        }
-
-        index = i;
-        compteur = 0;
-
-        while((index>0) && (compteur !=2) && (!Parent.isOccupied(new Position(this.Position.l,this.Position.c + compteur -2)))){
-            result.add(new Position(this.Position.l,this.Position.c + compteur -2));
-            index--;
-            compteur++;
-        }
-
-        index = j;
-        compteur = 0;
-
-        while((index<Parent.taille()) && (compteur !=2) && (!Parent.isOccupied(new Position(this.Position.l+compteur+1,this.Position.c)))){
-            result.add(new Position(this.Position.l+compteur+1,this.Position.c));
-            index++;
-            compteur++;
-        }
-
-        index = j;
-        compteur = 0;
-
-        while((index>0) && (compteur !=2) && (!Parent.isOccupied(new Position(this.Position.l+compteur-2,this.Position.c)))){
-            result.add(new Position(this.Position.l + compteur -2,this.Position.c));
-            index++;
-            compteur++;
-        }
-        */
-        if(!this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c)) && ((this.Position.l-1)>=0)){
+    
+        if(((this.Position.l-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c))){
             result.add(new Position(this.Position.l-1, this.Position.c));
             System.out.println("here : "+this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c)));
             if(!this.Parent.isOccupied(new Position(this.Position.l-2, this.Position.c)) && ((this.Position.l-2)>=0)){
                 result.add(new Position(this.Position.l-2, this.Position.c));
             }
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c)) && ((this.Position.l+1)<this.Parent.taille())){
+        if(((this.Position.l+1)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c))){
             result.add(new Position(this.Position.l+1, this.Position.c));
             if(!this.Parent.isOccupied(new Position(this.Position.l+2, this.Position.c)) && ((this.Position.l+2)<this.Parent.taille())){
                 result.add(new Position(this.Position.l+2, this.Position.c));
             }
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l, this.Position.c+1)) && ((this.Position.c+1)<this.Parent.taille())){
+        if(((this.Position.c+1)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c+1))){
             result.add(new Position(this.Position.l, this.Position.c+1));
             if(!this.Parent.isOccupied(new Position(this.Position.l, this.Position.c+2)) && ((this.Position.c+2)<this.Parent.taille())){
                 result.add(new Position(this.Position.l, this.Position.c+2));
             }
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l, this.Position.c-1)) && ((this.Position.c-1)>=0)){
+        if(((this.Position.c-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c-1))){
             result.add(new Position(this.Position.l, this.Position.c-1));
             if(!this.Parent.isOccupied(new Position(this.Position.l, this.Position.c-2)) && ((this.Position.c-2)>=0)){
                 result.add(new Position(this.Position.l, this.Position.c-2));
             }
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c-1)) && ((this.Position.c-1)>=0 &&(this.Position.l-1)>=0)){
+        if(((this.Position.c-1)>=0 &&(this.Position.l-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c-1))){
             result.add(new Position(this.Position.l-1, this.Position.c-1));
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c+1)) && ((this.Position.c+1)<this.Parent.taille() &&(this.Position.l+1)<this.Parent.taille())){
+        if(((this.Position.c+1)<this.Parent.taille() &&(this.Position.l+1)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c+1))){
             result.add(new Position(this.Position.l+1, this.Position.c+1));
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c-1)) && ((this.Position.c-1)>=0 &&(this.Position.l+1)<this.Parent.taille())){
+        if(((this.Position.c-1)>=0 &&(this.Position.l+1)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c-1)) ){
             result.add(new Position(this.Position.l+1, this.Position.c-1));
         }
-        if(!this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c+1)) && ((this.Position.c+1)<this.Parent.taille() &&(this.Position.l-1)>=0)){
+        if(((this.Position.c+1)<this.Parent.taille() &&(this.Position.l-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c+1))){
             result.add(new Position(this.Position.l-1, this.Position.c+1));
         }
         return result;
+    }
+
+
+    //toujours en cours, ne pas toucher
+    public ArrayList<Position> passesPossibles() {
+        //TODO
+        int i = this.Position.l;
+        int j = this.Position.c;
+        ArrayList<Position> result = new ArrayList<Position>();
+        /*
+        while((index<Parent.taille()) && (Parent.isOccupied(new Position(this.Position.l,this.Position.c + index +1)))){
+            result.add(new Position(this.Position.l,this.Position.c + index +1));
+            index++;
+        }
+        */
+        for(int l=i+1; l<Parent.taille(); l++){
+            if(Parent.isOccupied(new Position(l,j))){
+
+            }
+        }
+        return null;
     }
 }

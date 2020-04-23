@@ -86,17 +86,9 @@ public class Terrain implements ITerrain {
     public int taille(){
         return this.taille;
     }
-
+    
     public boolean isOccupied(Position pos){
-        for(int i=0;i<this.taille;i++){
-            for(Piece p : _terrain[i]){
-                
-                if(p.Position.equals(pos) && p.Type != PieceType.Empty){
-                    return true;
-                }
-            }
-        }
-        return false;
+        return (_terrain[pos.l][pos.c].Type != PieceType.Empty);
     }
 
 
