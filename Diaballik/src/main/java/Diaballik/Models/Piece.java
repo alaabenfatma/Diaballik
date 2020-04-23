@@ -38,7 +38,6 @@ public class Piece extends JButton implements IPiece {
 
     @Override
     public void move(int l, int c) {
-        this.Position = new Position(l,c);
         TerrainUtils.Swap(this, Parent.getTerrain()[l][c]);
     }
 
