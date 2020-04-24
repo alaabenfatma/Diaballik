@@ -10,18 +10,17 @@ public class TerrainUtils {
         if(a.Parent != b.Parent){
             throw new IllegalStateException("Not on the same terrain.");
         }
-        Piece x = a.Clone();
+        Piece x = a;
         a.Parent.getTerrain()[a.Position.l][a.Position.c] = b;
         b.Parent.getTerrain()[b.Position.l][b.Position.c] = x;
         SwapPosition(a, b);
     }
 
+
     public static void SwapPosition(Piece a, Piece b) {
-        Position p = new Position(a.Position.l, a.Position.c);
-        a.Position.l = b.Position.l;
-        a.Position.c = b.Position.c;
-        b.Position.l = p.l;
-        b.Position.c = p.c;
+        Position temp = a.Position;
+        a.Position = b.Position;
+        b.Position = temp;
     }
 
     public static void ExchangeBall(Piece a, Piece b) {
@@ -39,5 +38,10 @@ public class TerrainUtils {
         else{
             throw new IllegalAccessError("Les deux joueurs sont de deux types différents");
         }
+    }
+
+    //Basically ExchangeBall mais on empeche l'utilisateur de faire du n'importe quoi
+    public static void passeWrapper(Piece a, Piece b){
+        ArrayList<Position> ar = a.PossiblePositions();
     }
 }
