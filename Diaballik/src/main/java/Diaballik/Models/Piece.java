@@ -50,6 +50,59 @@ public class Piece extends JButton implements IPiece {
         return "[" + this.Type + "," + this.HasBall + "," + this.Position + "]";
     }
 
+    //retourne les positions diagonales bas droite
+    public ArrayList<Position> getDiagonals_bd(){
+        ArrayList<Position> result = new ArrayList<Position>();
+        int i=Position.l;
+        int j=Position.c;
+        //bas droite
+        while((i + 1<Parent.taille()) &&  (j +1<Parent.taille())){
+            i = i +1;
+            j = j +1;
+            result.add(new Position(i,j));
+        }
+        return result;
+    }
+    //retourne les positions diagonales bas gauche
+    public ArrayList<Position> getDiagonals_bg(){
+        ArrayList<Position> result = new ArrayList<Position>();
+        int i=Position.l;
+        int j=Position.c;
+        //bas gauche
+        while((i + 1<Parent.taille()) &&  (j -1>=0)){
+            i = i +1;
+            j = j -1;
+            result.add(new Position(i,j));
+        }
+        return result;
+    }
+    //retourne les positions diagonales haut gauche
+    public ArrayList<Position> getDiagonals_hg(){
+        ArrayList<Position> result = new ArrayList<Position>();
+        int i=Position.l;
+        int j=Position.c;
+        //haut gauche
+        while((i - 1>=0) &&  (j -1>=0)){
+            i = i -1;
+            j = j -1;
+            result.add(new Position(i,j));
+        }
+        return result;
+    }
+    //retourne les positions diagonales haut droite
+    public ArrayList<Position> getDiagonals_hd(){
+        ArrayList<Position> result = new ArrayList<Position>();
+        int i=Position.l;
+        int j=Position.c;
+        //haut droite
+        while((i - 1>=0) &&  (j +1<Parent.taille())){
+            i = i -1;
+            j = j +1;
+            result.add(new Position(i,j));
+        }
+        return result;
+    }
+
     //@Override
     public ArrayList<Position> PossiblePositions() {
         ArrayList<Position> result = new ArrayList<Position>();
@@ -95,23 +148,113 @@ public class Piece extends JButton implements IPiece {
     }
 
 
-    //toujours en cours, ne pas toucher
+    
     public ArrayList<Position> passesPossibles() {
-        //TODO
         int i = this.Position.l;
         int j = this.Position.c;
         ArrayList<Position> result = new ArrayList<Position>();
-        /*
-        while((index<Parent.taille()) && (Parent.isOccupied(new Position(this.Position.l,this.Position.c + index +1)))){
-            result.add(new Position(this.Position.l,this.Position.c + index +1));
-            index++;
-        }
-        */
-        for(int l=i+1; l<Parent.taille(); l++){
-            if(Parent.isOccupied(new Position(l,j))){
 
+        //horizontales + verticales
+        for(int l=i+1; l<Parent.taille(); l++){
+            
+            if(Parent.isOccupied(new Position(l,j))){
+                if(Parent.getTerrain()[l][j].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(new Position(l,j));
+                }
             }
         }
-        return null;
+        for(int l=i-1; l>0; l--){
+            if(Parent.isOccupied(new Position(l,j))){
+                if(Parent.getTerrain()[l][j].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(new Position(l,j));
+                }
+            }
+        }
+        for(int c=j+1; c<Parent.taille(); c++){
+            if(Parent.isOccupied(new Position(i,c))){
+                if(Parent.getTerrain()[i][c].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(new Position(i,c));
+                }
+            }
+        }
+
+        for(int c=j-1; c>0; c--){
+            if(Parent.isOccupied(new Position(i,c))){
+                if(Parent.getTerrain()[i][c].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(new Position(i,c));
+                }
+            }
+        }
+
+        //diagonales
+        ArrayList<Position> diag = getDiagonals_hg();
+        for(Position pos : diag){
+            if(Parent.isOccupied(pos)){
+                if(Parent.getTerrain()[pos.l][pos.c].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(pos);
+                }
+            }
+        }
+
+        diag = getDiagonals_bd();
+        for(Position pos : diag){
+            if(Parent.isOccupied(pos)){
+                if(Parent.getTerrain()[pos.l][pos.c].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(pos);
+                }
+            }
+        }
+
+        diag = getDiagonals_hd();
+        for(Position pos : diag){
+            if(Parent.isOccupied(pos)){
+                if(Parent.getTerrain()[pos.l][pos.c].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(pos);
+                }
+            }
+        }
+
+        diag = getDiagonals_bg();
+        for(Position pos : diag){
+            if(Parent.isOccupied(pos)){
+                if(Parent.getTerrain()[pos.l][pos.c].Type != this.Type){
+                    //On ne peut pas aller plus loin dans les passes
+                    break;
+                }
+                else{
+                    result.add(pos);
+                }
+            }
+        }
+
+        return result;
     }
 }

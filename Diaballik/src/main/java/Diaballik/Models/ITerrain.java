@@ -18,4 +18,5 @@ public interface ITerrain {
 
     //Returns true if a pos is occupied by a player
     public boolean isOccupied(Position pos);
+
 }
