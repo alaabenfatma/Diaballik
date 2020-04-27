@@ -51,6 +51,16 @@ public class Piece extends JButton implements IPiece {
         return "[" + this.Type + "," + this.HasBall + "," + this.Position + "]";
     }
 
+    //retourne toutes les diagonales
+    public ArrayList<Position> getDiagonals(){
+        ArrayList<Position> result = new ArrayList<Position>();
+        result.addAll(getDiagonals_bd());
+        result.addAll(getDiagonals_bg());
+        result.addAll(getDiagonals_hd());
+        result.addAll(getDiagonals_hg());
+        return result;
+    }
+
     //retourne les positions diagonales bas droite
     public ArrayList<Position> getDiagonals_bd(){
         ArrayList<Position> result = new ArrayList<Position>();

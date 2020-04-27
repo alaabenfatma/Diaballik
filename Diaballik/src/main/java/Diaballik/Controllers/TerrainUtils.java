@@ -45,5 +45,13 @@ public class TerrainUtils {
     //Basically ExchangeBall mais on empeche l'utilisateur de faire du n'importe quoi
     public static void passeWrapper(Piece a, Piece b){
         ArrayList<Position> ar = a.PossiblePositions();
+        if(a.equals(b)){
+            throw new IllegalAccessError("Le joueur a tenté de se passer à lui meme la balle");
+        }
+        if(ar.contains(b.Position)){
+            ExchangeBall(a, b);
+        }else{
+            throw new IllegalAccessError("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
+        }
     }
 }
