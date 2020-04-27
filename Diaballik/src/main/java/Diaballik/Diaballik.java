@@ -18,6 +18,8 @@ public class Diaballik {
         Scanner sc = new Scanner(System.in);
         String ligne;
         String[] ligne_split;
+        int pieceL;
+        int pieceC;
         //On boucle si l'utilisateur choisie une piece qui n'est pas blanche
         while (true) {
             System.out.println("Entrez les coordonnées de la pièce : l c ");
@@ -26,10 +28,12 @@ public class Diaballik {
             pieceL = Integer.parseInt(ligne_split[0]);
             pieceC = Integer.parseInt(ligne_split[1]);
             if ((pieceL > tr.taille()) || (pieceC > tr.taille())) {
+                sc.close();
                 throw new IllegalAccessError("Erreur dans getWhitePiece : l ou c > taille");
             }
-            Piece res = tr.getTerrain()[l][c];
+            Piece res = tr.getTerrain()[pieceL][pieceC];
             if (res.Type == PieceType.White) {
+                sc.close();
                 return res;
             }
         }
@@ -40,6 +44,8 @@ public class Diaballik {
         Scanner sc = new Scanner(System.in);
         String ligne;
         String[] ligne_split;
+        int pieceL;
+        int pieceC;
         while (true) {
             System.out.println("Entrez les coordonnées de la pièce : l c ");
             ligne = sc.nextLine();
@@ -47,10 +53,12 @@ public class Diaballik {
             pieceL = Integer.parseInt(ligne_split[0]);
             pieceC = Integer.parseInt(ligne_split[1]);
             if ((pieceL > tr.taille()) || (pieceC > tr.taille())) {
+                sc.close();
                 throw new IllegalAccessError("Erreur dans getWhitePiece : l ou c > taille");
             }
-            Piece res = tr.getTerrain()[l][c];
+            Piece res = tr.getTerrain()[pieceL][pieceC];
             if (res.Type == PieceType.Black) {
+                sc.close();
                 return res;
             }
         }
@@ -83,6 +91,7 @@ public class Diaballik {
                 break;
             }
         }
+        sc.close();
     }
 
     public static void main(String[] args) {
