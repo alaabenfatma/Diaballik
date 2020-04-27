@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import Diaballik.Diaballik;
 import Diaballik.Controllers.TerrainUtils;
 
 public class Piece extends JButton implements IPiece {
+    private static final long serialVersionUID = 1L;
+    
     public PieceType Type = PieceType.Empty;
     public Position Position;
     public boolean HasBall = false;

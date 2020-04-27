@@ -1,7 +1,7 @@
 package Diaballik;
 
 import java.util.Scanner;
-import Diaballik.Controllers.TerrainUtils;
+//import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.*;
 
 /**
