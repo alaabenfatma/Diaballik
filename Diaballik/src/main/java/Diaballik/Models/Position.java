@@ -1,6 +1,6 @@
 package Diaballik.Models;
 
-import javax.annotation.processing.SupportedOptions;
+//import javax.annotation.processing.SupportedOptions;
 
 public class Position {
     public int l, c;

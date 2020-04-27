@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
+//import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+//import org.junit.rules.ExpectedException;
 
 import Diaballik.Models.*;
 
@@ -20,7 +20,7 @@ public class AppTest {
      * 
      * @author Thomas
      */
-
+    // ##################### Terrain.java #####################
     @Test
     public void Create_test(){
         boolean test = true;
@@ -126,4 +126,30 @@ public class AppTest {
         terrain.Create();
         assertFalse(terrain.isOccupied(pos));   
     }
+    // ##################### Piece.java #####################
+    /**
+     * Test du constructeur Piece
+     * @author Thomas
+     */
+    @Test
+    public void Piece_test(){
+        boolean test = true;
+        Terrain tr = new Terrain();
+        Piece Tr = tr.Create()[0][3];
+        if(Tr.HasBall != true){
+            test = false;
+            System.out.println(" Ne possède pas la balle à la pos <0,6>");
+        }
+        if(!Tr.Position.equals(new Position(0,3))){
+            test = false;
+            System.out.println(" Position différente entre coord tableau et coord contenu ");
+        }
+        if(Tr.Type != PieceType.Black ){
+            test = false;
+            System.out.println(" Type de la pièce différent ");
+        }
+
+        assertTrue( test );
+    }
+    
 }
