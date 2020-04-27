@@ -151,5 +151,100 @@ public class AppTest {
 
         assertTrue( test );
     }
+    /**
+     * Test de la fonction addBall
+     * @author Thomas
+     */
+
+    @Test
+    public void addBall_test_1(){
+        Terrain tr = new Terrain();
+        tr.Create();
+        tr.getTerrain()[0][2].addBall();
+        assertTrue(tr.getTerrain()[0][2].HasBall);
+    }
+    @Test
+    public void addBall_test_2(){
+        Terrain tr = new Terrain();
+        tr.Create();
+        assertTrue(tr.getTerrain()[0][3].HasBall);
+    }
+    //TODO : Faire addBall sur l'excepction
     
+    /**
+     * Test de la fonction removeBall
+     * @author Thomas
+     */
+    
+    @Test
+    public void removeBall_test_1(){
+        Terrain tr = new Terrain();
+        tr.Create();
+        tr.getTerrain()[0][3].removeBall();
+        assertFalse(tr.getTerrain()[0][3].HasBall);
+    }
+    //TODO : Faire removeBall sur l'excepction
+    
+    @Test
+    public void removeBall_test_2(){
+        Terrain tr = new Terrain();
+        tr.Create();
+        tr.getTerrain()[6][5].addBall();
+        tr.getTerrain()[6][5].removeBall();
+        assertFalse(tr.getTerrain()[6][5].HasBall);
+    }
+    /**
+     * Test de la fonction move_test
+     * @author Thomas
+     */
+    @Test
+    public void move_test_1(){
+        boolean test = true;
+        PieceType p1,p2;
+        Terrain tr = new Terrain();
+        p1=tr.Create()[0][3].Type;
+        p2=tr.getTerrain()[1][3].Type;
+        tr.getTerrain()[0][3].move(1,3);
+        if(tr.getTerrain()[0][3].Type != p2 && tr.getTerrain()[1][3].Type != p1){
+            test = false;
+            System.out.println(" Mauvais déplacement ");
+        }
+        assertTrue( test );
+    }
+    //TODO : Faire déplacement en dehors du terrain
+    /**
+     * Test de la fonction move_test
+     * @author Thomas
+     */
+
+    @Test
+    public void move_test_2(){
+        boolean test = true;
+        PieceType p1,p2;
+        Terrain tr = new Terrain();
+        p1=tr.Create()[6][0].Type;
+        p2=tr.getTerrain()[0][5].Type;
+        tr.getTerrain()[6][0].move(0,5);
+        if(tr.getTerrain()[6][0].Type != p2 && tr.getTerrain()[6][0].Type != p1){
+            test = false;
+            System.out.println(" Mauvais déplacement ");
+        }
+        assertTrue( test );
+    }
+
+/*
+    @Test
+    public void Clone_test(){
+        Piece p1,p2;
+        Terrain tr = new Terrain();
+        tr.Create();
+        p1 = tr.getTerrain()[0][3];
+        p2 = tr.getTerrain()[0][3].Clone();
+    }
+
+    @Test
+    public void test_Diagonals(){
+
+    }
+*/
 }
