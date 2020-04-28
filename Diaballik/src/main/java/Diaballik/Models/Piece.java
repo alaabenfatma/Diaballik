@@ -120,7 +120,6 @@ public class Piece extends JButton implements IPiece {
     
         if(((this.Position.l-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c))){
             result.add(new Position(this.Position.l-1, this.Position.c));
-            System.out.println("here : "+this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c)));
             if(!this.Parent.isOccupied(new Position(this.Position.l-2, this.Position.c)) && ((this.Position.l-2)>=0)){
                 result.add(new Position(this.Position.l-2, this.Position.c));
             }

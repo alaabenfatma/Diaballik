@@ -17,80 +17,6 @@ public class Diaballik {
     // Ici pour l'instant, la position est saisie au clavier sous la forme "l c"
     // sans les guillemets
     // comme pour la gauffre
-    public static Piece getWhitePiece(Terrain tr) {
-        Scanner sc = new Scanner(System.in);
-        String ligne;
-        String[] ligne_split;
-        int pieceL;
-        int pieceC;
-        //On boucle si l'utilisateur choisie une piece qui n'est pas blanche
-        while (true) {
-            System.out.println("Entrez les coordonnées de la pièce : l c ");
-            ligne = sc.nextLine();
-            ligne_split = ligne.split(" ");
-            pieceL = Integer.parseInt(ligne_split[0]);
-            pieceC = Integer.parseInt(ligne_split[1]);
-            if ((pieceL > tr.taille()) || (pieceC > tr.taille())) {
-                sc.close();
-                throw new IllegalAccessError("Erreur dans getWhitePiece : l ou c > taille");
-            }
-            Piece res = tr.getTerrain()[pieceL][pieceC];
-            if (res.Type == PieceType.White) {
-                sc.close();
-                return res;
-            }
-        }
-    }
-
-    //mm chose
-    public static Piece getBlackPiece(Terrain tr) {
-        Scanner sc = new Scanner(System.in);
-        String ligne;
-        String[] ligne_split;
-        int pieceL;
-        int pieceC;
-        while (true) {
-            System.out.println("Entrez les coordonnées de la pièce : l c ");
-            ligne = sc.nextLine();
-            ligne_split = ligne.split(" ");
-            pieceL = Integer.parseInt(ligne_split[0]);
-            pieceC = Integer.parseInt(ligne_split[1]);
-            if ((pieceL > tr.taille()) || (pieceC > tr.taille())) {
-                sc.close();
-                throw new IllegalAccessError("Erreur dans getBlackPiece : l ou c > taille");
-            }
-            Piece res = tr.getTerrain()[pieceL][pieceC];
-            if (res.Type == PieceType.Black) {
-                sc.close();
-                return res;
-            }
-        }
-    }
-
-    //mm chose
-    public static Piece getEmptyPiece(Terrain tr) {
-        Scanner sc = new Scanner(System.in);
-        String ligne;
-        String[] ligne_split;
-        int pieceL;
-        int pieceC;
-        while (true) {
-            System.out.println("Entrez les coordonnées de la pièce : l c ");
-            ligne = sc.nextLine();
-            ligne_split = ligne.split(" ");
-            pieceL = Integer.parseInt(ligne_split[0]);
-            pieceC = Integer.parseInt(ligne_split[1]);
-            if ((pieceL > tr.taille()) || (pieceC > tr.taille())) {
-                sc.close();
-                throw new IllegalAccessError("Erreur dans getEmptyPiece : l ou c > taille");
-            }
-            Piece res = tr.getTerrain()[pieceL][pieceC];
-            if (res.Type == PieceType.Empty) {
-                sc.close();
-                return res;
-            }
-        }
-    }
 
     public static Piece getPiece(Terrain tr, PieceType t) {
         Scanner sc = new Scanner(System.in);
@@ -111,11 +37,22 @@ public class Diaballik {
                 throw new IllegalAccessError("Erreur dans getPiece : l ou c > taille");
             }
             res = tr.getTerrain()[pieceL][pieceC];
-            if (res.Type == t) {
+            if ((res.Type == t)&&(!res.HasBall)) {
                 done = true;
+            }else{
+                if(res.HasBall){
+                    System.out.println("Erreur : Vous ne pouvez pas bouger la piece qui a la balle");
+                }
+                if(res.Type != t){
+                    System.out.println("Erreur : Veuillez choisir une piece de type "+t);
+                }
             }
         }
-        //sc.close();
+
+        //Je sais pas pourquoi, j'ai pas envie de savoir pourquoi, je ne veux même plus chercher à savoir pourquoi,
+        //mais pour une raison que j'ignore, si on ferme le scanner ici alors plus rien ne marche
+        //Du coup, juste laissez-le ouvert et osef du warning
+        //sc.close(); 
         return res;
     }
 
@@ -138,10 +75,16 @@ public class Diaballik {
             switch(choix){
                 case 'p':
                 //passe
-                from = getPiece(tr,PieceType.White);
+                from = tr.getPieceWithBall(PieceType.White);
+                System.out.println("Les passes possibles sont : "+from.passesPossibles());
                 to = getPiece(tr,PieceType.White);
                 TerrainUtils.passeWrapper(from, to);
                 passe_faite=0;
+                //victoire?
+                if(to.Position.l == 0){
+                    System.out.println("Les blancs ont gagnés !");
+                    System.exit(0); //La j'ai fais un system.exit mais on changera plus tard si il le faut
+                }
                 break;
                 case 'm':
                 //mouvement
@@ -199,10 +142,15 @@ public class Diaballik {
             switch(choix){
                 case 'p':
                 //passe
-                from = getPiece(tr,PieceType.Black);
+                from = tr.getPieceWithBall(PieceType.Black);
                 to = getPiece(tr,PieceType.Black);
                 TerrainUtils.passeWrapper(from, to);
                 passe_faite=0;
+                //victoire?
+                if(to.Position.l == tr.taille()-1){
+                    System.out.println("Les noirs ont gagnés !");
+                    System.exit(0); //La j'ai fais un system.exit mais on changera plus tard si il le faut
+                }
                 break;
                 case 'm':
                 //mouvement
