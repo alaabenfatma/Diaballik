@@ -15,7 +15,7 @@ import Diaballik.Models.*;
  * Unit test for simple App.
  */
 public class AppTest {
-
+    Terrain tr = new Terrain();
     /**
      * 
      * @author Thomas
@@ -24,7 +24,6 @@ public class AppTest {
     @Test
     public void Create_test(){
         boolean test = true;
-        Terrain tr = new Terrain();
         tr.Create();
         Piece[][] Terrain = tr.getTerrain();
         for(int i = 0; (i < tr.taille()) && test ;i++){
@@ -58,7 +57,6 @@ public class AppTest {
     @Test
     public void Setup_test(){
         boolean test =true;
-        Terrain tr = new Terrain();
         Piece[][] Tr = tr.Create();
         if(Tr[0][3].HasBall != true){
             test = false;
@@ -78,28 +76,25 @@ public class AppTest {
  
     @Test
     public void testtailleTrue(){
-        Terrain terrain = new Terrain();
-        terrain.Create();
-        assertEquals(terrain.taille(), 7);
+        tr.Create();
+        assertEquals(tr.taille(), 7);
     }
 
 
     @Test
     public void testtailleFalse(){
-        Terrain terrain = new Terrain();
-        terrain.Create();
-        assertNotEquals(terrain.taille(), 6);
+        tr.Create();
+        assertNotEquals(tr.taille(), 6);
     }
 
 
     @Test
     public void testgetTerrain(){
-        Terrain terrain = new Terrain();
-        Piece [][] terrainCreate = terrain.Create();
-        Piece [][] terrainget = terrain.getTerrain();
+        Piece [][] terrainCreate = tr.Create();
+        Piece [][] terrainget = tr.getTerrain();
 
-        for (int i = 0; i < terrain.taille(); i++){
-            for (int j = 0; j < terrain.taille(); j++){
+        for (int i = 0; i < tr.taille(); i++){
+            for (int j = 0; j < tr.taille(); j++){
                 assertEquals(terrainCreate[i][j], terrainget[i][j]);
             }
         } 
@@ -112,19 +107,17 @@ public class AppTest {
 
     @Test 
     public void testisOccupiedTrue(){
-        Terrain terrain = new Terrain();
         Position pos = new Position(0, 0);
-        terrain.Create();
-        assertTrue(terrain.isOccupied(pos));   
+        tr.Create();
+        assertTrue(tr.isOccupied(pos));   
     }
 
 
     @Test 
     public void testisOccupiedFalse(){
-        Terrain terrain = new Terrain();
         Position pos = new Position(3, 3);
-        terrain.Create();
-        assertFalse(terrain.isOccupied(pos));   
+        tr.Create();
+        assertFalse(tr.isOccupied(pos));   
     }
     // ##################### Piece.java #####################
     /**
@@ -134,7 +127,6 @@ public class AppTest {
     @Test
     public void Piece_test(){
         boolean test = true;
-        Terrain tr = new Terrain();
         Piece Tr = tr.Create()[0][3];
         if(Tr.HasBall != true){
             test = false;
@@ -158,14 +150,12 @@ public class AppTest {
 
     @Test
     public void addBall_test_1(){
-        Terrain tr = new Terrain();
         tr.Create();
         tr.getTerrain()[0][2].addBall();
         assertTrue(tr.getTerrain()[0][2].HasBall);
     }
     @Test
     public void addBall_test_2(){
-        Terrain tr = new Terrain();
         tr.Create();
         assertTrue(tr.getTerrain()[0][3].HasBall);
     }
@@ -178,7 +168,6 @@ public class AppTest {
     
     @Test
     public void removeBall_test_1(){
-        Terrain tr = new Terrain();
         tr.Create();
         tr.getTerrain()[0][3].removeBall();
         assertFalse(tr.getTerrain()[0][3].HasBall);
@@ -187,7 +176,6 @@ public class AppTest {
     
     @Test
     public void removeBall_test_2(){
-        Terrain tr = new Terrain();
         tr.Create();
         tr.getTerrain()[6][5].addBall();
         tr.getTerrain()[6][5].removeBall();
@@ -201,7 +189,6 @@ public class AppTest {
     public void move_test_1(){
         boolean test = true;
         PieceType p1,p2;
-        Terrain tr = new Terrain();
         p1=tr.Create()[0][3].Type;
         p2=tr.getTerrain()[1][3].Type;
         tr.getTerrain()[0][3].move(1,3);
@@ -221,7 +208,6 @@ public class AppTest {
     public void move_test_2(){
         boolean test = true;
         PieceType p1,p2;
-        Terrain tr = new Terrain();
         p1=tr.Create()[6][0].Type;
         p2=tr.getTerrain()[0][5].Type;
         tr.getTerrain()[6][0].move(0,5);
@@ -241,10 +227,11 @@ public class AppTest {
         p1 = tr.getTerrain()[0][3];
         p2 = tr.getTerrain()[0][3].Clone();
     }
-
+*/
     @Test
     public void test_Diagonals(){
-
+        boolean test = true;
+        tr.Create();
     }
-*/
+
 }
