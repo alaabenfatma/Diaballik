@@ -1,18 +1,17 @@
 package Diaballik;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
+import org.junit.Rule;
 //import org.junit.Rule;
 import org.junit.Test;
 //import org.junit.rules.ExpectedException;
+import org.junit.rules.ExpectedException;
 
 import Diaballik.Models.*;
-
+import Diaballik.Controllers.*;
 /**
  * Unit test for simple App.
  */
@@ -292,5 +291,63 @@ public class AppTest {
         }
         assertTrue( test );
     }
+ // ##################### Position.java #####################
+    /**
+     * @author Hedi
+     */
+    @Test
+    public void testequals() {
+    	int l = 3;
+    	int c = 3;
+    	Position p = new Position(l, c);
+    	Position position = new Position(l, c);
+    	assertEquals((position.l == p.l && position.c == p.c), position.equals(p));
+    	
+    	
+    }
+    
+ // ##################### TerrainUtils.java #####################
+  @Rule
+  public ExpectedException thrownException = ExpectedException.none();
+  
+  /**
+   * On teste si on a 2 pieces a et b sont egales
+   * @author Hedi
+   */
+  @Test
+  public void testSwapTrue() {
+	Piece a = tr.Create()[0][3];
+	Piece b = tr.Create()[0][3];
+	TerrainUtils.Swap(a, b);
+  }
+  
+  /**
+   * On teste si on a 2 pieces a et b differentes
+   * en creant un dexieme terrain t
+   * @author Hedi
+   */
+  @Test
+  public void testSwapFalse() throws Exception{ 
+	  Terrain t = new Terrain();
+	  Piece a = tr.Create()[0][3];
+	  Piece b = t.Create()[0][4];
+	  thrownException.expect(IllegalStateException.class);
+      thrownException.expectMessage("Not on the same terrain.");
+      TerrainUtils.Swap(a, b);
+  }
+  
+  /**
+   *Ce test ne marche pas 
+   * @author Hedi
+   */
+  @Test
+  public void testExchangeBallFalse() throws Exception{
+	  Piece a = tr.Create()[0][3];
+	  Piece b = tr.Create()[0][4];
+	  thrownException.expect(IllegalAccessError.class);
+      thrownException.expectMessage("Les deux joueurs sont de deux types différents");
+      TerrainUtils.ExchangeBall(a, b);
 
+  }
+  
 }
