@@ -92,7 +92,6 @@ public class Diaballik {
                 ArrayList<Position> ar = from.PossiblePositions();
                 System.out.println("Positions possibles : "+ar);
                 to = getPiece(tr,PieceType.Empty);
-                System.out.println("Position selectionnée : "+to.Position);
                 //On verifie si c est bien un mouvement legal
                 
                 if(ar.contains(to.Position)){
@@ -143,6 +142,7 @@ public class Diaballik {
                 case 'p':
                 //passe
                 from = tr.getPieceWithBall(PieceType.Black);
+                System.out.println("Les passes possibles sont : "+from.passesPossibles());
                 to = getPiece(tr,PieceType.Black);
                 TerrainUtils.passeWrapper(from, to);
                 passe_faite=0;
@@ -155,8 +155,9 @@ public class Diaballik {
                 case 'm':
                 //mouvement
                 from = getPiece(tr,PieceType.Black);
-                to = getPiece(tr,PieceType.Empty);
                 ArrayList<Position> ar = from.PossiblePositions();
+                System.out.println("Positions possibles : "+ar);
+                to = getPiece(tr,PieceType.Empty);
                 //On verifie si c est bien un mouvement legal
                 if(ar.contains(to.Position)){
                     ArrayList<Position> diag = from.getDiagonals();
