@@ -323,7 +323,7 @@ public class AppTest {
   
   /**
    * On teste si on a 2 pieces a et b differentes
-   * en creant un dexieme terrain t
+   * en creant un deuxieme terrain t
    * @author Hedi
    */
   @Test
@@ -337,13 +337,88 @@ public class AppTest {
   }
   
   /**
-   *Ce test ne marche pas 
+   * On teste si on rentre dans le premier if
    * @author Hedi
    */
   @Test
-  public void testExchangeBallFalse() throws Exception{
+  public void testExchangeBallTrue1() {
+	  Piece a = tr.Create()[0][3];
+	  Piece b = tr.Create()[0][3];
+	  a.HasBall = true;
+	  b.HasBall = false;
+	  TerrainUtils.ExchangeBall(a, b);
+  }
+  
+  /**
+   * On teste si on rentre dans le 2eme if
+   * @author Hedi
+   */
+  @Test
+  public void testExchangeBallTrue2() {
+	  Piece a = tr.Create()[0][3];
+	  Piece b = tr.Create()[0][3];
+	  a.HasBall = false;
+	  b.HasBall = true;
+	  TerrainUtils.ExchangeBall(a, b);
+  }
+  
+  /**
+   * On teste si on ne rentre ni dans le 1er if ni dans le 2eme,
+   * les 2 joueurs ont la balle
+   * @author Hedi
+   */
+  @Test
+  public void testExchangeBallFalse() {
+	  Piece a = tr.Create()[0][3];
+	  Piece b = tr.Create()[0][3];
+	  a.HasBall = true;
+	  b.HasBall = true;
+	  thrownException.expect(IllegalStateException.class);
+	  thrownException.expectMessage("Le joueur ne peut avoir qu'une seule balle.");;
+	  TerrainUtils.ExchangeBall(a, b);
+  }
+  
+  /**
+   * aucun joueur n'a la balle
+   * @author Hedi
+   */
+  @Test
+  public void testExchangeBallFalse1() {
+	  Piece a = tr.Create()[0][3];
+	  Piece b = tr.Create()[0][3];
+	  a.HasBall = false;
+	  b.HasBall = false;
+	  thrownException.expect(IllegalAccessError.class);
+      thrownException.expectMessage("Aucun des deux joueurs n'a le ballon");
+	  TerrainUtils.ExchangeBall(a, b);
+  }
+	  
+  /**
+   * On teste si les 2 joueurs sont de la mm equipe
+   * @author Hedi
+   */
+  @Test
+  public void testExchangeBallFalse2() throws Exception{
 	  Piece a = tr.Create()[0][3];
 	  Piece b = tr.Create()[0][4];
+	  a.Type = PieceType.White;
+	  b.Type = PieceType.Black;
+	  thrownException.expect(IllegalAccessError.class);
+      thrownException.expectMessage("Les deux joueurs sont de deux types différents");
+      TerrainUtils.ExchangeBall(a, b);
+
+  }
+  
+  
+  /**
+   * @author Hedi
+   */
+  @Test
+  public void testExchangeBallFalse3() throws Exception{
+	  Piece a = tr.Create()[0][3];
+	  Piece b = tr.Create()[0][4];
+	  a.Type = PieceType.Empty;
+	  b.Type = PieceType.White;
 	  thrownException.expect(IllegalAccessError.class);
       thrownException.expectMessage("Les deux joueurs sont de deux types différents");
       TerrainUtils.ExchangeBall(a, b);
