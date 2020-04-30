@@ -2,7 +2,6 @@ package Diaballik;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.junit.Rule;
@@ -18,9 +17,6 @@ import Diaballik.Controllers.*;
  */
 public class AppTest {
     Terrain tr = new Terrain();
-    private boolean effet_de_bord(int l,int c){
-        return l>=0 && l<tr.taille() && c>=0 && c<tr.taille();
-    }
     /**
      * 
      * @author Thomas
