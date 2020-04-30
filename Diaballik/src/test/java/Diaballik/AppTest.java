@@ -2,6 +2,7 @@ package Diaballik;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.junit.Rule;
@@ -17,6 +18,9 @@ import Diaballik.Controllers.*;
  */
 public class AppTest {
     Terrain tr = new Terrain();
+    private boolean effet_de_bord(int l,int c){
+        return l>=0 && l<tr.taille() && c>=0 && c<tr.taille();
+    }
     /**
      * 
      * @author Thomas
@@ -288,6 +292,84 @@ public class AppTest {
                 System.out.println("        "+list_test.get(k).toString());
             }
             test=false;
+        }
+        assertTrue( test );
+    }
+    @Test
+    public void PossiblePositions_test_0(){
+        boolean test = true;
+        ArrayList<Position> list_pos;
+        ArrayList<Position> list_test = new ArrayList<Position>();
+        Piece p1 = tr.Create()[0][3];
+        Piece p2 = tr.getTerrain()[5][5];
+        TerrainUtils.Swap(p1, p2);
+        list_pos = p1.PossiblePositions();
+        list_test.add(new Position(5,3));
+        list_test.add(new Position(3,5));
+        list_test.add(new Position(4,4));
+        list_test.add(new Position(4,5));
+        list_test.add(new Position(4,6));
+        list_test.add(new Position(4,5));
+        list_test.add(new Position(6,5));
+        list_test.add(new Position(4,6));
+        list_test.add(new Position(5,6));
+        list_test.add(new Position(6,6));
+        System.out.println( list_pos.size());
+        if(list_test.size() != list_pos.size()){
+            System.out.println(" Il manque des positions ! ");
+            test = false;
+        }
+        for(int i = 0; i<list_test.size() && test ;i++){
+            for(int j=0;j<list_pos.size() && test ;j++){
+                if(list_test.get(i).equals(list_pos.get(j))){
+                    list_pos.remove(j);
+                    break;
+                }
+            }
+        }
+        if(list_pos.size() != 0){
+            System.out.println(" Il y a des positions en trop ! ");
+            test =false;
+        }
+        assertTrue( test );
+    }
+    @Test
+    public void PossiblePositions_test_1(){
+        boolean test = true;
+        ArrayList<Position> list_pos;
+        ArrayList<Position> list_test = new ArrayList<Position>();
+        Piece p1 = tr.Create()[0][3];
+        Piece p2 = tr.getTerrain()[3][3];
+        TerrainUtils.Swap(p1, p2);
+        list_pos = p1.PossiblePositions();
+        list_test.add(new Position(2,2));
+        list_test.add(new Position(2,3));
+        list_test.add(new Position(2,4));
+        list_test.add(new Position(3,2));
+        list_test.add(new Position(3,4));
+        list_test.add(new Position(4,2));
+        list_test.add(new Position(4,3));
+        list_test.add(new Position(4,4));
+        list_test.add(new Position(3,1));
+        list_test.add(new Position(3,5));
+        list_test.add(new Position(1,3));
+        list_test.add(new Position(5,3));
+        System.out.println( list_pos.size());
+        if(list_test.size() != list_pos.size()){
+            System.out.println(" Il manque des positions ! ");
+            test = false;
+        }
+        for(int i = 0; i<list_test.size() && test ;i++){
+            for(int j=0;j<list_pos.size() && test ;j++){
+                if(list_test.get(i).equals(list_pos.get(j))){
+                    list_pos.remove(j);
+                    break;
+                }
+            }
+        }
+        if(list_pos.size() != 0){
+            System.out.println(" Il y a des positions en trop ! ");
+            test =false;
         }
         assertTrue( test );
     }
