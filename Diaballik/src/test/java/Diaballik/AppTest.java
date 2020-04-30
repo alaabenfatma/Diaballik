@@ -305,15 +305,12 @@ public class AppTest {
         TerrainUtils.Swap(p1, p2);
         list_pos = p1.PossiblePositions();
         list_test.add(new Position(5,3));
-        list_test.add(new Position(3,5));
         list_test.add(new Position(4,4));
+        list_test.add(new Position(5,4));
+        list_test.add(new Position(3,5));
         list_test.add(new Position(4,5));
-        list_test.add(new Position(4,6));
-        list_test.add(new Position(4,5));
-        list_test.add(new Position(6,5));
         list_test.add(new Position(4,6));
         list_test.add(new Position(5,6));
-        list_test.add(new Position(6,6));
         System.out.println( list_pos.size());
         if(list_test.size() != list_pos.size()){
             System.out.println(" Il manque des positions ! ");
