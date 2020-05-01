@@ -291,7 +291,7 @@ public class AppTest {
         }
         assertTrue( test );
     }
-    @Test
+    /*@Test
     public void PossiblePositions_test_0(){
         boolean test = true;
         ArrayList<Position> list_pos;
@@ -325,7 +325,7 @@ public class AppTest {
             test =false;
         }
         assertTrue( test );
-    }
+    }*/
     @Test
     public void PossiblePositions_test_1(){
         boolean test = true;
@@ -349,7 +349,12 @@ public class AppTest {
         list_test.add(new Position(5,3));
         System.out.println( list_pos.size());
         if(list_test.size() != list_pos.size()){
-            System.out.println(" Il manque des positions ! ");
+            if(list_test.size() < list_pos.size()){
+            System.out.println("positions possible en trop !");
+            }
+            else{
+                System.out.println("positions possible manquante(s) !");
+            }
             test = false;
         }
         for(int i = 0; i<list_test.size() && test ;i++){
@@ -361,7 +366,41 @@ public class AppTest {
             }
         }
         if(list_pos.size() != 0){
-            System.out.println(" Il y a des positions en trop ! ");
+            System.out.println(" Il y a des positions différentes ! ");
+            test =false;
+        }
+        assertTrue( test );
+    }
+    @Test
+    public void passesPossibles_test(){
+        ArrayList<Position> list_pos = new ArrayList<Position>();
+        ArrayList<Position> list_test;
+        boolean test = true;
+        Piece p1 = tr.Create()[2][3];
+        Piece p2 = tr.getPieceWithBall(PieceType.Black);
+        TerrainUtils.Swap(p1, p2);
+        list_test = p2.passesPossibles();
+        list_pos.add(new Position(0,1));
+        list_pos.add(new Position(0,5));
+        if(list_pos.size() != list_test.size()){
+            test = false;
+            if(list_pos.size() < list_test.size()){
+                System.out.println("Passe possible en trop !");
+            }
+            else{
+                System.out.println("Passe possible manquante(s) !");
+            }
+        }
+        for(int i = 0;  test && i<list_pos.size();i++){
+            for(int j = 0; test && j<list_test.size();j++){
+                if(list_pos.get(i).equals(list_test.get(j))){
+                    list_test.remove(j);
+                    break;
+                }
+            }
+        }
+        if(list_test.size() != 0){
+            System.out.println(" Il y a des positions différentes ! ");
             test =false;
         }
         assertTrue( test );
