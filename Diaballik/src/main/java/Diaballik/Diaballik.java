@@ -1,7 +1,9 @@
 package Diaballik;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Diaballik.Vue.*;
 
 import Diaballik.Controllers.TerrainUtils;
 //import Diaballik.Controllers.TerrainUtils;
@@ -18,7 +20,7 @@ public class Diaballik {
     // sans les guillemets
     // comme pour la gauffre
 
-    public static Piece getPiece(Terrain tr, PieceType t) {
+ /*   public static Piece getPiece(Terrain tr, PieceType t) {
         Scanner sc = new Scanner(System.in);
         String ligne;
         String[] ligne_split;
@@ -211,13 +213,14 @@ public class Diaballik {
         }
         sc.close();
     }
-
+*/
     public static void main(String[] args) {
-        Terrain tr = new Terrain();
-        tr.Create();
-        white_to_move(tr);
+       // Terrain tr = new Terrain();
+       // tr.Create();
+        //white_to_move(tr);
 
-        //Menu menu = new Menu();
-
+        Menu menu = new Menu();
+        //imgMenu img = new imgMenu();
+        //menu.add(img);
     }
 }
