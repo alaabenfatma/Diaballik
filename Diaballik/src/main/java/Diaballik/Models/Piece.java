@@ -177,7 +177,7 @@ public class Piece extends JButton implements IPiece {
                 }
             }
         }
-        for(int l=i-1; l>0; l--){
+        for(int l=i-1; l>=0; l--){
             if(Parent.isOccupied(new Position(l,j))){
                 if(Parent.getTerrain()[l][j].Type != this.Type){
                     //On ne peut pas aller plus loin dans les passes
@@ -200,7 +200,7 @@ public class Piece extends JButton implements IPiece {
             }
         }
 
-        for(int c=j-1; c>0; c--){
+        for(int c=j-1; c>=0; c--){
             if(Parent.isOccupied(new Position(i,c))){
                 if(Parent.getTerrain()[i][c].Type != this.Type){
                     //On ne peut pas aller plus loin dans les passes

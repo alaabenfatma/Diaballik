@@ -215,8 +215,13 @@ public class Diaballik {
     public static void main(String[] args) {
         Terrain tr = new Terrain();
         tr.Create();
-        white_to_move(tr);
-
+        //white_to_move(tr);
+        TerrainUtils.Swap(tr.getTerrain()[0][3], tr.getTerrain()[2][3]);
+        TerrainUtils.Swap(tr.getTerrain()[0][3], tr.getTerrain()[0][0]);
+        TerrainUtils.Swap(tr.getTerrain()[2][1], tr.getTerrain()[0][1]);
+        TerrainUtils.Swap(tr.getTerrain()[0][6], tr.getTerrain()[2][5]);
+        System.out.println(tr.getTerrain()[2][3].passesPossibles());
+        tr.PrintTerrain();
         //Menu menu = new Menu();
 
     }
