@@ -21,17 +21,13 @@ public class imgMenu extends JComponent {
     public void paintComponent(Graphics g){
         drawable = (Graphics2D) g;
         afficherLogo();
-		System.out.println("aaaaccc");
-
-        
     }
     
     public void afficherLogo() {
     	try {
     		logo = ImageIO.read(new File("src/main/java/Diaballik/Vue/logo.png"));
-    		System.out.println("aaaa");
     		drawable.drawImage(logo, 50, 50, 100, 100, null);
-    		System.out.println("bbbbb");
+    		//System.out.println("aaaa");
     	}
     	catch (Exception e) {
     		System.out.println(e);

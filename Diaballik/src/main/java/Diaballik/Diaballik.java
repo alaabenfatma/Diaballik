@@ -1,7 +1,9 @@
 package Diaballik;
 
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Diaballik.Vue.*;
 
 import Diaballik.Controllers.TerrainUtils;
 //import Diaballik.Controllers.TerrainUtils;
@@ -126,7 +128,6 @@ public class Diaballik {
                     nbMove = 0;
                     passe_faite = 0;
                     black_to_move(tr);
-                    // TODO : Condition de victoire
                     break;
                 default:
                     System.out.println("Choix invalide");
@@ -202,7 +203,6 @@ public class Diaballik {
                     nbMove = 0;
                     passe_faite = 0;
                     white_to_move(tr);
-                    // TODO : Condition de victoire
                     break;
                 default:
                     System.out.println("Choix invalide");
@@ -213,16 +213,13 @@ public class Diaballik {
     }
 
     public static void main(String[] args) {
+
         Terrain tr = new Terrain();
         tr.Create();
         //white_to_move(tr);
-        TerrainUtils.Swap(tr.getTerrain()[0][3], tr.getTerrain()[2][3]);
-        TerrainUtils.Swap(tr.getTerrain()[0][3], tr.getTerrain()[0][0]);
-        TerrainUtils.Swap(tr.getTerrain()[2][1], tr.getTerrain()[0][1]);
-        TerrainUtils.Swap(tr.getTerrain()[0][6], tr.getTerrain()[2][5]);
-        System.out.println(tr.getTerrain()[2][3].passesPossibles());
-        tr.PrintTerrain();
-        //Menu menu = new Menu();
 
+        Menu menu = new Menu();
+        // imgMenu img = new imgMenu();
+        // menu.add(img);
     }
 }
