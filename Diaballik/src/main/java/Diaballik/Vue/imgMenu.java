@@ -26,7 +26,7 @@ public class imgMenu extends JComponent {
     public void afficherLogo() {
     	try {
     		logo = ImageIO.read(new File("src/main/java/Diaballik/Vue/logo.png"));
-    		drawable.drawImage(logo, 50, 50, 100, 100, null);
+    		drawable.drawImage(logo, 100, 150, 100, 100, null);
     		//System.out.println("aaaa");
     	}
     	catch (Exception e) {
