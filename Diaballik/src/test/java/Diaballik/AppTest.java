@@ -347,7 +347,6 @@ public class AppTest {
         list_test.add(new Position(3,5));
         list_test.add(new Position(1,3));
         list_test.add(new Position(5,3));
-        System.out.println( list_pos.size());
         if(list_test.size() != list_pos.size()){
             if(list_test.size() < list_pos.size()){
             System.out.println("positions possible en trop !");
@@ -371,25 +370,51 @@ public class AppTest {
         }
         assertTrue( test );
     }
-    @Test
-    public void passesPossibles_test(){
-        ArrayList<Position> list_pos = new ArrayList<Position>();
-        ArrayList<Position> list_test;
-        boolean test = true;
-        Piece p1 = tr.Create()[2][3];
-        Piece p2 = tr.getPieceWithBall(PieceType.Black);
-        TerrainUtils.Swap(p1, p2);
-        list_test = p2.passesPossibles();
-        list_pos.add(new Position(0,1));
-        list_pos.add(new Position(0,5));
-        if(list_pos.size() != list_test.size()){
-            test = false;
+    private void affiche_bug_passesPossibles(ArrayList<Position> list_test ,ArrayList<Position> list_pos){
+            tr.PrintTerrain();
             if(list_pos.size() < list_test.size()){
                 System.out.println("Passe possible en trop !");
+                for(int i = 0; i<list_pos.size();i++){
+                    for(int j = 0; j<list_test.size();j++){
+                        if(list_pos.get(i).equals(list_test.get(j))){
+                            list_test.remove(j);
+                            break;
+                        }
+                    }
+                }
+                for(int i=0;i < list_test.size();i++){
+                    System.out.println(list_test.get(i).toString());
+                }
             }
             else{
                 System.out.println("Passe possible manquante(s) !");
+                for(int i = 0; i<list_test.size();i++){
+                    for(int j = 0; j<list_pos.size();j++){
+                        if(list_test.get(i).equals(list_pos.get(j))){
+                            list_pos.remove(j);
+                            break;
+                        }
+                    }
+                }
+                for(int i=0;i < list_pos.size();i++){
+                    System.out.println(list_pos.get(i).toString());
+                }
             }
+            System.out.println("************************************");
+    }
+    @Test
+    public void passesPossibles_test_0(){
+        ArrayList<Position> list_pos = new ArrayList<Position>();
+        ArrayList<Position> list_test;
+        boolean test = true;
+        Piece p1 = tr.Create()[0][3];
+        p1.move(2,3);
+        list_test = p1.passesPossibles();
+        list_pos.add(new Position(0,1));
+        list_pos.add(new Position(0,5));
+        if(list_pos.size() != list_test.size()){
+            affiche_bug_passesPossibles(list_test,list_pos);
+            test = false;
         }
         for(int i = 0;  test && i<list_pos.size();i++){
             for(int j = 0; test && j<list_test.size();j++){
@@ -399,8 +424,93 @@ public class AppTest {
                 }
             }
         }
-        if(list_test.size() != 0){
+        if(test && list_test.size() != 0){
             System.out.println(" Il y a des positions différentes ! ");
+            test =false;
+        }
+        assertTrue( test );
+    }
+    @Test
+    public void passesPossibles_test_1(){
+        ArrayList<Position> list_pos = new ArrayList<Position>();
+        ArrayList<Position> list_test;
+        boolean test = true;
+        Piece p1 = tr.Create()[0][3];
+        p1.move(2,3);
+        Piece p = tr.getTerrain()[0][1];
+        p.move(2,1);
+        p = tr.getTerrain()[0][2];
+        p.move(0,3);
+        p = tr.getTerrain()[0][4];
+        p.move(2,4);
+        p = tr.getTerrain()[0][0];
+        p.move(5,0);
+        list_test = p1.passesPossibles();
+        list_pos.add(new Position(5,0));
+        list_pos.add(new Position(2,1));
+        list_pos.add(new Position(0,3));
+        list_pos.add(new Position(2,4));
+        list_pos.add(new Position(0,5));
+        if(list_pos.size() != list_test.size()){
+            affiche_bug_passesPossibles(list_test,list_pos);
+            test = false;
+        }
+        for(int i = 0;  test && i<list_pos.size();i++){
+            for(int j = 0; test && j<list_test.size();j++){
+                if(list_pos.get(i).equals(list_test.get(j))){
+                    list_test.remove(j);
+                    break;
+                }
+            }
+        }
+        if( test && list_test.size() != 0){
+            System.out.println(" Il y a des positions différentes ! ");
+            test =false;
+        }
+        assertTrue( test );
+    }
+    @Test
+    public void passesPossibles_test_2(){
+        ArrayList<Position> list_pos = new ArrayList<Position>();
+        ArrayList<Position> list_test;
+        boolean test = true;
+        Piece p1 = tr.Create()[0][3];
+        p1.move(2,3);
+        Piece p = tr.getTerrain()[0][1];
+        p.move(2,1);
+        p = tr.getTerrain()[0][2];
+        p.move(0,3);
+        p = tr.getTerrain()[0][4];
+        p.move(2,4);
+        p = tr.getTerrain()[0][0];
+        p.move(5,0);
+
+        p = tr.getTerrain()[6][1];
+        p.move(4,1);
+        p = tr.getTerrain()[6][4];
+        p.move(1,4);
+        list_test = p1.passesPossibles();
+        list_pos.add(new Position(2,1));
+        list_pos.add(new Position(0,3));
+        list_pos.add(new Position(2,4));
+        if(list_pos.size() != list_test.size()){
+            affiche_bug_passesPossibles(list_test,list_pos);
+            test = false;
+        }
+        for(int i = 0;  test && i<list_pos.size();i++){
+            for(int j = 0; test && j<list_test.size();j++){
+                if(list_pos.get(i).equals(list_test.get(j))){
+                    list_test.remove(j);
+                    break;
+                }
+            }
+        }
+        if( test && list_test.size() != 0){
+            System.out.println(" Il y a des positions différentes ! ");
+            tr.PrintTerrain();
+            for(int i=0;i<list_test.size();i++){
+                System.out.print(list_test.get(i).toString()+" ");
+            }
             test =false;
         }
         assertTrue( test );
