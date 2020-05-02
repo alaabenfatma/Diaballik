@@ -13,8 +13,9 @@ public class ChargerPartie extends JPanel implements ActionListener{
 	JLabel titre = new JLabel("Charger partie");
 	JButton retour = new JButton("Retour");
 	JButton jouer = new JButton("Jouer");
-	
-	public ChargerPartie() {
+	ihm i;
+	public ChargerPartie(ihm ihm) {
+		i = ihm;
 		this.setLayout(null);
 		titre.setBounds(240, 0, 300, 100);
 		jouer.setBounds(350, 390, 120, 40);
@@ -26,13 +27,12 @@ public class ChargerPartie extends JPanel implements ActionListener{
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
 		retour.addActionListener(this);
-		//this.add(this);
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == retour) {
-			new Menu();
+			new Menu(i);
 		}
 		if(arg0.getSource() == jouer) {
 			

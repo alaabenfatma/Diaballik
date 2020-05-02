@@ -13,11 +13,11 @@ public class JouerReseau extends JPanel implements ActionListener{
 	JButton creer = new JButton("Créer une partie");
 	JButton rejoindre = new JButton("Rejoindre une partie");
 	JButton menuPrincipal = new JButton("Menu principal");
+	ihm i;
 	
 	
-	
-	public JouerReseau() {
-
+	public JouerReseau(ihm ihm) {
+		i = ihm;
 		this.setLayout(null);
 		titre.setBounds(240, 0, 300, 100);
 		creer.setBounds(270, 150, 150, 50);
@@ -31,10 +31,15 @@ public class JouerReseau extends JPanel implements ActionListener{
 		this.add(rejoindre);
 		this.add(menuPrincipal);
 		this.add(titre);
+		
+		menuPrincipal.addActionListener(this);
+		
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		
+		if (arg0.getSource() == menuPrincipal) {
+			i.retourMenuPrincipal();
+		}
 	}
 }

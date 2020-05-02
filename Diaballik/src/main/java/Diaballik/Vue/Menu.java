@@ -19,12 +19,12 @@ public class Menu extends JPanel implements ActionListener{
 	JButton button7 = new JButton();
 	JButton button8 = new JButton();
 	Image logo, drapeauFr, drapeauGB, son, mute;
-
+	ihm i;
     Graphics2D drawable;
  	
 	
-	public Menu() {
-		
+	public Menu(ihm ihm) {
+		i = ihm;
         this.setLayout(null);
         
         button1.setBounds(280, 150, 150, 50);
@@ -84,10 +84,28 @@ public class Menu extends JPanel implements ActionListener{
     
 
 	public void actionPerformed(ActionEvent arg0) {
+		
 		if(arg0.getSource() == button1) {
-			ihm i = new ihm();
-			i.changementfenetre();
+			i.fenetreNouvellePartie();
 		}
+		
+		if(arg0.getSource() == button2) {
+			i.fenetreChargerPartie();
+		}
+		
+		if(arg0.getSource() == button3) {
+			i.fenetreJouerEnReseau();
+		}
+		
+		if(arg0.getSource() == button4) {
+			//ouvrir les règles
+		}
+		
+		if(arg0.getSource() == button5) {
+			msgBox msg = new msgBox();
+			msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter");
+		}
+		
 		if(arg0.getSource() == button8) {
 			try {
 	    		mute = ImageIO.read(new File("src/main/java/Diaballik/Vue/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
@@ -98,41 +116,5 @@ public class Menu extends JPanel implements ActionListener{
 	    	}
 		}
 		
-		/*
-		if(arg0.getSource() == button2) {
-			ihm.remove(panel);
-			this.setSize(699, 499);
-			ihm.setTitle("Charger partie");
-			JPanel p = new ChargerPartie();
-			
-			this.add(p);
-			ihm.getContentPane().add(p);
-			repaint();
-		}
-		
-		if(arg0.getSource() == button3) {
-			this.remove(panel);
-			this.setSize(699, 499);
-			this.setTitle("Jouer en réseau");
-			JPanel p = new JouerReseau();
-			
-			this.add(p);
-			this.getContentPane().add(p);
-			repaint();
-		}
-		
-		if(arg0.getSource() == button4) {
-			//ouvrir les règles
-		}
-		
-		if(arg0.getSource() == button5) {
-			msgBox msg = new msgBox();
-			msg.MessageBox("Voulez-vous quitter le jeu", "Quitter");
-			
-			
-		}
-		if(arg0.getSource() == button8) {
-			//changer l'image en mute
-		}*/
 	}
 }

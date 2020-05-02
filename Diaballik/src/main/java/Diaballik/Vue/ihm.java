@@ -9,8 +9,9 @@ import javax.swing.JPanel;
 
 public class ihm extends JFrame implements ActionListener{
 	
-	Menu menu = new Menu();
-	NewGame ng = new NewGame();
+	Menu menu = new Menu(this);
+	NewGame ng = new NewGame(this);
+	JouerReseau jr = new JouerReseau(this);
 
 	public ihm() {
 	
@@ -22,9 +23,9 @@ public class ihm extends JFrame implements ActionListener{
 	    this.setVisible(true);
 	}
 	
-	public void changementfenetre() {
+	public void fenetreNouvellePartie() {
 		this.remove(menu);
-		NewGame ng = new NewGame();
+		NewGame ng = new NewGame(this);
 		this.setSize(699, 499);
 		this.setTitle("Nouvelle partie");
 		this.add(ng);
@@ -33,6 +34,38 @@ public class ihm extends JFrame implements ActionListener{
 		this.repaint();
 	}
 
+	public void fenetreChargerPartie() {
+		this.remove(menu);
+		ChargerPartie cp = new ChargerPartie(this);
+		this.setSize(699, 499);
+		this.setTitle("Charger partie");
+		this.add(cp);
+		this.validate();
+		this.getContentPane().add(cp);
+		this.repaint();
+	}
+	
+	public void fenetreJouerEnReseau() {
+		this.remove(menu);
+		JouerReseau jr = new JouerReseau(this);
+		this.setSize(699, 499);
+		this.setTitle("Jouer en réseau");
+		this.add(jr);
+		this.validate();
+		this.getContentPane().add(jr);
+		this.repaint();
+	}
+	
+	public void retourMenuPrincipal() {
+		this.remove(ng);
+		this.remove(jr);
+		Menu m = new Menu(this);
+		this.setTitle("Menu principal");
+		this.add(m);
+		this.validate();
+		this.getContentPane().add(m);
+		this.repaint();
+	}
 	
 	
 	public void actionPerformed(ActionEvent arg0) {

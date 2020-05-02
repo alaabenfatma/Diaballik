@@ -25,9 +25,10 @@ public class NewGame extends JPanel implements ActionListener{
 	JButton troisMin = new JButton("3 min");
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
+	ihm i;
 	
-	
-	public NewGame() {
+	public NewGame(ihm ihm) {
+		i = ihm;
 		this.setLayout(null);
 		titre.setBounds(240, 0, 300, 100);
 		duree.setBounds(100, 120, 100, 100);
@@ -65,21 +66,26 @@ public class NewGame extends JPanel implements ActionListener{
 		this.add(titre);
 		
 		jouer.addActionListener(this);
+		ordinateur.addActionListener(this);
 		retour.addActionListener(this);
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == retour) {
-			new Menu();
-		}
-		if(arg0.getSource() == jouer) {
-			/*JPanel c = new ChargerPartie();
-			Menu m = new Menu();
-			m.add(c);
-			m.getContentPane().add(c);
-			repaint();
-			*/
-		}
+			if(arg0.getSource() == retour) {
+				i.retourMenuPrincipal();
+			}
+			
+			if(arg0.getSource() == humain) {
+				humain.setBackground(Color.pink);
+				ordinateur.setBackground(null);
+			}
+			
+			if(arg0.getSource() == ordinateur) {
+				ordinateur.setBackground(Color.pink);
+				humain.setBackground(null);
+			}
+			
+		
 	}
 }
