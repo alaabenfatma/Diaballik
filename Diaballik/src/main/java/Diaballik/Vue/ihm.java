@@ -26,12 +26,10 @@ public class ihm extends JFrame implements ActionListener{
 	public void fenetreNouvellePartie() {
 		this.remove(menu);
 		NewGame ng = new NewGame(this);
-		this.setSize(699, 499);
 		this.setTitle("Nouvelle partie");
-		this.add(ng);
-		this.validate();
-		this.getContentPane().add(ng);
+		this.setContentPane(ng);
 		this.repaint();
+		this.revalidate();
 	}
 
 	public void fenetreChargerPartie() {
