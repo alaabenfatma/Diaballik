@@ -601,19 +601,11 @@ public class AppTest {
         p.move(1,5);
 
         list_test = p1.passesPossibles();
-        list_pos.add(new Position(6,3));
-        list_pos.add(new Position(6,5));
+        list_pos.add(new Position(6,3))
         list_pos.add(new Position(3,0));
         list_pos.add(new Position(1,3));
         list_pos.add(new Position(1,5));
-        /*for(int i=0; i <list_pos.size();i++){
-            System.out.print(list_pos.get(i));
-        }
-        System.out.println();
-        for(int i=0; i <list_test.size();i++){
-            System.out.print(list_test.get(i));
-        }
-        System.out.println();*/
+        
         if(list_pos.size() != list_test.size()){
             affiche_bug_passesPossibles(list_test,list_pos);
             test = false;
@@ -660,7 +652,6 @@ public class AppTest {
         p.move(2,4);
         list_test = p1.passesPossibles();
         list_pos.add(new Position(6,3));
-        list_pos.add(new Position(6,5));
         list_pos.add(new Position(1,3));
 
         if(list_pos.size() != list_test.size()){
