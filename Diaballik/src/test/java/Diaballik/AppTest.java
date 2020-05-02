@@ -160,7 +160,13 @@ public class AppTest {
         tr.Create();
         assertTrue(tr.getTerrain()[0][3].HasBall);
     }
-    //TODO : Faire addBall sur l'excepction
+    @Test
+    public void testaddBallFalse() {
+        Piece a = tr.Create()[0][3];
+        thrownException.expect(IllegalStateException.class);
+        thrownException.expectMessage("Le joueur ne peut avoir qu'une seule balle.");
+        a.addBall();
+    }
     
     /**
      * Test de la fonction removeBall
@@ -229,6 +235,9 @@ public class AppTest {
         p2 = tr.getTerrain()[0][3].Clone();
     }
 */
+    /**
+     * @author Thomas
+     */
     @Test
     public void test_Diagonals(){
         boolean test = true;
@@ -327,6 +336,9 @@ public class AppTest {
         assertTrue( test );
     }*/
     @Test
+    /**
+     * @author Thomas
+     */
     public void PossiblePositions_test_1(){
         boolean test = true;
         ArrayList<Position> list_pos;
@@ -370,6 +382,9 @@ public class AppTest {
         }
         assertTrue( test );
     }
+    /**
+     * @author Thomas
+     */
     private void affiche_bug_passesPossibles(ArrayList<Position> list_test ,ArrayList<Position> list_pos){
             tr.PrintTerrain();
             if(list_pos.size() < list_test.size()){
@@ -402,6 +417,9 @@ public class AppTest {
             }
             System.out.println("************************************");
     }
+    /**
+     * @author Thomas
+     */
     @Test
     public void passesPossibles_test_0(){
         ArrayList<Position> list_pos = new ArrayList<Position>();
@@ -434,6 +452,9 @@ public class AppTest {
         }
         assertTrue( test );
     }
+    /**
+     * @author Thomas
+     */
     @Test
     public void passesPossibles_test_1(){
         ArrayList<Position> list_pos = new ArrayList<Position>();
@@ -477,6 +498,9 @@ public class AppTest {
         }
         assertTrue( test );
     }
+    /**
+     * @author Thomas
+     */
     @Test
     public void passesPossibles_test_2(){
         ArrayList<Position> list_pos = new ArrayList<Position>();
@@ -523,6 +547,9 @@ public class AppTest {
         }
         assertTrue( test );
     }
+    /**
+     * @author Thomas
+     */
     @Test
     public void passesPossibles_test_3(){
         ArrayList<Position> list_pos = new ArrayList<Position>();
@@ -555,7 +582,9 @@ public class AppTest {
         }
         assertTrue( test );
     }
-
+    /**
+     * @author Thomas
+     */
     @Test
     public void passesPossibles_test_4(){
         ArrayList<Position> list_pos = new ArrayList<Position>();
@@ -601,6 +630,9 @@ public class AppTest {
         }
         assertTrue( test );
     }
+    /**
+     * @author Thomas
+     */
     @Test
     public void passesPossibles_test_5(){
         ArrayList<Position> list_pos = new ArrayList<Position>();
@@ -649,6 +681,32 @@ public class AppTest {
     }
  // ##################### Position.java #####################
     /**
+     * @author Thomas
+     */
+    @Test
+    public void Position_test(){
+        boolean test = true;
+        tr.Create();
+        for(int j=0;test && j<tr.taille();j++){
+            for(int i=0;test && i<tr.taille();i++){
+                Piece p = tr.getTerrain()[j][i];
+                if( j != p.Position.l || i != p.Position.c){
+                    test = false;
+                }
+            }
+        }
+        assertTrue( test );
+
+    }
+    /**
+     * @author Thomas
+     */
+    @Test
+    public void equals_test(){
+        assertFalse(new Position(3,3).equals(new Position(2,3)));
+    }
+
+    /**
      * @author Hedi
      */
     @Test
@@ -673,8 +731,9 @@ public class AppTest {
   @Test
   public void testSwapTrue() {
 	Piece a = tr.Create()[0][3];
-	Piece b = tr.Create()[0][3];
-	TerrainUtils.Swap(a, b);
+	Piece b = tr.getTerrain()[1][3];
+    TerrainUtils.Swap(a, b);
+    assertTrue((tr.getTerrain()[0][3].Type == PieceType.Empty) && (tr.getTerrain()[1][3].Type == PieceType.Black));
   }
   
   /**
@@ -699,10 +758,9 @@ public class AppTest {
   @Test
   public void testExchangeBallTrue1() {
 	  Piece a = tr.Create()[0][3];
-	  Piece b = tr.Create()[0][3];
-	  a.HasBall = true;
-	  b.HasBall = false;
-	  TerrainUtils.ExchangeBall(a, b);
+	  Piece b = tr.getTerrain()[0][4];
+      TerrainUtils.ExchangeBall(a, b);
+      assertTrue((tr.getTerrain()[0][3].HasBall == false) && (tr.getTerrain()[0][4].HasBall == true));
   }
   
   /**
@@ -711,27 +769,10 @@ public class AppTest {
    */
   @Test
   public void testExchangeBallTrue2() {
-	  Piece a = tr.Create()[0][3];
 	  Piece b = tr.Create()[0][3];
-	  a.HasBall = false;
-	  b.HasBall = true;
-	  TerrainUtils.ExchangeBall(a, b);
-  }
-  
-  /**
-   * On teste si on ne rentre ni dans le 1er if ni dans le 2eme,
-   * les 2 joueurs ont la balle
-   * @author Hedi
-   */
-  @Test
-  public void testExchangeBallFalse() {
-	  Piece a = tr.Create()[0][3];
-	  Piece b = tr.Create()[0][3];
-	  a.HasBall = true;
-	  b.HasBall = true;
-	  thrownException.expect(IllegalStateException.class);
-	  thrownException.expectMessage("Le joueur ne peut avoir qu'une seule balle.");;
-	  TerrainUtils.ExchangeBall(a, b);
+	  Piece a = tr.getTerrain()[0][4];
+      TerrainUtils.ExchangeBall(a, b);
+      assertTrue((tr.getTerrain()[0][3].HasBall == false) && (tr.getTerrain()[0][4].HasBall == true));
   }
   
   /**
@@ -740,10 +781,8 @@ public class AppTest {
    */
   @Test
   public void testExchangeBallFalse1() {
-	  Piece a = tr.Create()[0][3];
-	  Piece b = tr.Create()[0][3];
-	  a.HasBall = false;
-	  b.HasBall = false;
+	  Piece a = tr.Create()[0][5];
+	  Piece b = tr.getTerrain()[0][4];
 	  thrownException.expect(IllegalAccessError.class);
       thrownException.expectMessage("Aucun des deux joueurs n'a le ballon");
 	  TerrainUtils.ExchangeBall(a, b);
@@ -756,29 +795,131 @@ public class AppTest {
   @Test
   public void testExchangeBallFalse2() throws Exception{
 	  Piece a = tr.Create()[0][3];
-	  Piece b = tr.Create()[0][4];
-	  a.Type = PieceType.White;
-	  b.Type = PieceType.Black;
+	  Piece b = tr.getTerrain()[6][4];
 	  thrownException.expect(IllegalAccessError.class);
       thrownException.expectMessage("Les deux joueurs sont de deux types différents");
       TerrainUtils.ExchangeBall(a, b);
-
   }
-  
-  
   /**
    * @author Hedi
    */
   @Test
   public void testExchangeBallFalse3() throws Exception{
-	  Piece a = tr.Create()[0][3];
+	  Piece a = tr.Create()[6][3];
 	  Piece b = tr.Create()[0][4];
-	  a.Type = PieceType.Empty;
-	  b.Type = PieceType.White;
 	  thrownException.expect(IllegalAccessError.class);
       thrownException.expectMessage("Les deux joueurs sont de deux types différents");
       TerrainUtils.ExchangeBall(a, b);
-
   }
-  
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test(){
+    Piece a = tr.Create()[0][3];
+    Piece b = tr.getTerrain()[0][4];
+    TerrainUtils.passeWrapper(a,b);
+    assertTrue((tr.getTerrain()[0][3].HasBall == false) && (tr.getTerrain()[0][4].HasBall == true));
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_1(){
+    Piece a = tr.Create()[6][3];
+    Piece b = tr.getTerrain()[6][0];
+    TerrainUtils.passeWrapper(a,b);
+    assertTrue((tr.getTerrain()[6][3].HasBall == false) && (tr.getTerrain()[6][0].HasBall == true));
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_2(){
+    Piece a = tr.Create()[0][3];
+    Piece b = tr.getTerrain()[0][0];
+    TerrainUtils.passeWrapper(a,b);
+    assertTrue((tr.getTerrain()[0][3].HasBall == false) && (tr.getTerrain()[0][0].HasBall == true));
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_3(){
+    Piece a = tr.Create()[6][3];
+    Piece b = tr.getTerrain()[6][6];
+    TerrainUtils.passeWrapper(a,b);
+    assertTrue((tr.getTerrain()[6][3].HasBall == false) && (tr.getTerrain()[6][6].HasBall == true));
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_4(){
+    Piece a = tr.Create()[6][3];
+    Piece b = tr.getTerrain()[0][0];
+    TerrainUtils.passeWrapper(a,b);
+    assertTrue((tr.getTerrain()[6][3].HasBall == false) && (tr.getTerrain()[0][0].HasBall == true));
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_5(){
+    Piece a = tr.Create()[6][3];
+    Piece b = tr.getTerrain()[0][2];
+    a.move(3,3);
+    b.move(4,2);
+    b = tr.getTerrain()[6][6];
+    TerrainUtils.passeWrapper(a,b);
+    assertTrue((tr.getTerrain()[3][3].HasBall == false) && (tr.getTerrain()[6][6].HasBall == true));
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_6(){
+    Piece a = tr.Create()[6][3];
+    Piece b = tr.getTerrain()[0][2];
+    a.move(3,3);
+    b.move(4,2);
+    b = tr.getTerrain()[6][0];
+    thrownException.expect(IllegalAccessError.class);
+    thrownException.expectMessage("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
+    TerrainUtils.passeWrapper(a,b);
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_7(){
+    Piece a = tr.Create()[0][3];
+    Piece b = tr.getTerrain()[6][2];
+    a.move(3,3);
+    b.move(2,2);
+    b = tr.getTerrain()[0][0];
+    thrownException.expect(IllegalAccessError.class);
+    thrownException.expectMessage("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
+    TerrainUtils.passeWrapper(a,b);
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_8(){
+    Piece a = tr.Create()[0][3];
+    thrownException.expect(IllegalAccessError.class);
+    thrownException.expectMessage("Le joueur a tenté de se passer à lui meme la balle");
+    TerrainUtils.passeWrapper(a,a);
+  }
+  /**
+   * @author Thomas
+   */
+  @Test
+  public void passeWrapper_test_9(){
+    Piece a = tr.Create()[6][3];
+    thrownException.expect(IllegalAccessError.class);
+    thrownException.expectMessage("Le joueur a tenté de se passer à lui meme la balle");
+    TerrainUtils.passeWrapper(a,a);
+  }
 }
