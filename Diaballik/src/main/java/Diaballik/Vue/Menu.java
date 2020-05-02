@@ -8,42 +8,24 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Menu extends JFrame implements ActionListener{
-	ImageIcon drapeaufr = new ImageIcon("src/main/java/Diaballik/Vue/drapeaufr.png");
-	ImageIcon drapeauuk = new ImageIcon("src/main/java/Diaballik/Vue/drapeauuk.jpg");
-	ImageIcon son = new ImageIcon("src/main/java/Diaballik/Vue/sound.png");
-	ImageIcon mute = new ImageIcon("src/main/java/Diaballik/Vue/mute.png");
+public class Menu extends JPanel implements ActionListener{
 
 	JButton button1 = new JButton("Nouvelle partie");
 	JButton button2 = new JButton("Charger partie");
 	JButton button3 = new JButton("Jouer en réseau");
 	JButton button4 = new JButton("Règles");
 	JButton button5 = new JButton("Quitter");
-    JButton button6 = new JButton(drapeaufr);
-	JButton button7 = new JButton(drapeauuk);
-	JButton button8 = new JButton(son);
-	
-	JPanel panel = new JPanel();
-	
+    JButton button6 = new JButton();
+	JButton button7 = new JButton();
+	JButton button8 = new JButton();
+	Image logo, drapeauFr, drapeauGB, son, mute;
+
+    Graphics2D drawable;
+ 	
 	
 	public Menu() {
-		this.setTitle("Menu principal");
-		this.setSize(700, 500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        panel.setLayout(null);
-        /*
-        ImageIcon icon = new ImageIcon("src/main/java/Diaballik/Vue/logo.png");
-        Image img = icon.getImage();
-        BufferedImage bi = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-        Graphics g = bi.createGraphics();
-        g.drawImage(img, 0, 0, 200, 100, null);
-        ImageIcon newIcon = new ImageIcon(bi);
-        JLabel image = new JLabel(icon);
-        //image.setBounds(100, 100, 100, 100);
-        this.add(image);
-        this.setVisible(true);
-        */
+		
+        this.setLayout(null);
         
         button1.setBounds(280, 150, 150, 50);
         button2.setBounds(280, 210, 150, 50);
@@ -54,51 +36,77 @@ public class Menu extends JFrame implements ActionListener{
         button7.setBounds(620, 10, 40, 40);
         button8.setBounds(620, 60, 40, 40);
        
+        try {
+    		drapeauFr = ImageIO.read(new File("src/main/java/Diaballik/Vue/drapeaufr.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		button6.setIcon(new ImageIcon(drapeauFr));
+    		drapeauGB = ImageIO.read(new File("src/main/java/Diaballik/Vue/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		button7.setIcon(new ImageIcon(drapeauGB));
+    		son = ImageIO.read(new File("src/main/java/Diaballik/Vue/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		button8.setIcon(new ImageIcon(son));
+    	}
+    	catch (Exception e) {
+    		System.out.println(e);
+    	}
 
-
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-        panel.add(button4);
-        panel.add(button5);
-        panel.add(button6);
-        panel.add(button7);
-        panel.add(button8);
+        this.add(button1);
+        this.add(button2);
+        this.add(button3);
+        this.add(button4);
+        this.add(button5);
+        this.add(button6);
+        this.add(button7);
+        this.add(button8);
+        
 
         button1.addActionListener(this);
         button2.addActionListener(this);
         button3.addActionListener(this);
         button4.addActionListener(this);
         button5.addActionListener(this);
-        
-        this.add(panel);
+        button8.addActionListener(this);
         this.setVisible(true);
 	
 	}
-	
-	 
+	public void paintComponent(Graphics g){
+        drawable = (Graphics2D) g;
+        afficherLogo();
+    }
+    
+    public void afficherLogo() {
+    	try {
+    		logo = ImageIO.read(new File("src/main/java/Diaballik/Vue/logo.png"));
+    		drawable.drawImage(logo, 230, 25, 250, 100, null);
+    	}
+    	catch (Exception e) {
+    		System.out.println(e);
+    	}
+    }
+    
+
 	public void actionPerformed(ActionEvent arg0) {
-		
 		if(arg0.getSource() == button1) {
-			this.remove(panel);
-			this.setSize(699, 499);
-			this.setTitle("Nouvelle partie");
-			JPanel p = new NewGame();
-			
-			this.add(p);
-			this.getContentPane().add(p);
-			repaint();
-			
+			ihm i = new ihm();
+			i.changementfenetre();
+		}
+		if(arg0.getSource() == button8) {
+			try {
+	    		mute = ImageIO.read(new File("src/main/java/Diaballik/Vue/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+	    		button8.setIcon(new ImageIcon(mute));
+	    	}
+	    	catch (Exception e) {
+	    		System.out.println(e);
+	    	}
 		}
 		
+		/*
 		if(arg0.getSource() == button2) {
-			this.remove(panel);
+			ihm.remove(panel);
 			this.setSize(699, 499);
-			this.setTitle("Charger partie");
+			ihm.setTitle("Charger partie");
 			JPanel p = new ChargerPartie();
 			
 			this.add(p);
-			this.getContentPane().add(p);
+			ihm.getContentPane().add(p);
 			repaint();
 		}
 		
@@ -125,6 +133,6 @@ public class Menu extends JFrame implements ActionListener{
 		}
 		if(arg0.getSource() == button8) {
 			//changer l'image en mute
-		}
+		}*/
 	}
 }

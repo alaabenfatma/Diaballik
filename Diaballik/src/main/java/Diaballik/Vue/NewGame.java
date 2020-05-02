@@ -66,7 +66,6 @@ public class NewGame extends JPanel implements ActionListener{
 		
 		jouer.addActionListener(this);
 		retour.addActionListener(this);
-		//this.add(this);
 		this.setVisible(true);
 	}
 	
