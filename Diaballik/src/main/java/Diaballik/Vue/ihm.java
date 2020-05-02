@@ -34,9 +34,9 @@ public class ihm extends JFrame implements ActionListener{
 
 	public void fenetreChargerPartie() {
 		this.remove(menu);
-		ChargerPartie cp = new ChargerPartie(this);
-		this.setTitle("Charger partie");
+		ChargerPartie cp = new ChargerPartie(this);		
 		this.setContentPane(cp);
+		this.setTitle("Charger partie");
 		this.repaint();
 		this.revalidate();
 	}
