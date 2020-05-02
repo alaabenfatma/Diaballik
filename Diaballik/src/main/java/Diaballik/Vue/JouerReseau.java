@@ -31,13 +31,21 @@ public class JouerReseau extends JPanel implements ActionListener{
 		this.add(rejoindre);
 		this.add(menuPrincipal);
 		this.add(titre);
-		
+		creer.addActionListener(this);
+		rejoindre.addActionListener(this);
 		menuPrincipal.addActionListener(this);
 		
 		this.setVisible(true);
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == creer) {
+	 		i.fenetreCreerPartieReseau();
+		}
+		
+		if (arg0.getSource() == rejoindre) {
+		
+		}
 		if (arg0.getSource() == menuPrincipal) {
 			i.retourMenuPrincipal();
 		}

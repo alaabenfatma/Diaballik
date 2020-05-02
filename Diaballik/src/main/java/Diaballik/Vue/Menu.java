@@ -100,10 +100,10 @@ public class Menu extends JPanel implements ActionListener{
 		if(arg0.getSource() == button4) {
 			//ouvrir les règles
 		}
-		
+	 	
 		if(arg0.getSource() == button5) {
 			msgBox msg = new msgBox();
-			msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter");
+			msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", i);
 		}
 		
 		if(arg0.getSource() == button8) {

@@ -24,7 +24,6 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreNouvellePartie() {
-		this.remove(menu);
 		NewGame ng = new NewGame(this);		
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
@@ -33,7 +32,6 @@ public class ihm extends JFrame implements ActionListener{
 	}
 
 	public void fenetreChargerPartie() {
-		this.remove(menu);
 		ChargerPartie cp = new ChargerPartie(this);		
 		this.setContentPane(cp);
 		this.setTitle("Charger partie");
@@ -42,7 +40,6 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreJouerEnReseau() {
-		this.remove(menu);
 		JouerReseau jr = new JouerReseau(this);
 		this.setContentPane(jr);
 		this.setTitle("Jouer en réseau");
@@ -51,8 +48,6 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void retourMenuPrincipal() {
-		this.remove(ng);
-		this.remove(jr);
 		Menu m = new Menu(this);
 		this.setContentPane(m);
 		this.setTitle("Menu principal");
@@ -60,6 +55,22 @@ public class ihm extends JFrame implements ActionListener{
 		this.revalidate();
 	}
 	
+	public void fenetreCreerPartieReseau() {
+		CreerPartieReseau crr = new CreerPartieReseau(this);
+		this.setContentPane(crr);
+		this.setTitle("Créer une partie en réseau");
+		this.repaint();
+		this.revalidate();
+	}
+	
+	
+	public void fenetreAttenteJoueurReseau() {
+		AttenteJoueurReseau ajr = new AttenteJoueurReseau(this);
+		this.setContentPane(ajr);
+		this.setTitle("Attente du 2ème joueur");
+		this.repaint();
+		this.revalidate();
+	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		
