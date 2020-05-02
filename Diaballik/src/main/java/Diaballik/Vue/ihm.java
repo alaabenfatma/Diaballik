@@ -35,23 +35,19 @@ public class ihm extends JFrame implements ActionListener{
 	public void fenetreChargerPartie() {
 		this.remove(menu);
 		ChargerPartie cp = new ChargerPartie(this);
-		this.setSize(699, 499);
 		this.setTitle("Charger partie");
-		this.add(cp);
-		this.validate();
-		this.getContentPane().add(cp);
+		this.setContentPane(cp);
 		this.repaint();
+		this.revalidate();
 	}
 	
 	public void fenetreJouerEnReseau() {
 		this.remove(menu);
 		JouerReseau jr = new JouerReseau(this);
-		this.setSize(699, 499);
+		this.setContentPane(jr);
 		this.setTitle("Jouer en réseau");
-		this.add(jr);
-		this.validate();
-		this.getContentPane().add(jr);
 		this.repaint();
+		this.revalidate();
 	}
 	
 	public void retourMenuPrincipal() {
