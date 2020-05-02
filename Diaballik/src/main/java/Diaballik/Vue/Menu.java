@@ -83,6 +83,7 @@ public class Menu extends JFrame implements ActionListener{
 		
 		if(arg0.getSource() == button1) {
 			this.remove(panel);
+			this.setSize(699, 499);
 			this.setTitle("Nouvelle partie");
 			JPanel p = new NewGame();
 			

@@ -218,7 +218,7 @@ public class Diaballik {
         tr.Create();
         //white_to_move(tr);
 
-        //Menu menu = new Menu();
+        Menu menu = new Menu();
         // imgMenu img = new imgMenu();
         // menu.add(img);
     }
