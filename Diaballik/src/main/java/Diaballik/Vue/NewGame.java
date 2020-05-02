@@ -26,7 +26,32 @@ public class NewGame extends JPanel implements ActionListener{
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
 	ihm i;
-	
+
+	//Parametres de la nouvelle partie
+	/*
+	public enum Joueur {
+		humain,
+		ordinateur;
+	}
+
+	public enum temps {
+		illimite,
+		un,
+		deux,
+		trois;
+	}
+
+	public enum premier {
+		joueurun,
+		joueurdeux;
+	}	
+	*/
+
+	int tempschrono = 0; //illimite
+	boolean human = true; //joueur humain
+	boolean first = true; //joueur 1
+
+
 	public NewGame(ihm ihm) {
 		i = ihm;
 		this.setLayout(null);
@@ -78,14 +103,56 @@ public class NewGame extends JPanel implements ActionListener{
 			
 			if(arg0.getSource() == humain) {
 				humain.setBackground(Color.pink);
-				ordinateur.setBackground(null);
+				ordinateur.setBackground(null);				
 			}
 			
 			if(arg0.getSource() == ordinateur) {
 				ordinateur.setBackground(Color.pink);
 				humain.setBackground(null);
+				human = false; //joueur IA
+			}
+
+			if(arg0.getSource() == illimite) {
+				illimite.setBackground(Color.pink);
+				uneMin.setBackground(null);
+				deuxMin.setBackground(null);
+				troisMin.setBackground(null);
+			}
+
+			if(arg0.getSource() == uneMin) {
+				uneMin.setBackground(Color.pink);
+				illimite.setBackground(null);
+				deuxMin.setBackground(null);
+				troisMin.setBackground(null);
+				tempschrono = 1;
+			}
+
+			if(arg0.getSource() == deuxMin) {
+				deuxMin.setBackground(Color.pink);
+				illimite.setBackground(null);
+				uneMin.setBackground(null);
+				troisMin.setBackground(null);
+				tempschrono = 2;
+			}
+
+			if(arg0.getSource() == troisMin) {
+				troisMin.setBackground(Color.pink);
+				illimite.setBackground(null);
+				deuxMin.setBackground(null);
+				uneMin.setBackground(null);
+				tempschrono = 3;
 			}
 			
+			if(arg0.getSource() == joueur1) {
+				joueur1.setBackground(Color.pink);
+				joueur2.setBackground(null);
+			}
+
+			if(arg0.getSource() == joueur2) {
+				joueur2.setBackground(Color.pink);
+				joueur1.setBackground(null);
+				first = false; //joueur 2
+			}
 		
 	}
 }
