@@ -58,11 +58,10 @@ public class ihm extends JFrame implements ActionListener{
 		this.remove(ng);
 		this.remove(jr);
 		Menu m = new Menu(this);
+		this.setContentPane(m);
 		this.setTitle("Menu principal");
-		this.add(m);
-		this.validate();
-		this.getContentPane().add(m);
 		this.repaint();
+		this.revalidate();
 	}
 	
 	
