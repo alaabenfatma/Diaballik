@@ -1,5 +1,6 @@
 package Diaballik.Vue;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -45,6 +46,9 @@ public class NewGame extends JPanel implements ActionListener{
 
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
+		humain.setBackground(Color.pink);
+		illimite.setBackground(Color.pink);
+		joueur1.setBackground(Color.pink);
 		
 		this.add(joueur1);
 		this.add(joueur2);
@@ -60,6 +64,7 @@ public class NewGame extends JPanel implements ActionListener{
 		this.add(retour);
 		this.add(titre);
 		
+		jouer.addActionListener(this);
 		retour.addActionListener(this);
 		//this.add(this);
 		this.setVisible(true);
@@ -70,7 +75,12 @@ public class NewGame extends JPanel implements ActionListener{
 			new Menu();
 		}
 		if(arg0.getSource() == jouer) {
-			
+			/*JPanel c = new ChargerPartie();
+			Menu m = new Menu();
+			m.add(c);
+			m.getContentPane().add(c);
+			repaint();
+			*/
 		}
 	}
 }

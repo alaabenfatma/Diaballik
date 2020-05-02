@@ -24,8 +24,6 @@ public class Menu extends JFrame implements ActionListener{
 	JButton button8 = new JButton(son);
 	
 	JPanel panel = new JPanel();
-	//JPanel panel1 = new JPanel();
-	
 	
 	
 	public Menu() {
@@ -95,6 +93,7 @@ public class Menu extends JFrame implements ActionListener{
 		
 		if(arg0.getSource() == button2) {
 			this.remove(panel);
+			this.setSize(699, 499);
 			this.setTitle("Charger partie");
 			JPanel p = new ChargerPartie();
 			
@@ -104,7 +103,14 @@ public class Menu extends JFrame implements ActionListener{
 		}
 		
 		if(arg0.getSource() == button3) {
-			new JouerReseau();
+			this.remove(panel);
+			this.setSize(699, 499);
+			this.setTitle("Jouer en réseau");
+			JPanel p = new JouerReseau();
+			
+			this.add(p);
+			this.getContentPane().add(p);
+			repaint();
 		}
 		
 		if(arg0.getSource() == button4) {
