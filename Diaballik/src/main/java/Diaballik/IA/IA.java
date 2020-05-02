@@ -13,11 +13,14 @@ public class IA {
     PieceType Couleur_IA;
     Random R;
     Terrain tr;
+    public Boolean Victoire_IA;
+
     
-    public IA(PieceType p){
+    public IA(PieceType p, Terrain t){
         Couleur_IA = p;
         R = new Random();
-        
+        Victoire_IA =false;
+        tr = t;
     }
     private ArrayList<Piece> find_piece(){
         ArrayList<Piece> list = new ArrayList<Piece>();
@@ -39,22 +42,21 @@ public class IA {
         Position pos;
         ArrayList<Piece> list_piece;
         ArrayList<Position> diag;
+        System.out.println("L'IA est en train de jouer ");
         while(nbMove > 0 || passe_faite > 0){
-            int choix = R.nextInt(3)+binf;
+            int choix = R.nextInt(2)+binf;
             switch (choix) {
                 case 0: // Passe
                     from = tr.getPieceWithBall(Couleur_IA);
-                    i = R.nextInt(from.passesPossibles().size());
+                    i = R.nextInt(from.passesPossibles().size()-1);
                     pos = from.passesPossibles().get(i);
                     to = tr.getTerrain()[pos.l][pos.c];
                     TerrainUtils.passeWrapper(from, to);
                     if (Couleur_IA == PieceType.White && to.Position.l == 0) {
                         System.out.println("Victoire IA !");
-                        System.exit(0);
                     }
                     else if (Couleur_IA == PieceType.Black && to.Position.l == tr.taille()-1) {
                         System.out.println("Victoire IA !");
-                        System.exit(0);
                     }
                     passe_faite--;
                     binf++;
@@ -65,7 +67,8 @@ public class IA {
                     from = list_piece.get(R.nextInt(list_piece.size()));
                     diag = from.getDiagonals();
                     while(!ok){
-                        pos = from.PossiblePositions().get(R.nextInt(from.PossiblePositions().size()));
+                        i = R.nextInt(from.PossiblePositions().size()-1);
+                        pos = from.PossiblePositions().get(i);
                         to = tr.getTerrain()[pos.l][pos.c];
                         if(diag.contains(pos) && nbMove==2){
                             nbMove-=2;
