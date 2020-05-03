@@ -299,7 +299,8 @@ public class AppTest {
         }
         assertTrue( test );
     }
-    /*@Test
+    // Test pour Wassim
+    @Test
     public void PossiblePositions_test_0(){
         boolean test = true;
         ArrayList<Position> list_pos;
@@ -307,6 +308,7 @@ public class AppTest {
         Piece p1 = tr.Create()[0][3];
         Piece p2 = tr.getTerrain()[5][5];
         TerrainUtils.Swap(p1, p2);
+        tr.PrintTerrain();
         list_pos = p1.PossiblePositions();
         list_test.add(new Position(5,3));
         list_test.add(new Position(4,4));
@@ -333,7 +335,7 @@ public class AppTest {
             test =false;
         }
         assertTrue( test );
-    }*/
+    }
     @Test
     /**
      * @author Thomas
@@ -601,7 +603,7 @@ public class AppTest {
         p.move(1,5);
 
         list_test = p1.passesPossibles();
-        list_pos.add(new Position(6,3))
+        list_pos.add(new Position(6,3));
         list_pos.add(new Position(3,0));
         list_pos.add(new Position(1,3));
         list_pos.add(new Position(1,5));

@@ -224,6 +224,7 @@ public class Diaballik {
         Piece from;
         Piece to;
         while(!victoire){
+            System.out.println(" Tour = " + tour);
             if(tour == PieceType.White){
                 // tant qu'il y a un truc à faire
                 while (nbMove > 0 || passe_faite > 0) {
@@ -238,9 +239,9 @@ public class Diaballik {
                         case 'p':
                             // passe
                             if (passe_faite == 1) {
-                                from = tr.getPieceWithBall(PieceType.Black);
+                                from = tr.getPieceWithBall(tour);
                                 System.out.println("Les passes possibles sont : " + from.passesPossibles());
-                                to = getPiece(tr, PieceType.Black);
+                                to = getPiece(tr, tour);
                                 TerrainUtils.passeWrapper(from, to);
                                 passe_faite = 0;
                                 // victoire?
@@ -255,7 +256,7 @@ public class Diaballik {
                             break;
                         case 'm':
                             // mouvement
-                            from = getPiece(tr, PieceType.Black);
+                            from = getPiece(tr, tour);
                             ArrayList<Position> ar = from.PossiblePositions();
                             System.out.println("Positions possibles : " + ar);
                             to = getPiece(tr, PieceType.Empty);
@@ -296,6 +297,8 @@ public class Diaballik {
                 A.Random_IA();
                 victoire = A.Victoire_IA;
                 tour = PieceType.White;
+                nbMove = 2;
+                passe_faite = 1;
             }
         }
         sc.close();
