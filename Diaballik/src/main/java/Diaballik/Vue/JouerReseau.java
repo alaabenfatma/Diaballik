@@ -44,7 +44,7 @@ public class JouerReseau extends JPanel implements ActionListener{
 		}
 		
 		if (arg0.getSource() == rejoindre) {
-		
+			i.fenetreRejoindrePartieReseau();
 		}
 		if (arg0.getSource() == menuPrincipal) {
 			i.retourMenuPrincipal();

@@ -98,7 +98,7 @@ public class Menu extends JPanel implements ActionListener{
 		}
 		
 		if(arg0.getSource() == button4) {
-			//ouvrir les règles
+			i.fenetreRegles();
 		}
 	 	
 		if(arg0.getSource() == button5) {

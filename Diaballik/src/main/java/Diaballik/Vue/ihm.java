@@ -48,6 +48,8 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void retourMenuPrincipal() {
+		this.setSize(700, 500);
+		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
 		this.setContentPane(m);
 		this.setTitle("Menu principal");
@@ -63,6 +65,13 @@ public class ihm extends JFrame implements ActionListener{
 		this.revalidate();
 	}
 	
+	public void fenetreRejoindrePartieReseau() {
+		RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
+		this.setContentPane(rpr);
+		this.setTitle("Rejoindre une partie");
+		this.repaint();
+		this.revalidate();
+	}
 	
 	public void fenetreAttenteJoueurReseau() {
 		AttenteJoueurReseau ajr = new AttenteJoueurReseau(this);
@@ -71,6 +80,17 @@ public class ihm extends JFrame implements ActionListener{
 		this.repaint();
 		this.revalidate();
 	}
+	
+	public void fenetreRegles() {
+		this.setSize(800, 620);
+		this.setLocationRelativeTo(null);
+		Regles r = new Regles(this);
+		this.setContentPane(r);
+		this.setTitle("Règles du jeu");
+		this.repaint();
+		this.revalidate();
+	}
+	
 	
 	public void actionPerformed(ActionEvent arg0) {
 		

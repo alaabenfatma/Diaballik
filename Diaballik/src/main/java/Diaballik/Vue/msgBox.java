@@ -14,6 +14,7 @@ public class msgBox {
         if (result == JOptionPane.YES_OPTION) {
         	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         	i.dispose();
+        	i.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         } 
         else if (result == JOptionPane.NO_OPTION) {
         	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
