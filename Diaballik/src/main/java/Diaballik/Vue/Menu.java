@@ -21,6 +21,7 @@ public class Menu extends JPanel implements ActionListener{
 	Image logo, drapeauFr, drapeauGB, son, mute;
 	ihm i;
     Graphics2D drawable;
+    boolean bson = true;
  	
 	
 	public Menu(ihm ihm) {
@@ -107,14 +108,23 @@ public class Menu extends JPanel implements ActionListener{
 		}
 		
 		if(arg0.getSource() == button8) {
+			
 			try {
-	    		mute = ImageIO.read(new File("src/main/java/Diaballik/Vue/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-	    		button8.setIcon(new ImageIcon(mute));
+				if (bson == true) {
+		    		mute = ImageIO.read(new File("src/main/java/Diaballik/Vue/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+		    		button8.setIcon(new ImageIcon(mute));
+		    		bson = false;
+				} else {
+					son = ImageIO.read(new File("src/main/java/Diaballik/Vue/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+		    		button8.setIcon(new ImageIcon(son));
+		    		bson = true;
+				}
+					
 	    	}
 	    	catch (Exception e) {
 	    		System.out.println(e);
 	    	}
-		}
-		
+					
+		}	
 	}
 }
