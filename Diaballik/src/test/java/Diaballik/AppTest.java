@@ -299,7 +299,6 @@ public class AppTest {
         }
         assertTrue( test );
     }
-    // Test pour Wassim
     @Test
     public void PossiblePositions_test_0(){
         boolean test = true;
@@ -308,7 +307,6 @@ public class AppTest {
         Piece p1 = tr.Create()[0][3];
         Piece p2 = tr.getTerrain()[5][5];
         TerrainUtils.Swap(p1, p2);
-        tr.PrintTerrain();
         list_pos = p1.PossiblePositions();
         list_test.add(new Position(5,3));
         list_test.add(new Position(4,4));
@@ -856,9 +854,9 @@ public class AppTest {
   @Test
   public void passeWrapper_test_4(){
     Piece a = tr.Create()[6][3];
-    Piece b = tr.getTerrain()[0][0];
+    Piece b = tr.getTerrain()[6][0];
     TerrainUtils.passeWrapper(a,b);
-    assertTrue((tr.getTerrain()[6][3].HasBall == false) && (tr.getTerrain()[0][0].HasBall == true));
+    assertTrue((tr.getTerrain()[6][3].HasBall == false) && (tr.getTerrain()[6][0].HasBall == true));
   }
   /**
    * @author Thomas
