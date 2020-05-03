@@ -120,25 +120,25 @@ public class Piece extends JButton implements IPiece {
     
         if(((this.Position.l-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l-1, this.Position.c))){
             result.add(new Position(this.Position.l-1, this.Position.c));
-            if(!this.Parent.isOccupied(new Position(this.Position.l-2, this.Position.c)) && ((this.Position.l-2)>=0)){
+            if(((this.Position.l-2)>=0) && !this.Parent.isOccupied(new Position(this.Position.l-2, this.Position.c))){
                 result.add(new Position(this.Position.l-2, this.Position.c));
             }
         }
         if(((this.Position.l+1)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l+1, this.Position.c))){
             result.add(new Position(this.Position.l+1, this.Position.c));
-            if(!this.Parent.isOccupied(new Position(this.Position.l+2, this.Position.c)) && ((this.Position.l+2)<this.Parent.taille())){
+            if(((this.Position.l+2)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l+2, this.Position.c))){
                 result.add(new Position(this.Position.l+2, this.Position.c));
             }
         }
         if(((this.Position.c+1)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c+1))){
             result.add(new Position(this.Position.l, this.Position.c+1));
-            if(!this.Parent.isOccupied(new Position(this.Position.l, this.Position.c+2)) && ((this.Position.c+2)<this.Parent.taille())){
+            if(((this.Position.c+2)<this.Parent.taille()) && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c+2)) ){
                 result.add(new Position(this.Position.l, this.Position.c+2));
             }
         }
         if(((this.Position.c-1)>=0) && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c-1))){
             result.add(new Position(this.Position.l, this.Position.c-1));
-            if(!this.Parent.isOccupied(new Position(this.Position.l, this.Position.c-2)) && ((this.Position.c-2)>=0)){
+            if(((this.Position.c-2)>=0) && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c-2))){
                 result.add(new Position(this.Position.l, this.Position.c-2));
             }
         }
