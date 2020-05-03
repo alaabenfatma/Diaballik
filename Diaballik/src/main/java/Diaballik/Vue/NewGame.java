@@ -35,15 +35,15 @@ public class NewGame extends JPanel implements ActionListener{
 	}
 
 	public enum temps {
-		illimite,
-		un,
-		deux,
-		trois;
+		illimite, 0
+		un, 1
+		deux, 2
+		trois; 3
 	}
 
 	public enum premier {
-		joueurun,
-		joueurdeux;
+		joueurun, true
+		joueurdeux; false
 	}	
 	*/
 
@@ -92,6 +92,14 @@ public class NewGame extends JPanel implements ActionListener{
 		
 		jouer.addActionListener(this);
 		ordinateur.addActionListener(this);
+		humain.addActionListener(this);
+		illimite.addActionListener(this);
+		uneMin.addActionListener(this);
+		deuxMin.addActionListener(this);
+		troisMin.addActionListener(this);
+		joueur1.addActionListener(this);
+		joueur2.addActionListener(this);
+
 		retour.addActionListener(this);
 		this.setVisible(true);
 	}

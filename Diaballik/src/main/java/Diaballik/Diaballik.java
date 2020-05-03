@@ -20,7 +20,7 @@ public class Diaballik {
     // Ici pour l'instant, la position est saisie au clavier sous la forme "l c"
     // sans les guillemets
     // comme pour la gauffre
-
+    /*
     public static Piece getPiece(Terrain tr, PieceType t) {
         Scanner sc = new Scanner(System.in);
         String ligne;
@@ -303,14 +303,15 @@ public class Diaballik {
         }
         sc.close();
     }
-
+    */
     public static void main(String[] args) {
-
+        /*
         Terrain tr = new Terrain();
         tr.Create();
         test_Random_IA(tr);
+        */
         //white_to_move(tr);
 
-        //ihm i = new ihm();
+        ihm i = new ihm();
     }
 }
