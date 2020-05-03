@@ -601,7 +601,7 @@ public class AppTest {
         p.move(1,5);
 
         list_test = p1.passesPossibles();
-        list_pos.add(new Position(6,3))
+        list_pos.add(new Position(6,3));
         list_pos.add(new Position(3,0));
         list_pos.add(new Position(1,3));
         list_pos.add(new Position(1,5));
