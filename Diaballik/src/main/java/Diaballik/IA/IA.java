@@ -42,32 +42,40 @@ public class IA {
         Position pos;
         ArrayList<Piece> list_piece;
         ArrayList<Position> diag;
+        int nb_tour = 0;
         System.out.println("L'IA est en train de jouer ");
-        while(nbMove > 0 || passe_faite > 0){
+        while((nbMove > 0 || passe_faite > 0) && nb_tour < 10){
             int choix = R.nextInt(2)+binf;
+            System.out.println("nbMove : "+nbMove+" passe_faite : "+passe_faite + " Choix : "+choix);
             switch (choix) {
                 case 0: // Passe
+                    if(passe_faite == 0){break;}
                     from = tr.getPieceWithBall(Couleur_IA);
-                    i = R.nextInt(from.passesPossibles().size()-1);
-                    pos = from.passesPossibles().get(i);
-                    to = tr.getTerrain()[pos.l][pos.c];
-                    TerrainUtils.passeWrapper(from, to);
-                    if (Couleur_IA == PieceType.White && to.Position.l == 0) {
-                        System.out.println("Victoire IA !");
+                    if(from.passesPossibles().size() > 0){
+                        if(from.passesPossibles().size() == 1){i =0;}
+                        else{i = R.nextInt(from.passesPossibles().size()-1);}
+                        pos = from.passesPossibles().get(i);
+                        to = tr.getTerrain()[pos.l][pos.c];
+                        TerrainUtils.passeWrapper(from, to);
+                        if (Couleur_IA == PieceType.White && to.Position.l == 0) {
+                            System.out.println("Victoire IA !");
+                        }
+                        else if (Couleur_IA == PieceType.Black && to.Position.l == tr.taille()-1) {
+                            System.out.println("Victoire IA !");
+                        }
+                        passe_faite--;
+                        binf++;
                     }
-                    else if (Couleur_IA == PieceType.Black && to.Position.l == tr.taille()-1) {
-                        System.out.println("Victoire IA !");
-                    }
-                    passe_faite--;
-                    binf++;
                     break;
                 case 1: // Mouvement
                     boolean ok = false;
                     list_piece = find_piece();
                     from = list_piece.get(R.nextInt(list_piece.size()));
                     diag = from.getDiagonals();
-                    while(!ok){
-                        i = R.nextInt(from.PossiblePositions().size()-1);
+                    while(!ok && nbMove > 0){
+                        if(from.PossiblePositions().size() == 0){break;}
+                        if(from.PossiblePositions().size() == 1){i=0;}
+                        else{i = R.nextInt(from.PossiblePositions().size()-1);}
                         pos = from.PossiblePositions().get(i);
                         to = tr.getTerrain()[pos.l][pos.c];
                         if(diag.contains(pos) && nbMove==2){
@@ -90,6 +98,7 @@ public class IA {
                     System.out.println("Erreur IA");
                     break;
             }
+            nb_tour++;
         }
     }
 }
