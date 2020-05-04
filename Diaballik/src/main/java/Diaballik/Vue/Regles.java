@@ -34,8 +34,8 @@ public class Regles extends JPanel implements ActionListener{
     
     public void afficherLogo() {
     	try {
-    		regles1 = ImageIO.read(new File("src/main/java/Diaballik/Vue/reglesDuJeu1.png"));
-    		regles2 = ImageIO.read(new File("src/main/java/Diaballik/Vue/reglesDuJeu2.png"));
+    		regles1 = ImageIO.read(this.getClass().getResourceAsStream("reglesDuJeu1.png"));
+    		regles2 = ImageIO.read(this.getClass().getResourceAsStream("reglesDuJeu2.png"));
     		drawable.drawImage(regles1, 70, 25, 326, 544, null);
     		drawable.drawImage(regles2, 400, 70, 319, 361, null);
     	}
