@@ -13,12 +13,21 @@ import Diaballik.Patterns.Observable;
 
 public class Jeu extends Observable {
     public Terrain tr;
-    //Joueur qui a la main
-    public Joueur joueur;
+    public Joueur joueur1;
+    public Joueur joueur2;
+    public Joueur joueurCourant;
+    public boolean gameOver = false;
 
     public Jeu(){
         tr = new Terrain();
         tr.Create();
+        //Joueur 1 (Là le joueur 1 joue forcement les blancs, mais on pourra modifier dans les 
+        //parametres ci-dessous)
+        joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
+        //Pareil ici, on pourra changer les parametres pour jouer contre l'IA par exemple..
+        joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1);
+        //joueur courant
+        joueurCourant = joueur1;
         //white_to_move(tr);
     }
 
@@ -28,7 +37,48 @@ public class Jeu extends Observable {
 
     }
 
-    public static Piece getPiece(Terrain tr, PieceType t) {
+    //retourne vrai si il y a antijeu
+    //TODO (ça marche pas)
+    public boolean antijeu(){
+        boolean antijeu = true;
+        for(int i=1;i<tr.taille()-1;i++){
+            for(int j=0;j<tr.taille();j++){
+                antijeu = antijeu && (tr.getTerrain()[i][j].Type == PieceType.White);
+            }
+        }
+        if(antijeu){
+            System.out.println("Les blancs ont fait un antijeu");
+            return true;
+        }
+        antijeu = true;
+        for(int i=1;i<tr.taille()-1;i++){
+            for(int j=0;j<tr.taille();j++){
+                antijeu = antijeu && (tr.getTerrain()[i][j].Type == PieceType.Black);
+            }
+        }
+        if(antijeu){
+            System.out.println("Les noirs ont fait un antijeu");
+            return true;
+        }
+        return false;
+    }
+
+    //retourne vrai si un joueur a gagné
+    public boolean victoire(){
+        for(int i=0;i<tr.taille();i++){
+            if((tr.getTerrain()[0][i].Type == PieceType.White) && (tr.getTerrain()[0][i].HasBall)){
+                System.out.println("Les blancs ont gagné !");
+                return true;
+            }
+            if((tr.getTerrain()[tr.taille()-1][i].Type == PieceType.Black) && (tr.getTerrain()[tr.taille()-1][i].HasBall)){
+                System.out.println("Les noirs ont gagné !");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Piece getPiece(PieceType t) {
         Scanner sc = new Scanner(System.in);
         String ligne;
         String[] ligne_split;
@@ -70,154 +120,88 @@ public class Jeu extends Observable {
 
     // Ici encore on utilise l'entrée standard. A modifier plus tard pour l'ihm et
     // l'ia
-    public static void white_to_move(Terrain tr) {
-        int nbMove = 2; // on a droit à deux mouvements max
-        int passe_faite = 1; // une passe
-        Scanner sc = new Scanner(System.in);
-        char choix;
-        Piece from;
-        Piece to;
-        // tant qu'il y a un truc à faire
-        while (nbMove > 0 || passe_faite > 0) {
-            tr.PrintTerrain();
-            System.out.println("tour des blancs");
-            System.out.println("Nombre de mouvements restants : " + nbMove);
-            System.out.println("Nombre de passes restantes : " + passe_faite);
-            System.out.println(
-                    "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
-            choix = sc.nextLine().charAt(0);
-            switch (choix) {
-                case 'p':
-                    // passe
-                    if (passe_faite == 1) {
-                        from = tr.getPieceWithBall(PieceType.White);
-                        System.out.println("Les passes possibles sont : " + from.passesPossibles());
-                        to = getPiece(tr, PieceType.White);
-                        TerrainUtils.passeWrapper(from, to);
-                        passe_faite = 0;
-                        // victoire?
-                        if (to.Position.l == 0) {
-                            System.out.println("Les blancs ont gagnés !");
-                            System.exit(0); // La j'ai fais un system.exit mais on changera plus tard si il le faut
-                        }
-                    } else {
-                        System.out.println("Vous ne pourrez faire qu'une seule passe");
-                    }
-                    break;
-                case 'm':
-                    // mouvement
-                    from = getPiece(tr, PieceType.White);
-                    ArrayList<Position> ar = from.PossiblePositions();
-                    System.out.println("Positions possibles : " + ar);
-                    to = getPiece(tr, PieceType.Empty);
-                    // On verifie si c est bien un mouvement legal
-
-                    if (ar.contains(to.Position)) {
-                        ArrayList<Position> diag = from.getDiagonals();
-                        if (diag.contains(to.Position)) {
-                            // Si c'est un mouvement en diagonale, on prend deux coups
-                            nbMove -= 2;
-                        } else {
-                            // Sinon 1 seul
-                            nbMove -= 1;
-                        }
-                        if (nbMove >= 0) {
-                            from.move(to.Position.l, to.Position.c);
-                        } else {
-                            System.out.println("Vous n'avez plus de mouvements");
-                            nbMove = 0;
-                        }
-                    } else {
-                        throw new IllegalAccessError("Mouvement illegal");
-                    }
-                    break;
-                case 'q':
-                    // end turn
-                    nbMove = 0;
-                    passe_faite = 0;
-                    black_to_move(tr);
-                    break;
-                default:
-                    System.out.println("Choix invalide");
-                    break;
-            }
+    public void move() {
+        //victoire
+        if(gameOver){
+            System.exit(0); //la j'ai mis system.exit mais on changera si necessaire
         }
-        sc.close();
-    }
-
-    public static void black_to_move(Terrain tr) {
-        int nbMove = 2; // on a droit à deux mouvements max
-        int passe_faite = 1; // une passe
         Scanner sc = new Scanner(System.in);
         char choix;
         Piece from;
         Piece to;
         // tant qu'il y a un truc à faire
-        while (nbMove > 0 || passe_faite > 0) {
+        while (true) {
             tr.PrintTerrain();
-            System.out.println("tour des noirs");
-            System.out.println("Nombre de mouvements restants : " + nbMove);
-            System.out.println("Nombre de passes restantes : " + passe_faite);
+            System.out.println("tour des "+joueurCourant.couleur);
+            System.out.println("Nombre de mouvements restants : " + joueurCourant.nbMove);
+            System.out.println("Nombre de passes restantes : " + joueurCourant.passe_faite);
             System.out.println(
                     "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
             choix = sc.nextLine().charAt(0);
             switch (choix) {
                 case 'p':
                     // passe
-                    if (passe_faite == 1) {
-                        from = tr.getPieceWithBall(PieceType.Black);
+                    if (joueurCourant.passe_faite == 1) {
+                        from = tr.getPieceWithBall(joueurCourant.couleur);
                         System.out.println("Les passes possibles sont : " + from.passesPossibles());
-                        to = getPiece(tr, PieceType.Black);
+                        to = getPiece(joueurCourant.couleur);
                         TerrainUtils.passeWrapper(from, to);
-                        passe_faite = 0;
-                        // victoire?
-                        if (to.Position.l == tr.taille() - 1) {
-                            System.out.println("Les noirs ont gagnés !");
-                            System.exit(0); // La j'ai fais un system.exit mais on changera plus tard si il le faut
-                        }
+                        joueurCourant.passe_faite = 0;
+                        gameOver = victoire();
                     } else {
                         System.out.println("Vous ne pourrez faire qu'une seule passe");
                     }
                     break;
                 case 'm':
                     // mouvement
-                    from = getPiece(tr, PieceType.Black);
+                    from = getPiece(joueurCourant.couleur);
                     ArrayList<Position> ar = from.PossiblePositions();
                     System.out.println("Positions possibles : " + ar);
-                    to = getPiece(tr, PieceType.Empty);
+                    to = getPiece(PieceType.Empty);
                     // On verifie si c est bien un mouvement legal
+
                     if (ar.contains(to.Position)) {
                         ArrayList<Position> diag = from.getDiagonals();
+                        int temp = joueurCourant.nbMove;
                         if (diag.contains(to.Position)) {
                             // Si c'est un mouvement en diagonale, on prend deux coups
-                            nbMove -= 2;
+                            joueurCourant.nbMove -= 2;
                         } else {
                             // Sinon 1 seul ou 2 selon si on a avancé d'une ou de deux cases
-                            nbMove -= Math.abs((from.Position.l + from.Position.c)-(to.Position.l + to.Position.c));
+                            joueurCourant.nbMove -= Math.abs((from.Position.l + from.Position.c)-(to.Position.l + to.Position.c));
                         }
-                        if (nbMove >= 0) {
+                        if (joueurCourant.nbMove >= 0) {
                             from.move(to.Position.l, to.Position.c);
                         } else {
                             System.out.println("Vous n'avez plus de mouvements");
-                            nbMove = 0;
+                            joueurCourant.nbMove = temp;
                         }
                     } else {
                         throw new IllegalAccessError("Mouvement illegal");
                     }
+                    gameOver = antijeu();
                     break;
-
                 case 'q':
                     // end turn
-                    nbMove = 0;
-                    passe_faite = 0;
-                    white_to_move(tr);
+                    joueurCourant.nbMove = 2;
+                    joueurCourant.passe_faite = 1;
+                    if(joueurCourant.n == TypeJoueur.Joueur1){
+                        joueurCourant = joueur2;
+                    }else{
+                        joueurCourant = joueur1; // a modifier pour joueur contre l'ia
+                    }
+                    move();
                     break;
                 default:
                     System.out.println("Choix invalide");
                     break;
             }
         }
-        sc.close();
+    }
+
+    public static void main(String[] args){
+        Jeu j = new Jeu();
+        j.move();
     }
     
 }

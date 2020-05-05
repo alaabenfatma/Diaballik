@@ -111,8 +111,8 @@ public class Diaballik {
                             // Si c'est un mouvement en diagonale, on prend deux coups
                             nbMove -= 2;
                         } else {
-                            // Sinon 1 seul
-                            nbMove -= 1;
+                            // Sinon 1 seul ou 2 selon si on a avancé d'une ou de deux cases
+                            nbMove -= Math.abs((from.Position.l + from.Position.c)-(to.Position.l + to.Position.c));
                         }
                         if (nbMove >= 0) {
                             from.move(to.Position.l, to.Position.c);
