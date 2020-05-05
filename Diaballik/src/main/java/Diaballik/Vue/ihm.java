@@ -1,6 +1,8 @@
 package Diaballik.Vue;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,9 +14,11 @@ public class ihm extends JFrame implements ActionListener{
 	Menu menu = new Menu(this);
 	NewGame ng = new NewGame(this);
 	JouerReseau jr = new JouerReseau(this);
+	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");   
 
 	public ihm() {
-	
+		 
+		this.setIconImage(icon); 
 		this.setTitle("Menu principal");
 		this.setSize(700, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

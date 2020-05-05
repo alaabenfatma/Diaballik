@@ -38,11 +38,11 @@ public class Menu extends JPanel implements ActionListener{
         button8.setBounds(620, 60, 40, 40);
        
         try {
-    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		button6.setIcon(new ImageIcon(drapeauFr));
-    		drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		button7.setIcon(new ImageIcon(drapeauGB));
-    		son = ImageIO.read(this.getClass().getResourceAsStream("sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		button8.setIcon(new ImageIcon(son));
     	}
     	catch (Exception e) {
@@ -75,7 +75,7 @@ public class Menu extends JPanel implements ActionListener{
     
     public void afficherLogo() {
     	try {
-    		logo = ImageIO.read(this.getClass().getResourceAsStream("logo.png"));
+    		logo = ImageIO.read(this.getClass().getResourceAsStream("img/logo.png"));
     		drawable.drawImage(logo, 230, 25, 250, 100, null);
     	}
     	catch (Exception e) {
@@ -111,11 +111,11 @@ public class Menu extends JPanel implements ActionListener{
 			
 			try {
 				if (bson == true) {
-		    		mute = ImageIO.read(this.getClass().getResourceAsStream("mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+		    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
 		    		button8.setIcon(new ImageIcon(mute));
 		    		bson = false;
 				} else {
-					son = ImageIO.read(this.getClass().getResourceAsStream("sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+					son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
 		    		button8.setIcon(new ImageIcon(son));
 		    		bson = true;
 				}

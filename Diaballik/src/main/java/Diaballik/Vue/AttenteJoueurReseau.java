@@ -34,7 +34,7 @@ public class AttenteJoueurReseau extends JPanel implements ActionListener {
 		i = ihm;
 		this.setLayout(null);
 		try {
-			gif = new ImageIcon(getClass().getResource("gifchargement.gif"));
+			gif = new ImageIcon(getClass().getResource("img/gifchargement.gif"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,13 +43,8 @@ public class AttenteJoueurReseau extends JPanel implements ActionListener {
 		code.setBounds(300, 200, 200, 40);
 		codelabel.setBounds(200, 200, 120, 40);
 		gifContainer = new JLabel(gif);
-		gifContainer.setBounds( 280, 100, 150, 100);
+		gifContainer.setBounds(250, 100, 200, 100);
 
-		 /*java.net.URL url = getClass().getClassLoader().getResource("src/main/java/Diaballik/Vue/gifchargement.gif");
-		 Icon icon = new ImageIcon(url);
-		 JLabel center = new JLabel(icon);
-		 this.add(center, BorderLayout.CENTER);
-		*/
 		this.add(codelabel);
 		this.add(code);
 		this.add(retour);
