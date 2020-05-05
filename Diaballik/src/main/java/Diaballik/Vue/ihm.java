@@ -1,5 +1,6 @@
 package Diaballik.Vue;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -7,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class ihm extends JFrame implements ActionListener{
@@ -15,15 +19,24 @@ public class ihm extends JFrame implements ActionListener{
 	NewGame ng = new NewGame(this);
 	JouerReseau jr = new JouerReseau(this);
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");   
+	JMenuBar mb = new JMenuBar();
+	JMenu m1 = new JMenu("Thèmes");
+	JMenu m2 = new JMenu("Options");
+	JMenuItem mi1 = new JMenuItem("Daltonien");
 	playSound ps = new playSound();
+	
 
 	public ihm() {
 		 
 		this.setIconImage(icon); 
 		this.setTitle("Menu principal");
-		this.setSize(700, 500);
+		this.setSize(700, 530);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
+	    m1.add(mi1);
+	    mb.add(m1);
+	    mb.add(m2);
+	    this.add(mb, BorderLayout.NORTH);
 	    this.add(menu);
 	    this.setVisible(true);
 	}

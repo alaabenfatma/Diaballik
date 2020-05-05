@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;

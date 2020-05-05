@@ -2,9 +2,6 @@ package Diaballik.Vue;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -111,11 +108,11 @@ public class Menu extends JPanel implements ActionListener{
 		if(arg0.getSource() == button7) {
 			try {
 				if (blang == true) {
-					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
 		    		button7.setIcon(new ImageIcon(drapeauGB));
 		    		blang = false;
 				} else {
-					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
 		    		button7.setIcon(new ImageIcon(drapeauFr));
 		    		blang = true;
 				}
