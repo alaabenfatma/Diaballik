@@ -9,6 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import Diaballik.Controllers.ControleurMediateur;
+import Diaballik.Models.Jeu;
 
 public class NewGame extends JPanel implements ActionListener{
 
@@ -161,6 +165,15 @@ public class NewGame extends JPanel implements ActionListener{
 				joueur1.setBackground(null);
 				first = false; //joueur 2
 			}
+			if(arg0.getSource() == jouer) {
+				// TODO : ajouter les parametre de new game
+				SwingUtilities.getWindowAncestor(this).dispose();
+				Jeu j = new Jeu();
+				CollecteurEvenements control = new ControleurMediateur(j);
+				Plateau.demarrer(j,control);
+				
+			}
+
 		
 	}
 }

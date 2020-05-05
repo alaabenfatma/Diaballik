@@ -5,7 +5,7 @@ import javax.management.RuntimeErrorException;
 //import java.util.*;
 
 public class Terrain implements ITerrain {
-    private Piece[][] _terrain;
+    public Piece[][] _terrain;
 
     /**
      * Mettre tous les case = vide
