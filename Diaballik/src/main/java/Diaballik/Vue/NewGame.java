@@ -29,6 +29,7 @@ public class NewGame extends JPanel implements ActionListener{
 	JButton troisMin = new JButton("3 min");
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
+	playSound ps = new playSound();
 	ihm i;
 
 	//Parametres de la nouvelle partie
@@ -166,7 +167,7 @@ public class NewGame extends JPanel implements ActionListener{
 				first = false; //joueur 2
 			}
 			if(arg0.getSource() == jouer) {
-				// TODO : ajouter les parametre de new game
+				ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
 				SwingUtilities.getWindowAncestor(this).dispose();
 				Jeu j = new Jeu();
 				CollecteurEvenements control = new ControleurMediateur(j);

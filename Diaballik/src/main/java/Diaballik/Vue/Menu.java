@@ -19,9 +19,10 @@ public class Menu extends JPanel implements ActionListener{
 	JButton button7 = new JButton();
 	JButton button8 = new JButton();
 	Image logo, drapeauFr, drapeauGB, son, mute;
+	playSound ps = new playSound();
 	ihm i;
     Graphics2D drawable;
-    boolean bson = true;
+    boolean bson = true, blang = true;
  	
 	
 	public Menu(ihm ihm) {
@@ -33,15 +34,13 @@ public class Menu extends JPanel implements ActionListener{
         button3.setBounds(280, 270, 150, 50);
         button4.setBounds(280, 330, 150, 50);
         button5.setBounds(280, 390, 150, 50);
-        button6.setBounds(570, 10, 40, 40);
+        //button6.setBounds(570, 10, 40, 40);
         button7.setBounds(620, 10, 40, 40);
         button8.setBounds(620, 60, 40, 40);
        
         try {
     		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-    		button6.setIcon(new ImageIcon(drapeauFr));
-    		drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-    		button7.setIcon(new ImageIcon(drapeauGB));
+    		button7.setIcon(new ImageIcon(drapeauFr));
     		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		button8.setIcon(new ImageIcon(son));
     	}
@@ -54,7 +53,7 @@ public class Menu extends JPanel implements ActionListener{
         this.add(button3);
         this.add(button4);
         this.add(button5);
-        this.add(button6);
+        //this.add(button6);
         this.add(button7);
         this.add(button8);
         
@@ -64,6 +63,7 @@ public class Menu extends JPanel implements ActionListener{
         button3.addActionListener(this);
         button4.addActionListener(this);
         button5.addActionListener(this);
+        button7.addActionListener(this);
         button8.addActionListener(this);
         this.setVisible(true);
 	
@@ -103,8 +103,26 @@ public class Menu extends JPanel implements ActionListener{
 		}
 	 	
 		if(arg0.getSource() == button5) {
+			ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
 			msgBox msg = new msgBox();
 			msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", i);
+		}
+		
+		if(arg0.getSource() == button7) {
+			try {
+				if (blang == true) {
+					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+		    		button7.setIcon(new ImageIcon(drapeauGB));
+		    		blang = false;
+				} else {
+					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+		    		button7.setIcon(new ImageIcon(drapeauFr));
+		    		blang = true;
+				}
+			}
+			catch (Exception e) {
+				System.out.println(e);
+			}
 		}
 		
 		if(arg0.getSource() == button8) {

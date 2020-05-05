@@ -36,8 +36,8 @@ public class Regles extends JPanel implements ActionListener{
     	try {
     		regles1 = ImageIO.read(this.getClass().getResourceAsStream("img/reglesDuJeu1.png"));
     		regles2 = ImageIO.read(this.getClass().getResourceAsStream("img/reglesDuJeu2.png"));
-    		drawable.drawImage(regles1, 70, 25, 326, 544, null);
-    		drawable.drawImage(regles2, 400, 70, 319, 361, null);
+    		drawable.drawImage(regles1, 70, 0, 326, 544, null);
+    		drawable.drawImage(regles2, 400, 45, 319, 361, null);
     	}
     	catch (Exception e) {
     		System.out.println(e);
