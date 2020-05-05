@@ -3,10 +3,8 @@ package Diaballik.Vue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 public class ChargerPartie extends JPanel implements ActionListener{
 	
@@ -14,6 +12,12 @@ public class ChargerPartie extends JPanel implements ActionListener{
 	JButton retour = new JButton("Retour");
 	JButton jouer = new JButton("Jouer");
 	ihm i;
+	Object[][] donnees = {
+		{"Alaa", "Yohan", "20/05/20"},
+		{"Wassim", "Thomas", "21/05/20"}
+	};
+
+	String[] entetes = {"Joueur1", "Joueur2", "Date"};
 	public ChargerPartie(ihm ihm) {
 		i = ihm;
 		this.setLayout(null);
@@ -26,8 +30,13 @@ public class ChargerPartie extends JPanel implements ActionListener{
 		
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
-		retour.addActionListener(this);
+		retour.addActionListener(this);		
+		JTable tableau = new JTable(donnees, entetes);
+		tableau.setBounds(210, 390, 120, 40);
+		this.add(tableau.getTableHeader(), BorderLayout.NORTH);
+		this.add(tableau, BorderLayout.CENTER);
 		this.setVisible(true);
+
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
