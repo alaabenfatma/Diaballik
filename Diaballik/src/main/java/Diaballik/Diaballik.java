@@ -20,7 +20,7 @@ public class Diaballik {
     // Ici pour l'instant, la position est saisie au clavier sous la forme "l c"
     // sans les guillemets
     // comme pour la gauffre
-    /*
+    
     public static Piece getPiece(Terrain tr, PieceType t) {
         Scanner sc = new Scanner(System.in);
         String ligne;
@@ -213,7 +213,7 @@ public class Diaballik {
         sc.close();
     }
 
-    private static void test_Random_IA(Terrain tr){
+    private static void test_Random_IA_P(Terrain tr){
         IA A = new IA(PieceType.Black,tr);
         PieceType tour = PieceType.White;
         Boolean victoire = false;
@@ -303,15 +303,37 @@ public class Diaballik {
         }
         sc.close();
     }
-    */
+    private static void test_Random_IA_IA(Terrain tr){
+        IA A = new IA(PieceType.Black,tr);
+        IA B = new IA(PieceType.White,tr);
+        PieceType tour = PieceType.White;
+        Boolean victoire = false;
+        while(!victoire){
+            tr.PrintTerrain();
+            System.out.println(" Tour = " + tour);
+            if(tour == PieceType.White){
+                B.Random_IA();
+                victoire = B.Victoire_IA;
+                tour = PieceType.Black;
+            }
+            else{
+                A.Random_IA();
+                victoire = A.Victoire_IA;
+                tour = PieceType.White;
+            }
+        }
+        if(A.Victoire_IA){System.out.println("Victoire IA A");}
+        else{System.out.println("Victoire IA B");}
+    }
+    
     public static void main(String[] args) {
-        /*
+        
         Terrain tr = new Terrain();
         tr.Create();
-        test_Random_IA(tr);
-        */
+        //test_Random_IA_P(tr);
+        test_Random_IA_IA(tr);
         //white_to_move(tr);
 
-        ihm i = new ihm();
+        //ihm i = new ihm();
     }
 }
