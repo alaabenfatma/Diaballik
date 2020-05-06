@@ -14,7 +14,7 @@ import javax.swing.SwingUtilities;
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.Jeu;
 
-public class NewGameMenu extends JPanel implements ActionListener{
+public class NewGameMenu extends JPanel {
 
 	JLabel titre = new JLabel("Nouvelle partie");
 	JLabel duree = new JLabel("Duree d'un tour :");
@@ -81,6 +81,96 @@ public class NewGameMenu extends JPanel implements ActionListener{
 		illimite.setBackground(Color.pink);
 		joueur1.setBackground(Color.pink);
 		
+		retour.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	MenuEnJeu m = new MenuEnJeu(i);
+                i.setContentPane(m);
+                i.repaint();
+                i.revalidate();
+            } 
+        } );
+		
+		humain.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	humain.setBackground(Color.pink);
+				ordinateur.setBackground(null);		
+            } 
+        } );
+		
+		ordinateur.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	ordinateur.setBackground(Color.pink);
+				humain.setBackground(null);
+				human = false; //joueur IA
+            } 
+        } );
+		
+		illimite.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	illimite.setBackground(Color.pink);
+				uneMin.setBackground(null);
+				deuxMin.setBackground(null);
+				troisMin.setBackground(null);
+            } 
+        } );
+		
+		uneMin.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	uneMin.setBackground(Color.pink);
+				illimite.setBackground(null);
+				deuxMin.setBackground(null);
+				troisMin.setBackground(null);
+				tempschrono = 1;
+			} 
+        } );
+		
+		deuxMin.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	deuxMin.setBackground(Color.pink);
+				illimite.setBackground(null);
+				uneMin.setBackground(null);
+				troisMin.setBackground(null);
+				tempschrono = 2;
+            } 
+        } );
+		
+		troisMin.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	troisMin.setBackground(Color.pink);
+				illimite.setBackground(null);
+				deuxMin.setBackground(null);
+				uneMin.setBackground(null);
+				tempschrono = 3;
+            } 
+        } );
+		
+		joueur1.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	joueur1.setBackground(Color.pink);
+				joueur2.setBackground(null);
+            } 
+        } );
+		
+		joueur2.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	joueur2.setBackground(Color.pink);
+				joueur1.setBackground(null);
+				first = false; //joueur 2
+            } 
+        } );
+		
+		jouer.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	ps.play("son/buttonClick.wav");
+				//SwingUtilities.getWindowAncestor(this).dispose();
+				//super.setVisible(false);
+				Jeu j = new Jeu();
+				CollecteurEvenements control = new ControleurMediateur(j);
+				Plateau.demarrer(j,control);
+				
+            } 
+        } );
+		
 		this.add(joueur1);
 		this.add(joueur2);
 		this.add(priorite);
@@ -94,91 +184,8 @@ public class NewGameMenu extends JPanel implements ActionListener{
 		this.add(jouer);
 		this.add(retour);
 		this.add(titre);
-		
-		jouer.addActionListener(this);
-		ordinateur.addActionListener(this);
-		humain.addActionListener(this);
-		illimite.addActionListener(this);
-		uneMin.addActionListener(this);
-		deuxMin.addActionListener(this);
-		troisMin.addActionListener(this);
-		joueur1.addActionListener(this);
-		joueur2.addActionListener(this);
-
-		retour.addActionListener(this);
 		this.setVisible(true);
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-			if(arg0.getSource() == retour) {
-				MenuEnJeu m = new MenuEnJeu(i);
-                i.setContentPane(m);
-                i.repaint();
-                i.revalidate();
-			}
-			
-			if(arg0.getSource() == humain) {
-				humain.setBackground(Color.pink);
-				ordinateur.setBackground(null);				
-			}
-			
-			if(arg0.getSource() == ordinateur) {
-				ordinateur.setBackground(Color.pink);
-				humain.setBackground(null);
-				human = false; //joueur IA
-			}
 
-			if(arg0.getSource() == illimite) {
-				illimite.setBackground(Color.pink);
-				uneMin.setBackground(null);
-				deuxMin.setBackground(null);
-				troisMin.setBackground(null);
-			}
-
-			if(arg0.getSource() == uneMin) {
-				uneMin.setBackground(Color.pink);
-				illimite.setBackground(null);
-				deuxMin.setBackground(null);
-				troisMin.setBackground(null);
-				tempschrono = 1;
-			}
-
-			if(arg0.getSource() == deuxMin) {
-				deuxMin.setBackground(Color.pink);
-				illimite.setBackground(null);
-				uneMin.setBackground(null);
-				troisMin.setBackground(null);
-				tempschrono = 2;
-			}
-
-			if(arg0.getSource() == troisMin) {
-				troisMin.setBackground(Color.pink);
-				illimite.setBackground(null);
-				deuxMin.setBackground(null);
-				uneMin.setBackground(null);
-				tempschrono = 3;
-			}
-			
-			if(arg0.getSource() == joueur1) {
-				joueur1.setBackground(Color.pink);
-				joueur2.setBackground(null);
-			}
-
-			if(arg0.getSource() == joueur2) {
-				joueur2.setBackground(Color.pink);
-				joueur1.setBackground(null);
-				first = false; //joueur 2
-			}
-			if(arg0.getSource() == jouer) {
-				ps.play("son/buttonClick.wav");
-				SwingUtilities.getWindowAncestor(this).dispose();
-				//super.setVisible(false);
-				Jeu j = new Jeu();
-				CollecteurEvenements control = new ControleurMediateur(j);
-				Plateau.demarrer(j,control);
-				
-			}
-
-		
-	}
 }

@@ -5,16 +5,15 @@ import java.awt.event.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class Menu extends JPanel implements ActionListener{
+public class Menu extends JPanel {
 
-	JButton button1 = new JButton("Nouvelle partie");
-	JButton button2 = new JButton("Charger partie");
-	JButton button3 = new JButton("Jouer en réseau");
-	JButton button4 = new JButton("Règles");
-	JButton button5 = new JButton("Quitter");
-    JButton button6 = new JButton();
-	JButton button7 = new JButton();
-	JButton button8 = new JButton();
+	JButton nouvelle = new JButton("Nouvelle partie");
+	JButton charger = new JButton("Charger partie");
+	JButton reseau = new JButton("Jouer en réseau");
+	JButton regles = new JButton("Règles");
+	JButton quitter = new JButton("Quitter");
+	JButton drapeau = new JButton();
+	JButton sound = new JButton();
 	Image logo, drapeauFr, drapeauGB, son, mute;
 	playSound ps = new playSound();
 	ihm i;
@@ -26,45 +25,103 @@ public class Menu extends JPanel implements ActionListener{
 		i = ihm;
         this.setLayout(null);
         
-        button1.setBounds(280, 150, 150, 50);
-        button2.setBounds(280, 210, 150, 50);
-        button3.setBounds(280, 270, 150, 50);
-        button4.setBounds(280, 330, 150, 50);
-        button5.setBounds(280, 390, 150, 50);
-        //button6.setBounds(570, 10, 40, 40);
-        button7.setBounds(620, 10, 40, 40);
-        button8.setBounds(620, 60, 40, 40);
+        nouvelle.setBounds(280, 150, 150, 50);
+        charger.setBounds(280, 210, 150, 50);
+        reseau.setBounds(280, 270, 150, 50);
+        regles.setBounds(280, 330, 150, 50);
+        quitter.setBounds(280, 390, 150, 50);
+        drapeau.setBounds(620, 10, 40, 40);
+        sound.setBounds(620, 60, 40, 40);
        
         try {
     		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-    		button7.setIcon(new ImageIcon(drapeauFr));
+    		drapeau.setIcon(new ImageIcon(drapeauFr));
     		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-    		button8.setIcon(new ImageIcon(son));
+    		sound.setIcon(new ImageIcon(son));
     	}
     	catch (Exception e) {
     		System.out.println(e);
     	}
 
-        this.add(button1);
-        this.add(button2);
-        this.add(button3);
-        this.add(button4);
-        this.add(button5);
-        //this.add(button6);
-        this.add(button7);
-        this.add(button8);
+        this.add(nouvelle);
+        this.add(charger);
+        this.add(reseau);
+        this.add(regles);
+        this.add(quitter);
+        this.add(drapeau);
+        this.add(sound);
         
 
-        button1.addActionListener(this);
-        button2.addActionListener(this);
-        button3.addActionListener(this);
-        button4.addActionListener(this);
-        button5.addActionListener(this);
-        button7.addActionListener(this);
-        button8.addActionListener(this);
+        nouvelle.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreNouvellePartie();
+            } 
+        } );
+        
+        charger.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreChargerPartie();
+            } 
+        } );
+        
+        reseau.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreJouerEnReseau();
+            } 
+        } );
+        regles.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreRegles();
+            } 
+        } );
+        quitter.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.quit();
+            } 
+        } );
+        drapeau.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	try {
+    				if (blang == true) {
+    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(drapeauGB));
+    		    		blang = false;
+    				} else {
+    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(drapeauFr));
+    		    		blang = true;
+    				}
+    			}
+    			catch (Exception e1) {
+    				System.out.println(e1);
+    			}
+            } 
+        } );
+        
+        sound.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	try {
+    				if (bson == true) {
+    		    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		    		sound.setIcon(new ImageIcon(mute));
+    		    		bson = false;
+    				} else {
+    					son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		    		sound.setIcon(new ImageIcon(son));
+    		    		bson = true;
+    				}
+    					
+    	    	}
+    	    	catch (Exception e1) {
+    	    		System.out.println(e1);
+    	    	}
+            } 
+        } );
+        
         this.setVisible(true);
 	
 	}
+	
 	public void paintComponent(Graphics g){
         drawable = (Graphics2D) g;
         afficherLogo();
@@ -79,65 +136,5 @@ public class Menu extends JPanel implements ActionListener{
     		System.out.println(e);
     	}
     }
-    
-
-	public void actionPerformed(ActionEvent arg0) {
-		
-		if(arg0.getSource() == button1) {
-			i.fenetreNouvellePartie();
-		}
-		
-		if(arg0.getSource() == button2) {
-			i.fenetreChargerPartie();
-		}
-		
-		if(arg0.getSource() == button3) {
-			i.fenetreJouerEnReseau();
-		}
-		
-		if(arg0.getSource() == button4) {
-			i.fenetreRegles();
-		}
-	 	
-		if(arg0.getSource() == button5) {
-			i.quit();
-		}
-		
-		if(arg0.getSource() == button7) {
-			try {
-				if (blang == true) {
-					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
-		    		button7.setIcon(new ImageIcon(drapeauGB));
-		    		blang = false;
-				} else {
-					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
-		    		button7.setIcon(new ImageIcon(drapeauFr));
-		    		blang = true;
-				}
-			}
-			catch (Exception e) {
-				System.out.println(e);
-			}
-		}
-		
-		if(arg0.getSource() == button8) {
-			
-			try {
-				if (bson == true) {
-		    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-		    		button8.setIcon(new ImageIcon(mute));
-		    		bson = false;
-				} else {
-					son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-		    		button8.setIcon(new ImageIcon(son));
-		    		bson = true;
-				}
-					
-	    	}
-	    	catch (Exception e) {
-	    		System.out.println(e);
-	    	}
-					
-		}	
-	}
+    	
 }

@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class RejoindrePartieReseau extends JPanel implements ActionListener{
+public class RejoindrePartieReseau extends JPanel {
 	JLabel titre = new JLabel("Rejoindre une partie");
 	JLabel nomJoueur = new JLabel("Nom du joueur");
 	JLabel codelabel = new JLabel("Code");
@@ -42,16 +42,20 @@ public class RejoindrePartieReseau extends JPanel implements ActionListener{
 		nomJoueur.setFont(fontnomJoueur);
 		codelabel.setFont(fontnomJoueur);
 		titre.setFont(fonttitre);
-		ok.addActionListener(this);
-		retour.addActionListener(this);
+		
+		ok.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            } 
+        } );
+		
+		
+		retour.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreJouerEnReseau();
+            } 
+        } );
+		
 		this.setVisible(true);
 	}
 
-	
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == retour) {
-			i.fenetreJouerEnReseau();
-		}
-		
-	}
 }

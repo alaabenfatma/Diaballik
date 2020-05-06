@@ -8,7 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class JouerReseau extends JPanel implements ActionListener{
+public class JouerReseau extends JPanel {
+	
 	JLabel titre = new JLabel("Jouer en réseau");
 	JButton creer = new JButton("Créer une partie");
 	JButton rejoindre = new JButton("Rejoindre une partie");
@@ -27,27 +28,29 @@ public class JouerReseau extends JPanel implements ActionListener{
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
 		
+		creer.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreCreerPartieReseau();
+            } 
+        } );
+		
+		rejoindre.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.fenetreRejoindrePartieReseau();
+            } 
+        } );
+		
+		menuPrincipal.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.retourMenuPrincipal();
+            } 
+        } );
+		
 		this.add(creer);
 		this.add(rejoindre);
 		this.add(menuPrincipal);
 		this.add(titre);
-		creer.addActionListener(this);
-		rejoindre.addActionListener(this);
-		menuPrincipal.addActionListener(this);
-		
 		this.setVisible(true);
 	}
-	
-	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == creer) {
-	 		i.fenetreCreerPartieReseau();
-		}
-		
-		if (arg0.getSource() == rejoindre) {
-			i.fenetreRejoindrePartieReseau();
-		}
-		if (arg0.getSource() == menuPrincipal) {
-			i.retourMenuPrincipal();
-		}
-	}
+
 }

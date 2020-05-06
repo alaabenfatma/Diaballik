@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Regles extends JPanel implements ActionListener{
+public class Regles extends JPanel {
 	
 	JButton retour = new JButton("<");
 	ihm i;
@@ -21,10 +21,16 @@ public class Regles extends JPanel implements ActionListener{
 		
 		retour.setBounds(10, 10, 50, 50);
 		
+		retour.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.retourMenuPrincipal();
+            } 
+        } );
+		
 		this.add(retour);
-		retour.addActionListener(this);
 		this.setVisible(true);
 	}
+	
 	
 	public void paintComponent(Graphics g){
         drawable = (Graphics2D) g;
@@ -42,12 +48,4 @@ public class Regles extends JPanel implements ActionListener{
     		System.out.println(e);
     	}
     }
-    
-    
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == retour) {
-			i.retourMenuPrincipal();
-		}
-	}
-
 }

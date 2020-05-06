@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChargerPartie extends JPanel implements ActionListener{
+public class ChargerPartie extends JPanel {
 	
 	JLabel titre = new JLabel("Charger partie");
 	JLabel save = new JLabel("Sauvegardes");
@@ -46,7 +46,17 @@ public class ChargerPartie extends JPanel implements ActionListener{
 		
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
-		retour.addActionListener(this);		
+		
+		jouer.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            } 
+        } );
+		
+		retour.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	i.retourMenuPrincipal();
+            } 
+        } );
 		
 		this.add(jouer);
 		this.add(retour);
@@ -58,12 +68,4 @@ public class ChargerPartie extends JPanel implements ActionListener{
 
 	}
 	
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == retour) {
-			i.retourMenuPrincipal();
-		}
-		if(arg0.getSource() == jouer) {
-			
-		}
-	}
 }
