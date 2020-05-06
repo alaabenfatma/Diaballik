@@ -26,4 +26,5 @@ public class msgBox {
         int dialogResult = JOptionPane.showConfirmDialog(null, msg, titre, dialogButton);
         return dialogResult; //0 = yes, 1 = no
     }
+    
 }

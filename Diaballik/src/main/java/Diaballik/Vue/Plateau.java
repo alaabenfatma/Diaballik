@@ -50,8 +50,12 @@ public class Plateau implements Runnable, Observateur {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if(msgBox.msgYesNo("Voulez-vous quitter?", "Confirmation")==0){
-					System.exit(0);
+				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter")==0){
+					//System.exit(0);
+					msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder");
+						System.exit(0);
+						// ajouter la sauvegarde
+					
                 }
                 else{
                     return;
