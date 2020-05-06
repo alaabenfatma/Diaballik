@@ -175,10 +175,10 @@ public class Jeu extends Observable {
     }
 
     // retourne vrai si il y a antijeu
-    // TODO (ça marche pas)
     public boolean antijeu() {
         boolean antijeu = true;
         for (int i = 1; i < tr.taille() - 1; i++) {
+            antijeu = true;
             for (int j = 0; j < tr.taille(); j++) {
                 antijeu = antijeu && (tr.getTerrain()[i][j].Type == PieceType.White);
             }
@@ -189,6 +189,7 @@ public class Jeu extends Observable {
         }
         antijeu = true;
         for (int i = 1; i < tr.taille() - 1; i++) {
+            antijeu = true;
             for (int j = 0; j < tr.taille(); j++) {
                 antijeu = antijeu && (tr.getTerrain()[i][j].Type == PieceType.Black);
             }
