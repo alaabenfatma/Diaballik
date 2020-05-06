@@ -20,7 +20,7 @@ public class Diaballik {
     // Ici pour l'instant, la position est saisie au clavier sous la forme "l c"
     // sans les guillemets
     // comme pour la gauffre
-    
+
     public static Piece getPiece(Terrain tr, PieceType t) {
         Scanner sc = new Scanner(System.in);
         String ligne;
@@ -78,7 +78,14 @@ public class Diaballik {
             System.out.println("Nombre de passes restantes : " + passe_faite);
             System.out.println(
                     "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
-            choix = sc.nextLine().charAt(0);
+
+            String s = sc.nextLine();
+
+            if (s.length() == 0) {
+                System.out.println("Choix invalide");
+                continue;
+            }
+            choix = s.charAt(0);
             switch (choix) {
                 case 'p':
                     // passe
@@ -99,6 +106,12 @@ public class Diaballik {
                     break;
                 case 'm':
                     // mouvement
+
+                    if (nbMove == 0) {
+                        System.out.println("Vous n'avez plus de mouvements");
+                        nbMove = 0;
+                        continue;
+                    }
                     from = getPiece(tr, PieceType.White);
                     ArrayList<Position> ar = from.PossiblePositions();
                     System.out.println("Positions possibles : " + ar);
@@ -112,7 +125,7 @@ public class Diaballik {
                             nbMove -= 2;
                         } else {
                             // Sinon 1 seul ou 2 selon si on a avancé d'une ou de deux cases
-                            nbMove -= Math.abs((from.Position.l + from.Position.c)-(to.Position.l + to.Position.c));
+                            nbMove -= Math.abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
                         }
                         if (nbMove >= 0) {
                             from.move(to.Position.l, to.Position.c);
@@ -153,7 +166,14 @@ public class Diaballik {
             System.out.println("Nombre de passes restantes : " + passe_faite);
             System.out.println(
                     "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
-            choix = sc.nextLine().charAt(0);
+
+            String s = sc.nextLine();
+
+            if (s.length() == 0) {
+                System.out.println("Choix invalide");
+                continue;
+            }
+            choix = s.charAt(0);
             switch (choix) {
                 case 'p':
                     // passe
@@ -186,7 +206,7 @@ public class Diaballik {
                             nbMove -= 2;
                         } else {
                             // Sinon 1 seul ou 2 selon si on a avancé d'une ou de deux cases
-                            nbMove -= Math.abs((from.Position.l + from.Position.c)-(to.Position.l + to.Position.c));
+                            nbMove -= Math.abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
                         }
                         if (nbMove >= 0) {
                             from.move(to.Position.l, to.Position.c);
@@ -213,8 +233,8 @@ public class Diaballik {
         sc.close();
     }
 
-    private static void test_Random_IA_P(Terrain tr){
-        IA A = new IA(PieceType.Black,tr);
+    private static void test_Random_IA_P(Terrain tr) {
+        IA A = new IA(PieceType.Black, tr);
         PieceType tour = PieceType.White;
         Boolean victoire = false;
         int nbMove = 2; // on a droit à deux mouvements max
@@ -223,18 +243,25 @@ public class Diaballik {
         char choix;
         Piece from;
         Piece to;
-        while(!victoire){
+        while (!victoire) {
             System.out.println(" Tour = " + tour);
-            if(tour == PieceType.White){
+            if (tour == PieceType.White) {
                 // tant qu'il y a un truc à faire
                 while (nbMove > 0 || passe_faite > 0) {
                     tr.PrintTerrain();
-                    System.out.println("tour des " + tour );
+                    System.out.println("tour des " + tour);
                     System.out.println("Nombre de mouvements restants : " + nbMove);
                     System.out.println("Nombre de passes restantes : " + passe_faite);
                     System.out.println(
                             "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
-                    choix = sc.nextLine().charAt(0);
+
+                    String s = sc.nextLine();
+
+                    if (s.length() == 0) {
+                        System.out.println("Choix invalide");
+                        continue;
+                    }
+                    choix = s.charAt(0);
                     switch (choix) {
                         case 'p':
                             // passe
@@ -248,7 +275,8 @@ public class Diaballik {
                                 if (to.Position.l == tr.taille() - 1) {
                                     System.out.println("Les noirs ont gagnés !");
                                     victoire = true;
-                                    //System.exit(0); // La j'ai fais un system.exit mais on changera plus tard si il le faut
+                                    // System.exit(0); // La j'ai fais un system.exit mais on changera plus tard si
+                                    // il le faut
                                 }
                             } else {
                                 System.out.println("Vous ne pourrez faire qu'une seule passe");
@@ -256,6 +284,12 @@ public class Diaballik {
                             break;
                         case 'm':
                             // mouvement
+                            System.out.println("nb moves : " + nbMove);
+                            if (nbMove == 0) {
+                                System.out.println("Vous n'avez plus de mouvements");
+                                nbMove = 0;
+                                continue;
+                            }
                             from = getPiece(tr, tour);
                             ArrayList<Position> ar = from.PossiblePositions();
                             System.out.println("Positions possibles : " + ar);
@@ -268,7 +302,8 @@ public class Diaballik {
                                     nbMove -= 2;
                                 } else {
                                     // Sinon 1 seul ou deux selon si on a avancé d'une ou deux cases
-                                    nbMove -= Math.abs((from.Position.l + from.Position.c)-(to.Position.l + to.Position.c));
+                                    nbMove -= Math
+                                            .abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
                                 }
                                 if (nbMove >= 0) {
                                     from.move(to.Position.l, to.Position.c);
@@ -292,8 +327,7 @@ public class Diaballik {
                     }
                 }
                 tour = PieceType.Black;
-            }
-            else{
+            } else {
                 A.Random_IA();
                 victoire = A.Victoire_IA;
                 tour = PieceType.White;
@@ -303,37 +337,40 @@ public class Diaballik {
         }
         sc.close();
     }
-    private static void test_Random_IA_IA(Terrain tr){
-        IA A = new IA(PieceType.Black,tr);
-        IA B = new IA(PieceType.White,tr);
+
+    private static void test_Random_IA_IA(Terrain tr) {
+        IA A = new IA(PieceType.Black, tr);
+        IA B = new IA(PieceType.White, tr);
         PieceType tour = PieceType.White;
         Boolean victoire = false;
-        while(!victoire){
+        while (!victoire) {
             tr.PrintTerrain();
             System.out.println(" Tour = " + tour);
-            if(tour == PieceType.White){
+            if (tour == PieceType.White) {
                 B.Random_IA();
                 victoire = B.Victoire_IA;
                 tour = PieceType.Black;
-            }
-            else{
+            } else {
                 A.Random_IA();
                 victoire = A.Victoire_IA;
                 tour = PieceType.White;
             }
         }
-        if(A.Victoire_IA){System.out.println("Victoire IA A");}
-        else{System.out.println("Victoire IA B");}
+        if (A.Victoire_IA) {
+            System.out.println("Victoire IA A");
+        } else {
+            System.out.println("Victoire IA B");
+        }
     }
-    
-    public static void main(String[] args) {
-        
-        //Terrain tr = new Terrain();
-        //tr.Create();
-        //test_Random_IA_P(tr);
-        //test_Random_IA_IA(tr);
-        //white_to_move(tr);
 
-        ihm i = new ihm();
+    public static void main(String[] args) {
+
+        Terrain tr = new Terrain();
+        tr.Create();
+        // test_Random_IA_P(tr);
+        // test_Random_IA_IA(tr);
+        white_to_move(tr);
+
+        // ihm i = new ihm();
     }
 }
