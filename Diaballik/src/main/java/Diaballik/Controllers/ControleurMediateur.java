@@ -18,13 +18,8 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	@Override
 	public void clicSouris(int l, int c) {
-		/*
-		 * if(jeu.tr._terrain[l][c].Type == PieceType.Black && jeu.joueur ==
-		 * Joueur.Joueur1 ){ if (jeu.tr._terrain[l][c].HasBall == true) passe(l, c);
-		 * else move(l,c);
-		 * 
-		 * }
-		 */
+		System.out.printf("Mouse position : (%d,%d)\n", l,c);
+		jeu.SelectionPiece(l,c);
 
 	}
 
@@ -35,12 +30,19 @@ public class ControleurMediateur implements CollecteurEvenements {
 	public void refait() {
 		// TODO : refait
 	}
+	
+	public void finTour(){
+		jeu.FinTour();
+	}
 
 	@Override
 	public void toucheClavier(String touche) {
 		switch (touche) {
 			case "Undo":
 				annule();
+				break;
+			case "FinTour":
+				finTour();
 				break;
 			case "Redo":
 				refait();

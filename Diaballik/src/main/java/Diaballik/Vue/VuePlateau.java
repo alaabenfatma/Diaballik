@@ -18,6 +18,7 @@ public class VuePlateau extends PlateauGraphique {
     VuePlateau(Jeu jeu) {
         try {
             j = jeu;
+            j.ajouteObservateur(this);
             caseA = ImageIO.read(this.getClass().getResourceAsStream(("img/caseA.png")));
             caseB = ImageIO.read(this.getClass().getResourceAsStream(("img/caseB.png")));
             pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("img/pionA_ballon.png")));
@@ -38,6 +39,9 @@ public class VuePlateau extends PlateauGraphique {
     @Override
     int largeurCase() {
         return largeurCase;
+    }
+
+    private void marque() {
     }
 
     @Override
@@ -77,12 +81,19 @@ public class VuePlateau extends PlateauGraphique {
                 } else if (j.tr._terrain[ligne][colonne].Type == PieceType.White) {
                     if (j.tr._terrain[ligne][colonne].HasBall == true) {
                         tracer(pionB_ballon, x, y, largeurCase, hauteurCase);
-                        tracerCarre(Color.green, x, y, largeurCase, hauteurCase);
-
                     } else {
                         tracer(pionB_bas, x, y, largeurCase, hauteurCase);
                     }
                 }
+                // Traçage des marques
+                if (j.tr._terrain[ligne][colonne].SelectionPasse == true)
+                    tracerCarre(Color.green, x, y, largeurCase, hauteurCase);
+                else if (j.tr._terrain[ligne][colonne].SelectionDeplacement == true)
+                    tracerCarre(Color.yellow, x, y, largeurCase, hauteurCase);
+                else if (j.tr._terrain[ligne][colonne].PossibleDeplacement == true)
+                    tracerCarre(Color.blue, x, y, largeurCase, hauteurCase);
+                else if (j.tr._terrain[ligne][colonne].PossiblePasse == true)
+                    tracerCarre(Color.lightGray, x, y, largeurCase, hauteurCase);
             }
         }
     }
