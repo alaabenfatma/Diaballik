@@ -134,12 +134,4 @@ public class Plateau implements Runnable, Observateur {
         passe.setText("Passe : " + j.joueurCourant.passeDispo );
     }
     
-    public void actionPerformed(ActionEvent arg0) {
-        if(arg0.getSource() == boutonMenu) {
-            MenuEnJeu m = new MenuEnJeu(frame);
-            frame.setContentPane(m);
-            frame.repaint();
-		    frame.revalidate();
-        }
-    }
 }

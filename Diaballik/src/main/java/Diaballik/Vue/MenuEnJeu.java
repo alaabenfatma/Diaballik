@@ -8,7 +8,7 @@ import javax.swing.*;
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.Jeu;
 
-public class MenuEnJeu extends JPanel implements ActionListener{
+public class MenuEnJeu extends JPanel{
     JButton reprendre = new JButton("Reprendre");
 	JButton sauvegarde = new JButton("Sauvegarder");
 	JButton nouvelle = new JButton("Nouvelle Partie");
@@ -18,7 +18,7 @@ public class MenuEnJeu extends JPanel implements ActionListener{
 	playSound ps = new playSound();
     
     
-    public MenuEnJeu(JFrame frame){
+    public MenuEnJeu(final JFrame frame){
         this.setSize(700,530);
         this.setLayout(null);
         reprendre.setBounds(280,50,150,50);
@@ -34,30 +34,59 @@ public class MenuEnJeu extends JPanel implements ActionListener{
         this.add(charger);
         this.add(menup);
         this.add(quit);
-        
-        reprendre.addActionListener(this);
-        sauvegarde.addActionListener(this);
-        nouvelle.addActionListener(this);
-        charger.addActionListener(this);
-        quit.addActionListener(this);
-        menup.addActionListener(this);
+
         this.setVisible(true);
+        
+        reprendre.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            } 
+        } );
+        
+        sauvegarde.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            } 
+        } );
 
+        nouvelle.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                frame.setVisible(false);
+                ihm i = new ihm();
+                i.fenetreNouvellePartie();
+            } 
+        } );
 
+        charger.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                frame.setVisible(false);
+                ihm i = new ihm();
+                ChargerMenu m = new ChargerMenu(i);
+                i.setContentPane(m);
+                i.repaint();
+                i.revalidate();
+            } 
+        } );
+        
+        menup.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                frame.setVisible(false);
+                ihm i = new ihm();
+                i.retourMenuPrincipal();
+            } 
+        } );
+
+        quit.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                frame.dispose();
+            } 
+        } );
+
+        
     }
 
    
 
 
-    public void actionPerformed(ActionEvent arg0) {
-		
-    	if(arg0.getSource() == quit) {
-    		
-        }
-        if(arg0.getSource() == menup) {
-        	ihm i = new ihm();
-            i.retourMenuPrincipal();
-        }
-    }
+    
     
 }
