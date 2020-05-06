@@ -188,6 +188,72 @@ public class Piece extends JButton implements IPiece {
         return result;
     }
 
+    public ArrayList<Position> PossiblePositions(int deplacements) {
+        ArrayList<Position> result = new ArrayList<Position>();
+
+        if (((this.Position.l - 1) >= 0)
+                && !this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c)) && deplacements>=1) {
+            result.add(new Position(this.Position.l - 1, this.Position.c));
+            if (((this.Position.l - 2) >= 0)
+                    && !this.Parent.isOccupied(new Position(this.Position.l - 2, this.Position.c)) && deplacements>=2) {
+                result.add(new Position(this.Position.l - 2, this.Position.c));
+            }
+        }
+        if (((this.Position.l + 1) < this.Parent.taille())
+                && !this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c)) && deplacements>=1) {
+            result.add(new Position(this.Position.l + 1, this.Position.c));
+            if (((this.Position.l + 2) < this.Parent.taille())
+                    && !this.Parent.isOccupied(new Position(this.Position.l + 2, this.Position.c)) && deplacements>=2) {
+                result.add(new Position(this.Position.l + 2, this.Position.c));
+            }
+        }
+        if (((this.Position.c + 1) < this.Parent.taille())
+                && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c + 1)) && deplacements>=1) {
+            result.add(new Position(this.Position.l, this.Position.c + 1));
+            if (((this.Position.c + 2) < this.Parent.taille())
+                    && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c + 2)) && deplacements>=2) {
+                result.add(new Position(this.Position.l, this.Position.c + 2));
+            }
+        }
+        if (((this.Position.c - 1) >= 0)
+                && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c - 1)) && deplacements>=1) {
+            result.add(new Position(this.Position.l, this.Position.c - 1));
+            if (((this.Position.c - 2) >= 0)
+                    && !this.Parent.isOccupied(new Position(this.Position.l, this.Position.c - 2)) && deplacements>=2) {
+                result.add(new Position(this.Position.l, this.Position.c - 2));
+            }
+        }
+        if (((this.Position.c - 1) >= 0 && (this.Position.l - 1) >= 0)
+                && !this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c - 1)) && deplacements>=2) {
+            if (!(this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c))
+                    && this.Parent.isOccupied(new Position(this.Position.l, this.Position.c - 1)))) {
+                result.add(new Position(this.Position.l - 1, this.Position.c - 1));
+            }
+        }
+        if (((this.Position.c + 1) < this.Parent.taille() && (this.Position.l + 1) < this.Parent.taille())
+                && !this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c + 1)) && deplacements>=2) {
+            if (!(this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c))
+                    && this.Parent.isOccupied(new Position(this.Position.l, this.Position.c + 1)))) {
+                result.add(new Position(this.Position.l + 1, this.Position.c + 1));
+            }
+        }
+        if (((this.Position.c - 1) >= 0 && (this.Position.l + 1) < this.Parent.taille())
+                && !this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c - 1)) && deplacements>=2) {
+            if (!(this.Parent.isOccupied(new Position(this.Position.l, this.Position.c - 1))
+                    && this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c)))) {
+                result.add(new Position(this.Position.l + 1, this.Position.c - 1));
+            }
+        }
+        if (((this.Position.c + 1) < this.Parent.taille() && (this.Position.l - 1) >= 0)
+                && !this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c + 1)) && deplacements>=2) {
+            if (!(this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c))
+                    && this.Parent.isOccupied(new Position(this.Position.l, this.Position.c + 1)))) {
+                result.add(new Position(this.Position.l - 1, this.Position.c + 1));
+            }
+        }
+        return result;
+    }
+
     public ArrayList<Position> passesPossibles() {
         int i = this.Position.l;
         int j = this.Position.c;
