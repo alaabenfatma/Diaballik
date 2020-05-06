@@ -15,7 +15,9 @@ public class MenuEnJeu extends JPanel implements ActionListener{
 	JButton charger = new JButton("Charger");
 	JButton menup = new JButton("Menu principal");
     JButton quit = new JButton("Quitter");
-
+	playSound ps = new playSound();
+    
+    
     public MenuEnJeu(JFrame frame){
         this.setSize(700,530);
         this.setLayout(null);
@@ -25,13 +27,20 @@ public class MenuEnJeu extends JPanel implements ActionListener{
         charger.setBounds(280,275,150,50);
         menup.setBounds(280,350,150,50);
         quit.setBounds(280,425,150,50);
+        
         this.add(reprendre);
         this.add(sauvegarde);
         this.add(nouvelle);
         this.add(charger);
         this.add(menup);
         this.add(quit);
-
+        
+        reprendre.addActionListener(this);
+        sauvegarde.addActionListener(this);
+        nouvelle.addActionListener(this);
+        charger.addActionListener(this);
+        quit.addActionListener(this);
+        menup.addActionListener(this);
         this.setVisible(true);
 
 
@@ -41,8 +50,13 @@ public class MenuEnJeu extends JPanel implements ActionListener{
 
 
     public void actionPerformed(ActionEvent arg0) {
-        if(arg0.getSource() == reprendre) {
-            
+		
+    	if(arg0.getSource() == quit) {
+    		
+        }
+        if(arg0.getSource() == menup) {
+        	ihm i = new ihm();
+            i.retourMenuPrincipal();
         }
     }
     

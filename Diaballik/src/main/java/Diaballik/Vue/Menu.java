@@ -100,9 +100,7 @@ public class Menu extends JPanel implements ActionListener{
 		}
 	 	
 		if(arg0.getSource() == button5) {
-			ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
-			msgBox msg = new msgBox();
-			msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", i);
+			i.quit();
 		}
 		
 		if(arg0.getSource() == button7) {

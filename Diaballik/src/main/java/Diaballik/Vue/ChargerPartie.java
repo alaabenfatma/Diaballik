@@ -16,10 +16,23 @@ public class ChargerPartie extends JPanel implements ActionListener{
 	ihm i;
 	Object[][] donnees = {
 		{"Alaa", "Yohan", "20/05/20"},
+		{"Wassim", "Thomas", "21/05/20"},
+		{"Hedi", "Thomas", "21/05/20"},
+		{"Wassim", "IA", "21/05/20"},
+		{"Wassim", "Thomas", "21/05/20"},
+		{"IA", "Thomas", "21/05/20"},
+		{"Wassim", "Ludo", "21/05/20"},
 		{"Wassim", "Thomas", "21/05/20"}
 	};
+	/*Pour la date, il faut recuperer la date de l'os
+	 * et pour il faut rendre chaque ligne cliquable 
+	 * Il faut enregistrer une image à chaque fois qu'on
+	 * sauvegarde pour pouvoir faire l'apercu
+	 * et enfin il faut pouvoir ajouter une fonction qui
+	 * ajoute un ligne dans le tableau lorqu'on enregistre une partie
+	 * et un bouton pour supprimer qq parties*/
 
-	String[] entetes = {"Joueur1", "Joueur2", "Date"};
+	String[] entetes = {"Joueur 1", "Joueur 2", "Date"};
 	public ChargerPartie(ihm ihm) {
 		i = ihm;
 		this.setLayout(null);
