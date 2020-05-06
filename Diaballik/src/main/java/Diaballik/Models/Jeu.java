@@ -259,6 +259,17 @@ public class Jeu extends Observable {
         return res;
     }
 
+    //fin de tour
+    public void endTurn(){
+        joueurCourant.nbMove = 2;
+        joueurCourant.passeDispo = 1;
+        if (joueurCourant.n == TypeJoueur.Joueur1) {
+            joueurCourant = joueur2;
+        } else {
+            joueurCourant = joueur1; // a modifier pour joueur contre l'ia
+        }
+        move();
+    }
     // Ici encore on utilise l'entrée standard. A modifier plus tard pour l'ihm et
     // l'ia
     public void move() {
@@ -274,14 +285,7 @@ public class Jeu extends Observable {
         while (!gameOver) {
             if ((joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)) {
                 // end turn
-                joueurCourant.nbMove = 2;
-                joueurCourant.passeDispo = 1;
-                if (joueurCourant.n == TypeJoueur.Joueur1) {
-                    joueurCourant = joueur2;
-                } else {
-                    joueurCourant = joueur1; // a modifier pour joueur contre l'ia
-                }
-                move();
+                endTurn();
             }
             tr.PrintTerrain();
             System.out.println("tour des " + joueurCourant.couleur);
@@ -336,14 +340,7 @@ public class Jeu extends Observable {
                     break;
                 case 'q':
                     // end turn
-                    joueurCourant.nbMove = 2;
-                    joueurCourant.passeDispo = 1;
-                    if (joueurCourant.n == TypeJoueur.Joueur1) {
-                        joueurCourant = joueur2;
-                    } else {
-                        joueurCourant = joueur1; // a modifier pour joueur contre l'ia
-                    }
-                    move();
+                    endTurn();
                     break;
                 default:
                     System.out.println("Choix invalide");
