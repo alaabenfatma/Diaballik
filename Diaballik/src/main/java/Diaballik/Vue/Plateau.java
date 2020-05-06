@@ -58,15 +58,20 @@ public class Plateau implements Runnable, Observateur {
         // Bouton Menu
         boutonMenu.setFocusable(false);
         boiteTexte.add(boutonMenu);
-        boiteTexte.add(Box.createRigidArea(new Dimension(0,100)));
-        boutonMenu.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
+        boutonMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int dialogResult = JOptionPane.showConfirmDialog(null,
+                        "Would You Like to Save your Previous Note First?", "Warning", boutonMenu);
+                if (dialogResult == JOptionPane.YES_OPTION) {
+                    // Saving code here
+                }
                 MenuEnJeu m = new MenuEnJeu(frame);
                 frame.setContentPane(m);
                 frame.repaint();
                 frame.revalidate();
-            } 
-          } );
+            }
+        });
 
         // Info joueur
         joueur = new JLabel("Joue : Joueur1");
@@ -116,22 +121,22 @@ public class Plateau implements Runnable, Observateur {
     }
 
     public void toggleFullscreen() {
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		GraphicsDevice device = env.getDefaultScreenDevice();
-		if (maximized) {
-			device.setFullScreenWindow(null);
-			maximized = false;
-		} else {
-			device.setFullScreenWindow(frame);
-			maximized = true;
-		}
-	}
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice device = env.getDefaultScreenDevice();
+        if (maximized) {
+            device.setFullScreenWindow(null);
+            maximized = false;
+        } else {
+            device.setFullScreenWindow(frame);
+            maximized = true;
+        }
+    }
 
     @Override
     public void miseAJour() {
-        joueur.setText("Joue : " + j.joueurCourant.n); 
-        mouvements.setText("Déplacements : "+j.joueurCourant.nbMove); 
-        passe.setText("Passe : " + j.joueurCourant.passeDispo );
+        joueur.setText("Joue : " + j.joueurCourant.n);
+        mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
+        passe.setText("Passe : " + j.joueurCourant.passeDispo);
     }
-    
+
 }

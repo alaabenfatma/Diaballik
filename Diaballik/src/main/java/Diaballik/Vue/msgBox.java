@@ -3,22 +3,27 @@ package Diaballik.Vue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
 public class msgBox {
-	
+
     public static void MessageBox(String msg, String titre, JFrame i) {
-    	 
-    	JFrame frame = new JFrame();
-        int result = JOptionPane.showConfirmDialog(frame, msg, titre, JOptionPane.YES_NO_OPTION, 
-        		JOptionPane.WARNING_MESSAGE);
+
+        JFrame frame = new JFrame();
+        int result = JOptionPane.showConfirmDialog(frame, msg, titre, JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
-        	/*frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        	i.dispose();
-            i.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
+            /*
+             * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); i.dispose();
+             * i.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+             */
             System.exit(0);
-        } 
-        else if (result == JOptionPane.NO_OPTION) {
-        	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        } else if (result == JOptionPane.NO_OPTION) {
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         }
+    }
+
+    public static int msgYesNo(String msg, String titre,JFrame jf) {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(jf, msg, "Title on Box", dialogButton);
+        return dialogResult; //0 = yes, 1 = no
     }
 }
