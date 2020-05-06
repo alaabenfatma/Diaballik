@@ -271,7 +271,18 @@ public class Jeu extends Observable {
         Piece from;
         Piece to;
         // tant qu'il y a un truc à faire
-        while (true) {
+        while (!gameOver) {
+            if ((joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)) {
+                // end turn
+                joueurCourant.nbMove = 2;
+                joueurCourant.passeDispo = 1;
+                if (joueurCourant.n == TypeJoueur.Joueur1) {
+                    joueurCourant = joueur2;
+                } else {
+                    joueurCourant = joueur1; // a modifier pour joueur contre l'ia
+                }
+                move();
+            }
             tr.PrintTerrain();
             System.out.println("tour des " + joueurCourant.couleur);
             System.out.println("Nombre de mouvements restants : " + joueurCourant.nbMove);
