@@ -1,5 +1,6 @@
 package Diaballik.Vue;
 
+import java.awt.*;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -14,7 +15,8 @@ import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsDevice;
 
-
+import java.awt.event.*;
+import javax.imageio.ImageIO;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.*;
@@ -126,38 +128,20 @@ public class Plateau implements Runnable, Observateur{
 		}
 	}
 
-    /*
-    //Met a jour l'affichage du joueur en train de joueur sur le plateau
-    public void majJoueur(int j){
-        if(j == 1){
-            joueur.setTitle("Joueur1");
-        }
-        if(j == 2){
-            joueur.setTitle("Joueur2");
-        }
-    }
-    //Met a jour l'affichage du nombre de passe et deplacements restants sur la plateau
-    public void majPasseMouv(coup c, int i){
-        if (c == "passe"){
-            passe.setTitle("Passe : 0");
-        }
-        if (c == "mouvement" && i == 1){
-            mouvements.setTitle("Deplacements : 1");
-        }
-        if (c == "mouvement" && i == 0){
-            mouvements.setTitle("Deplacements : 0");
-        }
-    }
-
-
-
-    */
-    
 	@Override
 	public void miseAJour() {
         /*joueur.setText("Joue : " + j.joueur);
         mouvements.setText("Déplacements : "+ j.nbMove);
         passe.setText("Passe : " + j.nbPasse );
         */
-	}
+    }
+    
+    public void actionPerformed(ActionEvent arg0) {
+        if(arg0.getSource() == boutonMenu) {
+            MenuEnJeu m = new MenuEnJeu(frame);
+            frame.setContentPane(m);
+            frame.repaint();
+		    frame.revalidate();
+        }
+    }
 }
