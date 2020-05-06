@@ -70,7 +70,7 @@ public class ihm extends JFrame implements ActionListener{
 	
 	public void retourMenuPrincipal() {
 		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
-		this.setSize(700, 500);
+		this.setSize(700, 530);
 		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
 		this.setContentPane(m);
@@ -117,6 +117,12 @@ public class ihm extends JFrame implements ActionListener{
 		this.revalidate();
 	}
 	
+	
+	public void quit() {
+		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		msgBox msg = new msgBox();
+		msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
+	}
 	
 	public void actionPerformed(ActionEvent arg0) {
 		
