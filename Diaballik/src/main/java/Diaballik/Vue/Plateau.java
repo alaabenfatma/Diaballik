@@ -66,6 +66,14 @@ public class Plateau implements Runnable, Observateur{
         boutonMenu.setFocusable(false);
         boiteTexte.add(boutonMenu);
         boiteTexte.add(Box.createRigidArea(new Dimension(0,100)));
+        boutonMenu.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+                MenuEnJeu m = new MenuEnJeu(frame);
+                frame.setContentPane(m);
+                frame.repaint();
+                frame.revalidate();
+            } 
+          } );
 
 		// Info joueur
 		joueur = new JLabel("Joue : Joueur1");

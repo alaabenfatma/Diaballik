@@ -19,12 +19,12 @@ public class MenuEnJeu extends JPanel implements ActionListener{
     public MenuEnJeu(JFrame frame){
         this.setSize(700,530);
         this.setLayout(null);
-        reprendre.setBounds(350,150,120,40);
-        sauvegarde.setBounds(350,250,120,40);
-        nouvelle.setBounds(350,350,120,40);
-        charger.setBounds(350,450,120,40);
-        menup.setBounds(350,550,120,40);
-        quit.setBounds(350,650,120,40);
+        reprendre.setBounds(280,50,150,50);
+        sauvegarde.setBounds(280,125,150,50);
+        nouvelle.setBounds(280,200,150,50);
+        charger.setBounds(280,275,150,50);
+        menup.setBounds(280,350,150,50);
+        quit.setBounds(280,425,150,50);
         this.add(reprendre);
         this.add(sauvegarde);
         this.add(nouvelle);
