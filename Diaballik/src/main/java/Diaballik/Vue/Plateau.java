@@ -126,6 +126,32 @@ public class Plateau implements Runnable, Observateur{
 		}
 	}
 
+    /*
+    //Met a jour l'affichage du joueur en train de joueur sur le plateau
+    public void majJoueur(int j){
+        if(j == 1){
+            joueur.setTitle("Joueur1");
+        }
+        if(j == 2){
+            joueur.setTitle("Joueur2");
+        }
+    }
+    //Met a jour l'affichage du nombre de passe et deplacements restants sur la plateau
+    public void majPasseMouv(coup c, int i){
+        if (c == "passe"){
+            passe.setTitle("Passe : 0");
+        }
+        if (c == "mouvement" && i == 1){
+            mouvements.setTitle("Deplacements : 1");
+        }
+        if (c == "mouvement" && i == 0){
+            mouvements.setTitle("Deplacements : 0");
+        }
+    }
+
+
+
+    */
     
 	@Override
 	public void miseAJour() {
