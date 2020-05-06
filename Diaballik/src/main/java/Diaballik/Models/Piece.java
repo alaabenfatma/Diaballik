@@ -159,19 +159,31 @@ public class Piece extends JButton implements IPiece {
         }
         if (((this.Position.c - 1) >= 0 && (this.Position.l - 1) >= 0)
                 && !this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c - 1))) {
-            result.add(new Position(this.Position.l - 1, this.Position.c - 1));
+            if (!(this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c))
+                    && this.Parent.isOccupied(new Position(this.Position.l, this.Position.c - 1)))) {
+                result.add(new Position(this.Position.l - 1, this.Position.c - 1));
+            }
         }
         if (((this.Position.c + 1) < this.Parent.taille() && (this.Position.l + 1) < this.Parent.taille())
                 && !this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c + 1))) {
-            result.add(new Position(this.Position.l + 1, this.Position.c + 1));
+            if (!(this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c))
+                    && this.Parent.isOccupied(new Position(this.Position.l, this.Position.c + 1)))) {
+                result.add(new Position(this.Position.l + 1, this.Position.c + 1));
+            }
         }
         if (((this.Position.c - 1) >= 0 && (this.Position.l + 1) < this.Parent.taille())
                 && !this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c - 1))) {
-            result.add(new Position(this.Position.l + 1, this.Position.c - 1));
+            if (!(this.Parent.isOccupied(new Position(this.Position.l, this.Position.c - 1))
+                    && this.Parent.isOccupied(new Position(this.Position.l + 1, this.Position.c)))) {
+                result.add(new Position(this.Position.l + 1, this.Position.c - 1));
+            }
         }
         if (((this.Position.c + 1) < this.Parent.taille() && (this.Position.l - 1) >= 0)
                 && !this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c + 1))) {
-            result.add(new Position(this.Position.l - 1, this.Position.c + 1));
+            if (!(this.Parent.isOccupied(new Position(this.Position.l - 1, this.Position.c))
+                    && this.Parent.isOccupied(new Position(this.Position.l, this.Position.c + 1)))) {
+                result.add(new Position(this.Position.l - 1, this.Position.c + 1));
+            }
         }
         return result;
     }
