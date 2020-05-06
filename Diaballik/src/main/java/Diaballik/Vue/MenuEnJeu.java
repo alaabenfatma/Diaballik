@@ -79,8 +79,9 @@ public class MenuEnJeu extends JPanel{
 
         quit.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                frame.dispose();
+            	ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+        		msgBox msg = new msgBox();
+        		msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", frame);
             } 
         } );
 
