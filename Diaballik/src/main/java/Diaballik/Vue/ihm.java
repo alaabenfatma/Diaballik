@@ -42,7 +42,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreNouvellePartie() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		NewGame ng = new NewGame(this);		
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
@@ -51,7 +51,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 
 	public void fenetreChargerPartie() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		ChargerPartie cp = new ChargerPartie(this);		
 		this.setContentPane(cp);
 		this.setTitle("Charger partie");
@@ -60,7 +60,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreJouerEnReseau() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		JouerReseau jr = new JouerReseau(this);
 		this.setContentPane(jr);
 		this.setTitle("Jouer en réseau");
@@ -69,7 +69,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void retourMenuPrincipal() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		this.setSize(700, 530);
 		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
@@ -80,7 +80,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreCreerPartieReseau() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		CreerPartieReseau crr = new CreerPartieReseau(this);
 		this.setContentPane(crr);
 		this.setTitle("Créer une partie en réseau");
@@ -89,7 +89,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreRejoindrePartieReseau() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
 		this.setContentPane(rpr);
 		this.setTitle("Rejoindre une partie");
@@ -98,7 +98,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreAttenteJoueurReseau() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		AttenteJoueurReseau ajr = new AttenteJoueurReseau(this);
 		this.setContentPane(ajr);
 		this.setTitle("Attente du 2ème joueur");
@@ -107,7 +107,7 @@ public class ihm extends JFrame implements ActionListener{
 	}
 	
 	public void fenetreRegles() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		this.setSize(800, 620);
 		this.setLocationRelativeTo(null);
 		Regles r = new Regles(this);
@@ -119,7 +119,7 @@ public class ihm extends JFrame implements ActionListener{
 	
 	
 	public void quit() {
-		ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+		ps.play("son/buttonClick.wav");
 		msgBox msg = new msgBox();
 		msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
 	}

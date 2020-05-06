@@ -8,7 +8,7 @@ public class playSound {
 	
 	public void play(String soundName){
 	  try {
-		  AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(soundName).getAbsoluteFile( ));
+		  AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResourceAsStream(soundName));
 		  Clip clip = AudioSystem.getClip( );
 		  clip.open(audioInputStream);
 		  clip.start( );
