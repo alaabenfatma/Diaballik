@@ -51,7 +51,10 @@ public class MenuEnJeu extends JPanel{
             public void actionPerformed(ActionEvent e) { 
                 frame.setVisible(false);
                 ihm i = new ihm();
-                i.fenetreNouvellePartie();
+                NewGameMenu m = new NewGameMenu(i);   
+                i.setContentPane(m);
+                i.repaint();
+                i.revalidate();      
             } 
         } );
 
