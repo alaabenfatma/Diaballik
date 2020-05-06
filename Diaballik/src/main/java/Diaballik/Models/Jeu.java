@@ -89,6 +89,8 @@ public class Jeu extends Observable {
         else {
             from = to = null;
         }
+        if (joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)
+            FinTour();
         metAJour();
 
     }
@@ -99,7 +101,7 @@ public class Jeu extends Observable {
         Piece select = tr._terrain[l][c];
         System.out.printf("Selection déplacement : Piece position (%d,%d)\n", select.Position.l, select.Position.c);
         listeMarque.add(new Position(l, c));
-        listePositionsPossibles = from.PossiblePositions();
+        listePositionsPossibles = from.PossiblePositions(joueurCourant.nbMove);
         for (Position pos : listePositionsPossibles) {
             int li = pos.l;
             int co = pos.c;
@@ -112,12 +114,14 @@ public class Jeu extends Observable {
     public void SelectionPasse(Piece select) {
         getPiecePos(select).SelectionPasse = true;
         listeMarque.add(select.Position);
-        ArrayList<Position> ar = from.passesPossibles();
-        for (Position pos : ar) {
-            int l = pos.l;
-            int c = pos.c;
-            tr._terrain[l][c].PossiblePasse = true;
-            listeMarque.add(pos);
+        if (joueurCourant.passeDispo == 1) {
+            ArrayList<Position> ar = from.passesPossibles();
+            for (Position pos : ar) {
+                int l = pos.l;
+                int c = pos.c;
+                tr._terrain[l][c].PossiblePasse = true;
+                listeMarque.add(pos);
+            }
         }
     }
 
@@ -259,8 +263,8 @@ public class Jeu extends Observable {
         return res;
     }
 
-    //fin de tour
-    public void endTurn(){
+    // fin de tour
+    public void endTurn() {
         joueurCourant.nbMove = 2;
         joueurCourant.passeDispo = 1;
         if (joueurCourant.n == TypeJoueur.Joueur1) {
@@ -270,6 +274,7 @@ public class Jeu extends Observable {
         }
         move();
     }
+
     // Ici encore on utilise l'entrée standard. A modifier plus tard pour l'ihm et
     // l'ia
     public void move() {
@@ -311,7 +316,7 @@ public class Jeu extends Observable {
                 case 'm':
                     // mouvement
                     from = getPiece(joueurCourant.couleur);
-                    ArrayList<Position> ar = from.PossiblePositions();
+                    ArrayList<Position> ar = from.PossiblePositions(joueurCourant.nbMove);
                     System.out.println("Positions possibles : " + ar);
                     to = getPiece(PieceType.Empty);
                     // On verifie si c est bien un mouvement legal

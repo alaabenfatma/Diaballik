@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChargerMenu extends JPanel implements ActionListener{
+public class ChargerMenu extends JPanel {
 	
 	JLabel titre = new JLabel("Charger partie");
 	JLabel save = new JLabel("Sauvegardes");
@@ -33,6 +33,7 @@ public class ChargerMenu extends JPanel implements ActionListener{
 	 * et un bouton pour supprimer qq parties*/
 
 	String[] entetes = {"Joueur 1", "Joueur 2", "Date"};
+	
 	public ChargerMenu(ihm ihm) {
 		i = ihm;
 		this.setLayout(null);
@@ -46,7 +47,20 @@ public class ChargerMenu extends JPanel implements ActionListener{
 		
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
-		retour.addActionListener(this);		
+		
+		jouer.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            } 
+        } );
+		
+		retour.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	MenuEnJeu m = new MenuEnJeu(i);
+                i.setContentPane(m);
+                i.repaint();
+                i.revalidate();
+            } 
+        } );
 		
 		this.add(jouer);
 		this.add(retour);
@@ -57,16 +71,5 @@ public class ChargerMenu extends JPanel implements ActionListener{
 		this.setVisible(true);
 
 	}
-	
-	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == retour) {
-			MenuEnJeu m = new MenuEnJeu(i);
-            i.setContentPane(m);
-            i.repaint();
-            i.revalidate();
-		}
-		if(arg0.getSource() == jouer) {
-			
-		}
-	}
 }
+
