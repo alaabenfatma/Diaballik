@@ -78,7 +78,7 @@ public class Diaballik {
             System.out.println("Nombre de passes restantes : " + passe_faite);
             System.out.println(
                     "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
-            choix = sc.nextLine().charAt(0);
+            choix = sc.nextLine().toCharArray()[0];
             switch (choix) {
                 case 'p':
                     // passe
@@ -99,6 +99,12 @@ public class Diaballik {
                     break;
                 case 'm':
                     // mouvement
+                   
+                    if(nbMove == 0){
+                        System.out.println("Vous n'avez plus de mouvements");
+                        nbMove = 0;
+                        continue;
+                    }
                     from = getPiece(tr, PieceType.White);
                     ArrayList<Position> ar = from.PossiblePositions();
                     System.out.println("Positions possibles : " + ar);
@@ -256,6 +262,12 @@ public class Diaballik {
                             break;
                         case 'm':
                             // mouvement
+                            System.out.println("nb moves : "+nbMove);
+                            if(nbMove==0){
+                                System.out.println("Vous n'avez plus de mouvements");
+                                nbMove = 0;
+                                continue;
+                            }
                             from = getPiece(tr, tour);
                             ArrayList<Position> ar = from.PossiblePositions();
                             System.out.println("Positions possibles : " + ar);
@@ -328,12 +340,12 @@ public class Diaballik {
     
     public static void main(String[] args) {
         
-        //Terrain tr = new Terrain();
-        //tr.Create();
-        //test_Random_IA_P(tr);
+        Terrain tr = new Terrain();
+        tr.Create();
+        test_Random_IA_P(tr);
         //test_Random_IA_IA(tr);
         //white_to_move(tr);
 
-        ihm i = new ihm();
+        //ihm i = new ihm();
     }
 }
