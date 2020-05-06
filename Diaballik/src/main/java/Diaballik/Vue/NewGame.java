@@ -167,7 +167,7 @@ public class NewGame extends JPanel implements ActionListener{
 				first = false; //joueur 2
 			}
 			if(arg0.getSource() == jouer) {
-				ps.play("src/main/java/Diaballik/Vue/son/buttonClick.wav");
+				ps.play("son/buttonClick.wav");
 				SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);
 				Jeu j = new Jeu();
