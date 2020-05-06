@@ -99,7 +99,7 @@ public class Jeu extends Observable {
         Piece select = tr._terrain[l][c];
         System.out.printf("Selection déplacement : Piece position (%d,%d)\n", select.Position.l, select.Position.c);
         listeMarque.add(new Position(l, c));
-        listePositionsPossibles = from.PossiblePositions();
+        listePositionsPossibles = from.PossiblePositions(joueurCourant.nbMove);
         for (Position pos : listePositionsPossibles) {
             int li = pos.l;
             int co = pos.c;
@@ -311,7 +311,7 @@ public class Jeu extends Observable {
                 case 'm':
                     // mouvement
                     from = getPiece(joueurCourant.couleur);
-                    ArrayList<Position> ar = from.PossiblePositions();
+                    ArrayList<Position> ar = from.PossiblePositions(joueurCourant.nbMove);
                     System.out.println("Positions possibles : " + ar);
                     to = getPiece(PieceType.Empty);
                     // On verifie si c est bien un mouvement legal
