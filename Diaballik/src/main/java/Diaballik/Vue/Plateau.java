@@ -61,10 +61,9 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int dialogResult = JOptionPane.showConfirmDialog(null,
-                        "Would You Like to Save your Previous Note First?", "Warning", boutonMenu);
-                if (dialogResult == JOptionPane.YES_OPTION) {
-                    // Saving code here
+                int choice = msgBox.msgYesNo("Voulez-vous quitter?", "Confirmation");
+                if(choice==0){
+                    return;
                 }
                 MenuEnJeu m = new MenuEnJeu(frame);
                 frame.setContentPane(m);

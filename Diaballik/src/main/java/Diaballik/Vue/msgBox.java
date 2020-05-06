@@ -21,9 +21,9 @@ public class msgBox {
         }
     }
 
-    public static int msgYesNo(String msg, String titre,JFrame jf) {
+    public static int msgYesNo(String msg, String titre) {
         int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(jf, msg, "Title on Box", dialogButton);
+        int dialogResult = JOptionPane.showConfirmDialog(null, msg, "Title on Box", dialogButton);
         return dialogResult; //0 = yes, 1 = no
     }
 }
