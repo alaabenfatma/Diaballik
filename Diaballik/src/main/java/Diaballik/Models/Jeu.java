@@ -89,6 +89,8 @@ public class Jeu extends Observable {
         else {
             from = to = null;
         }
+        if (joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)
+            FinTour();
         metAJour();
 
     }
