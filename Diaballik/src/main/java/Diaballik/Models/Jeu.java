@@ -112,12 +112,14 @@ public class Jeu extends Observable {
     public void SelectionPasse(Piece select) {
         getPiecePos(select).SelectionPasse = true;
         listeMarque.add(select.Position);
-        ArrayList<Position> ar = from.passesPossibles();
-        for (Position pos : ar) {
-            int l = pos.l;
-            int c = pos.c;
-            tr._terrain[l][c].PossiblePasse = true;
-            listeMarque.add(pos);
+        if (joueurCourant.passeDispo == 1) {
+            ArrayList<Position> ar = from.passesPossibles();
+            for (Position pos : ar) {
+                int l = pos.l;
+                int c = pos.c;
+                tr._terrain[l][c].PossiblePasse = true;
+                listeMarque.add(pos);
+            }
         }
     }
 
@@ -259,8 +261,8 @@ public class Jeu extends Observable {
         return res;
     }
 
-    //fin de tour
-    public void endTurn(){
+    // fin de tour
+    public void endTurn() {
         joueurCourant.nbMove = 2;
         joueurCourant.passeDispo = 1;
         if (joueurCourant.n == TypeJoueur.Joueur1) {
@@ -270,6 +272,7 @@ public class Jeu extends Observable {
         }
         move();
     }
+
     // Ici encore on utilise l'entrée standard. A modifier plus tard pour l'ihm et
     // l'ia
     public void move() {
