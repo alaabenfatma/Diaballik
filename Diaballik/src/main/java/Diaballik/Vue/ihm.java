@@ -31,7 +31,18 @@ public class ihm extends JFrame implements ActionListener{
 		this.setIconImage(icon); 
 		this.setTitle("Menu principal");
 		this.setSize(700, 530);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter")==0){
+					System.exit(0);
+                }
+                else{
+                    return;
+                }
+			}
+        });
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    m1.add(mi1);
 	    mb.add(m1);
