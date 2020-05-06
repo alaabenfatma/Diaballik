@@ -47,6 +47,18 @@ public class Plateau implements Runnable, Observateur {
     public void run() {
         // Creation d'une fenetre
         frame = new JFrame("Plateau");
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
+			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+				if(msgBox.msgYesNo("Voulez-vous quitter?", "Confirmation")==0){
+					System.exit(0);
+                }
+                else{
+                    return;
+                }
+			}
+        });
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         // Ajout de notre composant de dessin dans la fenetre
         plat = new VuePlateau(j);
 
@@ -61,10 +73,7 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int choice = msgBox.msgYesNo("Voulez-vous quitter?", "Confirmation");
-                if(choice==0){
-                    return;
-                }
+                
                 MenuEnJeu m = new MenuEnJeu(frame);
                 frame.setContentPane(m);
                 frame.repaint();
@@ -113,7 +122,6 @@ public class Plateau implements Runnable, Observateur {
         j.ajouteObservateur(this);
         // chrono.start();
         frame.setSize(700, 600);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
