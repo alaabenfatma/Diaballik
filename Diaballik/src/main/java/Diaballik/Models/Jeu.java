@@ -98,10 +98,8 @@ public class Jeu extends Observable {
                     from = to = null;
                 }
             }
-
             else {
                 Deplacement();
-
             }
         }
         // mauvaise selection, reinitialisation de from et to
@@ -204,9 +202,8 @@ public class Jeu extends Observable {
             }
             if (joueurCourant.nbMove >= 0) {
                 from.move(to.Position.l, to.Position.c);
-                gameOver = antijeu();
+                gameOver = antijeu2();
             } else {
-
                 joueurCourant.nbMove = temp;
             }
         }
@@ -260,6 +257,131 @@ public class Jeu extends Observable {
         }
         return false;
     }
+
+    public boolean antijeu2() {
+        int cpt = 0;
+        int nbAdverseColonne = 0;
+        PieceType actuel = joueurCourant.couleur;
+        PieceType adverse = (actuel == PieceType.Black) ? PieceType.White : PieceType.Black;
+        int l = -1, c = -1;
+
+        if (adverse == PieceType.Black) {
+            for (int colonne = 0; colonne < tr.taille(); colonne++) {
+                nbAdverseColonne = 0;
+                // verifie s'il y a un pion adverse dans la premiere colonne
+                if (colonne == 0) {
+                    for (int ligne = 0; ligne < tr.taille(); ligne++) {
+                        if (tr.getTerrain()[ligne][colonne].Type == adverse) {
+                            nbAdverseColonne++;
+                            l = ligne;
+                            c = colonne;
+                            if ((l + 1 < tr.taille()) && tr.getTerrain()[l + 1][c].Type == actuel)
+                                cpt++;
+                        }
+                        if (nbAdverseColonne > 1)
+                            return false;
+
+                    }
+                    if (nbAdverseColonne == 0)
+                        return false;
+
+                } else {
+                    // verifie dans les cases adjacente à droite la precense de pions adverse
+                    int ligne = l;
+                    if (ligne - 1 >= 0 && tr.getTerrain()[ligne - 1][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne - 1;
+                        c = colonne;
+                        if (l + 1 < tr.taille() && tr.getTerrain()[l + 1][c].Type == actuel)
+                            cpt++;
+                    } else if (tr.getTerrain()[ligne][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne;
+                        c = colonne;
+                        if (l + 1 < tr.taille() && tr.getTerrain()[l + 1][c].Type == actuel)
+                            cpt++;
+                    } else if (ligne + 1 < 7 && tr.getTerrain()[ligne + 1][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne + 1;
+                        c = colonne;
+                        if (l + 1 < tr.taille() && tr.getTerrain()[l + 1][c].Type == actuel)
+                            cpt++;
+                    }
+                    if (nbAdverseColonne != 1)
+                        return false;
+
+                }
+
+            }
+            if (cpt >= 3) {
+                System.out.println("Les noirs ont fait un antijeu");
+                return true;
+            } else
+                return false;
+
+        }
+        // adverse == PieceType.White
+        else {
+            for (int colonne = 0; colonne < tr.taille(); colonne++) {
+                nbAdverseColonne = 0;
+                // verifie s'il y a un pion adverse dans la premiere colonne
+                if (colonne == 0) {
+                    for (int ligne = 0; ligne < tr.taille(); ligne++) {
+                        if (tr.getTerrain()[ligne][colonne].Type == adverse) {
+                            nbAdverseColonne++;
+                            l = ligne;
+                            c = colonne;
+                            if ((l - 1 >= 0) && tr.getTerrain()[l - 1][c].Type == actuel) {
+                                cpt++;
+                            }
+                        }
+                        if (nbAdverseColonne > 1)
+                            return false;
+
+                    }
+                    if (nbAdverseColonne == 0)
+                        return false;
+
+                } else {
+                    // verifie dans les cases adjacente à droite la precense de pions adverse
+                    int ligne = l;
+                    if (ligne - 1 >= 0 && tr.getTerrain()[ligne - 1][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne - 1;
+                        c = colonne;
+                        if ((l - 1 >= 0) && tr.getTerrain()[l - 1][c].Type == actuel) {
+                            cpt++;
+                        }
+                    } else if (tr.getTerrain()[ligne][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne;
+                        c = colonne;
+                        if ((l - 1 >= 0) && tr.getTerrain()[l - 1][c].Type == actuel) {
+                            cpt++;
+                        }
+                    } else if (ligne + 1 < 7 && tr.getTerrain()[ligne + 1][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne + 1;
+                        c = colonne;
+                        if ((l - 1 >= 0) && tr.getTerrain()[l - 1][c].Type == actuel) {
+                            cpt++;
+                        }
+                    }
+                    if (nbAdverseColonne != 1)
+                        return false;
+                }
+            }
+            if (cpt >= 3) {
+                System.out.println("Les blancs ont fait un antijeu");
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+
+
 
     // retourne le type de piece qui a gagnée
     public PieceType victoire() {
