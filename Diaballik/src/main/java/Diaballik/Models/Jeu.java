@@ -78,6 +78,8 @@ public class Jeu extends Observable {
     }
 
     public void SelectionPiece(int l, int c) {
+        if (0 > l || l > 6 || 0 > c || c > 6)
+            return;
         Piece select = tr._terrain[l][c];
         // première sélection d'une piece qui nous appartient si aucune sélection
         // précedemment
@@ -97,8 +99,7 @@ public class Jeu extends Observable {
                     RetirerMarque();
                     from = to = null;
                 }
-            }
-            else {
+            } else {
                 Deplacement();
             }
         }
@@ -113,10 +114,9 @@ public class Jeu extends Observable {
 
     }
 
-
     public void SelectionPieceIA(int l, int c) {
         Piece select = tr._terrain[l][c];
-        if (from == null ) {
+        if (from == null) {
             from = select;
             if ((!select.HasBall))
                 SelectionDeplacement(l, c);
@@ -132,8 +132,7 @@ public class Jeu extends Observable {
                     RetirerMarque();
                     from = to = null;
                 }
-            }
-            else {
+            } else {
                 Deplacement();
             }
         }
@@ -152,7 +151,7 @@ public class Jeu extends Observable {
         tr._terrain[l][c].SelectionDeplacement = true;
         // getPiecePos(select).SelectionDeplacement = true;
         Piece select = tr._terrain[l][c];
-        System.out.printf("Selection déplacement : Piece position (%d,%d)\n", select.Position.l, select.Position.c);
+        //System.out.printf("Selection déplacement : Piece position (%d,%d)\n", select.Position.l, select.Position.c);
         listeMarque.add(new Position(l, c));
         listePositionsPossibles = from.PossiblePositions(joueurCourant.nbMove);
         for (Position pos : listePositionsPossibles) {
@@ -380,9 +379,6 @@ public class Jeu extends Observable {
         }
     }
 
-
-
-
     // retourne le type de piece qui a gagnée
     public PieceType victoire() {
         for (int i = 0; i < tr.taille(); i++) {
@@ -533,8 +529,8 @@ public class Jeu extends Observable {
     }
 
     private void test_Random_IA_IA(Terrain tr) {
-        Random_IA A = new  Random_IA(PieceType.Black, tr);
-        Random_IA B = new  Random_IA(PieceType.White, tr);
+        Random_IA A = new Random_IA(PieceType.Black, tr);
+        Random_IA B = new Random_IA(PieceType.White, tr);
         PieceType tour = PieceType.White;
         Boolean victoire = false;
         while (!victoire) {
@@ -556,29 +552,34 @@ public class Jeu extends Observable {
             System.out.println("Victoire IA B");
         }
     }
+
     /**
      * @author Thomas
      * @param p Pièce que possède la balle
      * @return null Si aucune position trouvé
      * @return res Liste des positions possible
      */
-    public ArrayList<Position> winningMove(Piece p){
+    public ArrayList<Position> winningMove(Piece p) {
         ArrayList<Position> list = p.passesPossibles();
         ArrayList<Position> res = new ArrayList<Position>();
-        int cmp=0;
-        for(int i=0;i<list.size();i++){
-            if(list.get(i).l == 0 && p.Type == PieceType.White){
+        int cmp = 0;
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).l == 0 && p.Type == PieceType.White) {
                 res.add(list.get(i));
                 cmp++;
             }
-            if(list.get(i).l == 6 && p.Type == PieceType.Black){
+            if (list.get(i).l == 6 && p.Type == PieceType.Black) {
                 res.add(list.get(i));
                 cmp++;
             }
         }
-        if(cmp!=0){return res;}
-        else{return null;}
+        if (cmp != 0) {
+            return res;
+        } else {
+            return null;
+        }
     }
+
     public static void main(String[] args) {
         Jeu j = new Jeu();
         j.test_Random_IA_IA(j.tr);
