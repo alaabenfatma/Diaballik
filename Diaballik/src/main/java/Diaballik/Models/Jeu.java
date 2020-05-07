@@ -20,45 +20,58 @@ public class Jeu extends Observable {
     public boolean gameOver = false;
     Piece from = null;
     Piece to = null;
-    private ArrayList<Position> listeMarque = new ArrayList<Position>();;
-    private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();;
+    private ArrayList<Position> listeMarque = new ArrayList<Position>();
+    private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();
+    public boolean IA;
 
     public Jeu() {
         tr = new Terrain();
         tr.Create();
+
+    }
+
+    public void start() {
+
         // Joueur 1 (Là le joueur 1 joue forcement les blancs, mais on pourra modifier
         // dans les
         // parametres ci-dessous)
-        joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
-        // Pareil ici, on pourra changer les parametres pour jouer contre l'IA par
-        // exemple..
-        joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1);
+
+        if (IA) {
+            joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
+            joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1);
+        } else {
+            joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
+            joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1);
+        }
+
         // joueur courant
         joueurCourant = joueur1;
         tr._jeuParent = this;
+
     }
 
     public Jeu(Terrain terrain) {
         tr = terrain;
-        
+
     }
 
     public void FinTour() {
-        if (joueurCourant == joueur1)
+        if (joueurCourant == joueur1) {
             joueurCourant = joueur2;
-        else {
+        } else {
             joueurCourant = joueur1;
         }
         joueurCourant.nbMove = 2;
         joueurCourant.passeDispo = 1;
         metAJour();
+        RetirerMarque();
 
     }
 
     private boolean PieceAuJoueur(Piece select) {
         if (select.Type == PieceType.White && joueurCourant == joueur1)
             return true;
-        else if (select.Type == PieceType.Black && joueurCourant == joueur2)
+        else if (select.Type == PieceType.Black && joueurCourant == joueur2 && !IA)
             return true;
         else
             return false;
@@ -77,8 +90,14 @@ public class Jeu extends Observable {
             }
         } else if (from != null) {
             to = select;
-            if ((from.HasBall) && PieceAuJoueur(select))
-                Passe();
+            if ((from.HasBall) && PieceAuJoueur(select)) {
+                if (from != to)
+                    Passe();
+                else {
+                    RetirerMarque();
+                    from = to = null;
+                }
+            }
 
             else {
                 Deplacement();
@@ -87,6 +106,42 @@ public class Jeu extends Observable {
         }
         // mauvaise selection, reinitialisation de from et to
         else {
+            RetirerMarque();
+            from = to = null;
+        }
+        if (joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)
+            FinTour();
+        metAJour();
+
+    }
+
+
+    public void SelectionPieceIA(int l, int c) {
+        Piece select = tr._terrain[l][c];
+        if (from == null ) {
+            from = select;
+            if ((!select.HasBall))
+                SelectionDeplacement(l, c);
+            else {
+                SelectionPasse(from);
+            }
+        } else if (from != null) {
+            to = select;
+            if ((from.HasBall)) {
+                if (from != to)
+                    Passe();
+                else {
+                    RetirerMarque();
+                    from = to = null;
+                }
+            }
+            else {
+                Deplacement();
+            }
+        }
+        // mauvaise selection, reinitialisation de from et to
+        else {
+            RetirerMarque();
             from = to = null;
         }
         if (joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)
@@ -127,9 +182,10 @@ public class Jeu extends Observable {
 
     public void Passe() {
         if (joueurCourant.passeDispo == 1) {
-            TerrainUtils.passeWrapper(from, to);
-            joueurCourant.passeDispo = 0;
-            gameOver = victoire()!=PieceType.Empty;
+            if (TerrainUtils.passeWrapper2(from, to) == true) {
+                joueurCourant.passeDispo = 0;
+                gameOver = victoire() != PieceType.Empty;
+            }
         }
         RetirerMarque();
         from = to = null;
@@ -205,7 +261,6 @@ public class Jeu extends Observable {
         return false;
     }
 
-   
     // retourne le type de piece qui a gagnée
     public PieceType victoire() {
         for (int i = 0; i < tr.taille(); i++) {
@@ -309,7 +364,7 @@ public class Jeu extends Observable {
                         to = getPiece(joueurCourant.couleur);
                         TerrainUtils.passeWrapper(from, to);
                         joueurCourant.passeDispo = 0;
-                        gameOver = victoire()!=PieceType.Empty;
+                        gameOver = victoire() != PieceType.Empty;
                     } else {
                         System.out.println("Vous ne pourrez faire qu'une seule passe");
                     }
@@ -383,7 +438,7 @@ public class Jeu extends Observable {
     public static void main(String[] args) {
         Jeu j = new Jeu();
         j.test_Random_IA_IA(j.tr);
-        //j.move();
+        // j.move();
     }
 
 }

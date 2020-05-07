@@ -33,6 +33,7 @@ public class NewGame extends JPanel {
 	JButton joueur2 = new JButton("Joueur 2");
 	playSound ps = new playSound();
 	ihm i;
+	Jeu j;
 
 	//Parametres de la nouvelle partie
 	/*
@@ -60,7 +61,9 @@ public class NewGame extends JPanel {
 
 
 	public NewGame(ihm ihm) {
+		
 		i = ihm;
+		j = new Jeu();
 		this.setLayout(null);
 		titre.setBounds(240, 0, 300, 100);
 		duree.setBounds(100, 120, 100, 100);
@@ -92,7 +95,8 @@ public class NewGame extends JPanel {
 		humain.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	humain.setBackground(Color.pink);
-				ordinateur.setBackground(null);		
+				ordinateur.setBackground(null);	
+				j.IA = false;	
             } 
         } );
 		
@@ -101,6 +105,7 @@ public class NewGame extends JPanel {
             	ordinateur.setBackground(Color.pink);
 				humain.setBackground(null);
 				human = false; //joueur IA
+				j.IA = true;
             } 
         } );
 		
@@ -160,10 +165,10 @@ public class NewGame extends JPanel {
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-            	ps.play("son/buttonClick.wav");
+				ps.play("son/buttonClick.wav");
+				j.start();
 				//SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);
-				Jeu j = new Jeu();
 				CollecteurEvenements control = new ControleurMediateur(j);
 				Plateau.demarrer(j,control);
 				
