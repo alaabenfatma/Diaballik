@@ -11,7 +11,7 @@ public class Terrain implements ITerrain {
      * Mettre tous les case = vide
      */
     private int taille;
-
+    public Jeu _jeuParent;
     private void init() {
         this.taille = 7;
         _terrain = new Piece[taille][taille];

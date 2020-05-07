@@ -35,12 +35,12 @@ public class Jeu extends Observable {
         joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1);
         // joueur courant
         joueurCourant = joueur1;
-
+        tr._jeuParent = this;
     }
 
     public Jeu(Terrain terrain) {
         tr = terrain;
-
+        
     }
 
     public void FinTour() {
@@ -129,7 +129,7 @@ public class Jeu extends Observable {
         if (joueurCourant.passeDispo == 1) {
             TerrainUtils.passeWrapper(from, to);
             joueurCourant.passeDispo = 0;
-            gameOver = victoire();
+            gameOver = victoire()!=PieceType.Empty;
         }
         RetirerMarque();
         from = to = null;
@@ -205,20 +205,21 @@ public class Jeu extends Observable {
         return false;
     }
 
-    // retourne vrai si un joueur a gagné
-    public boolean victoire() {
+   
+    // retourne le type de piece qui a gagnée
+    public PieceType victoire() {
         for (int i = 0; i < tr.taille(); i++) {
             if ((tr.getTerrain()[0][i].Type == PieceType.White) && (tr.getTerrain()[0][i].HasBall)) {
                 System.out.println("Les blancs ont gagné !");
-                return true;
+                return PieceType.White;
             }
             if ((tr.getTerrain()[tr.taille() - 1][i].Type == PieceType.Black)
                     && (tr.getTerrain()[tr.taille() - 1][i].HasBall)) {
                 System.out.println("Les noirs ont gagné !");
-                return true;
+                return PieceType.Black;
             }
         }
-        return false;
+        return PieceType.Empty;
     }
 
     // mode textuelle
@@ -308,7 +309,7 @@ public class Jeu extends Observable {
                         to = getPiece(joueurCourant.couleur);
                         TerrainUtils.passeWrapper(from, to);
                         joueurCourant.passeDispo = 0;
-                        gameOver = victoire();
+                        gameOver = victoire()!=PieceType.Empty;
                     } else {
                         System.out.println("Vous ne pourrez faire qu'une seule passe");
                     }
