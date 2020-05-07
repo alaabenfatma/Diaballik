@@ -18,7 +18,7 @@ public class MenuEnJeu extends JPanel{
 	playSound ps = new playSound();
     
     
-    public MenuEnJeu(final JFrame frame){
+    public MenuEnJeu(final JFrame frame, final JFrame plateau){
         this.setSize(700,530);
         this.setLayout(null);
         reprendre.setBounds(280,50,150,50);
@@ -38,7 +38,9 @@ public class MenuEnJeu extends JPanel{
         this.setVisible(true);
         
         reprendre.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
+            public void actionPerformed(ActionEvent e) {
+                plateau.setVisible(true);
+                frame.setVisible(false);
             } 
         } );
         
@@ -50,6 +52,7 @@ public class MenuEnJeu extends JPanel{
         nouvelle.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 frame.setVisible(false);
+                plateau.setVisible(false);
                 ihm i = new ihm();
                 NewGameMenu m = new NewGameMenu(i);   
                 i.setContentPane(m);
@@ -72,6 +75,7 @@ public class MenuEnJeu extends JPanel{
         menup.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
                 frame.setVisible(false);
+                plateau.setVisible(false);
                 ihm i = new ihm();
                 i.retourMenuPrincipal();
             } 

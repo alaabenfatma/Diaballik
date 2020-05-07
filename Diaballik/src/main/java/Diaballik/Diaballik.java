@@ -194,8 +194,8 @@ public class Diaballik {
 
     public static void main(String[] args) {
 
-        Terrain tr = new Terrain();
-        tr.Create();
+        //Terrain tr = new Terrain();
+        //tr.Create();
         //test_Random_IA_P(tr);
         //test_Random_IA_IA(tr);
         //white_to_move(tr);

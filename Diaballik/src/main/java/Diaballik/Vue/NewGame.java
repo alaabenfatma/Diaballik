@@ -164,6 +164,7 @@ public class NewGame extends JPanel {
 				Jeu j = new Jeu();
 				CollecteurEvenements control = new ControleurMediateur(j);
 				Plateau.demarrer(j,control);
+				i.setVisible(false);
 				
             } 
         } );

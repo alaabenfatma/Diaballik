@@ -82,8 +82,8 @@ public class NewGameMenu extends JPanel {
 		joueur1.setBackground(Color.pink);
 		
 		retour.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	MenuEnJeu m = new MenuEnJeu(i);
+            public void actionPerformed(ActionEvent e) {
+            	MenuEnJeu m = new MenuEnJeu(i, i);
                 i.setContentPane(m);
                 i.repaint();
                 i.revalidate();
@@ -167,6 +167,7 @@ public class NewGameMenu extends JPanel {
 				Jeu j = new Jeu();
 				CollecteurEvenements control = new ControleurMediateur(j);
 				Plateau.demarrer(j,control);
+				i.setVisible(false);
 				
             } 
         } );

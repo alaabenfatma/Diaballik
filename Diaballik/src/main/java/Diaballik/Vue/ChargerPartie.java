@@ -54,7 +54,8 @@ public class ChargerPartie extends JPanel {
 		
 		retour.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-            	i.retourMenuPrincipal();
+				i.retourMenuPrincipal();
+	
             } 
         } );
 		

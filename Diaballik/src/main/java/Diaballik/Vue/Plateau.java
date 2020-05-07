@@ -75,11 +75,12 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-                MenuEnJeu m = new MenuEnJeu(frame);
-                frame.setContentPane(m);
-                frame.repaint();
-                frame.revalidate();
+                JFrame f = new JFrame();
+                f.setSize(700,530); 
+                f.setLayout(null);         
+                MenuEnJeu m = new MenuEnJeu(f, frame);
+                f.setContentPane(m);
+                f.setVisible(true);
             }
         });
 

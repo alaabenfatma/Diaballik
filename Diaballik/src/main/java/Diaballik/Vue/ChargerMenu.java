@@ -55,10 +55,11 @@ public class ChargerMenu extends JPanel {
 		
 		retour.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-            	MenuEnJeu m = new MenuEnJeu(i);
+            	MenuEnJeu m = new MenuEnJeu(i, i);
                 i.setContentPane(m);
                 i.repaint();
-                i.revalidate();
+				i.revalidate();
+				
             } 
         } );
 		
