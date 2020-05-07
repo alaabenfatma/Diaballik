@@ -21,8 +21,8 @@ public class TerrainUtilsTest {
 	  public ExpectedException thrownException = ExpectedException.none();
 	  
 	  /**
-	   * On teste si on a 2 pieces a et b sont egales
 	   * @author Hedi
+	   * On teste si on a 2 pieces a et b sont egales
 	   */
 	  @Test
 	  public void testSwapTrue() {
@@ -33,9 +33,9 @@ public class TerrainUtilsTest {
 	  }
 	  
 	  /**
+	   * @author Hedi
 	   * On teste si on a 2 pieces a et b differentes
 	   * en creant un deuxieme terrain t
-	   * @author Hedi
 	   */
 	  @Test
 	  public void testSwapFalse() throws Exception{ 
@@ -48,8 +48,8 @@ public class TerrainUtilsTest {
 	  }
 	  
 	  /**
-	   * On teste si on rentre dans le premier if
 	   * @author Hedi
+	   * On teste si on rentre dans le premier if
 	   */
 	  @Test
 	  public void testExchangeBallTrue1() {
@@ -60,8 +60,8 @@ public class TerrainUtilsTest {
 	  }
 	  
 	  /**
-	   * On teste si on rentre dans le 2eme if
 	   * @author Hedi
+	   * On teste si on rentre dans le 2eme if
 	   */
 	  @Test
 	  public void testExchangeBallTrue2() {
@@ -72,8 +72,8 @@ public class TerrainUtilsTest {
 	  }
 	  
 	  /**
-	   * aucun joueur n'a la balle
 	   * @author Hedi
+	   * aucun joueur n'a la balle
 	   */
 	  @Test
 	  public void testExchangeBallFalse1() {
@@ -85,8 +85,8 @@ public class TerrainUtilsTest {
 	  }
 		  
 	  /**
-	   * On teste si les 2 joueurs sont de la mm equipe
 	   * @author Hedi
+	   * On teste si les 2 joueurs sont de la mm equipe
 	   */
 	  @Test
 	  public void testExchangeBallFalse2() throws Exception{
@@ -98,17 +98,19 @@ public class TerrainUtilsTest {
 	  }
 	  /**
 	   * @author Hedi
+	   * On teste si les 2 joueurs sont de la mm equipe
 	   */
 	  @Test
 	  public void testExchangeBallFalse3() throws Exception{
 		  Piece a = tr.Create()[6][3];
-		  Piece b = tr.Create()[0][4];
+		  Piece b = tr.getTerrain()[0][3];
 		  thrownException.expect(IllegalAccessError.class);
 	      thrownException.expectMessage("Les deux joueurs sont de deux types différents");
 	      TerrainUtils.ExchangeBall(a, b);
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur blanc qui passe la balle au joueur blanc
 	   */
 	  @Test
 	  public void passeWrapper_test(){
@@ -119,16 +121,7 @@ public class TerrainUtilsTest {
 	  }
 	  /**
 	   * @author Thomas
-	   */
-	  @Test
-	  public void passeWrapper_test_1(){
-	    Piece a = tr.Create()[6][3];
-	    Piece b = tr.getTerrain()[6][0];
-	    TerrainUtils.passeWrapper(a,b);
-	    assertTrue((tr.getTerrain()[6][3].HasBall == false) && (tr.getTerrain()[6][0].HasBall == true));
-	  }
-	  /**
-	   * @author Thomas
+	   * Test joueur noir qui passe la balle au joueur noir
 	   */
 	  @Test
 	  public void passeWrapper_test_2(){
@@ -139,6 +132,7 @@ public class TerrainUtilsTest {
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur noir qui passe la balle au joueur noir
 	   */
 	  @Test
 	  public void passeWrapper_test_3(){
@@ -149,6 +143,7 @@ public class TerrainUtilsTest {
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur noir qui passe la balle au joueur noir
 	   */
 	  @Test
 	  public void passeWrapper_test_4(){
@@ -159,6 +154,7 @@ public class TerrainUtilsTest {
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur noir qui passe la balle au joueur noir
 	   */
 	  @Test
 	  public void passeWrapper_test_5(){
@@ -180,12 +176,12 @@ public class TerrainUtilsTest {
 	    a.move(3,3);
 	    b.move(4,2);
 	    b = tr.getTerrain()[6][0];
-	    thrownException.expect(IllegalAccessError.class);
-	    thrownException.expectMessage("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
-	    TerrainUtils.passeWrapper(a,b);
+		TerrainUtils.passeWrapper(a,b);
+		assertTrue(a.HasBall == true && b.HasBall == false);
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur blanc qui passe la balle au joueur noir
 	   */
 	  @Test
 	  public void passeWrapper_test_7(){
@@ -194,28 +190,29 @@ public class TerrainUtilsTest {
 	    a.move(3,3);
 	    b.move(2,2);
 	    b = tr.getTerrain()[0][0];
-	    thrownException.expect(IllegalAccessError.class);
-	    thrownException.expectMessage("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
-	    TerrainUtils.passeWrapper(a,b);
+		TerrainUtils.passeWrapper(a,b);
+		assertTrue(a.HasBall == true && b.HasBall == false);
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur noir qui se passe la balle à lui même
 	   */
 	  @Test
 	  public void passeWrapper_test_8(){
-	    Piece a = tr.Create()[0][3];
-	    thrownException.expect(IllegalAccessError.class);
-	    thrownException.expectMessage("Le joueur a tenté de se passer à lui meme la balle");
-	    TerrainUtils.passeWrapper(a,a);
+		Piece a = tr.Create()[0][3];
+		Piece b = tr.getTerrain()[0][3];
+		TerrainUtils.passeWrapper(a,b);
+		assertTrue(a.HasBall == true);
 	  }
 	  /**
 	   * @author Thomas
+	   * Test joueur blanc qui se passe la balle à lui même
 	   */
 	  @Test
 	  public void passeWrapper_test_9(){
-	    Piece a = tr.Create()[6][3];
-	    thrownException.expect(IllegalAccessError.class);
-	    thrownException.expectMessage("Le joueur a tenté de se passer à lui meme la balle");
-	    TerrainUtils.passeWrapper(a,a);
+		Piece a = tr.Create()[6][3];
+		Piece b = tr.getTerrain()[6][3];
+		TerrainUtils.passeWrapper(a,b);
+		assertTrue(a.HasBall == true);
 	  }
 }

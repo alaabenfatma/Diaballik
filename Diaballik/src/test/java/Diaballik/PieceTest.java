@@ -20,8 +20,8 @@ public class PieceTest {
 
     
     /**
-     * Test du constructeur Piece
      * @author Thomas
+     * Test du constructeur Piece
      */
     @Test
     public void Piece_test(){
@@ -43,8 +43,8 @@ public class PieceTest {
         assertTrue( test );
     }
     /**
-     * Test de la fonction addBall
      * @author Thomas
+     * Test de la fonction addBall
      */
 
     @Test
@@ -53,11 +53,21 @@ public class PieceTest {
         tr.getTerrain()[0][2].addBall();
         assertTrue(tr.getTerrain()[0][2].HasBall);
     }
+
+    /**
+     * @author Thomas
+     * Test de la fonction addBall
+     */
     @Test
     public void addBall_test_2(){
         tr.Create();
         assertTrue(tr.getTerrain()[0][3].HasBall);
     }
+
+    /**
+     * @author Thomas
+     * Test de la fonction addBall sur un joueur qui à déjà la balle
+     */
     @Test
     public void testaddBallFalse() {
         Piece a = tr.Create()[0][3];
@@ -67,8 +77,8 @@ public class PieceTest {
     }
     
     /**
-     * Test de la fonction removeBall
      * @author Thomas
+     * Test de la fonction removeBall
      */
     
     @Test
@@ -78,7 +88,11 @@ public class PieceTest {
         assertFalse(tr.getTerrain()[0][3].HasBall);
     }
     //TODO : Faire removeBall sur l'excepction
-    
+    /**
+     * @author Thomas
+     * Test de la fonction removeBall
+     */
+
     @Test
     public void removeBall_test_2(){
         tr.Create();
@@ -87,8 +101,8 @@ public class PieceTest {
         assertFalse(tr.getTerrain()[6][5].HasBall);
     }
     /**
-     * Test de la fonction move_test
      * @author Thomas
+     * Test de la fonction move
      */
     @Test
     public void move_test_1(){
@@ -105,8 +119,8 @@ public class PieceTest {
     }
     //TODO : Faire déplacement en dehors du terrain
     /**
-     * Test de la fonction move_test
      * @author Thomas
+     * Test de la fonction move
      */
 
     @Test
@@ -123,18 +137,9 @@ public class PieceTest {
         assertTrue( test );
     }
 
-/*
-    @Test
-    public void Clone_test(){
-        Piece p1,p2;
-        Terrain tr = new Terrain();
-        tr.Create();
-        p1 = tr.getTerrain()[0][3];
-        p2 = tr.getTerrain()[0][3].Clone();
-    }
-*/
     /**
      * @author Thomas
+     * Test sur la génération des diagonales sur une pièce
      */
     @Test
     public void test_Diagonals(){
@@ -198,6 +203,10 @@ public class PieceTest {
         }
         assertTrue( test );
     }
+    /**
+     * @author Thomas
+     * Test sur la génération des possitions sur une pièce
+     */
     @Test
     public void PossiblePositions_test_0(){
         boolean test = true;
@@ -233,10 +242,12 @@ public class PieceTest {
         }
         assertTrue( test );
     }
-    @Test
+
     /**
      * @author Thomas
+     * Test sur la génération des positions sur une pièce
      */
+    @Test
     public void PossiblePositions_test_1(){
         boolean test = true;
         ArrayList<Position> list_pos;
@@ -282,6 +293,9 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * @param list_test ArrayList de la fonction passePossible
+     * @param list_pos ArrayList des positions possibles exactes
+     * Fonction permetant d'afficher le contenu des ArrayList
      */
     private void affiche_bug_passesPossibles(ArrayList<Position> list_test ,ArrayList<Position> list_pos){
             tr.PrintTerrain();
@@ -317,6 +331,7 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * Test sur la génération des passe possible sur une piece
      */
     @Test
     public void passesPossibles_test_0(){
@@ -352,6 +367,7 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * Test sur la génération des passe possible sur une piece
      */
     @Test
     public void passesPossibles_test_1(){
@@ -398,6 +414,7 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * Test sur la génération des passe possible sur une piece
      */
     @Test
     public void passesPossibles_test_2(){
@@ -447,6 +464,7 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * Test sur la génération des passe possible sur une piece
      */
     @Test
     public void passesPossibles_test_3(){
@@ -482,6 +500,7 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * Test sur la génération des passe possible sur une piece
      */
     @Test
     public void passesPossibles_test_4(){
@@ -529,6 +548,7 @@ public class PieceTest {
     }
     /**
      * @author Thomas
+     * Test sur la génération des passe possible sur une piece
      */
     @Test
     public void passesPossibles_test_5(){
@@ -575,45 +595,4 @@ public class PieceTest {
         }
         assertTrue( test );
     }
- // ##################### Position.java #####################
-    /**
-     * @author Thomas
-     */
-    @Test
-    public void Position_test(){
-        boolean test = true;
-        tr.Create();
-        for(int j=0;test && j<tr.taille();j++){
-            for(int i=0;test && i<tr.taille();i++){
-                Piece p = tr.getTerrain()[j][i];
-                if( j != p.Position.l || i != p.Position.c){
-                    test = false;
-                }
-            }
-        }
-        assertTrue( test );
-
-    }
-    /**
-     * @author Thomas
-     */
-    @Test
-    public void equals_test(){
-        assertFalse(new Position(3,3).equals(new Position(2,3)));
-    }
-
-    /**
-     * @author Hedi
-     */
-    @Test
-    public void testequals() {
-    	int l = 3;
-    	int c = 3;
-    	Position p = new Position(l, c);
-    	Position position = new Position(l, c);
-    	assertEquals((position.l == p.l && position.c == p.c), position.equals(p));
-    	
-    	
-    }
-    
 }
