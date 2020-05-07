@@ -6,6 +6,7 @@ import Diaballik.Models.PieceType;
 import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
 import Diaballik.Vue.PlateauGraphique;
+import Diaballik.IA.*;
 
 public class ControleurMediateur implements CollecteurEvenements {
 
@@ -20,6 +21,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 	public void clicSouris(int l, int c) {
 		System.out.printf("Mouse position : (%d,%d)\n", l,c);
 		jeu.SelectionPiece(l,c);
+		System.out.println("Score de plateau : "+Evaluation.scoreOfBoard(jeu.tr));
 
 	}
 
