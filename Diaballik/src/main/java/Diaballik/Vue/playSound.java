@@ -1,7 +1,5 @@
 package Diaballik.Vue;
 
-import java.io.File;
-
 import javax.sound.sampled.*;
 
 public class playSound {

@@ -10,6 +10,10 @@ import javax.swing.JTextArea;
 
 public class CreerPartieReseau extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Créer une partie");
 	JLabel nomJoueur = new JLabel("Nom du joueur");
 	JTextArea name = new JTextArea(5, 10);

@@ -11,6 +11,10 @@ import javax.swing.JPanel;
 
 public class Regles extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton retour = new JButton("<");
 	ihm i;
 	Image regles1, regles2;
