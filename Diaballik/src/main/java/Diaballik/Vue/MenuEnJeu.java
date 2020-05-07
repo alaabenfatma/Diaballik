@@ -19,14 +19,15 @@ public class MenuEnJeu extends JPanel{
     
     
     public MenuEnJeu(final JFrame frame, final JFrame plateau){
-        this.setSize(700,530);
+        frame.setSize(600,530);
+        frame.setTitle("Menu");
         this.setLayout(null);
-        reprendre.setBounds(280,50,150,50);
-        sauvegarde.setBounds(280,125,150,50);
-        nouvelle.setBounds(280,200,150,50);
-        charger.setBounds(280,275,150,50);
-        menup.setBounds(280,350,150,50);
-        quit.setBounds(280,425,150,50);
+        reprendre.setBounds(220,20,150,50);
+        sauvegarde.setBounds(220,95,150,50);
+        nouvelle.setBounds(220,170,150,50);
+        charger.setBounds(220,245,150,50);
+        menup.setBounds(220,320,150,50);
+        quit.setBounds(220,395,150,50);
         
         this.add(reprendre);
         this.add(sauvegarde);
@@ -34,7 +35,8 @@ public class MenuEnJeu extends JPanel{
         this.add(charger);
         this.add(menup);
         this.add(quit);
-
+        
+        frame.setLocationRelativeTo(null);
         this.setVisible(true);
         
         reprendre.addActionListener(new ActionListener() { 
@@ -84,8 +86,7 @@ public class MenuEnJeu extends JPanel{
         quit.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
             	ps.play("son/buttonClick.wav");
-        		msgBox msg = new msgBox();
-        		msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", frame);
+        		msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", frame);
             } 
         } );
 

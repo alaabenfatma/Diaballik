@@ -1,20 +1,19 @@
 package Diaballik.Vue;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 
-public class ihm extends JFrame implements ActionListener{
+public class ihm extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Menu menu = new Menu(this);
 	NewGame ng = new NewGame(this);
 	JouerReseau jr = new JouerReseau(this);
@@ -29,8 +28,10 @@ public class ihm extends JFrame implements ActionListener{
 	public ihm() {
 		 
 		this.setIconImage(icon); 
+        //this.setResizable(false); 
 		this.setTitle("Menu principal");
-		this.setSize(700, 530);
+		this.setSize(600, 530);
+		
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -42,6 +43,7 @@ public class ihm extends JFrame implements ActionListener{
                 }
 			}
         });
+		
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    m1.add(mi1);
@@ -54,6 +56,7 @@ public class ihm extends JFrame implements ActionListener{
 	
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(601, 530);
 		NewGame ng = new NewGame(this);		
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
@@ -81,7 +84,7 @@ public class ihm extends JFrame implements ActionListener{
 	
 	public void retourMenuPrincipal() {
 		ps.play("son/buttonClick.wav");
-		this.setSize(700, 530);
+		this.setSize(600, 530);
 		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
 		this.setContentPane(m);
@@ -131,12 +134,7 @@ public class ihm extends JFrame implements ActionListener{
 	
 	public void quit() {
 		ps.play("son/buttonClick.wav");
-		msgBox msg = new msgBox();
-		msg.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
-	}
-	
-	public void actionPerformed(ActionEvent arg0) {
-		
+		msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
 	}
 	
 }

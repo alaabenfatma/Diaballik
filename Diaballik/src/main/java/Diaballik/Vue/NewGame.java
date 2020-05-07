@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +22,7 @@ public class NewGame extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Nouvelle partie");
-	JLabel duree = new JLabel("Duree d'un tour :");
+	JLabel duree = new JLabel("Durée d'un tour :");
 	JLabel priorite = new JLabel("Joue en premier : ");
 	JButton retour = new JButton("Retour");
 	JButton jouer = new JButton("Jouer");
@@ -65,20 +68,23 @@ public class NewGame extends JPanel {
 		i = ihm;
 		j = new Jeu();
 		this.setLayout(null);
-		titre.setBounds(240, 0, 300, 100);
-		duree.setBounds(100, 120, 100, 100);
-		priorite.setBounds(100, 210, 150, 120);
-		jouer.setBounds(350, 390, 120, 40);
-		retour.setBounds(210, 390, 120, 40);
-		humain.setBounds(210, 100, 120, 40);
-		ordinateur.setBounds(350, 100, 120, 40);
-		illimite.setBounds(100, 200, 100, 40);
-		uneMin.setBounds(220, 200, 100, 40);
-		deuxMin.setBounds(340, 200, 100, 40);
-		troisMin.setBounds(460, 200, 100, 40);
-		joueur2.setBounds(350, 300, 120, 40);
-		joueur1.setBounds(210, 300, 120, 40);
-		
+		 i.addComponentListener(new ComponentAdapter() {
+             public void componentResized(ComponentEvent evt) {
+            	titre.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) - 130, 300, 100);
+         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 10, 100, 100);
+         		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 150, 120);
+         		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 250, 120, 40);
+         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 250, 120, 40);
+         		humain.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) - 30, 120, 40);
+         		ordinateur.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) - 30, 120, 40);
+         		illimite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 70, 100, 40);
+         		uneMin.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 70, 100, 40);
+         		deuxMin.setBounds((i.getWidth()/2), (i.getHeight()/4) + 70, 100, 40);
+         		troisMin.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 70, 100, 40);
+         		joueur2.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 170, 120, 40);
+         		joueur1.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 170, 120, 40);
+             }
+     });
 
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);

@@ -28,16 +28,21 @@ public class Menu extends JPanel {
 	
 	public Menu(ihm ihm) {
 		i = ihm;
+		
         this.setLayout(null);
         
-        nouvelle.setBounds(280, 150, 150, 50);
-        charger.setBounds(280, 210, 150, 50);
-        reseau.setBounds(280, 270, 150, 50);
-        regles.setBounds(280, 330, 150, 50);
-        quitter.setBounds(280, 390, 150, 50);
-        drapeau.setBounds(620, 10, 40, 40);
-        sound.setBounds(620, 60, 40, 40);
-       
+        i.addComponentListener(new ComponentAdapter() {
+                public void componentResized(ComponentEvent evt) {
+                    nouvelle.setBounds((i.getWidth()/2)-70, (i.getHeight()/4), 150, 50);
+                    charger.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 60, 150,50);
+                    reseau.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 120, 150,50);
+                    regles.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 180, 150,50);
+                    quitter.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 240,150,50);
+                    drapeau.setBounds(i.getWidth()-80, 10, 40, 40);
+                    sound.setBounds(i.getWidth()-80, 60, 40, 40);
+                }
+        });
+        
         try {
     		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		drapeau.setIcon(new ImageIcon(drapeauFr));
@@ -135,7 +140,7 @@ public class Menu extends JPanel {
     public void afficherLogo() {
     	try {
     		logo = ImageIO.read(this.getClass().getResourceAsStream("img/logo.png"));
-    		drawable.drawImage(logo, 230, 25, 250, 100, null);
+    		drawable.drawImage(logo, (i.getWidth()/2) - 120, (i.getHeight()/4) - 115, 250, 100, null);
     	}
     	catch (Exception e) {
     		System.out.println(e);
