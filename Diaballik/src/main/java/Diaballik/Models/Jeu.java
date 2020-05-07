@@ -434,22 +434,28 @@ public class Jeu extends Observable {
             System.out.println("Victoire IA B");
         }
     }
-
+    /**
+     * @author Thomas
+     * @param p Pièce que possède la balle
+     * @return null Si aucune position trouvé
+     * @return res Liste des positions possible
+     */
     public ArrayList<Position> winningMove(Piece p){
         ArrayList<Position> list = p.passesPossibles();
         ArrayList<Position> res = new ArrayList<Position>();
-        if(list.size()==0){return null;}
-        else{
-            for(int i=0;i<list.size();i++){
-                if(list.get(i).l == 0 && p.Type == PieceType.White){
-                    res.add(list.get(i));
-                }
-                if(list.get(i).l == 6 && p.Type == PieceType.Black){
-                    res.add(list.get(i));
-                }
+        int cmp=0;
+        for(int i=0;i<list.size();i++){
+            if(list.get(i).l == 0 && p.Type == PieceType.White){
+                res.add(list.get(i));
+                cmp++;
             }
-            return res;
+            if(list.get(i).l == 6 && p.Type == PieceType.Black){
+                res.add(list.get(i));
+                cmp++;
+            }
         }
+        if(cmp!=0){return res;}
+        else{return null;}
     }
     public static void main(String[] args) {
         Jeu j = new Jeu();
