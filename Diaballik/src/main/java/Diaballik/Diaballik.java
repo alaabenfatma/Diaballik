@@ -6,7 +6,7 @@ import java.util.Scanner;
 import Diaballik.Vue.*;
 
 import Diaballik.Controllers.TerrainUtils;
-import Diaballik.IA.IA;
+import Diaballik.IA.Random_IA;
 //import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.*;
 
@@ -63,7 +63,7 @@ public class Diaballik {
 
 
     private static void test_Random_IA_P(Terrain tr) {
-        IA A = new IA(PieceType.Black, tr);
+        Random_IA A = new Random_IA(PieceType.Black, tr);
         PieceType tour = PieceType.White;
         Boolean victoire = false;
         int nbMove = 2; // on a droit à deux mouvements max
@@ -157,7 +157,7 @@ public class Diaballik {
                 }
                 tour = PieceType.Black;
             } else {
-                A.Random_IA();
+                A.IA();
                 victoire = A.Victoire_IA;
                 tour = PieceType.White;
                 nbMove = 2;
@@ -165,31 +165,6 @@ public class Diaballik {
             }
         }
         sc.close();
-    }
-
-    private static void test_Random_IA_IA(Terrain tr) {
-        IA A = new IA(PieceType.Black, tr);
-        IA B = new IA(PieceType.White, tr);
-        PieceType tour = PieceType.White;
-        Boolean victoire = false;
-        while (!victoire) {
-            tr.PrintTerrain();
-            System.out.println(" Tour = " + tour);
-            if (tour == PieceType.White) {
-                B.Random_IA();
-                victoire = B.Victoire_IA;
-                tour = PieceType.Black;
-            } else {
-                A.Random_IA();
-                victoire = A.Victoire_IA;
-                tour = PieceType.White;
-            }
-        }
-        if (A.Victoire_IA) {
-            System.out.println("Victoire IA A");
-        } else {
-            System.out.println("Victoire IA B");
-        }
     }
 
     public static void main(String[] args) {

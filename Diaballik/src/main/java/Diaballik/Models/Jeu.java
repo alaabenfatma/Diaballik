@@ -7,7 +7,7 @@ import java.util.Scanner;
 import Diaballik.Vue.*;
 
 import Diaballik.Controllers.TerrainUtils;
-import Diaballik.IA.IA;
+import Diaballik.IA.Random_IA;
 //import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.*;
 import Diaballik.Patterns.Observable;
@@ -411,19 +411,19 @@ public class Jeu extends Observable {
     }
 
     private void test_Random_IA_IA(Terrain tr) {
-        IA A = new IA(PieceType.Black, tr);
-        IA B = new IA(PieceType.White, tr);
+        Random_IA A = new  Random_IA(PieceType.Black, tr);
+        Random_IA B = new  Random_IA(PieceType.White, tr);
         PieceType tour = PieceType.White;
         Boolean victoire = false;
         while (!victoire) {
             tr.PrintTerrain();
             System.out.println(" Tour = " + tour);
             if (tour == PieceType.White) {
-                B.Random_IA();
+                B.IA();
                 victoire = B.Victoire_IA;
                 tour = PieceType.Black;
             } else {
-                A.Random_IA();
+                A.IA();
                 victoire = A.Victoire_IA;
                 tour = PieceType.White;
             }
