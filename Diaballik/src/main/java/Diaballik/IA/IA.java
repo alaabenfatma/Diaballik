@@ -73,10 +73,10 @@ public class IA {
                     from = list_piece.get(R.nextInt(list_piece.size()));
                     diag = from.getDiagonals();
                     while(!ok && nbMove > 0){
-                        if(from.PossiblePositions().size() == 0){break;}
-                        if(from.PossiblePositions().size() == 1){i=0;}
-                        else{i = R.nextInt(from.PossiblePositions().size()-1);}
-                        pos = from.PossiblePositions().get(i);
+                        if(from.PossiblePositions(nbMove).size() == 0){break;}
+                        if(from.PossiblePositions(nbMove).size() == 1){i=0;}
+                        else{i = R.nextInt(from.PossiblePositions(nbMove).size()-1);}
+                        pos = from.PossiblePositions(nbMove).get(i);
                         to = tr.getTerrain()[pos.l][pos.c];
                         if(diag.contains(pos) && nbMove==2){
                             nbMove-=2;

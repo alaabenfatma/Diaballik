@@ -307,7 +307,7 @@ public class AppTest {
         Piece p1 = tr.Create()[0][3];
         Piece p2 = tr.getTerrain()[5][5];
         TerrainUtils.Swap(p1, p2);
-        list_pos = p1.PossiblePositions();
+        list_pos = p1.PossiblePositions(2);
         list_test.add(new Position(5,3));
         list_test.add(new Position(4,4));
         list_test.add(new Position(5,4));
@@ -345,7 +345,7 @@ public class AppTest {
         Piece p1 = tr.Create()[0][3];
         Piece p2 = tr.getTerrain()[3][3];
         TerrainUtils.Swap(p1, p2);
-        list_pos = p1.PossiblePositions();
+        list_pos = p1.PossiblePositions(2);
         list_test.add(new Position(2,2));
         list_test.add(new Position(2,3));
         list_test.add(new Position(2,4));
