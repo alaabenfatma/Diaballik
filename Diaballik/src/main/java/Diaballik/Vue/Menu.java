@@ -5,8 +5,13 @@ import java.awt.event.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+
 public class Menu extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JButton nouvelle = new JButton("Nouvelle partie");
 	JButton charger = new JButton("Charger partie");
 	JButton reseau = new JButton("Jouer en réseau");
@@ -19,7 +24,7 @@ public class Menu extends JPanel {
 	ihm i;
     Graphics2D drawable;
     boolean bson = true, blang = true;
- 	
+     	
 	
 	public Menu(ihm ihm) {
 		i = ihm;
@@ -42,7 +47,7 @@ public class Menu extends JPanel {
     	catch (Exception e) {
     		System.out.println(e);
     	}
-
+        
         this.add(nouvelle);
         this.add(charger);
         this.add(reseau);
