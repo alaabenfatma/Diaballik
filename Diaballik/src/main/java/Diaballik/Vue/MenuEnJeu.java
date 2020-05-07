@@ -1,15 +1,15 @@
 package Diaballik.Vue;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import Diaballik.Controllers.ControleurMediateur;
-import Diaballik.Models.Jeu;
 
 public class MenuEnJeu extends JPanel{
-    JButton reprendre = new JButton("Reprendre");
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JButton reprendre = new JButton("Reprendre");
 	JButton sauvegarde = new JButton("Sauvegarder");
 	JButton nouvelle = new JButton("Nouvelle Partie");
 	JButton charger = new JButton("Charger");

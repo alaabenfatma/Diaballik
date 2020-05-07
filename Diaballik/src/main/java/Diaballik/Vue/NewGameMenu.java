@@ -4,18 +4,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.Jeu;
 
 public class NewGameMenu extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Nouvelle partie");
 	JLabel duree = new JLabel("Duree d'un tour :");
 	JLabel priorite = new JLabel("Joue en premier : ");
@@ -31,6 +31,7 @@ public class NewGameMenu extends JPanel {
 	JButton joueur2 = new JButton("Joueur 2");
 	playSound ps = new playSound();
 	ihm i;
+	Jeu j;
 
 	//Parametres de la nouvelle partie
 	/*
@@ -59,6 +60,7 @@ public class NewGameMenu extends JPanel {
 
 	public NewGameMenu(ihm ihm) {
 		i = ihm;
+		j = new Jeu();
 		this.setLayout(null);
 		titre.setBounds(240, 0, 300, 100);
 		duree.setBounds(100, 120, 100, 100);
@@ -94,6 +96,7 @@ public class NewGameMenu extends JPanel {
             public void actionPerformed(ActionEvent e) { 
             	humain.setBackground(Color.pink);
 				ordinateur.setBackground(null);		
+				j.IA = false;	
             } 
         } );
 		
@@ -102,6 +105,7 @@ public class NewGameMenu extends JPanel {
             	ordinateur.setBackground(Color.pink);
 				humain.setBackground(null);
 				human = false; //joueur IA
+				j.IA = true;
             } 
         } );
 		
@@ -162,9 +166,9 @@ public class NewGameMenu extends JPanel {
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	ps.play("son/buttonClick.wav");
+				j.start();
 				//SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);
-				Jeu j = new Jeu();
 				CollecteurEvenements control = new ControleurMediateur(j);
 				Plateau.demarrer(j,control);
 				i.setVisible(false);

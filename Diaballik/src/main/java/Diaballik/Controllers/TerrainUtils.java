@@ -48,9 +48,24 @@ public class TerrainUtils {
         if(a.equals(b)){
             //throw new IllegalAccessError("Le joueur a tenté de se passer à lui meme la balle");
         }
-        if(ar.contains(b.Position)){
+        else if(ar.contains(b.Position)){
             ExchangeBall(a, b);
         }else{
+            //throw new IllegalAccessError("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
+        }
+    }
+
+    public static boolean passeWrapper2(Piece a, Piece b){
+        ArrayList<Position> ar = a.passesPossibles();
+        if(a.equals(b)){
+            return false;
+            //throw new IllegalAccessError("Le joueur a tenté de se passer à lui meme la balle");
+        }
+        else if(ar.contains(b.Position)){
+            ExchangeBall(a, b);
+            return true;
+        }else{
+            return false;
             //throw new IllegalAccessError("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
         }
     }
