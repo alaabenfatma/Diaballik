@@ -567,13 +567,13 @@ public class Jeu extends Observable {
         } else {
             if (p.Type == PieceType.Black) {
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).l == 6 && p.Type == PieceType.Black) {
+                    if (list.get(i).l == 6) {
                         res.add(list.get(i));
                     }
                 }
-            } else if (p.Type == PieceType.Black) {
+            } else if (p.Type == PieceType.White) {
                 for (int i = 0; i < list.size(); i++) {
-                    if (list.get(i).l == 0 && p.Type == PieceType.White) {
+                    if (list.get(i).l == 0) {
                         res.add(list.get(i));
                     }
                 }

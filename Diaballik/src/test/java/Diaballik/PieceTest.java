@@ -143,65 +143,18 @@ public class PieceTest {
      */
     @Test
     public void test_Diagonals(){
-        boolean test = true;
         Piece p = tr.Create()[3][3];
-        int i = p.Position.l;
-        int j = p.Position.c;
         ArrayList<Position> list_test = p.getDiagonals();
-        // test diag bd
-        while( test && (i + 1< tr.taille()) && (j + 1 < tr.taille())){
-            i++;
-            j++;
-            if(!new Position(i,j).equals(list_test.get(0))){
-                test = false;
-                System.out.println("Position diagonale bd ne correspond pas");
-            }
-            list_test.remove(0);
-        }
-        // test diag bg
-        i = p.Position.l;
-        j = p.Position.c;
-        while( test && (i + 1< tr.taille()) && (j - 1 < tr.taille())){
-            i++;
-            j--;
-            if(!new Position(i,j).equals(list_test.get(0))){
-                test = false;
-                System.out.println("Position diagonale bg ne correspond pas");
-            }
-            list_test.remove(0);
-        }
-        // test diag hd
-        i = p.Position.l;
-        j = p.Position.c;
-        while( test && (i - 1 >= 0) && ( j + 1 < tr.taille())){
-            i--;
-            j++;
-            if(!new Position(i,j).equals(list_test.get(0))){
-                test = false;
-                System.out.println("Position diagonale hd ne correspond pas");
-            }
-            list_test.remove(0);
-        }
-        // test diag hg
-        i = p.Position.l;
-        j = p.Position.c;
-        while( test && (i - 1 >= 0) && (j - 1 >= 0)){
-            i--;
-            j--;
-            if(!new Position(i,j).equals(list_test.get(0))){
-                test = false;
-                System.out.println("Position diagonale hg ne correspond pas");
-            }
-            list_test.remove(0);
-        }
-        if(list_test.size()!=0){
-            System.out.println("Position restante(s) :" + list_test.get(0).toString());
-            for(int k=1;k< list_test.size();k++){
-                System.out.println("        "+list_test.get(k).toString());
-            }
-            test=false;
-        }
-        assertTrue( test );
+        ArrayList<Position> list_pos = new ArrayList<Position>();
+        list_pos.add(new Position(2,2));
+        list_pos.add(new Position(1,1));
+        list_pos.add(new Position(2,4));
+        list_pos.add(new Position(1,5));
+        list_pos.add(new Position(4,2));
+        list_pos.add(new Position(5,1));
+        list_pos.add(new Position(4,4));
+        list_pos.add(new Position(5,5));
+        assertTrue( list_test.containsAll(list_pos) );
     }
     /**
      * @author Thomas
