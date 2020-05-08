@@ -7,6 +7,9 @@ import javax.swing.JComponent;
 import Diaballik.Patterns.Observateur;
 
 public abstract class PlateauGraphique extends JComponent implements Observateur {
+
+    private static final long serialVersionUID = 1L;
+    
     Graphics2D drawable;
 
     protected void tracer(Image i, int x, int y, int l, int h) {

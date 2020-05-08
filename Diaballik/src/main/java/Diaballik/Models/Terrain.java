@@ -1,8 +1,5 @@
 package Diaballik.Models;
 
-import javax.management.RuntimeErrorException;
-
-//import java.util.*;
 
 public class Terrain implements ITerrain {
     public Piece[][] _terrain;

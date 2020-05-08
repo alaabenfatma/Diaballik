@@ -1,11 +1,8 @@
 package Diaballik.Controllers;
 
 import Diaballik.Models.Jeu;
-import Diaballik.Models.Joueur;
-import Diaballik.Models.PieceType;
 import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
-import Diaballik.Vue.PlateauGraphique;
 import Diaballik.IA.*;
 
 public class ControleurMediateur implements CollecteurEvenements {

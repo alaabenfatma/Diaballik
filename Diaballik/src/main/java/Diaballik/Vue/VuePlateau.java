@@ -4,13 +4,14 @@ import java.awt.*;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
 
 import Diaballik.Models.Jeu;
 import Diaballik.Models.PieceType;
 
 public class VuePlateau extends PlateauGraphique {
 
+    private static final long serialVersionUID = 1L;
+    
     Image caseA, caseB, pionA_ballon, pionB_ballon, pionA_bas, pionB_bas;
     int hauteurCase, largeurCase;
     Jeu j;

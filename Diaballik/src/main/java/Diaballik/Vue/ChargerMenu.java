@@ -4,9 +4,10 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.*;
 
 public class ChargerMenu extends JPanel {
+	
+	private static final long serialVersionUID = 1L;
 	
 	JLabel titre = new JLabel("Charger partie");
 	JLabel save = new JLabel("Sauvegardes");

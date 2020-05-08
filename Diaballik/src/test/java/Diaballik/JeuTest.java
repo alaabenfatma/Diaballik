@@ -2,13 +2,10 @@ package Diaballik;
 
 import static org.junit.Assert.*;
 import java.util.ArrayList;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.Jeu;
 import Diaballik.Models.Piece;
-import Diaballik.Models.PieceType;
 import Diaballik.Models.Position;
 import Diaballik.Models.Terrain;
 

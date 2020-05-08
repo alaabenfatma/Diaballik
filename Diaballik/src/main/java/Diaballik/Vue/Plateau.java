@@ -1,10 +1,5 @@
 package Diaballik.Vue;
 
-import java.awt.*;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Component;
@@ -14,9 +9,6 @@ import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsDevice;
 
-import java.awt.event.*;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.*;
 

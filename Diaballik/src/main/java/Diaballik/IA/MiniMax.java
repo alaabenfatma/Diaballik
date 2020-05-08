@@ -1,7 +1,5 @@
 package Diaballik.IA;
 
-import Diaballik.Models.Piece;
-import Diaballik.Models.PieceType;
 import Diaballik.Models.Terrain;
 
 /**

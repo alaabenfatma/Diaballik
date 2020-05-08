@@ -1,17 +1,10 @@
 package Diaballik;
 
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
-import org.junit.Rule;
-//import org.junit.Rule;
 import org.junit.Test;
-//import org.junit.rules.ExpectedException;
-import org.junit.rules.ExpectedException;
+
 
 import Diaballik.Models.*;
-import Diaballik.Controllers.*;
 /**
  * Unit test for simple App.
  */
