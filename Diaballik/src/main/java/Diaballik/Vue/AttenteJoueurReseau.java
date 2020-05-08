@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,12 +37,19 @@ public class AttenteJoueurReseau extends JPanel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		titre.setBounds(200, 0, 400, 100);
-		retour.setBounds(290, 300, 120, 40);
-		code.setBounds(300, 210, 250, 20);
-		codelabel.setBounds(200, 200, 120, 40);
+		
 		gifContainer = new JLabel(gif);
-		gifContainer.setBounds(250, 100, 200, 100);
+		
+		
+		i.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
+        		titre.setBounds((i.getWidth()/2) - 160, (i.getHeight()/4) - 100, 400, 100);
+        		code.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 110, 250, 20);
+            	codelabel.setBounds((i.getWidth()/2) - 170, (i.getHeight()/4) + 110, 100, 20);
+         		retour.setBounds((i.getWidth()/2) - 70, (i.getHeight()/4) + 200, 120, 40);
+         		gifContainer.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4), 200, 100);
+            }
+		});
 		
 		retour.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 

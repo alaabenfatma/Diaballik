@@ -3,8 +3,14 @@ package Diaballik.Vue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class JouerReseau extends JPanel {
@@ -17,15 +23,29 @@ public class JouerReseau extends JPanel {
 	JButton creer = new JButton("Créer une partie");
 	JButton rejoindre = new JButton("Rejoindre une partie");
 	JButton menuPrincipal = new JButton("Menu principal");
+	JMenuBar mb = new JMenuBar();
+	JMenu m1 = new JMenu("Thèmes");
+	JMenu m2 = new JMenu("Options");
+	JMenuItem mi1 = new JMenuItem("Daltonien");
 	ihm i;
 	
 	public JouerReseau(ihm ihm) {
 		i = ihm;
+		m1.add(mi1);
+		mb.add(m1);
+		mb.add(m2);
+		mb.setBounds(0, 0, 600, 20);
+		this.add(mb);
 		this.setLayout(null);
-		titre.setBounds(240, 0, 300, 100);
-		creer.setBounds(270, 150, 150, 50);
-		rejoindre.setBounds(270, 220, 150, 50);
-		menuPrincipal.setBounds(270, 290, 150, 50);
+		
+		i.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
+                titre.setBounds((i.getWidth()/2) - 110, (i.getHeight()/4) - 120, 300, 100);
+                creer.setBounds((i.getWidth()/2) - 80 , (i.getHeight()/4) + 10, 150, 50);
+        		rejoindre.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 80, 150, 50);
+        		menuPrincipal.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 150, 150, 50);
+            }
+		});
 		
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);

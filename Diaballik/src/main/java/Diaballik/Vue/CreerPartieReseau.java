@@ -2,9 +2,14 @@ package Diaballik.Vue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -16,19 +21,37 @@ public class CreerPartieReseau extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Créer une partie");
 	JLabel nomJoueur = new JLabel("Nom du joueur");
-	JTextArea name = new JTextArea(5, 10);
+	JTextArea name = new JTextArea("Joueur 1");
 	JButton ok = new JButton("Ok");
 	JButton retour = new JButton("Retour");
+	JMenuBar mb = new JMenuBar();
+	JMenu m1 = new JMenu("Thèmes");
+	JMenu m2 = new JMenu("Options");
+	JMenuItem mi1 = new JMenuItem("Daltonien");
 	ihm i;
 	
 	public CreerPartieReseau(ihm ihm) {
 		i = ihm;
+		m1.add(mi1);
+		mb.add(m1);
+		mb.add(m2);
+		mb.setBounds(0, 0, 600, 20);
+		this.add(mb);
 		this.setLayout(null);
-		titre.setBounds(230, 0, 300, 100);
-		nomJoueur.setBounds(180, 150, 150, 100);
-		name.setBounds(310, 190, 150, 20);
-		ok.setBounds(350, 390, 120, 40);
-		retour.setBounds(210, 390, 120, 40);
+		
+		
+		i.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent evt) {
+                titre.setBounds((i.getWidth()/2) - 110, (i.getHeight()/4) - 100, 300, 100);
+        		name.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 40, 200, 20);
+            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4), 200, 100);
+        		ok.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
+         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
+         		
+            }
+		});
+		
+		
 		this.add(nomJoueur);
 		this.add(name);
 		this.add(ok);

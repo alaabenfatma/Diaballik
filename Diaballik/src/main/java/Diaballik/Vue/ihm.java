@@ -64,6 +64,8 @@ public class ihm extends JFrame {
 	
 	public void fenetreJouerEnReseau() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(600, 511);
+		this.setSize(600, 510);
 		JouerReseau jr = new JouerReseau(this);
 		this.setContentPane(jr);
 		this.setTitle("Jouer en réseau");
@@ -73,6 +75,7 @@ public class ihm extends JFrame {
 	
 	public void retourMenuPrincipal() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(600, 511);
 		this.setSize(600, 510);
 		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
@@ -84,6 +87,8 @@ public class ihm extends JFrame {
 	
 	public void fenetreCreerPartieReseau() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(600, 401);
+		this.setSize(600, 400);
 		CreerPartieReseau crr = new CreerPartieReseau(this);
 		this.setContentPane(crr);
 		this.setTitle("Créer une partie en réseau");
@@ -102,6 +107,8 @@ public class ihm extends JFrame {
 	
 	public void fenetreAttenteJoueurReseau() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(600, 401);
+		this.setSize(600, 400);
 		AttenteJoueurReseau ajr = new AttenteJoueurReseau(this);
 		this.setContentPane(ajr);
 		this.setTitle("Attente du 2ème joueur");
