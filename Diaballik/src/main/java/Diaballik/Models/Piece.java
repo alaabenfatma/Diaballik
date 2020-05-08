@@ -232,4 +232,12 @@ public class Piece extends JButton implements IPiece {
 
         return result;
     }
+    public ArrayList<Position> direction(){
+        ArrayList<Position> list = getDiagonals();
+        list.addAll(getDiagonals_utils(0,1));
+        list.addAll(getDiagonals_utils(0,-1));
+        list.addAll(getDiagonals_utils(1,0));
+        list.addAll(getDiagonals_utils(-1,0));
+        return list;
+    }
 }
