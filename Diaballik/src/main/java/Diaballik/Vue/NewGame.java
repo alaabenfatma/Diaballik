@@ -9,8 +9,11 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
+import javax.swing.JTextArea;
 
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.Jeu;
@@ -34,6 +37,13 @@ public class NewGame extends JPanel {
 	JButton troisMin = new JButton("3 min");
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
+	JLabel nomJoueur = new JLabel("Nom du joueur : ");
+	JLabel jouerContre = new JLabel("Jouer Contre :");
+	JTextArea name = new JTextArea("Joueur 1");
+	JMenuBar mb = new JMenuBar();
+	JMenu m1 = new JMenu("Thèmes");
+	JMenu m2 = new JMenu("Options");
+	JMenuItem mi1 = new JMenuItem("Daltonien");
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
@@ -67,22 +77,34 @@ public class NewGame extends JPanel {
 		
 		i = ihm;
 		j = new Jeu();
+		m1.add(mi1);
+		mb.add(m1);
+		mb.add(m2);
+		mb.setBounds(0, 0, 600, 20);
+		this.add(mb);
 		this.setLayout(null);
 		 i.addComponentListener(new ComponentAdapter() {
              public void componentResized(ComponentEvent evt) {
+            	jouerContre.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 25, 100, 100);
+            	name.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) - 30, 200, 20);
+            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 70, 100, 100);
             	titre.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) - 130, 300, 100);
-         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 10, 100, 100);
-         		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 150, 120);
-         		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 250, 120, 40);
-         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 250, 120, 40);
-         		humain.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) - 30, 120, 40);
-         		ordinateur.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) - 30, 120, 40);
-         		illimite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 70, 100, 40);
-         		uneMin.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 70, 100, 40);
-         		deuxMin.setBounds((i.getWidth()/2), (i.getHeight()/4) + 70, 100, 40);
-         		troisMin.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 70, 100, 40);
-         		joueur2.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 170, 120, 40);
-         		joueur1.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 170, 120, 40);
+         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 40, 100, 100);
+         		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 120, 150, 120);
+         		
+         		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 280, 120, 40);
+         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 280, 120, 40);
+         		
+         		humain.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 30, 120, 40);
+         		ordinateur.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 30, 120, 40);
+         		
+         		illimite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 115, 100, 40);
+         		uneMin.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 115, 100, 40);
+         		deuxMin.setBounds((i.getWidth()/2), (i.getHeight()/4) + 115, 100, 40);
+         		troisMin.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 115, 100, 40);
+         		
+         		joueur2.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
+         		joueur1.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
              }
      });
 
@@ -182,6 +204,9 @@ public class NewGame extends JPanel {
             } 
         } );
 		
+		this.add(jouerContre);
+		this.add(nomJoueur);
+		this.add(name);
 		this.add(joueur1);
 		this.add(joueur2);
 		this.add(priorite);

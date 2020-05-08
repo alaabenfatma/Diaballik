@@ -19,6 +19,10 @@ public class Menu extends JPanel {
 	JButton quitter = new JButton("Quitter");
 	JButton drapeau = new JButton();
 	JButton sound = new JButton();
+	JMenuBar mb = new JMenuBar();
+	JMenu m1 = new JMenu("Thèmes");
+	JMenu m2 = new JMenu("Options");
+	JMenuItem mi1 = new JMenuItem("Daltonien");
 	Image logo, drapeauFr, drapeauGB, son, mute;
 	playSound ps = new playSound();
 	ihm i;
@@ -28,18 +32,24 @@ public class Menu extends JPanel {
 	
 	public Menu(ihm ihm) {
 		i = ihm;
-		
+		m1.add(mi1);
+		mb.add(m1);
+		mb.add(m2);
+		mb.setBounds(0, 0, 600, 20);
+		this.add(mb);
+		this.setSize(600, 510);
+
         this.setLayout(null);
         
         i.addComponentListener(new ComponentAdapter() {
                 public void componentResized(ComponentEvent evt) {
-                    nouvelle.setBounds((i.getWidth()/2)-70, (i.getHeight()/4), 150, 50);
-                    charger.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 60, 150,50);
-                    reseau.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 120, 150,50);
-                    regles.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 180, 150,50);
-                    quitter.setBounds((i.getWidth()/2)-70, (i.getHeight()/4) + 240,150,50);
-                    drapeau.setBounds(i.getWidth()-80, 10, 40, 40);
-                    sound.setBounds(i.getWidth()-80, 60, 40, 40);
+                    nouvelle.setBounds((i.getWidth()/2) - 80 , (i.getHeight()/4) + 20,150 , 50 + (i.getHeight()/150));
+                    charger.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 80, 150, 50 + (i.getHeight()/150));
+                    reseau.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 140, 150, 50 + (i.getHeight()/150));
+                    regles.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 200, 150, 50 + (i.getHeight()/150));
+                    quitter.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 260, 150, 50 + (i.getHeight()/150));
+                    drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
+                    sound.setBounds(i.getWidth() - 80, 75, 40, 40);
                 }
         });
         
@@ -79,16 +89,19 @@ public class Menu extends JPanel {
             	i.fenetreJouerEnReseau();
             } 
         } );
+        
         regles.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	i.fenetreRegles();
             } 
         } );
+        
         quitter.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	i.quit();
             } 
         } );
+        
         drapeau.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
@@ -140,7 +153,7 @@ public class Menu extends JPanel {
     public void afficherLogo() {
     	try {
     		logo = ImageIO.read(this.getClass().getResourceAsStream("img/logo.png"));
-    		drawable.drawImage(logo, (i.getWidth()/2) - 120, (i.getHeight()/4) - 115, 250, 100, null);
+    		drawable.drawImage(logo, (i.getWidth()/2) - 130, (i.getHeight()/25) + 20, 250, (i.getHeight()/5), null);
     	}
     	catch (Exception e) {
     		System.out.println(e);

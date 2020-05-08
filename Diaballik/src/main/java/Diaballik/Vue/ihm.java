@@ -1,12 +1,8 @@
 package Diaballik.Vue;
 
-import java.awt.BorderLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 public class ihm extends JFrame {
 	
@@ -18,24 +14,20 @@ public class ihm extends JFrame {
 	NewGame ng = new NewGame(this);
 	JouerReseau jr = new JouerReseau(this);
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");   
-	JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
-	JMenuItem mi1 = new JMenuItem("Daltonien");
+	
 	playSound ps = new playSound();
 	
 
 	public ihm() {
 		 
 		this.setIconImage(icon); 
-        //this.setResizable(false); 
 		this.setTitle("Menu principal");
-		this.setSize(600, 530);
+		this.setSize(600, 510);
 		
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter")==0){
+				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0){
 					System.exit(0);
                 }
                 else{
@@ -46,18 +38,14 @@ public class ihm extends JFrame {
 		
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	    m1.add(mi1);
-	    mb.add(m1);
-	    mb.add(m2);
-	    this.add(mb, BorderLayout.NORTH);
 	    this.add(menu);
 	    this.setVisible(true);
 	}
 	
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav");
-		this.setSize(601, 530);
-		NewGame ng = new NewGame(this);		
+		this.setSize(601, 510);
+		NewGame ng = new NewGame(this);	
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
 		this.repaint();
@@ -66,6 +54,7 @@ public class ihm extends JFrame {
 
 	public void fenetreChargerPartie() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(600, 510);
 		ChargerPartie cp = new ChargerPartie(this);		
 		this.setContentPane(cp);
 		this.setTitle("Charger partie");
@@ -84,7 +73,7 @@ public class ihm extends JFrame {
 	
 	public void retourMenuPrincipal() {
 		ps.play("son/buttonClick.wav");
-		this.setSize(600, 530);
+		this.setSize(600, 510);
 		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
 		this.setContentPane(m);
