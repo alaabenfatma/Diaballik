@@ -1,6 +1,5 @@
 package Diaballik.Models;
 
-
 public class Terrain implements ITerrain {
     public Piece[][] _terrain;
 
@@ -9,6 +8,7 @@ public class Terrain implements ITerrain {
      */
     private int taille;
     public Jeu _jeuParent;
+
     private void init() {
         this.taille = 7;
         _terrain = new Piece[taille][taille];
@@ -90,9 +90,9 @@ public class Terrain implements ITerrain {
         return (_terrain[pos.l][pos.c].Type != PieceType.Empty);
     }
 
-    //Comme son nom l'indique
+    // Comme son nom l'indique
     public Piece getPieceWithBall(PieceType tp) {
-        if(tp == PieceType.Empty){
+        if (tp == PieceType.Empty) {
             throw new RuntimeException("Erreur dans getPieceWithBall, une piece de type Empty ne peut avoir la balle");
         }
         for (int i = 0; i < taille(); i++) {
@@ -103,6 +103,20 @@ public class Terrain implements ITerrain {
             }
         }
         throw new RuntimeException("Erreur dans getPieceWithBall, aucune piece ne semble avoir la balle??");
+    }
+
+    public Terrain clone() {
+        Terrain copy = new Terrain();
+        copy._jeuParent = this._jeuParent;
+        copy.taille = this.taille;
+        copy._terrain = new Piece[this.taille()][this.taille()];
+        for (int i = 0; i < this.taille(); i++) {
+            for (int j = 0; j < this.taille(); j++) {
+                Piece piece = this._terrain[i][j];
+                copy._terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
+            }
+        }
+        return copy;
     }
 
 }
