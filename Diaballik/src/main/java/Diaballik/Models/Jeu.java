@@ -21,6 +21,7 @@ public class Jeu extends Observable {
     private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();
     public boolean IA;
     Random_IA I;
+    
     public Jeu() {
         tr = new Terrain();
         tr.Create();
@@ -58,7 +59,6 @@ public class Jeu extends Observable {
             joueurCourant = joueur2;
             if(IA){
                 I.IA();
-                FinTour();
             }
         } else {
             joueurCourant = joueur1;

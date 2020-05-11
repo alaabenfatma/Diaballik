@@ -8,7 +8,7 @@ import Diaballik.Models.Piece;
 import Diaballik.Models.PieceType;
 import Diaballik.Models.Position;
 import Diaballik.Models.Terrain;
-import Diaballik.Models.Jeu;
+
 
 public class Random_IA {
     PieceType Couleur_IA;

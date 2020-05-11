@@ -44,6 +44,7 @@ public class Coup_Gagnant {
         return list;
     }
     
+
     private void first_move(){
         int nb_tour = 0;
         int binf = 0;
@@ -155,6 +156,7 @@ public class Coup_Gagnant {
             }
         }
     }
+    
     private Boolean pass_win(){
         Piece A = tr.getTerrain()[Goal.l][Goal.c];
         Piece B = tr.getPieceWithBall(Couleur_IA);
@@ -164,6 +166,7 @@ public class Coup_Gagnant {
         }
         return false;
     }
+    
     public void IA(){
         ArrayList<Position> Goal_list;
         // Chercher si il y a des "buts" disponible
@@ -190,7 +193,28 @@ public class Coup_Gagnant {
                     }
                 }
             }
+            else{
+                Piece P_B = tr.getPieceWithBall(Couleur_IA);
+                Position But = Goal_list.get(0);
+                if(Goal_list.size()!=0){ // un seul but
+
+                }
+                else{ // plusieurs buts
+                    ArrayList<Piece> list_piece = find_piece();
+                    Piece plus_proche = list_piece.get(0);
+                    // cherche joueur le plus proche du but
+                    for(int i=1;i<list_piece.size();i++){
+                        if(Math.abs(But.c - plus_proche.Position.c) < Math.abs(But.c - list_piece.get(i).Position.c)){
+                            if(Math.abs(But.l - plus_proche.Position.l) < Math.abs(But.l - list_piece.get(i).Position.l)){
+                                plus_proche = list_piece.get(i);
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
+    
         // faire une fonction victoire ?
 
     }
