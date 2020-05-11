@@ -44,7 +44,7 @@ public class ihm extends JFrame {
 	
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav");
-		this.setSize(601, 510);
+		this.setSize(601, 550);
 		NewGame ng = new NewGame(this);	
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");

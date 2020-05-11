@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import Diaballik.Controllers.ControleurMediateur;
@@ -37,13 +39,24 @@ public class NewGame extends JPanel {
 	JButton troisMin = new JButton("3 min");
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
-	JLabel nomJoueur = new JLabel("Nom du joueur : ");
+	JLabel nomJoueur = new JLabel("Nom du joueur 1 : ");
+	JLabel nomJoueur2 = new JLabel("Nom du joueur 2 : ");
 	JLabel jouerContre = new JLabel("Jouer Contre :");
-	JTextArea name = new JTextArea("Joueur 1");
+	JLabel niveauIA = new JLabel("Niveau de l'IA :");
+	JTextArea name1 = new JTextArea("Joueur 1");
+	JTextArea name2 = new JTextArea("Joueur 2");
+	JTextArea name3 = new JTextArea("IA");
 	JMenuBar mb = new JMenuBar();
 	JMenu m1 = new JMenu("Thèmes");
 	JMenu m2 = new JMenu("Options");
 	JMenuItem mi1 = new JMenuItem("Daltonien");
+	
+	ButtonGroup b = new ButtonGroup();
+	JRadioButton br1 = new JRadioButton("Facile");
+	JRadioButton br2 = new JRadioButton("Moyen");
+	JRadioButton br3 = new JRadioButton("Difficile");
+	
+	boolean bHumain = true;
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
@@ -83,28 +96,37 @@ public class NewGame extends JPanel {
 		mb.setBounds(0, 0, 600, 20);
 		this.add(mb);
 		this.setLayout(null);
+		
 		 i.addComponentListener(new ComponentAdapter() {
              public void componentResized(ComponentEvent evt) {
-            	jouerContre.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 25, 100, 100);
-            	name.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) - 30, 200, 20);
-            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 70, 100, 100);
-            	titre.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) - 130, 300, 100);
-         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 40, 100, 100);
-         		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 120, 150, 120);
+            	jouerContre.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 80, 100, 100);
+            	name1.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 50, 200, 20);
+            	name2.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 80, 200, 20);
+            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 50, 110, 20);
+            	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 110, 20);
+            	
+            	titre.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) - 120, 300, 100);
+         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 100, 100);
+         		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 160, 150, 120);
          		
-         		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 280, 120, 40);
-         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 280, 120, 40);
+         		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 320, 120, 40);
+         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 320, 120, 40);
          		
-         		humain.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 30, 120, 40);
-         		ordinateur.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 30, 120, 40);
+         		humain.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) - 20, 120, 40);
+         		ordinateur.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) - 20, 120, 40);
          		
-         		illimite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 115, 100, 40);
-         		uneMin.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 115, 100, 40);
-         		deuxMin.setBounds((i.getWidth()/2), (i.getHeight()/4) + 115, 100, 40);
-         		troisMin.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 115, 100, 40);
+         		illimite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 155, 100, 40);
+         		uneMin.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 155, 100, 40);
+         		deuxMin.setBounds((i.getWidth()/2), (i.getHeight()/4) + 155, 100, 40);
+         		troisMin.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 155, 100, 40);
          		
-         		joueur2.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
-         		joueur1.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
+         		joueur2.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 240, 120, 40);
+         		joueur1.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 240, 120, 40);
+         		
+         		niveauIA.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 40, 110, 20);
+         		br1.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) + 40, 70, 20);
+         		br2.setBounds((i.getWidth()/2) - 30, (i.getHeight()/4) + 40, 70, 20);
+         		br3.setBounds((i.getWidth()/2) + 40, (i.getHeight()/4) + 40, 70, 20);
              }
      });
 
@@ -124,7 +146,22 @@ public class NewGame extends JPanel {
             public void actionPerformed(ActionEvent e) { 
             	humain.setBackground(Color.pink);
 				ordinateur.setBackground(null);	
-				j.IA = false;	
+				j.IA = false;
+				name2.setText("Joueur 2");
+				
+				
+				if (bHumain == false) {
+					i.setSize(i.getWidth(), i.getHeight());
+					name1.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 50, 200, 20);
+	            	name2.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 80, 200, 20);
+	            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 50, 110, 20);
+	            	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 110, 20);
+					bHumain = true;
+				}
+				niveauIA.setVisible(false);
+				br1.setVisible(false);
+				br2.setVisible(false);
+				br3.setVisible(false);
             } 
         } );
 		
@@ -134,6 +171,22 @@ public class NewGame extends JPanel {
 				humain.setBackground(null);
 				human = false; //joueur IA
 				j.IA = true;
+				
+				name2.setText("IA");
+				
+				if (bHumain == true) {
+					i.setSize(i.getWidth(), i.getHeight());
+					name1.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 70, 200, 20);
+	            	name2.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 100, 200, 20);
+	            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 70, 110, 20);
+	            	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 100, 110, 20);
+					bHumain = false;
+				}
+				
+				niveauIA.setVisible(true);
+				br1.setVisible(true);
+				br2.setVisible(true);
+				br3.setVisible(true);
             } 
         } );
 		
@@ -204,9 +257,19 @@ public class NewGame extends JPanel {
             } 
         } );
 		
+		this.add(niveauIA);
+		niveauIA.setVisible(false);
+		this.add(br1);
+		br1.setVisible(false);
+		this.add(br2);
+		br2.setVisible(false);
+		this.add(br3);
+		br3.setVisible(false);
 		this.add(jouerContre);
 		this.add(nomJoueur);
-		this.add(name);
+		this.add(nomJoueur2);
+		this.add(name1);
+		this.add(name2);
 		this.add(joueur1);
 		this.add(joueur2);
 		this.add(priorite);
