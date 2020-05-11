@@ -9,7 +9,7 @@ public class IA_utils {
         ArrayList<Couple_piece_pos> result = new ArrayList<Couple_piece_pos>();
         for(int i=0; i<tr.taille();i++){
             for(Piece p : tr.getTerrain()[i]){
-                if(p.Type == type){
+                if(p.Type == type && !p.HasBall){
                     result.add(new Couple_piece_pos(p, p.PossiblePositions(movesLeft)));
                 }
             }

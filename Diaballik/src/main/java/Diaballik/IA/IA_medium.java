@@ -34,7 +34,8 @@ public class IA_medium {
      * PPE = Player Player Exchange
      */
     private void Strategy_PPE(){
-
+        ArrayList<Couple_piece_pos> poss = IA_utils.getAllPossibleMoves(type, tr, nbMove);
+        System.out.println(poss);
     }
     /**
      * PEP = Player Exchance Player
@@ -52,7 +53,8 @@ public class IA_medium {
     public static void main(String args[]){
         Terrain tr = new Terrain();
         tr.Create();
-        System.out.println(IA_utils.getAllPossibleMoves(PieceType.Black, tr, 2));
+        IA_medium ia_med = new IA_medium(tr, PieceType.Black);
+        ia_med.Strategy_PPE();
     }
 }
 
