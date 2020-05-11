@@ -16,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.Jeu;
@@ -135,6 +137,49 @@ public class NewGame extends JPanel {
 		humain.setBackground(Color.pink);
 		illimite.setBackground(Color.pink);
 		joueur1.setBackground(Color.pink);
+		
+		name1.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				joueur1.setText(name1.getText());
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+			   
+			});
+		
+		name2.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				joueur2.setText(name2.getText());
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+			   
+			});
+		
 		
 		retour.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
@@ -257,9 +302,14 @@ public class NewGame extends JPanel {
             } 
         } );
 		
+		b.add(br1);
+		b.add(br2);
+		b.add(br3);
 		this.add(niveauIA);
 		niveauIA.setVisible(false);
 		this.add(br1);
+		
+		br1.setSelected(true);
 		br1.setVisible(false);
 		this.add(br2);
 		br2.setVisible(false);
