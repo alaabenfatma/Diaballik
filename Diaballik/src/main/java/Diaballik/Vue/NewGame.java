@@ -108,7 +108,7 @@ public class NewGame extends JPanel {
             	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 110, 20);
             	
             	titre.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) - 120, 300, 100);
-         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 100, 100);
+         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 90, 100, 100);
          		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 160, 150, 120);
          		
          		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 320, 120, 40);
@@ -308,7 +308,6 @@ public class NewGame extends JPanel {
 		this.add(niveauIA);
 		niveauIA.setVisible(false);
 		this.add(br1);
-		
 		br1.setSelected(true);
 		br1.setVisible(false);
 		this.add(br2);

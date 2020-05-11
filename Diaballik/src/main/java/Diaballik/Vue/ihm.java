@@ -1,6 +1,8 @@
 package Diaballik.Vue;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
@@ -13,7 +15,8 @@ public class ihm extends JFrame {
 	Menu menu = new Menu(this);
 	NewGame ng = new NewGame(this);
 	JouerReseau jr = new JouerReseau(this);
-	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");   
+	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
+	Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	playSound ps = new playSound();
 	
@@ -44,7 +47,16 @@ public class ihm extends JFrame {
 	
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav");
-		this.setSize(601, 550);
+		//if (this.getWidth() == 600 && this.getHeight() == 510) {
+			this.setSize(601, 550);
+			
+		//} else {
+			
+		//	this.setMaximumSize(DimMax);
+
+			//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//}
+		
 		NewGame ng = new NewGame(this);	
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
@@ -98,6 +110,8 @@ public class ihm extends JFrame {
 	
 	public void fenetreRejoindrePartieReseau() {
 		ps.play("son/buttonClick.wav");
+		this.setSize(600, 401);
+		this.setSize(600, 400);
 		RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
 		this.setContentPane(rpr);
 		this.setTitle("Rejoindre une partie");

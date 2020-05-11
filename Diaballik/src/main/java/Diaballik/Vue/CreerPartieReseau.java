@@ -1,4 +1,5 @@
 package Diaballik.Vue;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class CreerPartieReseau extends JPanel {
 	
@@ -21,6 +24,7 @@ public class CreerPartieReseau extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Créer une partie");
 	JLabel nomJoueur = new JLabel("Nom du joueur");
+	JLabel erreur = new JLabel("Entrez un nom de joueur");
 	JTextArea name = new JTextArea("Joueur 1");
 	JButton ok = new JButton("Ok");
 	JButton retour = new JButton("Retour");
@@ -44,7 +48,8 @@ public class CreerPartieReseau extends JPanel {
             public void componentResized(ComponentEvent evt) {
                 titre.setBounds((i.getWidth()/2) - 110, (i.getHeight()/4) - 100, 300, 100);
         		name.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 40, 200, 20);
-            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4), 200, 100);
+            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 40, 200, 20);
+            	erreur.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 150, 300, 50);
         		ok.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
          		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
          		
@@ -52,6 +57,36 @@ public class CreerPartieReseau extends JPanel {
 		});
 		
 		
+		name.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				if (name.getText() != "") {
+					erreur.setVisible(false);
+					ok.setEnabled(true);
+				}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				// TODO Auto-generated method stub
+				if (name.getText().equals("")) {
+					erreur.setVisible(true);
+					ok.setEnabled(false);
+				}
+			}
+			
+			   
+			});
+		
+		this.add(erreur);
+		erreur.setVisible(false);
 		this.add(nomJoueur);
 		this.add(name);
 		this.add(ok);
@@ -60,6 +95,9 @@ public class CreerPartieReseau extends JPanel {
 		
 		Font fonttitre = new Font("Arial",Font.BOLD,30);
 		Font fontnomJoueur = new Font("Arial",Font.BOLD,15);
+		Font fonterreur = new Font("Arial",Font.BOLD,20);
+		erreur.setForeground(Color.red);
+		erreur.setFont(fonterreur);
 		nomJoueur.setFont(fontnomJoueur);
 		titre.setFont(fonttitre);
 		
