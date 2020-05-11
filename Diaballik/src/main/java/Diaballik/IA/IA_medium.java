@@ -9,7 +9,7 @@ public class IA_medium {
 
     int nbMove = 2;
     int nbPasse = 1;
-    PieceType type = PieceType.White;
+    PieceType type = PieceType.Black;
     Terrain tr;
 
     public IA_medium(Terrain tr, PieceType type){
@@ -30,11 +30,29 @@ public class IA_medium {
         
         */
     }
+    /**
+     * PPE = Player Player Exchange
+     */
+    private void Strategy_PPE(){
+
+    }
+    /**
+     * PEP = Player Exchance Player
+     */
+    private void Strategy_PEP(){
+
+    }
+    /**
+     * EPP = Exchange Player Player
+     */
+    private void Strategy_EPP(){
+
+    }
 
     public static void main(String args[]){
         Terrain tr = new Terrain();
         tr.Create();
-        System.out.println(IA_utils.getAllPossibleMoves(PieceType.White, tr, 2));
+        System.out.println(IA_utils.getAllPossibleMoves(PieceType.Black, tr, 2));
     }
 }
 
