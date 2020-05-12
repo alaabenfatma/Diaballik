@@ -40,17 +40,16 @@ public class Plateau implements Runnable, Observateur {
         // Creation d'une fenetre
         frame = new JFrame("Plateau");
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
-			@Override
-			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0){
-					msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder");
-					System.exit(0);
-					// ajouter la sauvegarde
-                }
-                else{
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
+                    msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder");
+                    System.exit(0);
+                    // ajouter la sauvegarde
+                } else {
                     return;
                 }
-			}
+            }
         });
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         // Ajout de notre composant de dessin dans la fenetre
@@ -68,8 +67,8 @@ public class Plateau implements Runnable, Observateur {
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame f = new JFrame();
-                f.setSize(700,530); 
-                f.setLayout(null);         
+                f.setSize(700, 530);
+                f.setLayout(null);
                 MenuEnJeu m = new MenuEnJeu(f, frame);
                 f.setContentPane(m);
                 f.setVisible(true);
@@ -77,7 +76,7 @@ public class Plateau implements Runnable, Observateur {
         });
 
         // Info joueur
-        joueur = new JLabel("Joue : Joueur1");
+        joueur = new JLabel("Joue : " + j.joueurCourant.name);
         joueur.setAlignmentX(Component.CENTER_ALIGNMENT);
         joueur.setAlignmentY(Component.CENTER_ALIGNMENT);
         joueur.setOpaque(true);
@@ -112,11 +111,14 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.addActionListener(new AdaptateurFinTour(control));
 
         // Mise en place de l'interface
+        boiteTexte.setPreferredSize(new Dimension(150,600));
         frame.add(boiteTexte, BorderLayout.EAST);
+        plat.setPreferredSize(new Dimension( 600,600));
         frame.add(plat, BorderLayout.CENTER);
         j.ajouteObservateur(this);
         // chrono.start();
-        frame.setSize(700, 600);
+        frame.pack();
+        //frame.setSize(700, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
@@ -136,7 +138,10 @@ public class Plateau implements Runnable, Observateur {
 
     @Override
     public void miseAJour() {
-        joueur.setText("Joue : " + j.joueurCourant.n);
+        if (j.gameOver)
+            joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
+        else
+            joueur.setText("Joue : " + j.joueurCourant.name);
         mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
         passe.setText("Passe : " + j.joueurCourant.passeDispo);
     }

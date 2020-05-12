@@ -97,7 +97,7 @@ public class NewGameMenu extends JPanel {
             public void actionPerformed(ActionEvent e) { 
             	humain.setBackground(Color.pink);
 				ordinateur.setBackground(null);		
-				j.IA = false;	
+				//j.IA = false;	
             } 
         } );
 		
@@ -106,7 +106,7 @@ public class NewGameMenu extends JPanel {
             	ordinateur.setBackground(Color.pink);
 				humain.setBackground(null);
 				human = false; //joueur IA
-				j.IA = true;
+				//j.IA = true;
             } 
         } );
 		

@@ -7,6 +7,7 @@ import java.util.Scanner;
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.IA.Coup_Gagnant;
 import Diaballik.IA.Random_IA;
+import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
 
 public class Jeu extends Observable {
@@ -19,33 +20,49 @@ public class Jeu extends Observable {
     Piece to = null;
     private ArrayList<Position> listeMarque = new ArrayList<Position>();
     private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();
-    public boolean IA;
+    private boolean IA;
     Random_IA I;
-    
+    ConfigJeu config;
+
     public Jeu() {
         tr = new Terrain();
         tr.Create();
 
     }
 
-    public void start() {
+    public void configurer(ConfigJeu c) {
+        config = c;
+    }
 
+    public void start() {
         // Joueur 1 (Là le joueur 1 joue forcement les blancs, mais on pourra modifier
         // dans les
         // parametres ci-dessous)
 
-        if (IA) {
-            joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
-            joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1);
-            I = new Random_IA(joueur2.couleur,tr);
+        if (config.getMode() == Mode.ordinateur) {
+            IA = true;
+            joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
+            joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
+            // TODO : case config.getIALevel()
+            I = new Random_IA(joueur2.couleur, tr);
         } else {
-            joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
-            joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1);
+            IA = false;
+            joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
+            joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1, config.getName2());
         }
 
-        // joueur courant
-        joueurCourant = joueur1;
+        if (config.getP1First() == true)
+            joueurCourant = joueur1;
+        else
+            joueurCourant = joueur2;
+
         tr._jeuParent = this;
+        metAJour();
+        // IA joue en premier
+        if (IA && !config.getP1First()) {
+            I.IA();
+            FinTour();
+        }
 
     }
 
@@ -55,16 +72,19 @@ public class Jeu extends Observable {
     }
 
     public void FinTour() {
+        if (gameOver)
+            return;
+        joueurCourant.nbMove = 2;
+        joueurCourant.passeDispo = 1;
         if (joueurCourant == joueur1) {
             joueurCourant = joueur2;
-            if(IA){
+            if (IA) {
                 I.IA();
+                FinTour();
             }
         } else {
             joueurCourant = joueur1;
         }
-        joueurCourant.nbMove = 2;
-        joueurCourant.passeDispo = 1;
         metAJour();
         RetirerMarque();
     }
@@ -79,7 +99,7 @@ public class Jeu extends Observable {
     }
 
     public void SelectionPiece(int l, int c) {
-        if (0 > l || l > 6 || 0 > c || c > 6)
+        if ((0 > l || l > 6 || 0 > c || c > 6) || gameOver)
             return;
         Piece select = tr._terrain[l][c];
         // première sélection d'une piece qui nous appartient si aucune sélection
@@ -151,8 +171,9 @@ public class Jeu extends Observable {
     public void SelectionDeplacement(int l, int c) {
         tr._terrain[l][c].SelectionDeplacement = true;
         // getPiecePos(select).SelectionDeplacement = true;
-        Piece select = tr._terrain[l][c];
-        //System.out.printf("Selection déplacement : Piece position (%d,%d)\n", select.Position.l, select.Position.c);
+        // Piece select = tr._terrain[l][c];
+        // System.out.printf("Selection déplacement : Piece position (%d,%d)\n",
+        // select.Position.l, select.Position.c);
         listeMarque.add(new Position(l, c));
         listePositionsPossibles = from.PossiblePositions(joueurCourant.nbMove);
         for (Position pos : listePositionsPossibles) {
@@ -214,7 +235,7 @@ public class Jeu extends Observable {
 
     public void RetirerMarque() {
 
-        Iterator itr = listeMarque.iterator();
+        Iterator<Position> itr = listeMarque.iterator();
         while (itr.hasNext()) {
             Position pos = (Position) itr.next();
             int l = pos.l;
@@ -286,7 +307,7 @@ public class Jeu extends Observable {
                         return false;
 
                 } else {
-                    // verifie dans les cases adjacente à droite la precense de pions adverse
+                    // verifie dans les cases adjacente à droite la presence de pions adverses
                     int ligne = l;
                     if (ligne - 1 >= 0 && tr.getTerrain()[ligne - 1][colonne].Type == adverse) {
                         nbAdverseColonne++;
@@ -343,7 +364,7 @@ public class Jeu extends Observable {
                         return false;
 
                 } else {
-                    // verifie dans les cases adjacente à droite la precense de pions adverse
+                    // verifie dans les cases adjacente à droite la presence de pions adverses
                     int ligne = l;
                     if (ligne - 1 >= 0 && tr.getTerrain()[ligne - 1][colonne].Type == adverse) {
                         nbAdverseColonne++;
@@ -453,10 +474,9 @@ public class Jeu extends Observable {
     // Ici encore on utilise l'entrée standard. A modifier plus tard pour l'ihm et
     // l'ia
     public void move() {
-        if(joueurCourant.n == TypeJoueur.IA){
+        if (joueurCourant.n == TypeJoueur.IA) {
             I.IA();
-        }
-        else{
+        } else {
             // victoire
             if (gameOver) {
                 System.exit(0); // la j'ai mis system.exit mais on changera si necessaire
@@ -533,7 +553,7 @@ public class Jeu extends Observable {
             }
         }
     }
-    
+
     private void test_Random_IA_P(Terrain tr) {
         Random_IA A = new Random_IA(PieceType.Black, tr);
         PieceType tour = PieceType.White;
@@ -638,6 +658,7 @@ public class Jeu extends Observable {
         }
         sc.close();
     }
+
     private void test_Random_IA_IA(Terrain tr) {
         Random_IA A = new Random_IA(PieceType.Black, tr);
         Random_IA B = new Random_IA(PieceType.White, tr);
@@ -694,6 +715,7 @@ public class Jeu extends Observable {
             return res;
         }
     }
+
     private void test_Coup_Gagnant_IA_P(Terrain tr) {
         Coup_Gagnant A = new Coup_Gagnant(PieceType.Black, tr);
         PieceType tour = PieceType.White;
@@ -798,10 +820,11 @@ public class Jeu extends Observable {
         }
         sc.close();
     }
+
     public static void main(String[] args) {
         Jeu j = new Jeu();
-        //j.test_Random_IA_IA(j.tr);
-        //j.test_Random_IA_P(j.tr);
+        // j.test_Random_IA_IA(j.tr);
+        // j.test_Random_IA_P(j.tr);
         j.test_Coup_Gagnant_IA_P(j.tr);
         // j.move();
     }
