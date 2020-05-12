@@ -27,7 +27,8 @@ public class Menu extends JPanel {
 	playSound ps = new playSound();
 	ihm i;
     Graphics2D drawable;
-    boolean bson = true, blang = true;
+    boolean bson = false, blang = true;
+  
      	
 	
 	public Menu(ihm ihm) {
@@ -124,14 +125,16 @@ public class Menu extends JPanel {
         sound.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
-    				if (bson == true) {
+    				if (bson == false) {
     		    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		    		sound.setIcon(new ImageIcon(mute));
-    		    		bson = false;
+    		    		bson = true;
+    		    		i.bmute = bson;
     				} else {
     					son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		    		sound.setIcon(new ImageIcon(son));
-    		    		bson = true;
+    		    		bson = false;
+    		    		i.bmute = bson;
     				}
     					
     	    	}

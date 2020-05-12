@@ -29,6 +29,7 @@ public class NewGameMenu extends JPanel {
 	JButton troisMin = new JButton("3 min");
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
+	boolean mute = false;
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
@@ -165,7 +166,7 @@ public class NewGameMenu extends JPanel {
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-            	ps.play("son/buttonClick.wav");
+            	ps.play("son/buttonClick.wav", mute);
 				j.start();
 				//SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);

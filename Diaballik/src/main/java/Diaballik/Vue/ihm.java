@@ -2,7 +2,6 @@ package Diaballik.Vue;
 
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
@@ -19,7 +18,7 @@ public class ihm extends JFrame {
 	Dimension DimMax = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	playSound ps = new playSound();
-	
+	boolean bmute = menu.bson;
 
 	public ihm() {
 		 
@@ -46,17 +45,8 @@ public class ihm extends JFrame {
 	}
 	
 	public void fenetreNouvellePartie() {
-		ps.play("son/buttonClick.wav");
-		//if (this.getWidth() == 600 && this.getHeight() == 510) {
-			this.setSize(601, 550);
-			
-		//} else {
-			
-		//	this.setMaximumSize(DimMax);
-
-			//this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//}
-		
+		ps.play("son/buttonClick.wav", bmute);
+		this.setSize(601, 550);
 		NewGame ng = new NewGame(this);	
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
@@ -65,7 +55,7 @@ public class ihm extends JFrame {
 	}
 
 	public void fenetreChargerPartie() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 510);
 		ChargerPartie cp = new ChargerPartie(this);		
 		this.setContentPane(cp);
@@ -75,7 +65,7 @@ public class ihm extends JFrame {
 	}
 	
 	public void fenetreJouerEnReseau() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
 		JouerReseau jr = new JouerReseau(this);
@@ -86,7 +76,7 @@ public class ihm extends JFrame {
 	}
 	
 	public void retourMenuPrincipal() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
 		this.setLocationRelativeTo(null);
@@ -98,7 +88,7 @@ public class ihm extends JFrame {
 	}
 	
 	public void fenetreCreerPartieReseau() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		CreerPartieReseau crr = new CreerPartieReseau(this);
@@ -109,7 +99,7 @@ public class ihm extends JFrame {
 	}
 	
 	public void fenetreRejoindrePartieReseau() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
@@ -120,7 +110,7 @@ public class ihm extends JFrame {
 	}
 	
 	public void fenetreAttenteJoueurReseau() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		AttenteJoueurReseau ajr = new AttenteJoueurReseau(this);
@@ -131,7 +121,7 @@ public class ihm extends JFrame {
 	}
 	
 	public void fenetreRegles() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(800, 620);
 		this.setLocationRelativeTo(null);
 		Regles r = new Regles(this);
@@ -143,7 +133,7 @@ public class ihm extends JFrame {
 	
 	
 	public void quit() {
-		ps.play("son/buttonClick.wav");
+		ps.play("son/buttonClick.wav", bmute);
 		msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
 	}
 	

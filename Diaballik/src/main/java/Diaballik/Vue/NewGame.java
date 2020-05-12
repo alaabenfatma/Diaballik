@@ -59,6 +59,7 @@ public class NewGame extends JPanel {
 	JRadioButton br3 = new JRadioButton("Difficile");
 	
 	boolean bHumain = true;
+	boolean mute = false;
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
@@ -291,7 +292,7 @@ public class NewGame extends JPanel {
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-				ps.play("son/buttonClick.wav");
+				ps.play("son/buttonClick.wav", mute);
 				j.start();
 				//SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);
