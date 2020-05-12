@@ -18,14 +18,13 @@ public class Menu extends JPanel {
 	JButton regles = new JButton("Règles");
 	JButton quitter = new JButton("Quitter");
 	JButton drapeau = new JButton();
-	JButton sound = new JButton();
 	JMenuBar mb = new JMenuBar();
 	JMenu m1 = new JMenu("Thèmes");
 	JMenu m2 = new JMenu("Options");
 	JMenuItem mi1 = new JMenuItem("Daltonien");
 	JMenuItem mi2 = new JMenuItem("mute");
 	JMenuItem mi3 = new JMenuItem("son");
-	Image logo, drapeauFr, drapeauGB, son, mute;
+	Image logo, drapeauFr, drapeauGB;
 	playSound ps = new playSound();
 	ihm i;
     Graphics2D drawable;
@@ -62,9 +61,6 @@ public class Menu extends JPanel {
         try {
     		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		drapeau.setIcon(new ImageIcon(drapeauFr));
-    		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-    		sound.setIcon(new ImageIcon(son));
     	}
     	catch (Exception e) {
     		System.out.println(e);
@@ -127,41 +123,19 @@ public class Menu extends JPanel {
             } 
         } );
         
-        sound.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	try {
-    				if (bson == false) { 
-    		    		sound.setIcon(new ImageIcon(mute));
-    		    		m2.remove(mi2);
-    		    		m2.add(mi3);
-    		    		bson = true;
-    		    		i.bmute = bson;
-    				} else {
-    		    		sound.setIcon(new ImageIcon(son));
-    		    		m2.remove(mi3);
-    		    		m2.add(mi2);
-    		    		bson = false;
-    		    		i.bmute = bson;
-    				}
-    					
-    	    	}
-    	    	catch (Exception e1) {
-    	    		System.out.println(e1);
-    	    	}
-            } 
-        } );
+   
         
         mi2.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
     				if (bson == false) { 
-    		    		i.sound.setIcon(new ImageIcon(mute));
+    		    		i.sound.setIcon(new ImageIcon(i.mute));
     		    		m2.remove(mi2);
     		    		m2.add(mi3);
     		    		bson = true;
     		    		i.bmute = bson;
     				} else {
-    		    		i.sound.setIcon(new ImageIcon(son));
+    		    		i.sound.setIcon(new ImageIcon(i.son));
     		    		m2.remove(mi3);
     		    		m2.add(mi2);
     		    		bson = false;
@@ -179,13 +153,13 @@ public class Menu extends JPanel {
             public void actionPerformed(ActionEvent e) { 
             	try {
     				if (bson == false) { 
-    		    		i.sound.setIcon(new ImageIcon(mute));
+    		    		i.sound.setIcon(new ImageIcon(i.mute));
     		    		m2.remove(mi2);
     		    		m2.add(mi3);
     		    		bson = true;
     		    		i.bmute = bson;
     				} else {
-    		    		i.sound.setIcon(new ImageIcon(son));
+    		    		i.sound.setIcon(new ImageIcon(i.son));
     		    		m2.remove(mi3);
     		    		m2.add(mi2);
     		    		bson = false;
