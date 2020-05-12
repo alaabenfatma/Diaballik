@@ -52,6 +52,7 @@ public class CreerPartieReseau extends JPanel {
             	erreur.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 150, 300, 50);
         		ok.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
          		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
+         		i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
          		
             }
 		});

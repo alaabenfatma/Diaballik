@@ -2,12 +2,15 @@ package Diaballik.Vue;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -57,9 +60,9 @@ public class NewGame extends JPanel {
 	JRadioButton br1 = new JRadioButton("Facile");
 	JRadioButton br2 = new JRadioButton("Moyen");
 	JRadioButton br3 = new JRadioButton("Difficile");
-	
+	JButton sound = new JButton();
 	boolean bHumain = true;
-	boolean mute = false;
+	boolean bson;
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
@@ -92,6 +95,7 @@ public class NewGame extends JPanel {
 	public NewGame(ihm ihm) {
 		
 		i = ihm;
+		bson = i.menu.bson;
 		j = new Jeu();
 		m1.add(mi1);
 		mb.add(m1);
@@ -130,6 +134,7 @@ public class NewGame extends JPanel {
          		br1.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) + 40, 70, 20);
          		br2.setBounds((i.getWidth()/2) - 30, (i.getHeight()/4) + 40, 70, 20);
          		br3.setBounds((i.getWidth()/2) + 40, (i.getHeight()/4) + 40, 70, 20);
+         		i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
              }
      });
 
@@ -187,6 +192,7 @@ public class NewGame extends JPanel {
             	i.retourMenuPrincipal();
             } 
         } );
+		
 		
 		humain.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
@@ -292,7 +298,7 @@ public class NewGame extends JPanel {
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
-				ps.play("son/buttonClick.wav", mute);
+				ps.play("son/buttonClick.wav", bson);
 				j.start();
 				//SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);
