@@ -44,9 +44,10 @@ public class Random_IA {
         ArrayList<Piece> list_piece;
         ArrayList<Position> diag;
         int nb_tour = 0;
+        int choix = 0;
         System.out.println("L'IA est en train de jouer ");
         while((nbMove > 0 || passe_faite > 0) && nb_tour < 10){
-            int choix = R.nextInt(2)+binf;
+            choix = R.nextInt(2)+binf;
             System.out.println("nbMove : "+nbMove+" passe_faite : "+passe_faite + " Choix : "+choix);
             switch (choix) {
                 case 0: // Passe
@@ -71,27 +72,15 @@ public class Random_IA {
                     }
                     break;
                 case 1: // Mouvement
-                    boolean ok = false;
                     list_piece = find_piece();
                     from = list_piece.get(R.nextInt(list_piece.size()));
-                    diag = from.getDiagonals();
-                    while(!ok && nbMove > 0){
-                        if(from.PossiblePositions(nbMove).size() == 0){break;}
-                        if(from.PossiblePositions(nbMove).size() == 1){i=0;}
-                        else{i = R.nextInt(from.PossiblePositions(nbMove).size()-1);}
-                        pos = from.PossiblePositions(nbMove).get(i);
-                        to = tr.getTerrain()[pos.l][pos.c];
-                        if(diag.contains(pos) && nbMove==2){
-                            nbMove-=2;
-                        }
-                        else{
-                            nbMove--;
-                        }
-                        if (nbMove >= 0) {
-                            from.move(pos.l, pos.c);
-                            ok = true;
-                        }
-                    }
+                    if(from.PossiblePositions(nbMove).size() == 0){break;}
+                    if(from.PossiblePositions(nbMove).size() == 1){i=0;}
+                    else{i = R.nextInt(from.PossiblePositions(nbMove).size()-1);}
+                    pos = from.PossiblePositions(nbMove).get(i);
+                    to = tr.getTerrain()[pos.l][pos.c];
+                    nbMove -= Math.abs(from.Position.l - to.Position.l) + Math.abs(from.Position.c - to.Position.c); 
+                    from.move(pos.l, pos.c);
                     break;
                 case 2: // fin du tour
                     nbMove = 0;
@@ -103,5 +92,6 @@ public class Random_IA {
             }
             nb_tour++;
         }
+        System.out.println("nbMove : "+nbMove+" passe_faite : "+passe_faite + " Choix : "+choix);
     }
 }
