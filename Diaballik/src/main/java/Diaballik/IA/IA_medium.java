@@ -17,9 +17,9 @@ public class IA_medium {
         this.type = type;
     }
 
-    //Still working on it
+    //Renvoi le meilleur coup avec une profondeur de 1
     public void getNextMove(){
-        /*
+        
         ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMoves(type, tr, nbMove);
         for(Couple_piece_pos pp : possibleMoves){
             Terrain trTemp = tr.clone();
@@ -28,7 +28,7 @@ public class IA_medium {
 
         }
         
-        */
+        
     }
 
     public static void main(String args[]){
