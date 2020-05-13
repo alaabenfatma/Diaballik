@@ -2,16 +2,18 @@ package Diaballik.Vue;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.imageio.ImageIO;
 
+import Diaballik.IA.Couple;
 import Diaballik.Models.Jeu;
 import Diaballik.Models.PieceType;
 
 public class VuePlateau extends PlateauGraphique {
 
     private static final long serialVersionUID = 1L;
-    
+
     Image caseA, caseB, pionA_ballon, pionB_ballon, pionA_bas, pionB_bas;
     int hauteurCase, largeurCase;
     Jeu j;
@@ -88,14 +90,38 @@ public class VuePlateau extends PlateauGraphique {
                 }
                 // Traçage des marques
                 if (j.tr._terrain[ligne][colonne].SelectionPasse == true)
-                    tracerCarre(Color.green, x, y, largeurCase, hauteurCase);
+                    tracerCarre(Color.yellow, x, y, largeurCase, hauteurCase);
                 else if (j.tr._terrain[ligne][colonne].SelectionDeplacement == true)
                     tracerCarre(Color.yellow, x, y, largeurCase, hauteurCase);
                 else if (j.tr._terrain[ligne][colonne].PossibleDeplacement == true)
-                    tracerCarre(Color.blue, x, y, largeurCase, hauteurCase);
+                    // tracerCarre(Color.blue, x, y, largeurCase, hauteurCase);
+                    tracerCercle(x + largeurCase / 2, y + hauteurCase / 2);
                 else if (j.tr._terrain[ligne][colonne].PossiblePasse == true)
-                    tracerCarre(Color.lightGray, x, y, largeurCase, hauteurCase);
+                    tracerCarre(Color.green, x, y, largeurCase, hauteurCase);
             }
+        }
+        // Tracage des feeedback mouvements
+        for (Couple cpl2 : j.listeDeplacementJ2) {
+            drawArrowLine(Color.blue, cpl2.p2.c * largeurCase + largeurCase / 2,
+                    cpl2.p2.l * hauteurCase + hauteurCase / 2, cpl2.p1.c * largeurCase + largeurCase / 2,
+                    cpl2.p1.l * hauteurCase + hauteurCase / 2, 4, 4, false);
+        }
+
+        for (Couple cpl : j.listeDeplacementJ1) {
+            drawArrowLine(Color.red, cpl.p2.c * largeurCase + largeurCase / 2, cpl.p2.l * hauteurCase + hauteurCase / 2,
+                    cpl.p1.c * largeurCase + largeurCase / 2, cpl.p1.l * hauteurCase + hauteurCase / 2, 4, 4, false);
+        }
+
+        for (Couple cpl : j.listePasseJ1) {
+            drawArrowLine(Color.orange, cpl.p1.c * largeurCase + largeurCase / 2,
+                    cpl.p1.l * hauteurCase + hauteurCase / 2, cpl.p2.c * largeurCase + largeurCase / 2,
+                    cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true);
+        }
+
+        for (Couple cpl : j.listePasseJ2) {
+            drawArrowLine(Color.ORANGE, cpl.p1.c * largeurCase + largeurCase / 2,
+                    cpl.p1.l * hauteurCase + hauteurCase / 2, cpl.p2.c * largeurCase + largeurCase / 2,
+                    cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true);
         }
     }
 }

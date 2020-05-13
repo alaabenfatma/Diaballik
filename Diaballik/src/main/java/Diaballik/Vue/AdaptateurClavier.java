@@ -16,6 +16,9 @@ public class AdaptateurClavier extends KeyAdapter {
 			case KeyEvent.VK_U:
 				control.toucheClavier("Undo");
 				break;
+			case KeyEvent.VK_F:
+				control.toucheClavier("FinTour");
+				break;
 			case KeyEvent.VK_R:
 				control.toucheClavier("Redo");
 				break;
