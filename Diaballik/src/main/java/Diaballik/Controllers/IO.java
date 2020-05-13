@@ -1,6 +1,5 @@
 package Diaballik.Controllers;
 
-import org.json.simple.JSONObject;
 
 import Diaballik.Models.Jeu;
 import Diaballik.Models.PieceType;
@@ -33,6 +32,11 @@ public class IO {
                 }
             }
         }
-        
+        StringBuilder json = new StringBuilder();
+        json.append("Game{");
+        json.append("Player1='"+player1+'\'');
+        json.append(",Player2='"+player2+'\'');
+        json.append(",Terrain='"+pieces.toString()+'\'');
+
     }
 }
