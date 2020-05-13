@@ -1,5 +1,7 @@
 package Diaballik.Models;
 
+import java.util.Stack;
+
 public class Terrain implements ITerrain {
     public Piece[][] _terrain;
 
@@ -8,6 +10,8 @@ public class Terrain implements ITerrain {
      */
     private int taille;
     public Jeu _jeuParent;
+    Stack<Piece[][]> coups;
+    Stack<Piece[][]> ctrly;
 
     private void init() {
         this.taille = 7;
@@ -23,7 +27,8 @@ public class Terrain implements ITerrain {
         for (int i = 0; i < taille; i++) {
             _terrain[6][i].Type = PieceType.White;
         }
-
+        coups = new Stack<Piece[][]>();
+        ctrly = new Stack<Piece[][]>();
     }
 
     @Override
@@ -132,6 +137,28 @@ public class Terrain implements ITerrain {
             }
         }
         return PieceType.Empty;
+    }
+
+    public void updateStack(){
+        Piece[][] copy = new Piece[this.taille()][this.taille()];
+        for (int i = 0; i < this.taille(); i++) {
+            for (int j = 0; j < this.taille(); j++) {
+                Piece piece = this._terrain[i][j];
+                copy[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
+            }
+        }
+        coups.add(copy);
+    }
+
+    public void ctrl_z(){
+        Piece[][] copy = coups.peek();
+        ctrly.add(coups.pop());
+        for (int i = 0; i < this.taille(); i++) {
+            for (int j = 0; j < this.taille(); j++) {
+                Piece piece = copy[i][j];
+                _terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
+            }
+        }
     }
 
 
