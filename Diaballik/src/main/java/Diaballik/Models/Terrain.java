@@ -78,6 +78,7 @@ public class Terrain implements ITerrain {
     }
 
     @Override
+    
     public Piece[][] getTerrain() {
         return _terrain;
     }
@@ -133,6 +134,33 @@ public class Terrain implements ITerrain {
         }
         return PieceType.Empty;
     }
-
+    
+    public char[][] toChar(){
+        char[][] pieces = new char[7][7];
+        for (int i = 0; i < 7; i++) {
+            for (int k = 0; k < 7; k++) {
+                if(this._terrain[i][k].Type==PieceType.White){
+                    if(this._terrain[i][k].HasBall){
+                        pieces[i][k] = '1';
+                    }
+                    else{
+                        pieces[i][k] = 'W';
+                    }
+                }
+                else if(this._terrain[i][k].Type==PieceType.Black){
+                    if(this._terrain[i][k].HasBall){
+                        pieces[i][k] = '0';
+                    }
+                    else{
+                        pieces[i][k] = 'B';
+                    }
+                }
+                else{
+                    pieces[i][k] = ' ';
+                }
+            }
+        }
+        return pieces;
+    }
 
 }

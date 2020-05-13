@@ -5,7 +5,7 @@ public class Joueur{
     public PieceType couleur; //sa couleur
     public int nbMove;
     public int passeDispo;
-    public String name;
+    public String name = "";
     
     public Joueur(TypeJoueur n, PieceType couleur, int nbMove, int passeDispo){
         this.n = n;
