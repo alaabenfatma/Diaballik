@@ -3,15 +3,64 @@ package Diaballik.Vue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
+import java.util.stream.Stream;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import Diaballik.Models.Jeu;
+import Diaballik.Models.JeuJSON;
 
 public class ChargerPartie extends JPanel {
 	public ChargerPartie(JFrame parent) {
-		String data[][] = { { "101", "Amit", "670000" }, { "102", "Jai", "780000" }, { "101", "Sachin", "700000" } };
-		String column[] = { "ID", "NAME", "SALARY" };
-		JTable jt = new JTable(data, column);
-		jt.setBounds(30, 40, 200, 300);
-		JScrollPane sp = new JScrollPane(jt);
+		ObjectMapper mapper = new ObjectMapper();
+		String column[] = { "Player1", "Player2", "Date" };
+		DefaultTableModel data = new DefaultTableModel(column, 0);
+		Scanner scan;
+		try {
+			scan = new Scanner(new FileInputStream("Diaballik/src/main/java/Diaballik/data/history.json"));
+			while (scan.hasNextLine()) {
+				String line = scan.nextLine();
+				try {
+					JeuJSON j = mapper.readValue(line, JeuJSON.class);
+					Object[] innerData = { j.player1, j.player2, j.CreationDate };
+					data.addRow(innerData);
+				} catch (JsonParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JsonMappingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		JTable table = new JTable(data);
+
+		table.setDefaultEditor(Object.class, null);
+
+		table.setBounds(0, 0, parent.getWidth(), parent.getHeight() - 30);
+		JScrollPane sp = new JScrollPane(table);
 		this.add(sp);
 		parent.add(this);
 	}
