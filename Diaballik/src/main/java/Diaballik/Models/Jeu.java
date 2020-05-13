@@ -203,7 +203,7 @@ public class Jeu extends Observable {
         if (joueurCourant.passeDispo == 1) {
             if (TerrainUtils.passeWrapper2(from, to) == true) {
                 joueurCourant.passeDispo = 0;
-                gameOver = victoire() != PieceType.Empty;
+                gameOver = tr.victoire() != PieceType.Empty;
             }
         }
         RetirerMarque();
@@ -401,22 +401,7 @@ public class Jeu extends Observable {
         }
     }
 
-    // retourne le type de piece qui a gagnée
-    public PieceType victoire() {
-        for (int i = 0; i < tr.taille(); i++) {
-            if ((tr.getTerrain()[0][i].Type == PieceType.White) && (tr.getTerrain()[0][i].HasBall)) {
-                System.out.println("Les blancs ont gagné !");
-                return PieceType.White;
-            }
-            if ((tr.getTerrain()[tr.taille() - 1][i].Type == PieceType.Black)
-                    && (tr.getTerrain()[tr.taille() - 1][i].HasBall)) {
-                System.out.println("Les noirs ont gagné !");
-                return PieceType.Black;
-            }
-        }
-        return PieceType.Empty;
-    }
-
+    
     // mode textuelle
 
     public Piece getPiece(PieceType t) {
@@ -507,7 +492,7 @@ public class Jeu extends Observable {
                             to = getPiece(joueurCourant.couleur);
                             TerrainUtils.passeWrapper(from, to);
                             joueurCourant.passeDispo = 0;
-                            gameOver = victoire() != PieceType.Empty;
+                            gameOver = tr.victoire() != PieceType.Empty;
                         } else {
                             System.out.println("Vous ne pourrez faire qu'une seule passe");
                         }

@@ -118,5 +118,21 @@ public class Terrain implements ITerrain {
         }
         return copy;
     }
+    // retourne le type de piece qui a gagnée
+    public PieceType victoire() {
+        for (int i = 0; i < this.taille(); i++) {
+            if ((this.getTerrain()[0][i].Type == PieceType.White) && (this.getTerrain()[0][i].HasBall)) {
+                System.out.println("Les blancs ont gagné !");
+                return PieceType.White;
+            }
+            if ((this.getTerrain()[this.taille() - 1][i].Type == PieceType.Black)
+                    && (this.getTerrain()[this.taille() - 1][i].HasBall)) {
+                System.out.println("Les noirs ont gagné !");
+                return PieceType.Black;
+            }
+        }
+        return PieceType.Empty;
+    }
+
 
 }
