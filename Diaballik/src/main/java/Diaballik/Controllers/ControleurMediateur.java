@@ -16,12 +16,11 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	@Override
 	public void clicSouris(int l, int c) {
-		System.out.printf("Mouse position : (%d,%d)\n", l,c);
-		jeu.SelectionPiece(l,c);
-		System.out.println("Score de plateau : "+Evaluator.scoreOfBoard(jeu.tr));
+		System.out.printf("Mouse position : (%d,%d)\n", l, c);
+		jeu.SelectionPiece(l, c);
+		System.out.println("Score de plateau : " + Evaluator.scoreOfBoard(jeu.tr));
 
 	}
-
 	public void annule() {
 		// TODO : annule
 	}
@@ -29,9 +28,14 @@ public class ControleurMediateur implements CollecteurEvenements {
 	public void refait() {
 		// TODO : refait
 	}
-	
-	public void finTour(){
+
+	public void finTour() {
 		jeu.FinTour();
+	}
+
+	public void save() {
+		IO.ExportGameToJSON(jeu);
+		System.out.println("Sauvegarde de la partie");
 	}
 
 	@Override
@@ -51,6 +55,9 @@ public class ControleurMediateur implements CollecteurEvenements {
 				break;
 			case "Full":
 				vue.toggleFullscreen();
+				break;
+			case "Save":
+				save();
 				break;
 			default:
 				System.out.println("Touche inconnue : " + touche);

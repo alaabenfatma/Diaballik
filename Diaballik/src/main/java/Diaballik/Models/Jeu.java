@@ -96,7 +96,7 @@ public class Jeu extends Observable {
                 case difficile:
                     break;
                 case moyen:
-                iaRandomIHM = new IaRandomIHM(this);
+                iaRandomIHM.JoueTourIARand();
                     break;
                 case facile:
                 iaEasy.joueTourIAEasy();
@@ -127,7 +127,7 @@ public class Jeu extends Observable {
                     case difficile:
                         break;
                     case moyen:
-                    iaRandomIHM = new IaRandomIHM(this);
+                    iaRandomIHM.JoueTourIARand();
                         break;
                     case facile:
                     iaEasy.joueTourIAEasy();

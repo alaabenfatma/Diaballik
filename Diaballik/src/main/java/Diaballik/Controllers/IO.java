@@ -1,7 +1,13 @@
 package Diaballik.Controllers;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -16,8 +22,11 @@ class JeuToExport {
     public String player1;
     public String player2;
     public char[][] terrain = new char[7][7];
-    public String nowDate = 
-    JeuToExport(Jeu j){
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    Date date = new Date();
+    public String CreationDate = formatter.format(date);
+
+    public JeuToExport(Jeu j) {
         player1 = j.joueur1.name;
         player2 = j.joueur2.name;
         terrain = j.tr.toChar();
@@ -29,7 +38,15 @@ public class IO {
         JeuToExport jte = new JeuToExport(j);
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(new File("./terrain.json"), jte);
+            String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jte);
+            try {
+                String filename = "history.json";
+                FileWriter fw = new FileWriter(filename, true); // the true will append the new data
+                fw.write(json);// appends the string to the file
+                fw.close();
+            } catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());
+            }
         } catch (JsonGenerationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
