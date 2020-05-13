@@ -80,6 +80,7 @@ public class Jeu extends Observable {
             joueurCourant = joueur2;
             if (IA) {
                 I.IA();
+                gameOver = antijeu2() || tr.victoire() != PieceType.Empty;
                 FinTour();
             }
         } else {
