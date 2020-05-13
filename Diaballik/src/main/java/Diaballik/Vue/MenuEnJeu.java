@@ -15,6 +15,7 @@ public class MenuEnJeu extends JPanel{
 	JButton charger = new JButton("Charger");
 	JButton menup = new JButton("Menu principal");
     JButton quit = new JButton("Quitter");
+    boolean mute = false;
 	playSound ps = new playSound();
     
     
@@ -85,7 +86,7 @@ public class MenuEnJeu extends JPanel{
 
         quit.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {
-            	ps.play("son/buttonClick.wav");
+            	ps.play("son/buttonClick.wav", mute);
         		msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", frame);
             } 
         } );

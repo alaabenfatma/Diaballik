@@ -20,7 +20,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import Diaballik.Controllers.ControleurMediateur;
+import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
+import Diaballik.Models.ConfigJeu.Mode;
+import Diaballik.Models.ConfigJeu.Timer;
 
 public class NewGame extends JPanel {
 
@@ -52,256 +55,257 @@ public class NewGame extends JPanel {
 	JMenu m1 = new JMenu("Thèmes");
 	JMenu m2 = new JMenu("Options");
 	JMenuItem mi1 = new JMenuItem("Daltonien");
-	
+
 	ButtonGroup b = new ButtonGroup();
 	JRadioButton br1 = new JRadioButton("Facile");
 	JRadioButton br2 = new JRadioButton("Moyen");
 	JRadioButton br3 = new JRadioButton("Difficile");
-	
 	boolean bHumain = true;
+	boolean bson;
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
+	ConfigJeu configJeu;
 
-	//Parametres de la nouvelle partie
+	// Parametres de la nouvelle partie
 	/*
-	public enum Joueur {
-		humain,
-		ordinateur;
-	}
+	 * public enum Joueur { humain, ordinateur; }
+	 * 
+	 * public enum temps { illimite, 0 un, 1 deux, 2 trois; 3 }
+	 * 
+	 * public enum premier { joueurun, true joueurdeux; false }
+	 */
 
-	public enum temps {
-		illimite, 0
-		un, 1
-		deux, 2
-		trois; 3
-	}
-
-	public enum premier {
-		joueurun, true
-		joueurdeux; false
-	}	
-	*/
-
-	int tempschrono = 0; //illimite
-	boolean human = true; //joueur humain
-	boolean first = true; //joueur 1
-
+	int tempschrono = 0; // illimite
+	boolean human = true; // joueur humain
+	boolean first = true; // joueur 1
 
 	public NewGame(ihm ihm) {
-		
+
 		i = ihm;
+		bson = i.menu.bson;
 		j = new Jeu();
+		configJeu = new ConfigJeu();
 		m1.add(mi1);
 		mb.add(m1);
 		mb.add(m2);
 		mb.setBounds(0, 0, 600, 20);
 		this.add(mb);
 		this.setLayout(null);
-		
-		 i.addComponentListener(new ComponentAdapter() {
-             public void componentResized(ComponentEvent evt) {
-            	jouerContre.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) - 80, 100, 100);
-            	name1.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 50, 200, 20);
-            	name2.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 80, 200, 20);
-            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 50, 110, 20);
-            	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 110, 20);
-            	
-            	titre.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) - 120, 300, 100);
-         		duree.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 90, 100, 100);
-         		priorite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 160, 150, 120);
-         		
-         		jouer.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 320, 120, 40);
-         		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 320, 120, 40);
-         		
-         		humain.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) - 20, 120, 40);
-         		ordinateur.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) - 20, 120, 40);
-         		
-         		illimite.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 155, 100, 40);
-         		uneMin.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 155, 100, 40);
-         		deuxMin.setBounds((i.getWidth()/2), (i.getHeight()/4) + 155, 100, 40);
-         		troisMin.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 155, 100, 40);
-         		
-         		joueur2.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 240, 120, 40);
-         		joueur1.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 240, 120, 40);
-         		
-         		niveauIA.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 40, 110, 20);
-         		br1.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4) + 40, 70, 20);
-         		br2.setBounds((i.getWidth()/2) - 30, (i.getHeight()/4) + 40, 70, 20);
-         		br3.setBounds((i.getWidth()/2) + 40, (i.getHeight()/4) + 40, 70, 20);
-             }
-     });
 
-		Font font = new Font("Arial",Font.BOLD,30);
+		i.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent evt) {
+				jouerContre.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) - 80, 100, 100);
+				name1.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 50, 200, 20);
+				name2.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 80, 200, 20);
+				nomJoueur.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 50, 110, 20);
+				nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 80, 110, 20);
+
+				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) - 120, 300, 100);
+				duree.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 90, 100, 100);
+				priorite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 160, 150, 120);
+
+				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 320, 120, 40);
+				retour.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 320, 120, 40);
+
+				humain.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) - 20, 120, 40);
+				ordinateur.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) - 20, 120, 40);
+
+				illimite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 155, 100, 40);
+				uneMin.setBounds((i.getWidth() / 2) - 120, (i.getHeight() / 4) + 155, 100, 40);
+				deuxMin.setBounds((i.getWidth() / 2), (i.getHeight() / 4) + 155, 100, 40);
+				troisMin.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 155, 100, 40);
+
+				joueur2.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 240, 120, 40);
+				joueur1.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 240, 120, 40);
+
+				niveauIA.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 40, 110, 20);
+				br1.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) + 40, 70, 20);
+				br2.setBounds((i.getWidth() / 2) - 30, (i.getHeight() / 4) + 40, 70, 20);
+				br3.setBounds((i.getWidth() / 2) + 40, (i.getHeight() / 4) + 40, 70, 20);
+				i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
+			}
+		});
+
+		Font font = new Font("Arial", Font.BOLD, 30);
 		titre.setFont(font);
 		humain.setBackground(Color.pink);
 		illimite.setBackground(Color.pink);
 		joueur1.setBackground(Color.pink);
-		
+
 		name1.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
 			public void changedUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 				joueur1.setText(name1.getText());
+				configJeu.setName1(name1.getText());
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 			}
-			   
-			});
-		
+
+		});
+
 		name2.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
 			public void changedUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 				joueur2.setText(name2.getText());
+				configJeu.setName2(name2.getText());
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
 				// TODO Auto-generated method stub
 			}
-			   
-			});
-		
-		
-		retour.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	i.retourMenuPrincipal();
-            } 
-        } );
-		
-		humain.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	humain.setBackground(Color.pink);
-				ordinateur.setBackground(null);	
-				j.IA = false;
+
+		});
+
+		retour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				i.retourMenuPrincipal();
+			}
+		});
+
+		humain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				humain.setBackground(Color.pink);
+				ordinateur.setBackground(null);
+				// j.IA = false;
+				configJeu.setMode(Mode.humain);
 				name2.setText("Joueur 2");
-				
-				
+
 				if (bHumain == false) {
 					i.setSize(i.getWidth(), i.getHeight());
-					name1.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 50, 200, 20);
-	            	name2.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 80, 200, 20);
-	            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 50, 110, 20);
-	            	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 80, 110, 20);
+					name1.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 50, 200, 20);
+					name2.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 80, 200, 20);
+					nomJoueur.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 50, 110, 20);
+					nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 80, 110, 20);
 					bHumain = true;
 				}
 				niveauIA.setVisible(false);
 				br1.setVisible(false);
 				br2.setVisible(false);
 				br3.setVisible(false);
-            } 
-        } );
-		
-		ordinateur.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	ordinateur.setBackground(Color.pink);
+			}
+		});
+
+		ordinateur.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ordinateur.setBackground(Color.pink);
 				humain.setBackground(null);
-				human = false; //joueur IA
-				j.IA = true;
-				
+				human = false; // joueur IA
+				// j.IA = true;
+				configJeu.setMode(Mode.ordinateur);
+
 				name2.setText("IA");
-				
+
 				if (bHumain == true) {
 					i.setSize(i.getWidth(), i.getHeight());
-					name1.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 70, 200, 20);
-	            	name2.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 100, 200, 20);
-	            	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 70, 110, 20);
-	            	nomJoueur2.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 100, 110, 20);
+					name1.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 70, 200, 20);
+					name2.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 100, 200, 20);
+					nomJoueur.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 70, 110, 20);
+					nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 100, 110, 20);
 					bHumain = false;
 				}
-				
+
 				niveauIA.setVisible(true);
 				br1.setVisible(true);
 				br2.setVisible(true);
 				br3.setVisible(true);
-            } 
-        } );
-		
-		illimite.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	illimite.setBackground(Color.pink);
+			}
+		});
+
+		illimite.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				illimite.setBackground(Color.pink);
 				uneMin.setBackground(null);
 				deuxMin.setBackground(null);
 				troisMin.setBackground(null);
-            } 
-        } );
-		
-		uneMin.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	uneMin.setBackground(Color.pink);
+				configJeu.setTimer(Timer.illimite);
+			}
+		});
+
+		uneMin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				uneMin.setBackground(Color.pink);
 				illimite.setBackground(null);
 				deuxMin.setBackground(null);
 				troisMin.setBackground(null);
 				tempschrono = 1;
-			} 
-        } );
-		
-		deuxMin.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	deuxMin.setBackground(Color.pink);
+				configJeu.setTimer(Timer.un);
+			}
+		});
+
+		deuxMin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deuxMin.setBackground(Color.pink);
 				illimite.setBackground(null);
 				uneMin.setBackground(null);
 				troisMin.setBackground(null);
 				tempschrono = 2;
-            } 
-        } );
-		
-		troisMin.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	troisMin.setBackground(Color.pink);
+				configJeu.setTimer(Timer.deux);
+			}
+		});
+
+		troisMin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				troisMin.setBackground(Color.pink);
 				illimite.setBackground(null);
 				deuxMin.setBackground(null);
 				uneMin.setBackground(null);
 				tempschrono = 3;
-            } 
-        } );
-		
-		joueur1.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	joueur1.setBackground(Color.pink);
+				configJeu.setTimer(Timer.trois);
+			}
+		});
+
+		joueur1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				joueur1.setBackground(Color.pink);
 				joueur2.setBackground(null);
-            } 
-        } );
-		
-		joueur2.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	joueur2.setBackground(Color.pink);
+				configJeu.setP1First(true);
+			}
+		});
+
+		joueur2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				joueur2.setBackground(Color.pink);
 				joueur1.setBackground(null);
-				first = false; //joueur 2
-            } 
-        } );
-		
-		jouer.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-				ps.play("son/buttonClick.wav");
+				first = false; // joueur 2
+				configJeu.setP1First(false);
+			}
+		});
+
+		jouer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ps.play("son/buttonClick.wav", bson);
+				j.configurer(configJeu);
 				j.start();
-				//SwingUtilities.getWindowAncestor(this).dispose();
-				//super.setVisible(false);
+				// SwingUtilities.getWindowAncestor(this).dispose();
+				// super.setVisible(false);
 				CollecteurEvenements control = new ControleurMediateur(j);
-				Plateau.demarrer(j,control);
+				Plateau.demarrer(j, control);
 				i.setVisible(false);
-				
-            } 
-        } );
-		
+
+			}
+		});
+
 		b.add(br1);
 		b.add(br2);
 		b.add(br3);
@@ -334,5 +338,5 @@ public class NewGame extends JPanel {
 		this.add(titre);
 		this.setVisible(true);
 	}
-	
+
 }

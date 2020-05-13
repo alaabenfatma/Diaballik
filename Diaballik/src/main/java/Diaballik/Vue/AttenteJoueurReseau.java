@@ -48,6 +48,7 @@ public class AttenteJoueurReseau extends JPanel {
             	codelabel.setBounds((i.getWidth()/2) - 170, (i.getHeight()/4) + 110, 100, 20);
          		retour.setBounds((i.getWidth()/2) - 70, (i.getHeight()/4) + 200, 120, 40);
          		gifContainer.setBounds((i.getWidth()/2) - 100, (i.getHeight()/4), 200, 100);
+         		i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
             }
 		});
 		

@@ -51,6 +51,10 @@ public class ChargerMenu extends JPanel {
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
+				String n;
+				msgBox m = new msgBox();
+				n = m.msgNumPartie();
+				//lancerpartie(tableau, n); fonction qui lancera la partie logée a la case n dans le tableau de sauvegarde
             } 
         } );
 		

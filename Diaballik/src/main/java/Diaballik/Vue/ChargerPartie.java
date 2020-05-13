@@ -27,6 +27,7 @@ public class ChargerPartie extends JPanel {
 		{"Wassim", "Ludo", "21/05/20"},
 		{"Wassim", "Thomas", "21/05/20"}
 	};
+
 	/*Pour la date, il faut recuperer la date de l'os
 	 * et pour il faut rendre chaque ligne cliquable 
 	 * Il faut enregistrer une image à chaque fois qu'on
@@ -39,19 +40,23 @@ public class ChargerPartie extends JPanel {
 	public ChargerPartie(ihm ihm) {
 		i = ihm;
 		this.setLayout(null);
-		JTable tableau = new JTable(donnees, entetes);
+		JTable table = new JTable(donnees, entetes);
 		titre.setBounds(240, 0, 300, 100);
 		save.setBounds(150, 90, 100, 20);
 		jouer.setBounds(350, 390, 120, 40);
 		retour.setBounds(210, 390, 120, 40);
-		tableau.setBounds(40, 140, 300, 240);
-		tableau.getTableHeader().setBounds(40, 110, 300, 30);
+		table.setBounds(40, 140, 300, 240);
+		table.getTableHeader().setBounds(40, 110, 300, 30);
 		
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
+				String n;
+				msgBox m = new msgBox();
+				n = m.msgNumPartie();
+				//lancerpartie(tableau, n); fonction qui lancera la partie logée a la case n dans le tableau de sauvegarde
             } 
         } );
 		
@@ -66,8 +71,8 @@ public class ChargerPartie extends JPanel {
 		this.add(retour);
 		this.add(save);
 		this.add(titre);
-		this.add(tableau.getTableHeader());
-		this.add(tableau);
+		this.add(table.getTableHeader());
+		this.add(table);
 		this.setVisible(true);
 
 	}

@@ -38,7 +38,7 @@ public class RejoindrePartieReseau extends JPanel {
 		i.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
             
-            	titre.setBounds((i.getWidth()/2) - 110, (i.getHeight()/4) - 100, 300, 100);
+            	titre.setBounds((i.getWidth()/2) - 140, (i.getHeight()/4) - 100, 300, 100);
         		name.setBounds((i.getWidth()/2) - 90, (i.getHeight()/4) + 40, 200, 20);
             	nomJoueur.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 40, 200, 20);
             	codelabel.setBounds((i.getWidth()/2) - 240, (i.getHeight()/4) + 70, 200, 20);
@@ -47,6 +47,7 @@ public class RejoindrePartieReseau extends JPanel {
             	codeerreur.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 150, 300, 50);
         		ok.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
          		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
+         		i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
          		
             }
 		});
@@ -103,13 +104,8 @@ public class RejoindrePartieReseau extends JPanel {
 					if (code.getText().equals("") || code.getText().equals(" ")) {
 						ok.setEnabled(false);
 					} 
-				} else {
-					ok.setEnabled(true);
-				}
-				
+				} 
 			}
-			
-			   
 		});
 		
 		
@@ -144,9 +140,7 @@ public class RejoindrePartieReseau extends JPanel {
 					if (name.getText().equals("") || name.getText().equals(" ")) {
 						ok.setEnabled(false);
 					} 
-				} else {
-					ok.setEnabled(true);
-				}
+				} 
 			}
 			});
 		

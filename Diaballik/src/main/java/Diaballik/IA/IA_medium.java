@@ -12,126 +12,105 @@ public class IA_medium {
     int nbPasse = 1;
     PieceType type = PieceType.Black;
     Terrain tr;
-    Stack<Trouple> S = new Stack<Trouple>();;
+    Stack<Sauve> S;
+    ArrayList<Position> Courant, Sauve;
 
-    public IA_medium(Terrain tr, PieceType type){
+    public IA_medium(Terrain tr, PieceType type) {
         this.tr = tr;
         this.type = type;
+        S = new Stack<Sauve>();
+        Courant = new ArrayList<Position>();
     }
 
-    //Renvoi le meilleur coup avec une profondeur de 1
-    public From_to getNextMove(){
-        
-        ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMoves(type, tr, nbMove);
-        int max = 0;
-        From_to bestMove = new From_to(possibleMoves.get(0).piece.Position,possibleMoves.get(0).pos.get(0));
-        for(Couple_piece_pos pp : possibleMoves){
-            System.out.println("Best move : "+bestMove);
-            Terrain trTemp = tr.clone();
-            for(Position p : pp.pos){
-                pp.piece.move(p.l, p.c);
-                int sc = Evaluator.scoreOfBoard(tr);
-                if(max<sc){
-                    max = sc;
-                    bestMove = new From_to(pp.piece.Position, p);
-                }
-                tr.PrintTerrain();
-                //tr = trTemp;
-                //tr.PrintTerrain();
-                //trTemp = tr.clone();
-            }
-
-        }
-        //System.out.println(bestMove);
-        return bestMove;
-    }
+    
     /**
      * PPE = Player Player Exchange
      */
-    private void push(){
-        S.push(new Trouple(nbMove, nbPasse, tr));
+    private void push() {
+        S.push(new Sauve(nbMove, nbPasse, tr, Courant));
     }
-    private void pop(){
-        Trouple t = S.pop();
+
+    private void pop() {
+        Sauve t = S.pop();
         nbMove = t.nbMove;
         nbPasse = t.nbPasse;
         tr = t.tr;
+        Courant = t.Mouvement;
     }
-    private void swap(Position p1,Position p2){
-        TerrainUtils.Swap(tr.getTerrain()[p1.l][p1.c],tr.getTerrain()[p2.l][p2.c]);
+
+    private void swap(Position p1, Position p2) {
+        TerrainUtils.Swap(tr.getTerrain()[p1.l][p1.c], tr.getTerrain()[p2.l][p2.c]);
         nbMove = Math.abs(p1.l - p2.l) + Math.abs(p1.c - p2.c);
 
     }
-    //TODO faire fonction qui regarde les déplacement de 1 pour chaque pièce
-    /*
-    private int PPE_REC(int level){
-        
+
+    private int PPE_REC(int level) {
+        /*
         int res = 0;
-        if(level == 0){ // Premier déplacement
-            ArrayList<Couple_piece_pos> poss = IA_utils.getAllPossibleMoves(type, tr, nbMove);
-            //System.out.println(poss);
-            for(int i = 0;i<poss.size();i++){
-                for(int j = 0 ; j < poss.get(i).pos.size() ; j++){
+        if (level == 0 || level == 1) { // Premier déplacement ou deuxième déplacement
+            ArrayList<Couple_piece_pos> poss = IA_utils.getAllPossibleMoves(type, tr, 1);
+            for (int i = 0; i < poss.size(); i++) {
+                for (int j = 0; j < poss.get(i).pos.size(); j++) {
                     Position pos = poss.get(i).pos.get(j);
                     push();
-                    swap(poss.get(i).p.Position,pos);
+                    if (level == 0) {
+                        Courant.add(poss.get(i).p.Position);
+                    }
+                    Courant.add(pos);
+                    swap(poss.get(i).p.Position, pos);
                     res = PPE_REC(level++);
                     pop();
                 }
             }
-        }
-        else if(level == 1){ // Deuxième déplacement
-
-        }
-        else{ // Passe
-
+        } else { // Passe
+            Piece p = tr.getPieceWithBall(type);
+            ArrayList<Position> l = p.passesPossibles();
+            res = Evaluator.scoreOfBoard(tr);
+            for (int i = 0; i < l.size(); i++) {
+                push();
+                TerrainUtils.passeWrapper(p, tr.getTerrain()[l.get(i).l][l.get(i).c]);
+                nbPasse--;
+                int eval = Evaluator.scoreOfBoard(tr);
+                if (eval < res && type == PieceType.Black) {
+                    res = eval;
+                    Sauve = Courant;
+                } else if (eval > res && type == PieceType.White) {
+                    res = eval;
+                    Sauve = Courant;
+                }
+                pop();
+            }
         }
         return res;
-        
+        */
+        return 0;
     }
-    */
-    private void Strategy_PPE(){
-       // int score = PPE_REC(new Position(0,0),new Position(0,0),0);
+
+    private void Strategy_PPE() {
+        int score = PPE_REC(0);
+        System.out.println("Score = " + score + " Movement = " + Sauve);
     }
+
     /**
      * PEP = Player Exchance Player
      */
-    private void Strategy_PEP(){
+    private void Strategy_PEP() {
 
     }
+
     /**
      * EPP = Exchange Player Player
      */
-    private void Strategy_EPP(){
+    private void Strategy_EPP() {
 
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         Jeu jeu = new Jeu();
         Terrain tr = jeu.tr;
         tr._jeuParent = jeu;
         IA_medium ia_med = new IA_medium(tr, PieceType.Black);
-        //ia_med.Strategy_PPE();
-        //ia_med.getNextMove();
-        ia_med.getNextMove();
+        // ia_med.Strategy_PPE();
     }
 }
 
-class From_to{
-    Position from;
-    Position to;
-
-    public From_to(){
-        this.from = null;
-        this.to = null;
-    }
-
-    public From_to(Position from, Position to){
-        this.from = from;
-        this.to = to;
-    }
-    @Override
-    public String toString(){
-        return from.toString() + " -> " + to.toString();
-    }
-}

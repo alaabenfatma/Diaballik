@@ -44,6 +44,7 @@ public class JouerReseau extends JPanel {
                 creer.setBounds((i.getWidth()/2) - 80 , (i.getHeight()/4) + 10, 150, 50);
         		rejoindre.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 80, 150, 50);
         		menuPrincipal.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 150, 150, 50);
+        		i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
             }
 		});
 		

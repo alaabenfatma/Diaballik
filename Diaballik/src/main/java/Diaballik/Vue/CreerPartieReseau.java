@@ -52,6 +52,7 @@ public class CreerPartieReseau extends JPanel {
             	erreur.setBounds((i.getWidth()/2) - 120, (i.getHeight()/4) + 150, 300, 50);
         		ok.setBounds((i.getWidth()/2) + 20, (i.getHeight()/4) + 200, 120, 40);
          		retour.setBounds((i.getWidth()/2) - 130, (i.getHeight()/4) + 200, 120, 40);
+         		i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
          		
             }
 		});
@@ -66,8 +67,7 @@ public class CreerPartieReseau extends JPanel {
 
 			@Override
 			public void insertUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				if (name.getText() != "") {
+				if (name.getText() != "" || name.getText() != " ") {
 					erreur.setVisible(false);
 					ok.setEnabled(true);
 				}
@@ -75,15 +75,13 @@ public class CreerPartieReseau extends JPanel {
 
 			@Override
 			public void removeUpdate(DocumentEvent arg0) {
-				// TODO Auto-generated method stub
-				if (name.getText().equals("")) {
+				if (name.getText().equals("") || name.getText().equals(" ")) {
 					erreur.setVisible(true);
 					ok.setEnabled(false);
 				}
 			}
 			
-			   
-			});
+		});
 		
 		this.add(erreur);
 		erreur.setVisible(false);
@@ -105,13 +103,13 @@ public class CreerPartieReseau extends JPanel {
             public void actionPerformed(ActionEvent e) { 
     			i.fenetreAttenteJoueurReseau();
             } 
-        } );
+        });
 		
 		retour.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	i.fenetreJouerEnReseau();            
             } 
-        } );
+        });
 		
 
 		this.setVisible(true);

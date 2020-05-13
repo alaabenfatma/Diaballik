@@ -86,9 +86,9 @@ public class Evaluator {
     }
 
     public static int scoreOfBoard(Terrain t) {
-        if (t._jeuParent.victoire() == PieceType.Black) {
+        if (t.victoire() == PieceType.Black) {
             return -9999;
-        } else if (t._jeuParent.victoire() == PieceType.White) {
+        } else if (t.victoire() == PieceType.White) {
             return 9999;
         }
         int score = 0;
