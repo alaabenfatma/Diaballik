@@ -83,6 +83,7 @@ public class Terrain implements ITerrain {
     }
 
     @Override
+    
     public Piece[][] getTerrain() {
         return _terrain;
     }
@@ -148,18 +149,58 @@ public class Terrain implements ITerrain {
             }
         }
         coups.add(copy);
+        ctrly = new Stack<Piece[][]>();
     }
 
     public void ctrl_z(){
         Piece[][] copy = coups.peek();
-        ctrly.add(coups.pop());
         for (int i = 0; i < this.taille(); i++) {
             for (int j = 0; j < this.taille(); j++) {
                 Piece piece = copy[i][j];
                 _terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
             }
         }
+        ctrly.add(coups.pop());
     }
 
+    public void ctrl_y(){
+        Piece[][] copy = ctrly.peek();
+        for (int i = 0; i < this.taille(); i++) {
+            for (int j = 0; j < this.taille(); j++) {
+                Piece piece = copy[i][j];
+                _terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
+            }
+        }
+        coups.add(coups.pop());
+    }
+
+    
+    public char[][] toChar(){
+        char[][] pieces = new char[7][7];
+        for (int i = 0; i < 7; i++) {
+            for (int k = 0; k < 7; k++) {
+                if(this._terrain[i][k].Type==PieceType.White){
+                    if(this._terrain[i][k].HasBall){
+                        pieces[i][k] = '1';
+                    }
+                    else{
+                        pieces[i][k] = 'W';
+                    }
+                }
+                else if(this._terrain[i][k].Type==PieceType.Black){
+                    if(this._terrain[i][k].HasBall){
+                        pieces[i][k] = '0';
+                    }
+                    else{
+                        pieces[i][k] = 'B';
+                    }
+                }
+                else{
+                    pieces[i][k] = ' ';
+                }
+            }
+        }
+        return pieces;
+    }
 
 }

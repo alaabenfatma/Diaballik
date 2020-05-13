@@ -171,7 +171,7 @@ public class NewGameMenu extends JPanel {
 				//SwingUtilities.getWindowAncestor(this).dispose();
 				//super.setVisible(false);
 				CollecteurEvenements control = new ControleurMediateur(j);
-				Plateau.demarrer(j,control);
+				//Plateau.demarrer(j,control);
 				i.setVisible(false);
 				
             } 
