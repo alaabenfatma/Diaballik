@@ -22,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
+import Diaballik.Models.ConfigJeu.IALevel;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Models.ConfigJeu.Timer;
 
@@ -289,6 +290,30 @@ public class NewGame extends JPanel {
 				joueur1.setBackground(null);
 				first = false; // joueur 2
 				configJeu.setP1First(false);
+			}
+		});
+
+		br1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				configJeu.setIALevel(IALevel.facile);
+	
+			}
+		});
+
+		br2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				configJeu.setIALevel(IALevel.moyen);
+	
+			}
+		});
+
+		br3.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				configJeu.setIALevel(IALevel.difficile);
+	
 			}
 		});
 
