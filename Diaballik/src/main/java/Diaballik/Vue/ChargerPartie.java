@@ -4,22 +4,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
-import javax.swing.DefaultCellEditor;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 public class ChargerPartie extends JPanel {
 	
@@ -33,6 +17,16 @@ public class ChargerPartie extends JPanel {
 	JButton jouer = new JButton("Jouer");
 	
 	ihm i;
+	Object[][] donnees = {
+		{"Alaa", "Yohan", "20/05/20"},
+		{"Wassim", "Thomas", "21/05/20"},
+		{"Hedi", "Thomas", "21/05/20"},
+		{"Wassim", "IA", "21/05/20"},
+		{"Wassim", "Thomas", "21/05/20"},
+		{"IA", "Thomas", "21/05/20"},
+		{"Wassim", "Ludo", "21/05/20"},
+		{"Wassim", "Thomas", "21/05/20"}
+	};
 
 	/*Pour la date, il faut recuperer la date de l'os
 	 * et pour il faut rendre chaque ligne cliquable 
@@ -45,28 +39,24 @@ public class ChargerPartie extends JPanel {
 	String[] entetes = {"Joueur 1", "Joueur 2", "Date"};
 	public ChargerPartie(ihm ihm) {
 		i = ihm;
-		DefaultTableModel dm = new DefaultTableModel();
-		dm.setDataVector(new Object[][] { { "button 1", "Alaa", "Wassim", "10/05/2020" },
-			{ "button 2", "Yohan", "AI", "15/05/2020" } }, new Object[] { "Button", "String","String","String" });
-	
-		JTable table = new JTable(dm);
-		table.getColumn("Button").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Button").setCellEditor(
-			new ButtonEditor(new JCheckBox()));
-		JScrollPane scroll = new JScrollPane(table);
-		i.getContentPane().add(scroll);
-		setSize(400, 100);
 		this.setLayout(null);
+		JTable table = new JTable(donnees, entetes);
 		titre.setBounds(240, 0, 300, 100);
 		save.setBounds(150, 90, 100, 20);
 		jouer.setBounds(350, 390, 120, 40);
 		retour.setBounds(210, 390, 120, 40);
+		table.setBounds(40, 140, 300, 240);
+		table.getTableHeader().setBounds(40, 110, 300, 30);
 		
 		Font font = new Font("Arial",Font.BOLD,30);
 		titre.setFont(font);
 		
 		jouer.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
+				String n;
+				msgBox m = new msgBox();
+				n = m.msgNumPartie();
+				//lancerpartie(tableau, n); fonction qui lancera la partie logée a la case n dans le tableau de sauvegarde
             } 
         } );
 		
@@ -81,6 +71,7 @@ public class ChargerPartie extends JPanel {
 		this.add(retour);
 		this.add(save);
 		this.add(titre);
+		this.add(table.getTableHeader());
 		this.add(table);
 		this.setVisible(true);
 

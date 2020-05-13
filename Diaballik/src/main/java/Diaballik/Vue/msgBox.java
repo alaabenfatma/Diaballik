@@ -26,5 +26,11 @@ public class msgBox {
         int dialogResult = JOptionPane.showConfirmDialog(null, msg, titre, dialogButton);
         return dialogResult; //0 = yes, 1 = no
     }
+
+    public String msgNumPartie(){
+        JFrame frame = new JFrame();
+        String num = JOptionPane.showInputDialog(frame, "Quel est le numéro de la partie que vous voulez lancer ?");
+        return num;
+    }
     
 }
