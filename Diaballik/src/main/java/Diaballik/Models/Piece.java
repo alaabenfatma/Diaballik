@@ -17,7 +17,7 @@ public class Piece extends JButton implements IPiece {
     public boolean SelectionDeplacement = false;
     public boolean PossiblePasse = false;
     public boolean PossibleDeplacement = false;
-
+    
     public Piece(PieceType type, boolean hasBall, int l, int c, Terrain parent) {
         this.Type = type;
         this.Position = new Position(l, c);
