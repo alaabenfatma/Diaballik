@@ -155,6 +155,7 @@ public class IA_easy {
     public void joueTourIAEasy() {
         //mvm
         From_to mouvement = getNextMove(PieceType.Black, tr); // là l'IA joue les noirs mais on changera
+        
         j.SelectionPieceIA(tr.getTerrain()[mouvement.from.l][mouvement.from.c]);
         j.SelectionPieceIA(tr.getTerrain()[mouvement.to.l][mouvement.to.c]);
         //passe
@@ -171,6 +172,7 @@ public class IA_easy {
         }
         j.SelectionPieceIA(tr.getTerrain()[balle.Position.l][balle.Position.c]);
         j.SelectionPieceIA(tr.getTerrain()[passe.l][passe.c]);
+        j.FinTour();
     }
 
     public static void main(String args[]) {

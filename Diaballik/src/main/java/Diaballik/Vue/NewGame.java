@@ -300,7 +300,8 @@ public class NewGame extends JPanel {
 				// SwingUtilities.getWindowAncestor(this).dispose();
 				// super.setVisible(false);
 				CollecteurEvenements control = new ControleurMediateur(j);
-				Plateau.demarrer(j, control);
+				Plateau.setIHM(i);
+				Plateau.demarrer(j, control,configJeu);
 				i.setVisible(false);
 
 			}

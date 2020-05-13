@@ -12,6 +12,7 @@ import java.awt.GraphicsDevice;
 import javax.swing.JButton;
 import javax.swing.*;
 
+import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Patterns.Observateur;
 
@@ -19,19 +20,28 @@ public class Plateau implements Runnable, Observateur {
     JFrame frame;
     JButton boutonMenu = new JButton("Menu");
     JButton boutonFinTour = new JButton("Fin du tour");
+    JButton boutonRecommencer = new JButton("Recommencer");
+    JButton boutonRejouer = new JButton("Rejouer");
     JLabel joueur, mouvements, passe;
     PlateauGraphique plat;
     Jeu j;
+    ConfigJeu conf;
     CollecteurEvenements control;
     boolean maximized;
+    static ihm interHM;
 
-    Plateau(Jeu jeu, CollecteurEvenements c) {
-        j = jeu;
-        control = c;
+    static void setIHM(ihm i) {
+        interHM = i;
     }
 
-    public static void demarrer(Jeu j, CollecteurEvenements c) {
-        Plateau vue = new Plateau(j, c);
+    Plateau(Jeu jeu, CollecteurEvenements c, ConfigJeu cj) {
+        j = jeu;
+        control = c;
+        conf = cj;
+    }
+
+    public static void demarrer(Jeu j, CollecteurEvenements c, ConfigJeu cj) {
+        Plateau vue = new Plateau(j, c, cj);
         c.ajouteInterfaceUtilisateur(vue);
         SwingUtilities.invokeLater(vue);
     }
@@ -104,6 +114,32 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(boutonFinTour);
 
+        //bouton recommencer
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
+        boutonRecommencer.setFocusable(false);
+        boutonRecommencer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        boiteTexte.add(boutonRecommencer);
+        boutonRecommencer.setVisible(false);
+        boutonRecommencer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                j.init();
+                j.start();
+            }
+        });
+
+        /*//bouton rejouer
+        boutonRejouer.setFocusable(false);
+        boiteTexte.add(boutonRejouer);
+        //boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
+        boutonRejouer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                interHM.setVisible(true);
+                interHM.fenetreNouvellePartie();
+				
+            }
+        }); */
+
+
         // Retransmission des évènements au contrôleur
         plat.addMouseListener(new AdaptateurSouris(plat, control));
         frame.addKeyListener(new AdaptateurClavier(control));
@@ -111,14 +147,14 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.addActionListener(new AdaptateurFinTour(control));
 
         // Mise en place de l'interface
-        boiteTexte.setPreferredSize(new Dimension(150,600));
+        boiteTexte.setPreferredSize(new Dimension(150, 600));
         frame.add(boiteTexte, BorderLayout.EAST);
-        plat.setPreferredSize(new Dimension( 600,600));
+        plat.setPreferredSize(new Dimension(600, 600));
         frame.add(plat, BorderLayout.CENTER);
         j.ajouteObservateur(this);
         // chrono.start();
         frame.pack();
-        //frame.setSize(700, 600);
+        // frame.setSize(700, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
@@ -138,17 +174,24 @@ public class Plateau implements Runnable, Observateur {
 
     @Override
     public void miseAJour() {
-        if (j.gameOver){
+        if (j.gameOver) {
             mouvements.setVisible(false);
             passe.setVisible(false);
             boutonFinTour.setVisible(false);
-            joueur.setSize(20, 20);
+            //joueur.setSize(20, 20);
             joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
-        }
-        else
+            boutonRecommencer.setVisible(true);
+        } else{
+            boutonRecommencer.setVisible(false);
+            mouvements.setVisible(true);
+            passe.setVisible(true);
+            boutonFinTour.setVisible(true);
             joueur.setText("Joue : " + j.joueurCourant.name);
-        mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
-        passe.setText("Passe : " + j.joueurCourant.passeDispo);
+            mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
+            passe.setText("Passe : " + j.joueurCourant.passeDispo);
+        }
+            
+       
     }
 
 }
