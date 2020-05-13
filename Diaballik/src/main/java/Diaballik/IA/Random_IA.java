@@ -9,6 +9,7 @@ import Diaballik.Models.PieceType;
 import Diaballik.Models.Position;
 import Diaballik.Models.Terrain;
 
+
 public class Random_IA {
     PieceType Couleur_IA;
     Random R;
@@ -59,9 +60,11 @@ public class Random_IA {
                         TerrainUtils.passeWrapper(from, to);
                         if (Couleur_IA == PieceType.White && to.Position.l == 0) {
                             System.out.println("Victoire IA !");
+                            Victoire_IA = true;
                         }
                         else if (Couleur_IA == PieceType.Black && to.Position.l == tr.taille()-1) {
                             System.out.println("Victoire IA !");
+                            Victoire_IA = true;
                         }
                         passe_faite--;
                         binf++;

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import Diaballik.Models.*;
 
 public class Couple_piece_pos {
-    Piece p;
+    Piece piece;
     ArrayList<Position> pos;
     public Couple_piece_pos(Piece p, ArrayList<Position> pos){
-        this.p = p;
+        this.piece = p;
         this.pos = pos;
     }
     @Override
     public String toString(){
-        return p.toString() + "\n" + pos.toString() + "\n";
+        return piece.toString() + "\n" + pos.toString() + "\n";
     }
 }

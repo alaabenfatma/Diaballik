@@ -20,7 +20,8 @@ public class Jeu extends Observable {
     private ArrayList<Position> listeMarque = new ArrayList<Position>();
     private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();
     public boolean IA;
-
+    Random_IA I;
+    
     public Jeu() {
         tr = new Terrain();
         tr.Create();
@@ -36,6 +37,7 @@ public class Jeu extends Observable {
         if (IA) {
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1);
+            I = new Random_IA(joueur2.couleur,tr);
         } else {
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1);
             joueur2 = new Joueur(TypeJoueur.Joueur2, PieceType.Black, 2, 1);
@@ -55,6 +57,9 @@ public class Jeu extends Observable {
     public void FinTour() {
         if (joueurCourant == joueur1) {
             joueurCourant = joueur2;
+            if(IA){
+                I.IA();
+            }
         } else {
             joueurCourant = joueur1;
         }
@@ -62,7 +67,6 @@ public class Jeu extends Observable {
         joueurCourant.passeDispo = 1;
         metAJour();
         RetirerMarque();
-
     }
 
     private boolean PieceAuJoueur(Piece select) {
@@ -449,81 +453,87 @@ public class Jeu extends Observable {
     // Ici encore on utilise l'entrée standard. A modifier plus tard pour l'ihm et
     // l'ia
     public void move() {
-        // victoire
-        if (gameOver) {
-            System.exit(0); // la j'ai mis system.exit mais on changera si necessaire
+        if(joueurCourant.n == TypeJoueur.IA){
+            I.IA();
         }
-        Scanner sc = new Scanner(System.in);
-        char choix;
-        Piece from;
-        Piece to;
-        // tant qu'il y a un truc à faire
-        while (!gameOver) {
-            if ((joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)) {
-                // end turn
-                endTurn();
+        else{
+            // victoire
+            if (gameOver) {
+                System.exit(0); // la j'ai mis system.exit mais on changera si necessaire
             }
-            tr.PrintTerrain();
-            System.out.println("tour des " + joueurCourant.couleur);
-            System.out.println("Nombre de mouvements restants : " + joueurCourant.nbMove);
-            System.out.println("Nombre de passes restantes : " + joueurCourant.passeDispo);
-            System.out.println(
-                    "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
-            choix = sc.nextLine().charAt(0);
-            switch (choix) {
-                case 'p':
-                    // passe
-                    if (joueurCourant.passeDispo == 1) {
-                        from = tr.getPieceWithBall(joueurCourant.couleur);
-                        System.out.println("Les passes possibles sont : " + from.passesPossibles());
-                        to = getPiece(joueurCourant.couleur);
-                        TerrainUtils.passeWrapper(from, to);
-                        joueurCourant.passeDispo = 0;
-                        gameOver = victoire() != PieceType.Empty;
-                    } else {
-                        System.out.println("Vous ne pourrez faire qu'une seule passe");
-                    }
-                    break;
-                case 'm':
-                    // mouvement
-                    from = getPiece(joueurCourant.couleur);
-                    ArrayList<Position> ar = from.PossiblePositions(joueurCourant.nbMove);
-                    System.out.println("Positions possibles : " + ar);
-                    to = getPiece(PieceType.Empty);
-                    // On verifie si c est bien un mouvement legal
-
-                    if (ar.contains(to.Position)) {
-                        ArrayList<Position> diag = from.getDiagonals();
-                        int temp = joueurCourant.nbMove;
-                        if (diag.contains(to.Position)) {
-                            // Si c'est un mouvement en diagonale, on prend deux coups
-                            joueurCourant.nbMove -= 2;
-                        } else {
-                            // Sinon 1 seul ou 2 selon si on a avancé d'une ou de deux cases
-                            joueurCourant.nbMove -= Math
-                                    .abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
-                        }
-                        if (joueurCourant.nbMove >= 0) {
-                            from.move(to.Position.l, to.Position.c);
-                        } else {
-                            System.out.println("Vous n'avez plus de mouvements");
-                            joueurCourant.nbMove = temp;
-                        }
-                    } else {
-                        throw new IllegalAccessError("Mouvement illegal");
-                    }
-                    gameOver = antijeu();
-                    break;
-                case 'q':
+            Scanner sc = new Scanner(System.in);
+            char choix;
+            Piece from;
+            Piece to;
+            // tant qu'il y a un truc à faire
+            while (!gameOver) {
+                if ((joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)) {
                     // end turn
                     endTurn();
-                    break;
-                default:
-                    System.out.println("Choix invalide");
-                    break;
+                }
+                tr.PrintTerrain();
+                System.out.println("tour des " + joueurCourant.couleur);
+                System.out.println("Nombre de mouvements restants : " + joueurCourant.nbMove);
+                System.out.println("Nombre de passes restantes : " + joueurCourant.passeDispo);
+                System.out.println(
+                        "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
+                choix = sc.nextLine().charAt(0);
+                switch (choix) {
+                    case 'p':
+                        // passe
+                        if (joueurCourant.passeDispo == 1) {
+                            from = tr.getPieceWithBall(joueurCourant.couleur);
+                            System.out.println("Les passes possibles sont : " + from.passesPossibles());
+                            to = getPiece(joueurCourant.couleur);
+                            TerrainUtils.passeWrapper(from, to);
+                            joueurCourant.passeDispo = 0;
+                            gameOver = victoire() != PieceType.Empty;
+                        } else {
+                            System.out.println("Vous ne pourrez faire qu'une seule passe");
+                        }
+                        break;
+                    case 'm':
+                        // mouvement
+                        from = getPiece(joueurCourant.couleur);
+                        ArrayList<Position> ar = from.PossiblePositions(joueurCourant.nbMove);
+                        System.out.println("Positions possibles : " + ar);
+                        to = getPiece(PieceType.Empty);
+                        // On verifie si c est bien un mouvement legal
+
+                        if (ar.contains(to.Position)) {
+                            ArrayList<Position> diag = from.getDiagonals();
+                            int temp = joueurCourant.nbMove;
+                            if (diag.contains(to.Position)) {
+                                // Si c'est un mouvement en diagonale, on prend deux coups
+                                joueurCourant.nbMove -= 2;
+                            } else {
+                                // Sinon 1 seul ou 2 selon si on a avancé d'une ou de deux cases
+                                joueurCourant.nbMove -= Math
+                                        .abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
+                            }
+                            if (joueurCourant.nbMove >= 0) {
+                                from.move(to.Position.l, to.Position.c);
+                            } else {
+                                System.out.println("Vous n'avez plus de mouvements");
+                                joueurCourant.nbMove = temp;
+                            }
+                        } else {
+                            throw new IllegalAccessError("Mouvement illegal");
+                        }
+                        gameOver = antijeu();
+                        break;
+                    case 'q':
+                        // end turn
+                        endTurn();
+                        break;
+                    default:
+                        System.out.println("Choix invalide");
+                        break;
+                }
             }
         }
     }
+    
     private void test_Random_IA_P(Terrain tr) {
         Random_IA A = new Random_IA(PieceType.Black, tr);
         PieceType tour = PieceType.White;
