@@ -7,6 +7,7 @@ import java.util.Scanner;
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.IA.Coup_Gagnant;
 import Diaballik.IA.Couple;
+import Diaballik.IA.IA_easy;
 import Diaballik.IA.IaRandomIHM;
 import Diaballik.IA.Random_IA;
 import Diaballik.Models.ConfigJeu.Mode;
@@ -24,8 +25,9 @@ public class Jeu extends Observable {
     private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();
     private boolean IA;
     Random_IA I;
-    ConfigJeu config;
+    public ConfigJeu config;
     IaRandomIHM iaRandomIHM;
+    IA_easy iaEasy;
     public ArrayList<Couple> listeDeplacementJ1 = new ArrayList<Couple>();
     public ArrayList<Couple> listeDeplacementJ2 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ1 = new ArrayList<Couple>();
@@ -34,6 +36,19 @@ public class Jeu extends Observable {
     public Jeu() {
         tr = new Terrain();
         tr.Create();
+
+    }
+    public void init(){
+        tr = new Terrain();
+        tr.Create();
+        listeMarque.clear();
+        listePositionsPossibles.clear();
+        listeDeplacementJ1.clear();
+        listeDeplacementJ2.clear();
+        listePasseJ1.clear();
+        listePasseJ2.clear();
+        gameOver = false;
+        from = to = null;
 
     }
 
@@ -48,7 +63,19 @@ public class Jeu extends Observable {
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
             // TODO : case config.getIALevel()
             // I = new Random_IA(joueur2.couleur, tr);
-            iaRandomIHM = new IaRandomIHM(this);
+            switch(config.getIALevel()){
+                case difficile:
+                    break;
+                case moyen:
+                iaRandomIHM = new IaRandomIHM(this);
+                    break;
+                case facile:
+                iaEasy = new IA_easy(this);
+                    break;
+                default:
+                    break;
+            }
+            
 
         } else {
             IA = false;
@@ -65,9 +92,18 @@ public class Jeu extends Observable {
         metAJour();
         // IA joue en premier
         if (IA && !config.getP1First()) {
-            // I.IA();
-            iaRandomIHM.JoueTourIARand();
-            // FinTour();
+            switch(config.getIALevel()){
+                case difficile:
+                    break;
+                case moyen:
+                iaRandomIHM = new IaRandomIHM(this);
+                    break;
+                case facile:
+                iaEasy.joueTourIAEasy();
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
@@ -87,10 +123,18 @@ public class Jeu extends Observable {
             listeDeplacementJ2.clear();
             listePasseJ2.clear();
             if (IA) {
-                // I.IA();
-                iaRandomIHM.JoueTourIARand();
-                // gameOver = antijeu2() || tr.victoire() != PieceType.Empty;
-                // FinTour();
+                switch(config.getIALevel()){
+                    case difficile:
+                        break;
+                    case moyen:
+                    iaRandomIHM = new IaRandomIHM(this);
+                        break;
+                    case facile:
+                    iaEasy.joueTourIAEasy();
+                        break;
+                    default:
+                        break;
+                }
             }
         } else {
             joueurCourant = joueur1;
