@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.IA.Coup_Gagnant;
+import Diaballik.IA.Couple;
+import Diaballik.IA.IaRandomIHM;
 import Diaballik.IA.Random_IA;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
@@ -23,6 +25,11 @@ public class Jeu extends Observable {
     private boolean IA;
     Random_IA I;
     ConfigJeu config;
+    IaRandomIHM iaRandomIHM;
+    public ArrayList<Couple> listeDeplacementJ1 = new ArrayList<Couple>();
+    public ArrayList<Couple> listeDeplacementJ2 = new ArrayList<Couple>();
+    public ArrayList<Couple> listePasseJ1 = new ArrayList<Couple>();
+    public ArrayList<Couple> listePasseJ2 = new ArrayList<Couple>();
 
     public Jeu() {
         tr = new Terrain();
@@ -35,16 +42,14 @@ public class Jeu extends Observable {
     }
 
     public void start() {
-        // Joueur 1 (Là le joueur 1 joue forcement les blancs, mais on pourra modifier
-        // dans les
-        // parametres ci-dessous)
-
         if (config.getMode() == Mode.ordinateur) {
             IA = true;
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
             // TODO : case config.getIALevel()
-            I = new Random_IA(joueur2.couleur, tr);
+            // I = new Random_IA(joueur2.couleur, tr);
+            iaRandomIHM = new IaRandomIHM(this);
+
         } else {
             IA = false;
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
@@ -60,8 +65,9 @@ public class Jeu extends Observable {
         metAJour();
         // IA joue en premier
         if (IA && !config.getP1First()) {
-            I.IA();
-            FinTour();
+            // I.IA();
+            iaRandomIHM.JoueTourIARand();
+            //FinTour();
         }
 
     }
@@ -78,13 +84,18 @@ public class Jeu extends Observable {
         joueurCourant.passeDispo = 1;
         if (joueurCourant == joueur1) {
             joueurCourant = joueur2;
+            listeDeplacementJ2.clear();
+            listePasseJ2.clear();
             if (IA) {
-                I.IA();
-                gameOver = antijeu2() || tr.victoire() != PieceType.Empty;
-                FinTour();
+                // I.IA();
+                iaRandomIHM.JoueTourIARand();
+                // gameOver = antijeu2() || tr.victoire() != PieceType.Empty;
+                //FinTour();
             }
         } else {
             joueurCourant = joueur1;
+            listeDeplacementJ1.clear();
+            listePasseJ1.clear();
         }
         metAJour();
         RetirerMarque();
@@ -108,13 +119,13 @@ public class Jeu extends Observable {
         if (from == null && PieceAuJoueur(select)) {
             from = select;
             if ((!select.HasBall))
-                SelectionDeplacement(l, c);
+                SelectionDeplacement(from);
             else {
                 SelectionPasse(from);
             }
         } else if (from != null) {
             to = select;
-            if ((from.HasBall) && PieceAuJoueur(select)) {
+            if ((from.HasBall) && PieceAuJoueur(to)) {
                 if (from != to)
                     Passe();
                 else {
@@ -136,12 +147,12 @@ public class Jeu extends Observable {
 
     }
 
-    public void SelectionPieceIA(int l, int c) {
-        Piece select = tr._terrain[l][c];
+    public void SelectionPieceIA(Piece select) {
+        // Piece select = tr._terrain[l][c];
         if (from == null) {
             from = select;
             if ((!select.HasBall))
-                SelectionDeplacement(l, c);
+                SelectionDeplacement(from);
             else {
                 SelectionPasse(from);
             }
@@ -163,15 +174,15 @@ public class Jeu extends Observable {
             RetirerMarque();
             from = to = null;
         }
-        if (joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)
-            FinTour();
         metAJour();
 
     }
 
-    public void SelectionDeplacement(int l, int c) {
-        tr._terrain[l][c].SelectionDeplacement = true;
-        // getPiecePos(select).SelectionDeplacement = true;
+    public void SelectionDeplacement(Piece select) {
+        // tr._terrain[l][c].SelectionDeplacement = true;
+        int l = select.Position.l;
+        int c = select.Position.c;
+        getPiecePos(select).SelectionDeplacement = true;
         // Piece select = tr._terrain[l][c];
         // System.out.printf("Selection déplacement : Piece position (%d,%d)\n",
         // select.Position.l, select.Position.c);
@@ -183,7 +194,6 @@ public class Jeu extends Observable {
             tr._terrain[li][co].PossibleDeplacement = true;
             listeMarque.add(pos);
         }
-
     }
 
     public void SelectionPasse(Piece select) {
@@ -204,6 +214,10 @@ public class Jeu extends Observable {
         if (joueurCourant.passeDispo == 1) {
             if (TerrainUtils.passeWrapper2(from, to) == true) {
                 joueurCourant.passeDispo = 0;
+                if (joueurCourant == joueur1)
+                    listePasseJ1.add(new Couple(from.Position, to.Position));
+                else
+                    listePasseJ2.add(new Couple(from.Position, to.Position));
                 gameOver = tr.victoire() != PieceType.Empty;
             }
         }
@@ -224,7 +238,12 @@ public class Jeu extends Observable {
             }
             if (joueurCourant.nbMove >= 0) {
                 from.move(to.Position.l, to.Position.c);
+                if (joueurCourant == joueur1)
+                    listeDeplacementJ1.add(new Couple(from.Position, to.Position));
+                else
+                    listeDeplacementJ2.add(new Couple(from.Position, to.Position));
                 gameOver = antijeu2();
+
             } else {
                 joueurCourant.nbMove = temp;
             }
@@ -402,7 +421,6 @@ public class Jeu extends Observable {
         }
     }
 
-    
     // mode textuelle
 
     public Piece getPiece(PieceType t) {

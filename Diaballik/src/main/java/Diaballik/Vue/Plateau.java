@@ -138,8 +138,13 @@ public class Plateau implements Runnable, Observateur {
 
     @Override
     public void miseAJour() {
-        if (j.gameOver)
+        if (j.gameOver){
+            mouvements.setVisible(false);
+            passe.setVisible(false);
+            boutonFinTour.setVisible(false);
+            joueur.setSize(20, 20);
             joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
+        }
         else
             joueur.setText("Joue : " + j.joueurCourant.name);
         mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
