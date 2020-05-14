@@ -1,7 +1,6 @@
 package Diaballik.Vue;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -34,6 +33,9 @@ public class Plateau implements Runnable, Observateur {
     boolean maximized;
     static ihm interHM;
     Timer timer;
+
+    JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
+
 
     private static JLabel clock;
     private static long x;
@@ -115,7 +117,23 @@ public class Plateau implements Runnable, Observateur {
         topButton.add(boutonMenu);
         topButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(topButton);
-        boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        buttonViewArrow.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					VuePlateau.viewArrow = true;
+				} else {
+					VuePlateau.viewArrow = false;
+				}
+				;
+			}
+        });
+        buttonViewArrow.setFocusable(false);
+        buttonViewArrow.setAlignmentX(Component.CENTER_ALIGNMENT);
+        boiteTexte.add(buttonViewArrow);
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 90)));
 
         // Info joueur
         joueur = new JLabel("Joue : " + j.joueurCourant.name);
@@ -214,7 +232,7 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.addActionListener(new AdaptateurFinTour(control));
 
         // Mise en place de l'interface
-        boiteTexte.setPreferredSize(new Dimension(150, 600));
+        boiteTexte.setPreferredSize(new Dimension(200, 600));
         frame.add(boiteTexte, BorderLayout.EAST);
         plat.setPreferredSize(new Dimension(600, 600));
         frame.add(plat, BorderLayout.CENTER);
