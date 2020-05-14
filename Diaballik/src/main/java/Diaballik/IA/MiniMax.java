@@ -113,10 +113,10 @@ public class MiniMax {
                 AllMMPStates.add(s);
             }
         }
-        /*for (State state : AllMMPStates) {
-            state.Terrain.PrintTerrain();
-            System.out.println(state.score());
-        }*/
+        /*
+         * for (State state : AllMMPStates) { state.Terrain.PrintTerrain();
+         * System.out.println(state.score()); }
+         */
     }
 
     ArrayList<State> AllMPMStates = new ArrayList<State>();
@@ -172,10 +172,71 @@ public class MiniMax {
                 }
             }
         }
-        /*for (State state : AllMPMStates) {
-            state.Terrain.PrintTerrain();
-            System.out.println(state.score());
-        }*/
+        /*
+         * for (State state : AllMPMStates) { state.Terrain.PrintTerrain();
+         * System.out.println(state.score()); }
+         */
+    }
+
+    ArrayList<State> AllPMMStates = new ArrayList<State>();
+
+    /**
+     * PMM = Pass Move Move
+     * 
+     * @param currentState
+     */
+    public void PMM(State currentState) {
+
+        Piece ballHolder = currentState.Terrain.getPieceWithBall(AI_TYPE);
+        ArrayList<Position> passes = ballHolder.passesPossibles();
+        ArrayList<State> innerPMMStates = new ArrayList<State>();
+
+        for (Position pos : passes) {
+
+            Terrain tmp = new Terrain();
+            tmp.Create();
+            tmp._terrain = currentState.Terrain.Copy(tmp);
+            TerrainUtils.passeWrapper(tmp._terrain[ballHolder.Position.l][ballHolder.Position.c],
+                    tmp._terrain[pos.l][pos.c]);
+            State s = new State(tmp);
+            innerPMMStates.add(s);
+        }
+        ArrayList<State> deepPMMStates = new ArrayList<State>();
+
+        for (State state : innerPMMStates) {
+            ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
+                    state.Terrain, 1);
+            for (Couple_piece_pos couple : innerPossibleMoves) {
+                for (Position pos : couple.pos) {
+                    Position posMain = couple.piece.Position;
+                    Terrain tmp = new Terrain();
+                    tmp.Create();
+                    tmp._terrain = state.Terrain.Copy(tmp);
+                    tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                    State s = new State(tmp);
+                    deepPMMStates.add(s);
+                }
+            }
+        }
+        for (State state : deepPMMStates) {
+            ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
+                    state.Terrain, 1);
+            for (Couple_piece_pos couple : innerPossibleMoves) {
+                for (Position pos : couple.pos) {
+                    Position posMain = couple.piece.Position;
+                    Terrain tmp = new Terrain();
+                    tmp.Create();
+                    tmp._terrain = state.Terrain.Copy(tmp);
+                    tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                    State s = new State(tmp);
+                    AllPMMStates.add(s);
+                }
+            }
+        }
+        /*
+         * for (State state : AllPMMStates) { state.Terrain.PrintTerrain();
+         * System.out.println(state.score()); }
+         */
     }
 
     public static void main(String[] args) {
@@ -186,7 +247,8 @@ public class MiniMax {
         Jeu j = new Jeu(tr);
         State s = new State(j);
         // mm.M2P(s);
-        //mm.MMP(s);
-        mm.MPM(s);
+        // mm.MMP(s);
+        // mm.MPM(s);
+        mm.PMM(s);
     }
 }
