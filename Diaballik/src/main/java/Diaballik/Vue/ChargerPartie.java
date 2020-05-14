@@ -96,17 +96,15 @@ public class ChargerPartie extends JPanel {
 					try {
 						JeuJSON j = mapper.readValue(line, JeuJSON.class);
 						Jeu realJeu = new Jeu();
-						
-						ConfigJeu cfg = new ConfigJeu();
 
-						
+						ConfigJeu cfg = new ConfigJeu();
+						cfg.setName1(j.player1);
+						cfg.setName2(j.player2);
 						CollecteurEvenements control = new ControleurMediateur(realJeu);
-						
+
 						Plateau.demarrer(realJeu, control, cfg);
-						
+
 						realJeu.configurer(cfg);
-						realJeu.joueur1.name = j.player1;
-						realJeu.joueur2.name = j.player2;
 						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
 						realJeu.start();
 					} catch (JsonParseException e) {
