@@ -3,6 +3,7 @@ package Diaballik.Controllers;
 import Diaballik.Models.Jeu;
 import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
+import Diaballik.Vue.PlateauGraphique;
 import Diaballik.IA.*;
 
 public class ControleurMediateur implements CollecteurEvenements {
@@ -21,12 +22,15 @@ public class ControleurMediateur implements CollecteurEvenements {
 		System.out.println("Score de plateau : " + Evaluator.scoreOfBoard(jeu.tr));
 
 	}
+
 	public void annule() {
-		// TODO : annule
+		jeu.tr.ctrl_z();
+		System.out.println("Annulation");
 	}
 
 	public void refait() {
-		// TODO : refait
+		jeu.tr.ctrl_y();
+		System.out.println("Refait");
 	}
 
 	public void finTour() {
