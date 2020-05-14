@@ -57,7 +57,7 @@ public class MenuEnJeu extends JPanel{
                 frame.setVisible(false);
                 plateau.setVisible(false);
                 ihm i = new ihm();
-                NewGameMenu m = new NewGameMenu(i);   
+                NewGame m = new NewGame(i);   
                 i.setContentPane(m);
                 i.repaint();
                 i.revalidate();      

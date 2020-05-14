@@ -24,13 +24,17 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void annule() {
+		jeu.tr.PrintTerrain();
 		jeu.tr.ctrl_z();
 		System.out.println("Annulation");
+		jeu.tr.PrintTerrain();
 	}
 
 	public void refait() {
+		jeu.tr.PrintTerrain();
 		jeu.tr.ctrl_y();
 		System.out.println("Refait");
+		jeu.tr.PrintTerrain();
 	}
 
 	public void finTour() {
@@ -40,6 +44,11 @@ public class ControleurMediateur implements CollecteurEvenements {
 	public void save() {
 		jeu.ExportGameToJSON(jeu);
 		System.out.println("Sauvegarde de la partie");
+	}
+
+	public void replay() {
+		jeu.init();
+		jeu.start();
 	}
 
 	@Override
@@ -62,6 +71,9 @@ public class ControleurMediateur implements CollecteurEvenements {
 				break;
 			case "Save":
 				save();
+				break;
+			case "Replay":
+				replay();
 				break;
 			default:
 				System.out.println("Touche inconnue : " + touche);

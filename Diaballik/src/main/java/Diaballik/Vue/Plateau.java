@@ -2,14 +2,19 @@ package Diaballik.Vue;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsDevice;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import Diaballik.Controllers.ControleurMediateur;
@@ -23,6 +28,7 @@ public class Plateau implements Runnable, Observateur {
     JButton boutonFinTour = new JButton("Fin du tour");
     JButton boutonRecommencer = new JButton("Recommencer");
     JButton boutonRejouer = new JButton("Rejouer");
+    JLabel boutonInfo;
     JLabel joueur, mouvements, passe;
     PlateauGraphique plat;
     Jeu j;
@@ -73,10 +79,24 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.setOpaque(true);
         boiteTexte.setBackground(Color.lightGray);
 
+        // bouton info
+
+        Image img = null;
+        try {
+            img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
+                    Image.SCALE_DEFAULT);
+            ;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        boutonInfo = new JLabel(new ImageIcon(img));
+        String sInfo = "<html> <b>Raccourcis : </b> <br> f : fin du tour <br> z : annuler <br> y : refaire  <br> s : sauvegarder <br> r : recommencer <br> echap : plein écran <br> q : quitter  </html>  ";
+        boutonInfo.setToolTipText(sInfo);
+        boutonInfo.setFocusable(false);
+
         // Bouton Menu
         boutonMenu.setFocusable(false);
-        boiteTexte.add(boutonMenu);
-        boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
+        // boiteTexte.add(boutonMenu);
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame f = new JFrame();
@@ -88,6 +108,15 @@ public class Plateau implements Runnable, Observateur {
             }
         });
 
+        // Ajout des boutons en haut
+        Box topButton = Box.createHorizontalBox();
+        topButton.add(boutonInfo);
+        topButton.add(Box.createRigidArea(new Dimension(5, 0)));
+        topButton.add(boutonMenu);
+        topButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        boiteTexte.add(topButton);
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
+
         // Info joueur
         joueur = new JLabel("Joue : " + j.joueurCourant.name);
         joueur.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -98,14 +127,14 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Info mouvements
-        mouvements = new JLabel("Déplacements : "+j.joueurCourant.nbMove);
+        mouvements = new JLabel("Déplacements : " + j.joueurCourant.nbMove);
         mouvements.setAlignmentX(Component.CENTER_ALIGNMENT);
         mouvements.setOpaque(true);
         mouvements.setBackground(Color.white);
         boiteTexte.add(mouvements);
 
         // Info passe
-        passe = new JLabel("Passe : "+j.joueurCourant.passeDispo);
+        passe = new JLabel("Passe : " + j.joueurCourant.passeDispo);
         passe.setAlignmentX(Component.CENTER_ALIGNMENT);
         passe.setOpaque(true);
         passe.setBackground(Color.white);
@@ -117,7 +146,7 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(boutonFinTour);
 
-        //bouton recommencer
+        // bouton recommencer
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
         boutonRecommencer.setFocusable(false);
         boutonRecommencer.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -130,18 +159,15 @@ public class Plateau implements Runnable, Observateur {
             }
         });
 
-        /*//bouton rejouer
-        boutonRejouer.setFocusable(false);
-        boiteTexte.add(boutonRejouer);
-        //boiteTexte.add(Box.createRigidArea(new Dimension(0, 100)));
-        boutonRejouer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                interHM.setVisible(true);
-                interHM.fenetreNouvellePartie();
-				
-            }
-        }); */
-
+        /*
+         * //bouton rejouer boutonRejouer.setFocusable(false);
+         * boiteTexte.add(boutonRejouer); //boiteTexte.add(Box.createRigidArea(new
+         * Dimension(0, 100))); boutonRejouer.addActionListener(new ActionListener() {
+         * public void actionPerformed(ActionEvent e) { interHM.setVisible(true);
+         * interHM.fenetreNouvellePartie();
+         * 
+         * } });
+         */
 
         // Retransmission des évènements au contrôleur
         plat.addMouseListener(new AdaptateurSouris(plat, control));
@@ -175,16 +201,29 @@ public class Plateau implements Runnable, Observateur {
         }
     }
 
+    public static void applyQualityRenderingHints(Graphics2D g2d) {
+
+        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+        g2d.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+
+    }
+
     @Override
     public void miseAJour() {
         if (j.gameOver) {
             mouvements.setVisible(false);
             passe.setVisible(false);
             boutonFinTour.setVisible(false);
-            //joueur.setSize(20, 20);
+            // joueur.setSize(20, 20);
             joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
             boutonRecommencer.setVisible(true);
-        } else{
+        } else {
             boutonRecommencer.setVisible(false);
             mouvements.setVisible(true);
             passe.setVisible(true);
@@ -193,8 +232,7 @@ public class Plateau implements Runnable, Observateur {
             mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
             passe.setText("Passe : " + j.joueurCourant.passeDispo);
         }
-            
-       
+
     }
 
 }
