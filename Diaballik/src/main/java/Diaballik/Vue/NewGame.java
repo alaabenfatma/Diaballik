@@ -2,10 +2,8 @@ package Diaballik.Vue;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+
+import java.awt.event.*;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -297,7 +295,7 @@ public class NewGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configJeu.setIALevel(IALevel.facile);
-	
+
 			}
 		});
 
@@ -305,7 +303,7 @@ public class NewGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configJeu.setIALevel(IALevel.moyen);
-	
+
 			}
 		});
 
@@ -313,14 +311,19 @@ public class NewGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configJeu.setIALevel(IALevel.difficile);
-	
+
 			}
 		});
-		
-		varianteCheckbox.addActionListener(new ActionListener() {
+
+		varianteCheckbox.addItemListener(new ItemListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-	
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					configJeu.setVariante(true);
+				} else {
+					configJeu.setVariante(false);
+				}
+				;
 			}
 		});
 
@@ -333,11 +336,14 @@ public class NewGame extends JPanel {
 				// super.setVisible(false);
 				CollecteurEvenements control = new ControleurMediateur(j);
 				Plateau.setIHM(i);
-				Plateau.demarrer(j, control,configJeu);
+				Plateau.demarrer(j, control, configJeu);
 				i.setVisible(false);
 
 			}
 		});
+		
+		String sInfo = "Mode de jeu alternatif avec 2 pions dans le camps adverse au départ";
+        varianteCheckbox.setToolTipText(sInfo);
 
 		b.add(br1);
 		b.add(br2);
