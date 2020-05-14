@@ -39,11 +39,11 @@ public class Jeu extends Observable {
     public ArrayList<Couple> listeDeplacementJ2 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ1 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ2 = new ArrayList<Couple>();
+    InfCoups infc = new InfCoups(tr, joueurCourant, 2, 1); //j'en ai besoin pour le ctrl-z
 
     public Jeu() {
         tr = new Terrain();
         tr.Create();
-
     }
 
     public void init() {
@@ -275,6 +275,8 @@ public class Jeu extends Observable {
 
     public void Passe() {
         if (joueurCourant.passeDispo == 1) {
+            infc.passes = 1;
+            this.tr.updateStack(joueurCourant.nbMove, 1);
             if (TerrainUtils.passeWrapper2(from, to) == true) {
                 joueurCourant.passeDispo = 0;
                 if (joueurCourant == joueur1)
@@ -300,7 +302,9 @@ public class Jeu extends Observable {
                 joueurCourant.nbMove -= Math.abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
             }
             if (joueurCourant.nbMove >= 0) {
+                this.tr.updateStack(temp,joueurCourant.passeDispo);
                 from.move(to.Position.l, to.Position.c);
+                infc.moves = temp;
                 if (joueurCourant == joueur1)
                     listeDeplacementJ1.add(new Couple(from.Position, to.Position));
                 else

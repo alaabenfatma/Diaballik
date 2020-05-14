@@ -14,10 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class ihm extends JFrame {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	Menu menu = new Menu(this);
 	NewGame ng = new NewGame(this);
@@ -33,10 +30,10 @@ public class ihm extends JFrame {
 	Image son, mute;
 	
 	playSound ps = new playSound();
-	boolean bmute = false;
+	boolean bmute = true;
+	
 
 	public ihm() {
-		
 		
 		this.setIconImage(icon); 
 		this.setTitle("Menu principal");
@@ -59,11 +56,12 @@ public class ihm extends JFrame {
 		try {
     		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-    		sound.setIcon(new ImageIcon(son));
+    		sound.setIcon(new ImageIcon(mute));
     	}
     	catch (Exception e) {
     		System.out.println(e);
     	}
+		
 		sound.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
@@ -81,12 +79,14 @@ public class ihm extends JFrame {
     	    	}
             } 
         } );
-        menu.add(sound);
+        
+		menu.add(sound);
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    this.add(menu);
 	    this.setVisible(true);
 	}
+	
 	
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav", bmute);
@@ -99,9 +99,11 @@ public class ihm extends JFrame {
 		this.revalidate();
 	}
 
+	
 	public void fenetreChargerPartie() {
 		ps.play("son/buttonClick.wav", bmute);
-		this.setSize(600, 510);
+		this.setSize(800, 540);
+		this.setSize(800, 550);
 		ChargerPartie cp = new ChargerPartie(this);
 		cp.add(sound);
 		this.setContentPane(cp);
@@ -109,6 +111,7 @@ public class ihm extends JFrame {
 		this.repaint();
 		this.revalidate();
 	}
+	
 	
 	public void fenetreJouerEnReseau() {
 		ps.play("son/buttonClick.wav", bmute);
@@ -121,6 +124,7 @@ public class ihm extends JFrame {
 		this.repaint();
 		this.revalidate();
 	}
+	
 	
 	public void retourMenuPrincipal() {
 		ps.play("son/buttonClick.wav", bmute);
@@ -135,6 +139,7 @@ public class ihm extends JFrame {
 		this.revalidate();
 	}
 	
+	
 	public void fenetreCreerPartieReseau() {
 		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 401);
@@ -146,6 +151,7 @@ public class ihm extends JFrame {
 		this.repaint();
 		this.revalidate();
 	}
+	
 	
 	public void fenetreRejoindrePartieReseau() {
 		ps.play("son/buttonClick.wav", bmute);
@@ -159,6 +165,7 @@ public class ihm extends JFrame {
 		this.revalidate();
 	}
 	
+	
 	public void fenetreAttenteJoueurReseau() {
 		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 401);
@@ -170,6 +177,7 @@ public class ihm extends JFrame {
 		this.repaint();
 		this.revalidate();
 	}
+	
 	
 	public void fenetreRegles() {
 		ps.play("son/buttonClick.wav", bmute);

@@ -3,23 +3,16 @@ package Diaballik.Vue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
-import javax.swing.event.MouseInputListener;
 import javax.swing.table.DefaultTableModel;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -33,14 +26,34 @@ import Diaballik.Models.JeuJSON;
 import Diaballik.Models.PieceType;
 
 public class ChargerPartie extends JPanel {
-	JFrame parent;
+
+	private static final long serialVersionUID = 1L;
+	JLabel titre = new JLabel("Charger partie");
 	ObjectMapper mapper = new ObjectMapper();
 	String column[] = { "Player1", "Player2", "Date" };
 	DefaultTableModel data = new DefaultTableModel(column, 0);
+	JButton retour = new JButton("Retour");
+	JLabel lbl = new JLabel("Double cliques pour lancer la partie");
+	Scanner scan;
+	JTable table = new JTable(data);
+	JScrollPane sp = new JScrollPane(table);
+	ihm i;
 
-	public ChargerPartie(JFrame parent) {
-		this.parent = parent;
-		Scanner scan;
+	public ChargerPartie(ihm ihm) {
+		i = ihm;
+		table.setDefaultEditor(Object.class, null);
+
+		i.addComponentListener(new ComponentAdapter() {
+			public void componentResized(ComponentEvent evt) {
+				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
+				retour.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 320, 120, 40);
+				table.setBounds(10, 90, i.getWidth()/2 - 20, i.getHeight()/2);
+				sp.setBounds(10, 70, i.getWidth()/2 - 20, i.getHeight()/2);
+				lbl.setLocation(0, 0);
+				lbl.setVisible(false);
+			}
+		});
+		
 		try {
 			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
 			while (scan.hasNextLine()) {
@@ -65,17 +78,12 @@ public class ChargerPartie extends JPanel {
 			e.printStackTrace();
 		}
 
-		JTable table = new JTable(data);
+		retour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				i.retourMenuPrincipal();
+			}
+		});
 
-		table.setDefaultEditor(Object.class, null);
-
-		table.setBounds(0, 0, parent.getWidth(), parent.getHeight() - 60);
-		JScrollPane sp = new JScrollPane(table);
-		JLabel lbl = new JLabel("Double cliques pour lancer la partie");
-		lbl.setLocation(0, 0);
-		this.add(lbl);
-		this.add(sp);
-		parent.add(this);
 		table.addMouseListener(new MouseInputAdapter() {
 			public void mouseClicked(MouseEvent me) {
 				if (me.getClickCount() == 2) {
@@ -85,6 +93,14 @@ public class ChargerPartie extends JPanel {
 				}
 			}
 		});
+		
+		Font font = new Font("Arial", Font.BOLD, 30);
+		titre.setFont(font);
+		this.add(lbl);
+		this.add(sp);
+		this.add(retour);
+		this.add(titre);
+	
 	}
 
 	private void startGame(String date) {
