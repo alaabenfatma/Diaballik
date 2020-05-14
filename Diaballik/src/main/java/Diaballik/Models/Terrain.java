@@ -32,10 +32,10 @@ public class Terrain implements ITerrain {
     }
 
     void initVariante() {
-            _terrain[0][1].Type = PieceType.White;
-            _terrain[0][5].Type = PieceType.White;
-            _terrain[6][1].Type = PieceType.Black;
-            _terrain[6][5].Type = PieceType.Black;
+        _terrain[0][1].Type = PieceType.White;
+        _terrain[0][5].Type = PieceType.White;
+        _terrain[6][1].Type = PieceType.Black;
+        _terrain[6][5].Type = PieceType.Black;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Terrain implements ITerrain {
     }
 
     @Override
-    
+
     public Piece[][] getTerrain() {
         return _terrain;
     }
@@ -126,11 +126,13 @@ public class Terrain implements ITerrain {
         for (int i = 0; i < this.taille(); i++) {
             for (int j = 0; j < this.taille(); j++) {
                 Piece piece = this._terrain[i][j];
-                copy._terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
+                copy._terrain[i][j] = new Piece(piece.Type, piece.HasBall, piece.Position.l, piece.Position.c,
+                        piece.Parent);
             }
         }
         return copy;
     }
+
     // retourne le type de piece qui a gagnée
     public PieceType victoire() {
         for (int i = 0; i < this.taille(); i++) {
@@ -147,13 +149,13 @@ public class Terrain implements ITerrain {
         return PieceType.Empty;
     }
 
-    public void updateStack(int moves, int passes){
-        coups.add(new InfCoups(clone(),_jeuParent.joueurCourant,moves,passes));
+    public void updateStack(int moves, int passes) {
+        coups.add(new InfCoups(clone(), _jeuParent.joueurCourant, moves, passes));
     }
 
-    public void ctrl_z(){
-        
-        if(coups.size() == 0){
+    public void ctrl_z() {
+
+        if (coups.size() == 0) {
             return;
         }
         _terrain = new Piece[taille][taille];
@@ -168,9 +170,9 @@ public class Terrain implements ITerrain {
         coups.pop();
     }
 
-    public void ctrl_y(){
-        
-        if(ctrly.size() == 0){
+    public void ctrl_y() {
+
+        if (ctrly.size() == 0) {
             return;
         }
         updateStack(_jeuParent.joueurCourant.nbMove, _jeuParent.joueurCourant.passeDispo);
@@ -180,54 +182,74 @@ public class Terrain implements ITerrain {
                 _terrain[l][c] = ctrly.peek().tr.getTerrain()[l][c];
             }
         }
-        
+
     }
 
-    
-    public char[][] toChar(){
+    public char[][] toChar() {
         char[][] pieces = new char[7][7];
         for (int i = 0; i < 7; i++) {
             for (int k = 0; k < 7; k++) {
-                if(this._terrain[i][k].Type==PieceType.White){
-                    if(this._terrain[i][k].HasBall){
+                if (this._terrain[i][k].Type == PieceType.White) {
+                    if (this._terrain[i][k].HasBall) {
                         pieces[i][k] = '1';
-                    }
-                    else{
+                    } else {
                         pieces[i][k] = 'W';
                     }
-                }
-                else if(this._terrain[i][k].Type==PieceType.Black){
-                    if(this._terrain[i][k].HasBall){
+                } else if (this._terrain[i][k].Type == PieceType.Black) {
+                    if (this._terrain[i][k].HasBall) {
                         pieces[i][k] = '0';
-                    }
-                    else{
+                    } else {
                         pieces[i][k] = 'B';
                     }
-                }
-                else{
+                } else {
                     pieces[i][k] = ' ';
                 }
             }
         }
         return pieces;
     }
-    public Piece[][] toPieces(char[][] chars){
+
+    public Piece[][] toPieces(char[][] chars) {
         Piece[][] pieces = new Piece[7][7];
         for (int i = 0; i < 7; i++) {
             for (int k = 0; k < 7; k++) {
-                if(chars[i][k]=='W'){
+                if (chars[i][k] == 'W') {
                     pieces[i][k] = new Piece(PieceType.White, false, i, k, this);
                 }
-                if(chars[i][k]=='B'){
+                if (chars[i][k] == 'B') {
                     pieces[i][k] = new Piece(PieceType.Black, false, i, k, this);
                 }
-                if(chars[i][k]=='1'){
+                if (chars[i][k] == '1') {
                     pieces[i][k] = new Piece(PieceType.White, true, i, k, this);
                 }
-                if(chars[i][k]=='0'){
+                if (chars[i][k] == '0') {
                     pieces[i][k] = new Piece(PieceType.Black, true, i, k, this);
                 }
-                if(chars[i][k]==' '){
+                if (chars[i][k] == ' ') {
+                    pieces[i][k] = new Piece(PieceType.Empty, false, i, k, this);
+                }
+            }
+        }
+        return pieces;
+    }
+
+    public Piece[][] Copy() {
+        Piece[][] pieces = new Piece[7][7];
+        for (int i = 0; i < 7; i++) {
+            for (int k = 0; k < 7; k++) {
+                if (this._terrain[i][k].Type == PieceType.White) {
+                    pieces[i][k] = new Piece(PieceType.White, false, i, k, this);
+                }
+                if (this._terrain[i][k].Type == PieceType.Black) {
+                    pieces[i][k] = new Piece(PieceType.Black, false, i, k, this);
+                }
+                if (this._terrain[i][k].Type == PieceType.White && this._terrain[i][k].HasBall) {
+                    pieces[i][k] = new Piece(PieceType.White, true, i, k, this);
+                }
+                if (this._terrain[i][k].Type == PieceType.Black && this._terrain[i][k].HasBall) {
+                    pieces[i][k] = new Piece(PieceType.Black, true, i, k, this);
+                }
+                if (this._terrain[i][k].Type == PieceType.Empty) {
                     pieces[i][k] = new Piece(PieceType.Empty, false, i, k, this);
                 }
             }

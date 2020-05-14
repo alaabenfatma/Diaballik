@@ -69,4 +69,8 @@ public class TerrainUtils {
             //throw new IllegalAccessError("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
         }
     }
+
+    public static int Distance(Position p1,Position p2){
+        return (int)(Math.hypot(p1.c - p2.c, p1.l - p2.l));
+    }
 }
