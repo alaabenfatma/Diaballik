@@ -248,10 +248,11 @@ public class MiniMax {
         tr.Create();
         Jeu j = new Jeu(tr);
         State s = new State(j);
-        // mm.M2P(s);
-        // mm.MMP(s);
-        // mm.MPM(s);
+        mm.MMP(s);
+        mm.MPM(s);
         mm.PMM(s);
+        sort(mm.AllMMPStates);
+        sort(mm.AllMPMStates);
         sort(mm.AllPMMStates);
         for (State state : mm.AllPMMStates) {
             System.out.println(state.score());

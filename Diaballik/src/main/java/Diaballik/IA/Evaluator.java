@@ -9,7 +9,7 @@ class EvaluationConfig {
     int valueOfPiece = 10;
     int diagonalBonus = 5;
     int hasBallBonus = 10;
-
+    int onOtherSide = 50;
     /**
      * Configures the values that are needed to calculate the final score of the
      * board.
@@ -26,10 +26,11 @@ class EvaluationConfig {
      * @param diagonalBonus
      * @param hasBallBonus
      */
-    public EvaluationConfig(int valueOfPiece, int diagonalBonus, int hasBallBonus) {
+    public EvaluationConfig(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide) {
         this.valueOfPiece = valueOfPiece;
         this.diagonalBonus = diagonalBonus;
         this.hasBallBonus = hasBallBonus;
+        this.onOtherSide = onOtherSide;
     }
 }
 
@@ -49,8 +50,8 @@ public class Evaluator {
      * @param diagonalBonus
      * @param hasBallBonus
      */
-    public static void init(int valueOfPiece, int diagonalBonus, int hasBallBonus) {
-        heuristics = new EvaluationConfig(valueOfPiece, diagonalBonus, hasBallBonus);
+    public static void init(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide) {
+        heuristics = new EvaluationConfig(valueOfPiece, diagonalBonus, hasBallBonus, onOtherSide);
     }
 
     /**
@@ -71,6 +72,9 @@ public class Evaluator {
             if (passesPossibles.contains(p.Position)) {
                 score += heuristics.diagonalBonus;
             }
+            if(p.Position.l==0){
+                score += heuristics.onOtherSide;
+            }
         } else if (p.Type == PieceType.Black) {
             score -= heuristics.valueOfPiece;
             if (p.HasBall) {
@@ -80,6 +84,9 @@ public class Evaluator {
             ArrayList<Position> passesPossibles = p.Parent.getPieceWithBall(p.Type).passesPossibles();
             if (passesPossibles.contains(p.Position)) {
                 score -= heuristics.diagonalBonus;
+            }
+            if(p.Position.l==6){
+                score -= heuristics.onOtherSide;
             }
         }
         return score;
