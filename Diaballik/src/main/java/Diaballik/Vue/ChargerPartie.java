@@ -107,11 +107,15 @@ public class ChargerPartie extends JPanel {
 						cfg.setTimer(j.config.getTimer());
 						cfg.setIALevel(j.config.getIALevel());
 						CollecteurEvenements control = new ControleurMediateur(realJeu);
-						
+
 						realJeu.configurer(cfg);
 						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
 						realJeu.start();
-						realJeu.joueurCourant = j.joueurCourant;
+						realJeu.joueurCourant.couleur = j.joueurCourant.couleur;
+						realJeu.joueurCourant.n = j.joueurCourant.n;
+						realJeu.joueurCourant.name = j.joueurCourant.name;
+						realJeu.joueurCourant.nbMove = j.joueurCourant.nbMove;
+						realJeu.joueurCourant.passeDispo = j.joueurCourant.passeDispo;
 						Plateau.demarrer(realJeu, control, cfg);
 
 					} catch (JsonParseException e) {
