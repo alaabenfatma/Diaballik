@@ -124,7 +124,7 @@ public class MiniMax {
         tr.Create();
         Jeu j = new Jeu(tr);
         State s = new State(j);
-        mm.M2P(s);
+        //mm.M2P(s);
         mm.MMP(s);
     }
 }
