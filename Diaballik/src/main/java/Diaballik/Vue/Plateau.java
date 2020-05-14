@@ -286,6 +286,7 @@ public class Plateau implements Runnable, Observateur {
             // joueur.setSize(20, 20);
             joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
             boutonRecommencer.setVisible(true);
+            clock.setVisible(false);
         } else {
             boutonRecommencer.setVisible(false);
             mouvements.setVisible(true);
@@ -294,6 +295,7 @@ public class Plateau implements Runnable, Observateur {
             joueur.setText("Joue : " + j.joueurCourant.name);
             mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
             passe.setText("Passe : " + j.joueurCourant.passeDispo);
+            clock.setVisible(true);
         }
 
     }
