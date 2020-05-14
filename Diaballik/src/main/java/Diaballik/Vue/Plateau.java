@@ -12,6 +12,8 @@ import java.awt.GraphicsDevice;
 import javax.swing.JButton;
 import javax.swing.*;
 
+import Diaballik.Controllers.ControleurMediateur;
+import Diaballik.Controllers.IO;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Patterns.Observateur;
@@ -53,7 +55,9 @@ public class Plateau implements Runnable, Observateur {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
-                    msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder");
+                    if(msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder")==0){
+                        IO.ExportGameToJSON(j);
+                    }
                     System.exit(0);
                     // ajouter la sauvegarde
                 } else {
