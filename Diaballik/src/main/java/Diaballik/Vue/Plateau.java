@@ -95,14 +95,14 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Info mouvements
-        mouvements = new JLabel("Déplacements : 2");
+        mouvements = new JLabel("Déplacements : "+j.joueurCourant.nbMove);
         mouvements.setAlignmentX(Component.CENTER_ALIGNMENT);
         mouvements.setOpaque(true);
         mouvements.setBackground(Color.white);
         boiteTexte.add(mouvements);
 
         // Info passe
-        passe = new JLabel("Passe : 1");
+        passe = new JLabel("Passe : "+j.joueurCourant.passeDispo);
         passe.setAlignmentX(Component.CENTER_ALIGNMENT);
         passe.setOpaque(true);
         passe.setBackground(Color.white);
