@@ -8,9 +8,6 @@ import javax.swing.*;
 
 public class Menu extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JButton nouvelle = new JButton("Nouvelle partie");
 	JButton charger = new JButton("Charger partie");
@@ -122,9 +119,7 @@ public class Menu extends JPanel {
     			}
             } 
         } );
-        
-   
-        
+  
         mi2.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
@@ -172,8 +167,7 @@ public class Menu extends JPanel {
     	    	}
             } 
         } );
-        
-        
+       
         this.setVisible(true);
 	
 	}

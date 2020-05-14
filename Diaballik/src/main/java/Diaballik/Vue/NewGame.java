@@ -9,6 +9,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -28,9 +29,6 @@ import Diaballik.Models.ConfigJeu.Timer;
 
 public class NewGame extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Nouvelle partie");
 	JLabel duree = new JLabel("Durée d'un tour :");
@@ -56,6 +54,7 @@ public class NewGame extends JPanel {
 	JMenu m1 = new JMenu("Thèmes");
 	JMenu m2 = new JMenu("Options");
 	JMenuItem mi1 = new JMenuItem("Daltonien");
+	JCheckBox varianteCheckbox = new JCheckBox("Variante");
 
 	ButtonGroup b = new ButtonGroup();
 	JRadioButton br1 = new JRadioButton("Facile");
@@ -125,6 +124,7 @@ public class NewGame extends JPanel {
 				br2.setBounds((i.getWidth() / 2) - 30, (i.getHeight() / 4) + 40, 70, 20);
 				br3.setBounds((i.getWidth() / 2) + 40, (i.getHeight() / 4) + 40, 70, 20);
 				i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
+				varianteCheckbox.setBounds((i.getWidth() / 2) + 140, (i.getHeight() / 4) + 60, 100, 20);
 			}
 		});
 
@@ -316,6 +316,13 @@ public class NewGame extends JPanel {
 	
 			}
 		});
+		
+		varianteCheckbox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+	
+			}
+		});
 
 		jouer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -362,6 +369,7 @@ public class NewGame extends JPanel {
 		this.add(jouer);
 		this.add(retour);
 		this.add(titre);
+		this.add(varianteCheckbox);
 		this.setVisible(true);
 	}
 
