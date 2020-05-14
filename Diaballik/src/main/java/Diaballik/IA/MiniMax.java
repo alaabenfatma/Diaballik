@@ -1,39 +1,73 @@
 package Diaballik.IA;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.Jeu;
+import Diaballik.Models.Piece;
 import Diaballik.Models.PieceType;
 import Diaballik.Models.Position;
 import Diaballik.Models.State;
 import Diaballik.Models.Terrain;
 
-
 public class MiniMax {
-    public PieceType IA_TYPE = PieceType.Black;
+    public PieceType AI_TYPE = PieceType.Black;
     ArrayList<State> AllM2PStates = new ArrayList<State>();
-    
-    public void M2P(State currentState){
+
+    /**
+     * M2P = Move 2 times & Pass the Ball.
+     * 
+     * @param currentState
+     */
+    public void M2P(State currentState) {
+        ArrayList<State> innerM2PStates = new ArrayList<State>();
+
         currentState.Game.tr.PrintTerrain();
-        ArrayList<Couple_piece_pos> possibleMoves= IA_utils.getAllPossibleMovesDistance(IA_TYPE, currentState.Game.tr   ,2);
-        System.out.println(possibleMoves);
+        ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE, currentState.Game.tr,
+                2);
+        /**
+         * Move the ball X times by a margin of 2
+         */
         for (Couple_piece_pos couple : possibleMoves) {
             for (Position pos : couple.pos) {
-                Terrain tmp  = new Terrain();
-                tmp._terrain = currentState.Game.tr.Copy();
-                System.out.println(couple.piece.Position+" "+pos+" distance ="+TerrainUtils.Distance(couple.piece.Position, pos));
+                Position posMain = couple.piece.Position;
+                Terrain tmp = new Terrain();
+                tmp.Create();
+                tmp._terrain = currentState.Terrain.Copy(tmp);
+                tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                State s = new State(tmp);
+                innerM2PStates.add(s);
+            }
+        }
+        /**
+         * For every new state, pass the ball X times
+         */
+        for (State state : innerM2PStates) {
+            Piece ballHolder = state.Terrain.getPieceWithBall(AI_TYPE);
+            ArrayList<Position> passes = ballHolder.passesPossibles();
+            for (Position pos : passes) {
+
+                Terrain tmp = new Terrain();
+                tmp.Create();
+                tmp._terrain = state.Terrain.Copy(tmp);
+                TerrainUtils.passeWrapper(tmp._terrain[ballHolder.Position.l][ballHolder.Position.c],
+                        tmp._terrain[pos.l][pos.c]);
+
+                State s = new State(tmp);
+                AllM2PStates.add(s);
             }
         }
     }
+
     public static void main(String[] args) {
         MiniMax mm = new MiniMax();
         Terrain tr = new Terrain();
-        
+
         tr.Create();
         Jeu j = new Jeu(tr);
         State s = new State(j);
         mm.M2P(s);
-        System.out.println(Evaluator.scoreOfBoard(tr));
+
     }
 }

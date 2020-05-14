@@ -233,24 +233,24 @@ public class Terrain implements ITerrain {
         return pieces;
     }
 
-    public Piece[][] Copy() {
+    public Piece[][] Copy(Terrain pTerrain) {
         Piece[][] pieces = new Piece[7][7];
         for (int i = 0; i < 7; i++) {
             for (int k = 0; k < 7; k++) {
                 if (this._terrain[i][k].Type == PieceType.White) {
-                    pieces[i][k] = new Piece(PieceType.White, false, i, k, this);
+                    pieces[i][k] = new Piece(PieceType.White, false, i, k, pTerrain);
                 }
                 if (this._terrain[i][k].Type == PieceType.Black) {
-                    pieces[i][k] = new Piece(PieceType.Black, false, i, k, this);
+                    pieces[i][k] = new Piece(PieceType.Black, false, i, k, pTerrain);
                 }
                 if (this._terrain[i][k].Type == PieceType.White && this._terrain[i][k].HasBall) {
-                    pieces[i][k] = new Piece(PieceType.White, true, i, k, this);
+                    pieces[i][k] = new Piece(PieceType.White, true, i, k, pTerrain);
                 }
                 if (this._terrain[i][k].Type == PieceType.Black && this._terrain[i][k].HasBall) {
-                    pieces[i][k] = new Piece(PieceType.Black, true, i, k, this);
+                    pieces[i][k] = new Piece(PieceType.Black, true, i, k, pTerrain);
                 }
                 if (this._terrain[i][k].Type == PieceType.Empty) {
-                    pieces[i][k] = new Piece(PieceType.Empty, false, i, k, this);
+                    pieces[i][k] = new Piece(PieceType.Empty, false, i, k, pTerrain);
                 }
             }
         }
