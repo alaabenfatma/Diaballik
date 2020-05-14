@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Stack;
 
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.IA.Coup_Gagnant;
@@ -39,7 +40,9 @@ public class Jeu extends Observable {
     public ArrayList<Couple> listeDeplacementJ2 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ1 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ2 = new ArrayList<Couple>();
-    InfCoups infc = new InfCoups(tr, joueurCourant, 2, 1); //j'en ai besoin pour le ctrl-z
+    InfCoups infc = new InfCoups(tr, joueurCourant, 2, 1); // j'en ai besoin pour le ctrl-z
+    Stack<Couple> stackZ = new Stack<Couple>();
+    Stack<Couple> stackY = new Stack<Couple>();
 
     public Jeu() {
         tr = new Terrain();
@@ -51,10 +54,7 @@ public class Jeu extends Observable {
         tr.Create();
         listeMarque.clear();
         listePositionsPossibles.clear();
-        listeDeplacementJ1.clear();
-        listeDeplacementJ2.clear();
-        listePasseJ1.clear();
-        listePasseJ2.clear();
+        clearListe();
         gameOver = false;
         from = to = null;
 
@@ -151,15 +151,15 @@ public class Jeu extends Observable {
             listePasseJ1.clear();
         }
         if (config.getTimer() != ConfigJeu.Timer.illimite) {
-			if (config.getTimer() == ConfigJeu.Timer.un)
-				Plateau.setX(60000);
-			else if (config.getTimer() == ConfigJeu.Timer.deux)
-				Plateau.setX(120000);
-			else if (config.getTimer() == ConfigJeu.Timer.trois)
-				Plateau.setX(180000);
-			else
-				Plateau.setX(60000);
-		}
+            if (config.getTimer() == ConfigJeu.Timer.un)
+                Plateau.setX(60000);
+            else if (config.getTimer() == ConfigJeu.Timer.deux)
+                Plateau.setX(120000);
+            else if (config.getTimer() == ConfigJeu.Timer.trois)
+                Plateau.setX(180000);
+            else
+                Plateau.setX(60000);
+        }
         metAJour();
         RetirerMarque();
     }
@@ -302,7 +302,7 @@ public class Jeu extends Observable {
                 joueurCourant.nbMove -= Math.abs((from.Position.l + from.Position.c) - (to.Position.l + to.Position.c));
             }
             if (joueurCourant.nbMove >= 0) {
-                this.tr.updateStack(temp,joueurCourant.passeDispo);
+                this.tr.updateStack(temp, joueurCourant.passeDispo);
                 from.move(to.Position.l, to.Position.c);
                 infc.moves = temp;
                 if (joueurCourant == joueur1)
@@ -411,6 +411,24 @@ public class Jeu extends Observable {
         } else
             return false;
 
+    }
+
+    private void clearListe() {
+        listeDeplacementJ1.clear();
+        listeDeplacementJ2.clear();
+        listePasseJ1.clear();
+        listePasseJ2.clear();
+    }
+
+    public void jctrl_z() {
+        tr.ctrl_z();
+        clearListe();
+        metAJour();
+    }
+
+    public void jctrl_y() {
+        tr.ctrl_y();
+        metAJour();
     }
 
     // mode textuelle

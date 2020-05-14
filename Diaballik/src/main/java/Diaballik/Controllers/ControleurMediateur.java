@@ -25,10 +25,9 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void annule() {
-		jeu.tr.PrintTerrain();
-		jeu.tr.ctrl_z();
+	
+		jeu.jctrl_z();
 		System.out.println("Annulation");
-		jeu.tr.PrintTerrain();
 	}
 
 	public void refait() {
