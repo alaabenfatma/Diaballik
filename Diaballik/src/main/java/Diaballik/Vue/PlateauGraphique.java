@@ -84,9 +84,6 @@ public abstract class PlateauGraphique extends JComponent implements Observateur
         yn = xn * sin + yn * cos + y1;
         xn = x;
 
-        int[] xpoints = { x2, (int) xm, (int) xn };
-        int[] ypoints = { y2, (int) ym, (int) yn };
-
         drawable.drawLine(x1, y1, x2, y2);
         drawable.drawLine(x2, y2, (int) xm, (int) ym);
         drawable.drawLine(x2, y2, (int) xn, (int) yn);

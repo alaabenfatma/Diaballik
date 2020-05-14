@@ -43,9 +43,6 @@ public class VuePlateau extends PlateauGraphique {
         return largeurCase;
     }
 
-    private void marque() {
-    }
-
     @Override
     void tracerPlateau() {
 

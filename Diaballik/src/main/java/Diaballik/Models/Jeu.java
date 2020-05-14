@@ -43,6 +43,7 @@ public class Jeu extends Observable {
     InfCoups infc = new InfCoups(tr, joueurCourant, 2, 1); // j'en ai besoin pour le ctrl-z
     Stack<Couple> stackZ = new Stack<Couple>();
     Stack<Couple> stackY = new Stack<Couple>();
+    public boolean antijeuBool;
 
     public Jeu() {
         tr = new Terrain();
@@ -57,6 +58,7 @@ public class Jeu extends Observable {
         clearListe();
         gameOver = false;
         from = to = null;
+        antijeuBool = false;
 
     }
 
@@ -65,14 +67,13 @@ public class Jeu extends Observable {
     }
 
     public void start() {
+        antijeuBool = false;
         if (config.getVariante())
             tr.initVariante();
         if (config.getMode() == Mode.ordinateur) {
             IA = true;
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
-            // TODO : case config.getIALevel()
-            // I = new Random_IA(joueur2.couleur, tr);
             switch (config.getIALevel()) {
                 case difficile:
                     break;
@@ -309,7 +310,7 @@ public class Jeu extends Observable {
                     listeDeplacementJ1.add(new Couple(from.Position, to.Position));
                 else
                     listeDeplacementJ2.add(new Couple(from.Position, to.Position));
-                gameOver = antijeu();
+                gameOver = antijeuBool = antijeu();
 
             } else {
                 joueurCourant.nbMove = temp;
@@ -401,12 +402,11 @@ public class Jeu extends Observable {
                 }
                 if (nbAdverseColonne != 1)
                     return false;
-
             }
-
         }
         if (cpt >= 3) {
-            System.out.println("Les " + adverse + " ont fait un antijeu");
+            String nameAdv = (joueurCourant == joueur1) ? joueur2.name : joueur1.name;
+            System.out.println(nameAdv + " a fait antijeu");
             return true;
         } else
             return false;

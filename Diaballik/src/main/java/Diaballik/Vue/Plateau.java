@@ -158,7 +158,7 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(passe);
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // TODO : ajouter timer
+        // timer
         final long temps;
         if (conf.getTimer() != ConfigJeu.Timer.illimite) {
             if (conf.getTimer() == ConfigJeu.Timer.un)
@@ -278,24 +278,32 @@ public class Plateau implements Runnable, Observateur {
 
     @Override
     public void miseAJour() {
-        if (j.gameOver) {
-            mouvements.setVisible(false);
-            passe.setVisible(false);
-            boutonFinTour.setVisible(false);
-            // joueur.setSize(20, 20);
-            joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
-            boutonRecommencer.setVisible(true);
-            clock.setVisible(false);
-        } else {
-            boutonRecommencer.setVisible(false);
-            mouvements.setVisible(true);
-            passe.setVisible(true);
-            boutonFinTour.setVisible(true);
-            joueur.setText("Joue : " + j.joueurCourant.name);
-            mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
-            passe.setText("Passe : " + j.joueurCourant.passeDispo);
-            if (conf.getTimer() != ConfigJeu.Timer.illimite)
-                clock.setVisible(true);
+        try {
+            if (j.gameOver) {
+                if (j.antijeuBool) {
+                    String nameAdv = (j.joueurCourant == j.joueur1) ? j.joueur2.name : j.joueur1.name;
+                    mouvements.setText(nameAdv + " a fait antijeu");
+                } else
+                    mouvements.setVisible(false);
+                passe.setVisible(false);
+                boutonFinTour.setVisible(false);
+                // joueur.setSize(20, 20);
+                joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
+                boutonRecommencer.setVisible(true);
+                clock.setVisible(false);
+            } else {
+                boutonRecommencer.setVisible(false);
+                mouvements.setVisible(true);
+                passe.setVisible(true);
+                boutonFinTour.setVisible(true);
+                joueur.setText("Joue : " + j.joueurCourant.name);
+                mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
+                passe.setText("Passe : " + j.joueurCourant.passeDispo);
+                if (conf.getTimer() != ConfigJeu.Timer.illimite)
+                    clock.setVisible(true);
+            }
+
+        } catch (Exception e) {
         }
 
     }
