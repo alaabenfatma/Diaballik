@@ -232,7 +232,7 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.addActionListener(new AdaptateurFinTour(control));
 
         // Mise en place de l'interface
-        boiteTexte.setPreferredSize(new Dimension(200, 600));
+        boiteTexte.setPreferredSize(new Dimension(170, 600));
         frame.add(boiteTexte, BorderLayout.EAST);
         plat.setPreferredSize(new Dimension(600, 600));
         frame.add(plat, BorderLayout.CENTER);
