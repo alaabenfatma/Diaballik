@@ -20,11 +20,6 @@ public class State implements Comparable{
     @Override
     public int compareTo(Object o) {
         State s = (State)o;
-        if (this.score()==(s.score()))
-            return 0;
-        else if(this.score()>s.score()){
-            return 1;
-        }
-        return this.compareTo(s);
+        return this.score() - s.score();
     }
 }

@@ -1,5 +1,7 @@
 package Diaballik.IA;
 
+import static java.util.Collections.sort;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
@@ -250,5 +252,9 @@ public class MiniMax {
         // mm.MMP(s);
         // mm.MPM(s);
         mm.PMM(s);
+        sort(mm.AllPMMStates);
+        for (State state : mm.AllPMMStates) {
+            System.out.println(state.score());
+        }
     }
 }
