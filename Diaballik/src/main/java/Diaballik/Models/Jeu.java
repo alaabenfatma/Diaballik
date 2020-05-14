@@ -66,10 +66,10 @@ public class Jeu extends Observable {
             switch(config.getIALevel()){
                 case difficile:
                     break;
-                case moyen:
+                case facile:
                 iaRandomIHM = new IaRandomIHM(this);
                     break;
-                case facile:
+                case moyen:
                 iaEasy = new IA_easy(this);
                     break;
                 default:
@@ -91,14 +91,14 @@ public class Jeu extends Observable {
         tr._jeuParent = this;
         metAJour();
         // IA joue en premier
-        if (IA && !config.getP1First()) {
+        if (IA && joueurCourant == joueur2) {
             switch(config.getIALevel()){
                 case difficile:
                     break;
-                case moyen:
+                case facile:
                 iaRandomIHM.JoueTourIARand();
                     break;
-                case facile:
+                case moyen:
                 iaEasy.joueTourIAEasy();
                     break;
                 default:
@@ -126,10 +126,10 @@ public class Jeu extends Observable {
                 switch(config.getIALevel()){
                     case difficile:
                         break;
-                    case moyen:
+                    case facile:
                     iaRandomIHM.JoueTourIARand();
                         break;
-                    case facile:
+                    case moyen:
                     iaEasy.joueTourIAEasy();
                         break;
                     default:
