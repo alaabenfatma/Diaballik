@@ -31,6 +31,13 @@ public class Terrain implements ITerrain {
         ctrly = new Stack<Piece[][]>();
     }
 
+    void initVariante() {
+            _terrain[0][1].Type = PieceType.White;
+            _terrain[0][5].Type = PieceType.White;
+            _terrain[6][1].Type = PieceType.Black;
+            _terrain[6][5].Type = PieceType.Black;
+    }
+
     @Override
     public Piece[][] Create() {
         init();

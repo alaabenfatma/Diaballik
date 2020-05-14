@@ -14,9 +14,12 @@ import Diaballik.IA.IaRandomIHM;
 import Diaballik.IA.Random_IA;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
+import Diaballik.Vue.Plateau;
+
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Jeu extends Observable {
     public Terrain tr;
     public Joueur joueur1;
@@ -42,7 +45,8 @@ public class Jeu extends Observable {
         tr.Create();
 
     }
-    public void init(){
+
+    public void init() {
         tr = new Terrain();
         tr.Create();
         listeMarque.clear();
@@ -61,25 +65,26 @@ public class Jeu extends Observable {
     }
 
     public void start() {
+        if (config.getVariante())
+            tr.initVariante();
         if (config.getMode() == Mode.ordinateur) {
             IA = true;
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
             // TODO : case config.getIALevel()
             // I = new Random_IA(joueur2.couleur, tr);
-            switch(config.getIALevel()){
+            switch (config.getIALevel()) {
                 case difficile:
                     break;
                 case facile:
-                iaRandomIHM = new IaRandomIHM(this);
+                    iaRandomIHM = new IaRandomIHM(this);
                     break;
                 case moyen:
-                iaEasy = new IA_easy(this);
+                    iaEasy = new IA_easy(this);
                     break;
                 default:
                     break;
             }
-            
 
         } else {
             IA = false;
@@ -96,14 +101,14 @@ public class Jeu extends Observable {
         metAJour();
         // IA joue en premier
         if (IA && joueurCourant == joueur2) {
-            switch(config.getIALevel()){
+            switch (config.getIALevel()) {
                 case difficile:
                     break;
                 case facile:
-                iaRandomIHM.JoueTourIARand();
+                    iaRandomIHM.JoueTourIARand();
                     break;
                 case moyen:
-                iaEasy.joueTourIAEasy();
+                    iaEasy.joueTourIAEasy();
                     break;
                 default:
                     break;
@@ -127,14 +132,14 @@ public class Jeu extends Observable {
             listeDeplacementJ2.clear();
             listePasseJ2.clear();
             if (IA) {
-                switch(config.getIALevel()){
+                switch (config.getIALevel()) {
                     case difficile:
                         break;
                     case facile:
-                    iaRandomIHM.JoueTourIARand();
+                        iaRandomIHM.JoueTourIARand();
                         break;
                     case moyen:
-                    iaEasy.joueTourIAEasy();
+                        iaEasy.joueTourIAEasy();
                         break;
                     default:
                         break;
@@ -145,6 +150,16 @@ public class Jeu extends Observable {
             listeDeplacementJ1.clear();
             listePasseJ1.clear();
         }
+        if (config.getTimer() != ConfigJeu.Timer.illimite) {
+			if (config.getTimer() == ConfigJeu.Timer.un)
+				Plateau.setX(60000);
+			else if (config.getTimer() == ConfigJeu.Timer.deux)
+				Plateau.setX(120000);
+			else if (config.getTimer() == ConfigJeu.Timer.trois)
+				Plateau.setX(180000);
+			else
+				Plateau.setX(60000);
+		}
         metAJour();
         RetirerMarque();
     }
@@ -804,6 +819,7 @@ public class Jeu extends Observable {
         j.test_Coup_Gagnant_IA_P(j.tr);
         // j.move();
     }
+
     public void ExportGameToJSON(Jeu j) {
         JeuJSON jte = new JeuJSON(j);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -811,7 +827,7 @@ public class Jeu extends Observable {
             String json = objectMapper.writeValueAsString(jte);
             try {
 
-                FileWriter fw = new FileWriter(this.getClass().getResource("../data/history.json").getFile(),true);
+                FileWriter fw = new FileWriter(this.getClass().getResource("../data/history.json").getFile(), true);
                 fw.write(json + System.lineSeparator());
                 fw.close();
 

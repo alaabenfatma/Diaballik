@@ -5,6 +5,7 @@ import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
 import Diaballik.Vue.PlateauGraphique;
 import Diaballik.IA.*;
+import Diaballik.Models.ConfigJeu;
 
 public class ControleurMediateur implements CollecteurEvenements {
 

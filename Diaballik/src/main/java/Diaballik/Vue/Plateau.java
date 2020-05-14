@@ -2,8 +2,6 @@ package Diaballik.Vue;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -11,13 +9,12 @@ import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.GraphicsDevice;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Patterns.Observateur;
@@ -36,6 +33,10 @@ public class Plateau implements Runnable, Observateur {
     CollecteurEvenements control;
     boolean maximized;
     static ihm interHM;
+    Timer timer;
+
+    private static JLabel clock;
+    private static long x;
 
     static void setIHM(ihm i) {
         interHM = i;
@@ -60,7 +61,7 @@ public class Plateau implements Runnable, Observateur {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
-                    if(msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder")==0){
+                    if (msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder") == 0) {
                         j.ExportGameToJSON(j);
                     }
                     System.exit(0);
@@ -80,7 +81,6 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.setBackground(Color.lightGray);
 
         // bouton info
-
         Image img = null;
         try {
             img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
@@ -139,9 +139,47 @@ public class Plateau implements Runnable, Observateur {
         passe.setOpaque(true);
         passe.setBackground(Color.white);
         boiteTexte.add(passe);
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // TODO : ajouter timer
-        boiteTexte.add(Box.createRigidArea(new Dimension(0, 40)));
+        final long temps;
+        if (conf.getTimer() != ConfigJeu.Timer.illimite) {
+            if (conf.getTimer() == ConfigJeu.Timer.un)
+                temps = 60000;
+            else if (conf.getTimer() == ConfigJeu.Timer.deux)
+                temps = 120000;
+            else if (conf.getTimer() == ConfigJeu.Timer.trois)
+                temps = 180000;
+            else
+                temps = 180000;
+
+            final java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("mm : ss");
+            clock = new JLabel(sdf.format(new Date(temps)), JLabel.CENTER);
+            //clock.setPreferredSize(new Dimension(250, 100));
+            clock.setOpaque(true);
+            clock.setBackground(Color.black);
+            clock.setForeground(Color.white);
+            clock.setFont(new Font("Serif", Font.BOLD, 20));
+            clock.setAlignmentX(Component.CENTER_ALIGNMENT);
+            x = temps - 1000;
+            ActionListener al = new ActionListener() {
+
+                public void actionPerformed(ActionEvent ae) {
+                    if (x <= 0) {
+                        control.toucheClavier("FinTour");
+                        x = temps;
+                    }
+                    clock.setText(sdf.format(new Date(x)));
+                    x -= 1000;
+
+                }
+            };
+            new javax.swing.Timer(1000, al).start();
+            boiteTexte.add(clock);
+
+        }
+
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
         boutonFinTour.setFocusable(false);
         boutonFinTour.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(boutonFinTour);
@@ -212,6 +250,13 @@ public class Plateau implements Runnable, Observateur {
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
+    }
+    
+    /**
+     * @param x the x to set
+     */
+    public static void setX(long x) {
+        Plateau.x = x;
     }
 
     @Override
