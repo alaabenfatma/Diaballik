@@ -97,23 +97,23 @@ public class ChargerPartie extends JPanel {
 					try {
 						JeuJSON j = mapper.readValue(line, JeuJSON.class);
 						Jeu realJeu = new Jeu();
-						realJeu.joueurCourant = j.joueurCourant;
-						
+
 						ConfigJeu cfg = new ConfigJeu();
 						cfg.setName1(j.config.getName1());
 						cfg.setName2(j.config.getName2());
 						cfg.setMode(j.config.getMode());
-						cfg.setP1First(j.joueurCourant.couleur==PieceType.White);
+						cfg.setP1First(j.joueurCourant.couleur == PieceType.White);
 						cfg.setVariante(j.config.getVariante());
 						cfg.setTimer(j.config.getTimer());
 						cfg.setIALevel(j.config.getIALevel());
 						CollecteurEvenements control = new ControleurMediateur(realJeu);
-
-						Plateau.demarrer(realJeu, control, cfg);
-
+						
 						realJeu.configurer(cfg);
 						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
 						realJeu.start();
+						realJeu.joueurCourant = j.joueurCourant;
+						Plateau.demarrer(realJeu, control, cfg);
+
 					} catch (JsonParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
