@@ -39,7 +39,7 @@ public class ChargerPartie extends JPanel {
 	JScrollPane sp = new JScrollPane(table);
 	ihm i;
 
-	public ChargerPartie(ihm ihm) {
+	public ChargerPartie(ihm ihm, final boolean menu) {
 		i = ihm;
 		table.setDefaultEditor(Object.class, null);
 
@@ -79,7 +79,15 @@ public class ChargerPartie extends JPanel {
 
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				i.retourMenuPrincipal();
+				if(menu == false){
+					i.retourMenuPrincipal();
+				}
+				else{
+					MenuEnJeu m = new MenuEnJeu(i, i);
+                	i.setContentPane(m);
+                	i.repaint();
+					i.revalidate();
+				}
 			}
 		});
 

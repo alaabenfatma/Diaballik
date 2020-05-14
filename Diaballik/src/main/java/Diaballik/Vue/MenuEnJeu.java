@@ -67,7 +67,7 @@ public class MenuEnJeu extends JPanel{
             public void actionPerformed(ActionEvent e) { 
                 frame.setVisible(false);
                 ihm i = new ihm();
-                ChargerPartie m = new ChargerPartie(i);
+                ChargerPartie m = new ChargerPartie(i, true);
                 i.setSize(800, 550);
                 i.setContentPane(m);
                 i.repaint();
