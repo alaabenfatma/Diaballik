@@ -1,6 +1,9 @@
 package Reseau;
 
 import java.io.BufferedReader;
+import java.net.UnknownHostException;
+import java.net.InetAddress;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -13,7 +16,17 @@ public class Serveur {
 	
 	public static void main(String[] args) {
 		System.out.println("Je suis le serveur");
-		
+		//http://www.mon-ip.com/     (4.41 de la vidéo)
+		try {
+			InetAddress add = InetAddress.getLocalHost();
+			System.out.println(add + " Est l'addresse Ip de mon pc a l'intérieur de mon reseau");
+			InetAddress add2 = InetAddress.getByName("localhost");
+			System.out.println(add2 + "Est l'addresse Ip");
+			
+		}catch(UnknownHostException e) {
+			e.printStackTrace();
+		}
+		/*
 		try {
 			ServerSocket sS = new ServerSocket(port); // si ajout d'un deuxiÃ¨me paramÃ¨tre -> limite le nb de connexion
 			
@@ -33,7 +46,7 @@ public class Serveur {
 			s.close();
 		}catch(IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
