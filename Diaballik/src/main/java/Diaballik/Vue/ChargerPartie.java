@@ -1,5 +1,6 @@
 package Diaballik.Vue;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,12 +38,14 @@ public class ChargerPartie extends JPanel {
 	Scanner scan;
 	JTable table = new JTable(data);
 	JScrollPane sp = new JScrollPane(table);
+	JPanel sample = new JPanel();
 	ihm i;
 
 	public ChargerPartie(ihm ihm, final boolean menu) {
 		i = ihm;
 		table.setDefaultEditor(Object.class, null);
-
+		sample.setBackground(Color.BLACK);
+		
 		i.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent evt) {
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
@@ -50,6 +53,7 @@ public class ChargerPartie extends JPanel {
 				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 320, 120, 40);
 				table.setBounds(10, 90, i.getWidth() / 2 - 20, i.getHeight() / 2);
 				sp.setBounds(10, 70, i.getWidth() / 2 - 20, i.getHeight() / 2);
+				sample.setBounds(table.getWidth(), 90, 200, 200);
 			}
 		});
 
@@ -62,30 +66,25 @@ public class ChargerPartie extends JPanel {
 					Object[] innerData = { j.player1, j.player2, j.CreationDate };
 					data.addRow(innerData);
 				} catch (JsonParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (JsonMappingException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(menu == false){
+				if (menu == false) {
 					i.retourMenuPrincipal();
-				}
-				else{
+				} else {
 					MenuEnJeu m = new MenuEnJeu(i, i);
-                	i.setContentPane(m);
-                	i.repaint();
+					i.setContentPane(m);
+					i.repaint();
 					i.revalidate();
 				}
 			}
@@ -93,9 +92,12 @@ public class ChargerPartie extends JPanel {
 
 		table.addMouseListener(new MouseInputAdapter() {
 			public void mouseClicked(final MouseEvent me) {
+				JTable target = (JTable) me.getSource();
+				int row = target.getSelectedRow();
+				if (me.getClickCount() == 1) {
+					showSample(target.getValueAt(row, 2).toString());
+				}
 				if (me.getClickCount() == 2) {
-					JTable target = (JTable) me.getSource();
-					int row = target.getSelectedRow();
 					startGame(target.getValueAt(row, 2).toString());
 				}
 			}
@@ -112,6 +114,61 @@ public class ChargerPartie extends JPanel {
 		this.add(retour);
 		this.add(jouer);
 		this.add(titre);
+		this.add(sample);
+	}
+
+	private void showSample(String date) {
+		Scanner scan;
+		try {
+			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
+			while (scan.hasNextLine()) {
+				String line = scan.nextLine();
+				if (line.contains(date)) {
+					try {
+						JeuJSON j = mapper.readValue(line, JeuJSON.class);
+						Jeu realJeu = new Jeu();
+
+						ConfigJeu cfg = new ConfigJeu();
+						cfg.setName1(j.config.getName1());
+						cfg.setName2(j.config.getName2());
+						cfg.setMode(j.config.getMode());
+						cfg.setP1First(j.joueurCourant.couleur == PieceType.White);
+						cfg.setVariante(j.config.getVariante());
+						cfg.setTimer(j.config.getTimer());
+						cfg.setIALevel(j.config.getIALevel());
+						CollecteurEvenements control = new ControleurMediateur(realJeu);
+
+						realJeu.configurer(cfg);
+						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
+						realJeu.start();
+						realJeu.joueurCourant.couleur = j.joueurCourant.couleur;
+						realJeu.joueurCourant.n = j.joueurCourant.n;
+						realJeu.joueurCourant.name = j.joueurCourant.name;
+						realJeu.joueurCourant.nbMove = j.joueurCourant.nbMove;
+						realJeu.joueurCourant.passeDispo = j.joueurCourant.passeDispo;
+						PlateauGraphique plat;
+						plat = new VuePlateau(realJeu);
+						plat.setSize( 200, 200);
+						sample.add(plat);
+						plat.setVisible(true);
+						System.out.println(plat);
+					} catch (JsonParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (JsonMappingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -145,7 +202,7 @@ public class ChargerPartie extends JPanel {
 						realJeu.joueurCourant.nbMove = j.joueurCourant.nbMove;
 						realJeu.joueurCourant.passeDispo = j.joueurCourant.passeDispo;
 						Plateau.demarrer(realJeu, control, cfg);
-						
+
 					} catch (JsonParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
