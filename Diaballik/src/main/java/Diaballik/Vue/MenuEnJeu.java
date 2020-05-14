@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class MenuEnJeu extends JPanel{
-    /**
-	 * 
-	 */
+ 
 	private static final long serialVersionUID = 1L;
 	JButton reprendre = new JButton("Reprendre");
 	JButton sauvegarde = new JButton("Sauvegarder");
@@ -57,7 +55,8 @@ public class MenuEnJeu extends JPanel{
                 frame.setVisible(false);
                 plateau.setVisible(false);
                 ihm i = new ihm();
-                NewGame m = new NewGame(i);   
+                NewGame m = new NewGame(i);
+                i.setSize(601, 550);
                 i.setContentPane(m);
                 i.repaint();
                 i.revalidate();      
@@ -68,7 +67,8 @@ public class MenuEnJeu extends JPanel{
             public void actionPerformed(ActionEvent e) { 
                 frame.setVisible(false);
                 ihm i = new ihm();
-                ChargerMenu m = new ChargerMenu(i);
+                ChargerPartie m = new ChargerPartie(i);
+                i.setSize(800, 550);
                 i.setContentPane(m);
                 i.repaint();
                 i.revalidate();

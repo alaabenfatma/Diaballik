@@ -32,6 +32,7 @@ public class ihm extends JFrame {
 	playSound ps = new playSound();
 	boolean bmute = true;
 	
+	
 
 	public ihm() {
 		
@@ -39,18 +40,20 @@ public class ihm extends JFrame {
 		this.setTitle("Menu principal");
 		this.setSize(600, 510);
 		
+		
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
-			@Override
+				@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0){
-					System.exit(0);
-                }
-                else{
-                    return;
-                }
-			}
-        });
-		
+						System.exit(0);
+	            }
+	            else{
+	               return;
+	               }
+				}
+	    });
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+			
 		sound.setBounds(this.getWidth() - 80, 75, 40, 40);
 		
 		try {
@@ -81,7 +84,6 @@ public class ihm extends JFrame {
         } );
         
 		menu.add(sound);
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 	    this.add(menu);
 	    this.setVisible(true);
