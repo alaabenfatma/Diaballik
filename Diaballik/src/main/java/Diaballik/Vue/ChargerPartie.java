@@ -45,7 +45,7 @@ public class ChargerPartie extends JPanel {
 		i = ihm;
 		table.setDefaultEditor(Object.class, null);
 		sample.setBackground(Color.BLACK);
-		
+
 		i.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent evt) {
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
@@ -53,7 +53,7 @@ public class ChargerPartie extends JPanel {
 				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 320, 120, 40);
 				table.setBounds(10, 90, i.getWidth() / 2 - 20, i.getHeight() / 2);
 				sp.setBounds(10, 70, i.getWidth() / 2 - 20, i.getHeight() / 2);
-				sample.setBounds(table.getWidth(), 90, 200, 200);
+				sample.setBounds(table.getWidth()+50, 90, 300, 300);
 			}
 		});
 
@@ -127,32 +127,17 @@ public class ChargerPartie extends JPanel {
 					try {
 						JeuJSON j = mapper.readValue(line, JeuJSON.class);
 						Jeu realJeu = new Jeu();
-
 						ConfigJeu cfg = new ConfigJeu();
-						cfg.setName1(j.config.getName1());
-						cfg.setName2(j.config.getName2());
-						cfg.setMode(j.config.getMode());
-						cfg.setP1First(j.joueurCourant.couleur == PieceType.White);
-						cfg.setVariante(j.config.getVariante());
-						cfg.setTimer(j.config.getTimer());
-						cfg.setIALevel(j.config.getIALevel());
-						CollecteurEvenements control = new ControleurMediateur(realJeu);
-
 						realJeu.configurer(cfg);
 						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
 						realJeu.start();
-						realJeu.joueurCourant.couleur = j.joueurCourant.couleur;
-						realJeu.joueurCourant.n = j.joueurCourant.n;
-						realJeu.joueurCourant.name = j.joueurCourant.name;
-						realJeu.joueurCourant.nbMove = j.joueurCourant.nbMove;
-						realJeu.joueurCourant.passeDispo = j.joueurCourant.passeDispo;
 						PlateauGraphique plat;
 						plat = new VuePlateau(realJeu);
-						plat.setSize( 200, 200);
+						plat.setSize(sample.getSize());
+						sample.remove(sample.findComponentAt(0, 0));
 						sample.add(plat);
 						plat.repaint();
 						plat.setVisible(true);
-						System.out.println(plat);
 					} catch (JsonParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
