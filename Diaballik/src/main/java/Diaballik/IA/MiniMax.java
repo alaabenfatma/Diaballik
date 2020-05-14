@@ -1,6 +1,6 @@
 package Diaballik.IA;
 
-import static java.util.Collections.sort;
+import static java.util.Collections.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -241,21 +241,44 @@ public class MiniMax {
          */
     }
 
-    public static void main(String[] args) {
-        MiniMax mm = new MiniMax();
-        Terrain tr = new Terrain();
-
-        tr.Create();
-        Jeu j = new Jeu(tr);
-        State s = new State(j);
-        mm.MMP(s);
-        mm.MPM(s);
-        mm.PMM(s);
-        sort(mm.AllMMPStates);
-        sort(mm.AllMPMStates);
-        sort(mm.AllPMMStates);
-        for (State state : mm.AllPMMStates) {
-            System.out.println(state.score());
-        }
+    public MiniMax(Jeu j,PieceType type) {
+        AI_TYPE = type;
     }
+
+    public Piece[][] winningMove(Jeu game) {
+        AllMMPStates.clear();
+        AllMMPStates.clear();
+        AllPMMStates.clear();
+        Terrain newTer = new Terrain();
+        State s = new State(game);
+        s.Terrain.PrintTerrain();
+        ArrayList<State> bestOptions = new ArrayList<State>();
+        MMP(s);
+        MPM(s);
+        PMM(s);
+        
+        shuffle(AllMMPStates);
+        shuffle(AllMPMStates);
+        shuffle(AllPMMStates);
+        
+        sort(AllMMPStates);
+        sort(AllMPMStates);
+        sort(AllPMMStates);
+        
+        if (this.AI_TYPE == PieceType.White) {
+            bestOptions.add(AllMMPStates.get(AllMMPStates.size() - 1));
+            bestOptions.add(AllMMPStates.get(AllMPMStates.size() - 1));
+            bestOptions.add(AllMMPStates.get(AllPMMStates.size() - 1));
+            sort(bestOptions);
+            return bestOptions.get(2).Terrain.Copy(game.tr);
+        } else {
+            bestOptions.add(AllMMPStates.get(0));
+            bestOptions.add(AllMMPStates.get(0));
+            bestOptions.add(AllMMPStates.get(0));
+            sort(bestOptions);
+            return bestOptions.get(0).Terrain.Copy(game.tr);
+        }
+
+    }
+
 }

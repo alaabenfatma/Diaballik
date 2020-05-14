@@ -10,8 +10,10 @@ import java.util.Stack;
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.IA.Coup_Gagnant;
 import Diaballik.IA.Couple;
+import Diaballik.IA.Evaluator;
 import Diaballik.IA.IA_easy;
 import Diaballik.IA.IaRandomIHM;
+import Diaballik.IA.MiniMax;
 import Diaballik.IA.Random_IA;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
@@ -36,6 +38,7 @@ public class Jeu extends Observable {
     public ConfigJeu config;
     IaRandomIHM iaRandomIHM;
     IA_easy iaEasy;
+    MiniMax minimax;
     public ArrayList<Couple> listeDeplacementJ1 = new ArrayList<Couple>();
     public ArrayList<Couple> listeDeplacementJ2 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ1 = new ArrayList<Couple>();
@@ -78,10 +81,10 @@ public class Jeu extends Observable {
                 case difficile:
                     break;
                 case facile:
-                    iaRandomIHM = new IaRandomIHM(this);
+                    iaEasy = new IA_easy(this);
                     break;
                 case moyen:
-                    iaEasy = new IA_easy(this);
+                    minimax = new MiniMax(null, PieceType.Black);
                     break;
                 default:
                     break;
@@ -109,7 +112,8 @@ public class Jeu extends Observable {
                     iaRandomIHM.JoueTourIARand();
                     break;
                 case moyen:
-                    iaEasy.joueTourIAEasy();
+                    this.tr._terrain = minimax.winningMove(this);
+                    FinTour();
                     break;
                 default:
                     break;
@@ -140,7 +144,8 @@ public class Jeu extends Observable {
                         iaRandomIHM.JoueTourIARand();
                         break;
                     case moyen:
-                        iaEasy.joueTourIAEasy();
+                        this.tr._terrain = minimax.winningMove(this);
+                        this.tr.PrintTerrain();
                         break;
                     default:
                         break;

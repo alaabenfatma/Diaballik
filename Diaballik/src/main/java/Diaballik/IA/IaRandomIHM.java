@@ -32,6 +32,7 @@ public class IaRandomIHM {
     }
 
     public void JoueTourIARand() {
+        System.out.println("here");
         Piece from, to;
         Position pos;
         ArrayList<Piece> list_piece;
