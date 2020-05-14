@@ -10,8 +10,8 @@ public class Terrain implements ITerrain {
      */
     private int taille;
     public Jeu _jeuParent;
-    Stack<Piece[][]> coups;
-    Stack<Piece[][]> ctrly;
+    Stack<InfCoups> coups;
+    Stack<InfCoups> ctrly;
 
     private void init() {
         this.taille = 7;
@@ -27,8 +27,8 @@ public class Terrain implements ITerrain {
         for (int i = 0; i < taille; i++) {
             _terrain[6][i].Type = PieceType.White;
         }
-        coups = new Stack<Piece[][]>();
-        ctrly = new Stack<Piece[][]>();
+        coups = new Stack<InfCoups>();
+        ctrly = new Stack<InfCoups>();
     }
 
     @Override
@@ -140,38 +140,37 @@ public class Terrain implements ITerrain {
         return PieceType.Empty;
     }
 
-    public void updateStack(){
-        Piece[][] copy = new Piece[this.taille()][this.taille()];
-        for (int i = 0; i < this.taille(); i++) {
-            for (int j = 0; j < this.taille(); j++) {
-                Piece piece = this._terrain[i][j];
-                copy[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
-            }
-        }
-        coups.add(copy);
-        ctrly = new Stack<Piece[][]>();
+    public void updateStack(int moves, int passes){
+        coups.add(new InfCoups(clone(),_jeuParent.joueurCourant,moves,passes));
+        ctrly = new Stack<InfCoups>();
     }
 
     public void ctrl_z(){
-        Piece[][] copy = coups.peek();
-        for (int i = 0; i < this.taille(); i++) {
-            for (int j = 0; j < this.taille(); j++) {
-                Piece piece = copy[i][j];
-                _terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
+        
+        if(coups.size() == 0){
+            return;
+        }
+        _terrain = new Piece[taille][taille];
+        for (int l = 0; l < taille; l++) {
+            for (int c = 0; c < taille; c++) {
+                _terrain[l][c] = coups.peek().tr.getTerrain()[l][c];
             }
         }
+        _jeuParent.joueurCourant = coups.peek().jCourant;
+        //_jeuParent.joueurCourant.nbMove = _jeuParent.infc.moves;
+        _jeuParent.joueurCourant.nbMove = coups.peek().moves;
+        _jeuParent.joueurCourant.passeDispo = coups.peek().passes;
         ctrly.add(coups.pop());
+        
+        
     }
 
     public void ctrl_y(){
-        Piece[][] copy = ctrly.peek();
-        for (int i = 0; i < this.taille(); i++) {
-            for (int j = 0; j < this.taille(); j++) {
-                Piece piece = copy[i][j];
-                _terrain[i][j] = new Piece(piece.Type,piece.HasBall,piece.Position.l,piece.Position.c,piece.Parent);
-            }
-        }
+        
+        Terrain copy = ctrly.peek().tr;
+        _terrain = copy._terrain;
         coups.add(coups.pop());
+        
     }
 
     
