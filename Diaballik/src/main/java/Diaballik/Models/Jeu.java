@@ -1,5 +1,7 @@
 package Diaballik.Models;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -12,7 +14,9 @@ import Diaballik.IA.IaRandomIHM;
 import Diaballik.IA.Random_IA;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
-
+import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 public class Jeu extends Observable {
     public Terrain tr;
     public Joueur joueur1;
@@ -804,5 +808,33 @@ public class Jeu extends Observable {
         j.test_Coup_Gagnant_IA_P(j.tr);
         // j.move();
     }
+    public void ExportGameToJSON(Jeu j) {
+        JeuJSON jte = new JeuJSON(j);
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String json = objectMapper.writeValueAsString(jte);
+            try {
 
+                FileWriter fw = new FileWriter(this.getClass().getResource("../data/history.json").getFile(),true);
+                fw.write(json + System.lineSeparator());
+                fw.close();
+
+            } catch (IOException ioe) {
+                System.err.println("IOException: " + ioe.getMessage());
+            } finally {
+                System.out.println(this.getClass().getResource("../data/history.json").getFile());
+
+            }
+        } catch (JsonGenerationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
 }

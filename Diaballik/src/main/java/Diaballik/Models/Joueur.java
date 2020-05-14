@@ -1,5 +1,7 @@
 package Diaballik.Models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public class Joueur{
     public TypeJoueur n; //joueur1, 2 ou IA
     public PieceType couleur; //sa couleur
@@ -20,6 +22,10 @@ public class Joueur{
         this.nbMove = nbMove;
         this.passeDispo = passeDispo;
         this.name = newName;
+    }
+    @JsonCreator
+    public Joueur(){
+
     }
 
 }

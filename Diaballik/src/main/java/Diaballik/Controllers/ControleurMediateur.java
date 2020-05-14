@@ -38,7 +38,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void save() {
-		IO.ExportGameToJSON(jeu);
+		jeu.ExportGameToJSON(jeu);
 		System.out.println("Sauvegarde de la partie");
 	}
 

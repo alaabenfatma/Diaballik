@@ -12,6 +12,7 @@ import java.awt.GraphicsDevice;
 import javax.swing.JButton;
 import javax.swing.*;
 
+import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Patterns.Observateur;
@@ -53,7 +54,9 @@ public class Plateau implements Runnable, Observateur {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
-                    msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder");
+                    if(msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder")==0){
+                        j.ExportGameToJSON(j);
+                    }
                     System.exit(0);
                     // ajouter la sauvegarde
                 } else {
@@ -95,14 +98,14 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Info mouvements
-        mouvements = new JLabel("Déplacements : 2");
+        mouvements = new JLabel("Déplacements : "+j.joueurCourant.nbMove);
         mouvements.setAlignmentX(Component.CENTER_ALIGNMENT);
         mouvements.setOpaque(true);
         mouvements.setBackground(Color.white);
         boiteTexte.add(mouvements);
 
         // Info passe
-        passe = new JLabel("Passe : 1");
+        passe = new JLabel("Passe : "+j.joueurCourant.passeDispo);
         passe.setAlignmentX(Component.CENTER_ALIGNMENT);
         passe.setOpaque(true);
         passe.setBackground(Color.white);
