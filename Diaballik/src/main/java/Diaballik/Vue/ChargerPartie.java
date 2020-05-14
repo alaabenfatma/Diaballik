@@ -98,8 +98,15 @@ public class ChargerPartie extends JPanel {
 						Jeu realJeu = new Jeu();
 
 						ConfigJeu cfg = new ConfigJeu();
-						cfg.setName1(j.player1);
-						cfg.setName2(j.player2);
+						cfg.setName1(j.config.getName1());
+						cfg.setName2(j.config.getName2());
+						cfg.setMode(j.config.getMode());
+						cfg.setP1First(j.config.getP1First());
+						cfg.setVariante(j.config.getVariante());
+						cfg.setTimer(j.config.getTimer());
+						cfg.setIALevel(j.config.getIALevel());
+						
+						realJeu.joueurCourant = j.joueurCourant;
 						CollecteurEvenements control = new ControleurMediateur(realJeu);
 
 						Plateau.demarrer(realJeu, control, cfg);
