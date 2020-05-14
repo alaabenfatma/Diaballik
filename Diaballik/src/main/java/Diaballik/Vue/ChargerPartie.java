@@ -30,7 +30,7 @@ public class ChargerPartie extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Charger partie");
 	ObjectMapper mapper = new ObjectMapper();
-	String column[] = { "Player1", "Player2", "Date"};
+	String column[] = { "Player1", "Player2", "Date" };
 	DefaultTableModel data = new DefaultTableModel(column, 0);
 	JButton retour = new JButton("Retour");
 	JButton jouer = new JButton("Jouer");
@@ -48,11 +48,11 @@ public class ChargerPartie extends JPanel {
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
 				retour.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 320, 120, 40);
 				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 320, 120, 40);
-				table.setBounds(10, 90, i.getWidth()/2 - 20, i.getHeight()/2);
-				sp.setBounds(10, 70, i.getWidth()/2 - 20, i.getHeight()/2);
+				table.setBounds(10, 90, i.getWidth() / 2 - 20, i.getHeight() / 2);
+				sp.setBounds(10, 70, i.getWidth() / 2 - 20, i.getHeight() / 2);
 			}
 		});
-		
+
 		try {
 			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
 			while (scan.hasNextLine()) {
@@ -82,29 +82,29 @@ public class ChargerPartie extends JPanel {
 				i.retourMenuPrincipal();
 			}
 		});
-		
 
 		table.addMouseListener(new MouseInputAdapter() {
 			public void mouseClicked(final MouseEvent me) {
-				if (me.getClickCount() == 1) {
-					jouer.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							final JTable target = (JTable) me.getSource();
-							final int row = target.getSelectedRow();
-							startGame(target.getValueAt(row, 2).toString());
-						}
-					});
+				if (me.getClickCount() == 2) {
+					JTable target = (JTable) me.getSource();
+					int row = target.getSelectedRow();
+					startGame(target.getValueAt(row, 2).toString());
 				}
 			}
 		});
-		
+		jouer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				final int row = table.getSelectedRow();
+				startGame(table.getValueAt(row, 2).toString());
+			}
+		});
 		Font font = new Font("Arial", Font.BOLD, 30);
 		titre.setFont(font);
 		this.add(sp);
 		this.add(retour);
 		this.add(jouer);
 		this.add(titre);
-	
+
 	}
 
 	private void startGame(String date) {
@@ -137,7 +137,7 @@ public class ChargerPartie extends JPanel {
 						realJeu.joueurCourant.nbMove = j.joueurCourant.nbMove;
 						realJeu.joueurCourant.passeDispo = j.joueurCourant.passeDispo;
 						Plateau.demarrer(realJeu, control, cfg);
-
+						
 					} catch (JsonParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
