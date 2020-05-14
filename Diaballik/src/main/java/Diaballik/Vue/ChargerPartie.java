@@ -44,19 +44,18 @@ public class ChargerPartie extends JPanel {
 	public ChargerPartie(ihm ihm, final boolean menu) {
 		i = ihm;
 		table.setDefaultEditor(Object.class, null);
-		sample.setBackground(Color.BLACK);
 
 		i.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent evt) {
-				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
-				retour.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 320, 120, 40);
-				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 320, 120, 40);
 				table.setBounds(10, 90, i.getWidth() / 2 - 20, i.getHeight() / 2);
+				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
+				retour.setBounds((i.getWidth() / 2) - 130, table.getHeight() + 100, 120, 40);
+				jouer.setBounds((i.getWidth() / 2) + 20, table.getHeight() + 100, 120, 40);
 				sp.setBounds(10, 70, i.getWidth() / 2 - 20, i.getHeight() / 2);
-				sample.setBounds(table.getWidth()+50, 90, 300, 300);
+				sample.setBounds(table.getWidth() + 20, 70, i.getWidth() / 2 - 90, i.getHeight() / 2);
 			}
 		});
-
+		this.setSize(600, 600);
 		try {
 			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
 			while (scan.hasNextLine()) {
