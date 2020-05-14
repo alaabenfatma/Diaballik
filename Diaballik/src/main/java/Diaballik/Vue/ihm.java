@@ -106,7 +106,7 @@ public class ihm extends JFrame {
 		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(800, 540);
 		this.setSize(800, 550);
-		ChargerPartie cp = new ChargerPartie(this);
+		ChargerPartie cp = new ChargerPartie(this, false);
 		cp.add(sound);
 		this.setContentPane(cp);
 		this.setTitle("Charger partie");
