@@ -13,13 +13,13 @@ public class AdaptateurClavier extends KeyAdapter {
 	@Override
 	public void keyPressed(KeyEvent event) {
 		switch (event.getKeyCode()) {
-			case KeyEvent.VK_U:
+			case KeyEvent.VK_Z:
 				control.toucheClavier("Undo");
 				break;
 			case KeyEvent.VK_F:
 				control.toucheClavier("FinTour");
 				break;
-			case KeyEvent.VK_R:
+			case KeyEvent.VK_Y:
 				control.toucheClavier("Redo");
 				break;
 			case KeyEvent.VK_Q:
