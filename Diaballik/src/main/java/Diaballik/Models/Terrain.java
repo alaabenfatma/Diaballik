@@ -142,7 +142,6 @@ public class Terrain implements ITerrain {
 
     public void updateStack(int moves, int passes){
         coups.add(new InfCoups(clone(),_jeuParent.joueurCourant,moves,passes));
-        ctrly = new Stack<InfCoups>();
     }
 
     public void ctrl_z(){
@@ -157,19 +156,23 @@ public class Terrain implements ITerrain {
             }
         }
         _jeuParent.joueurCourant = coups.peek().jCourant;
-        //_jeuParent.joueurCourant.nbMove = _jeuParent.infc.moves;
         _jeuParent.joueurCourant.nbMove = coups.peek().moves;
         _jeuParent.joueurCourant.passeDispo = coups.peek().passes;
-        ctrly.add(coups.pop());
-        
-        
+        coups.pop();
     }
 
     public void ctrl_y(){
         
-        Terrain copy = ctrly.peek().tr;
-        _terrain = copy._terrain;
-        coups.add(coups.pop());
+        if(ctrly.size() == 0){
+            return;
+        }
+        updateStack(_jeuParent.joueurCourant.nbMove, _jeuParent.joueurCourant.passeDispo);
+        _terrain = new Piece[taille][taille];
+        for (int l = 0; l < taille; l++) {
+            for (int c = 0; c < taille; c++) {
+                _terrain[l][c] = ctrly.peek().tr.getTerrain()[l][c];
+            }
+        }
         
     }
 
