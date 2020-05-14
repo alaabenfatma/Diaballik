@@ -42,7 +42,7 @@ public class ChargerPartie extends JPanel {
 		this.parent = parent;
 		Scanner scan;
 		try {
-			scan = new Scanner(new FileInputStream("Diaballik/src/main/java/Diaballik/data/history.json"));
+			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				try {
@@ -90,7 +90,7 @@ public class ChargerPartie extends JPanel {
 	private void startGame(String date) {
 		Scanner scan;
 		try {
-			scan = new Scanner(new FileInputStream("Diaballik/src/main/java/Diaballik/data/history.json"));
+			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				if (line.contains(date)) {
