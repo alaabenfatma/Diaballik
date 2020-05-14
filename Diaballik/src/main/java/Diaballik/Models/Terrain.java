@@ -202,5 +202,28 @@ public class Terrain implements ITerrain {
         }
         return pieces;
     }
+    public Piece[][] toPieces(char[][] chars){
+        Piece[][] pieces = new Piece[7][7];
+        for (int i = 0; i < 7; i++) {
+            for (int k = 0; k < 7; k++) {
+                if(chars[i][k]=='W'){
+                    pieces[i][k] = new Piece(PieceType.White, false, i, k, this);
+                }
+                if(chars[i][k]=='B'){
+                    pieces[i][k] = new Piece(PieceType.Black, false, i, k, this);
+                }
+                if(chars[i][k]=='1'){
+                    pieces[i][k] = new Piece(PieceType.White, true, i, k, this);
+                }
+                if(chars[i][k]=='0'){
+                    pieces[i][k] = new Piece(PieceType.Black, true, i, k, this);
+                }
+                if(chars[i][k]==' '){
+                    pieces[i][k] = new Piece(PieceType.Empty, false, i, k, this);
+                }
+            }
+        }
+        return pieces;
+    }
 
 }

@@ -26,6 +26,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Diaballik.Controllers.ControleurMediateur;
+import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Models.JeuJSON;
 
@@ -93,7 +95,20 @@ public class ChargerPartie extends JPanel {
 				if (line.contains(date)) {
 					try {
 						JeuJSON j = mapper.readValue(line, JeuJSON.class);
-						//We start the game here.
+						Jeu realJeu = new Jeu();
+						
+						ConfigJeu cfg = new ConfigJeu();
+
+						
+						CollecteurEvenements control = new ControleurMediateur(realJeu);
+						
+						Plateau.demarrer(realJeu, control, cfg);
+						
+						realJeu.configurer(cfg);
+						realJeu.joueur1.name = j.player1;
+						realJeu.joueur2.name = j.player2;
+						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
+						realJeu.start();
 					} catch (JsonParseException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
