@@ -150,6 +150,7 @@ public class ChargerPartie extends JPanel {
 						plat = new VuePlateau(realJeu);
 						plat.setSize( 200, 200);
 						sample.add(plat);
+						plat.repaint();
 						plat.setVisible(true);
 						System.out.println(plat);
 					} catch (JsonParseException e) {

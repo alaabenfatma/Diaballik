@@ -36,7 +36,6 @@ public class Plateau implements Runnable, Observateur {
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
 
-
     private static JLabel clock;
     private static long x;
 
@@ -120,15 +119,15 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
 
         buttonViewArrow.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					VuePlateau.viewArrow = true;
-				} else {
-					VuePlateau.viewArrow = false;
-				}
-				;
-			}
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    VuePlateau.viewArrow = true;
+                } else {
+                    VuePlateau.viewArrow = false;
+                }
+                ;
+            }
         });
         buttonViewArrow.setFocusable(false);
         buttonViewArrow.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -173,7 +172,7 @@ public class Plateau implements Runnable, Observateur {
 
             final java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("mm : ss");
             clock = new JLabel(sdf.format(new Date(temps)), JLabel.CENTER);
-            //clock.setPreferredSize(new Dimension(250, 100));
+            // clock.setPreferredSize(new Dimension(250, 100));
             clock.setOpaque(true);
             clock.setBackground(Color.black);
             clock.setForeground(Color.white);
@@ -269,7 +268,7 @@ public class Plateau implements Runnable, Observateur {
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
     }
-    
+
     /**
      * @param x the x to set
      */
@@ -295,7 +294,8 @@ public class Plateau implements Runnable, Observateur {
             joueur.setText("Joue : " + j.joueurCourant.name);
             mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
             passe.setText("Passe : " + j.joueurCourant.passeDispo);
-            clock.setVisible(true);
+            if (conf.getTimer() != ConfigJeu.Timer.illimite)
+                clock.setVisible(true);
         }
 
     }
