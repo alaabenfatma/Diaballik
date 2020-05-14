@@ -22,8 +22,6 @@ public class MiniMax {
      */
     public void M2P(State currentState) {
         ArrayList<State> innerM2PStates = new ArrayList<State>();
-
-        currentState.Game.tr.PrintTerrain();
         ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE, currentState.Game.tr,
                 2);
         /**
@@ -60,6 +58,65 @@ public class MiniMax {
         }
     }
 
+    ArrayList<State> AllMMPStates = new ArrayList<State>();
+    /**
+     * MMP = Move Move Pass
+     * @param currentState
+     */
+    public void MMP(State currentState) {
+        ArrayList<State> innerMMPStates = new ArrayList<State>();
+        ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE, currentState.Game.tr,
+                1);
+        for (Couple_piece_pos couple : possibleMoves) {
+            for (Position pos : couple.pos) {
+                Position posMain = couple.piece.Position;
+                Terrain tmp = new Terrain();
+                tmp.Create();
+                tmp._terrain = currentState.Terrain.Copy(tmp);
+                tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                State s = new State(tmp);
+                innerMMPStates.add(s);
+            }
+        }
+        ArrayList<State> deepMMPStates = new ArrayList<State>();
+
+        for (State state : innerMMPStates) {
+            ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
+                    state.Terrain,1);
+            for (Couple_piece_pos couple : innerPossibleMoves) {
+                for (Position pos : couple.pos) {
+                    Position posMain = couple.piece.Position;
+                    Terrain tmp = new Terrain();
+                    tmp.Create();
+                    tmp._terrain = state.Terrain.Copy(tmp);
+                    tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                    State s = new State(tmp);
+                    deepMMPStates.add(s);
+                }
+            }
+        }
+        
+        for (State state : deepMMPStates) {
+            Piece ballHolder = state.Terrain.getPieceWithBall(AI_TYPE);
+            ArrayList<Position> passes = ballHolder.passesPossibles();
+            for (Position pos : passes) {
+
+                Terrain tmp = new Terrain();
+                tmp.Create();
+                tmp._terrain = state.Terrain.Copy(tmp);
+                TerrainUtils.passeWrapper(tmp._terrain[ballHolder.Position.l][ballHolder.Position.c],
+                        tmp._terrain[pos.l][pos.c]);
+
+                State s = new State(tmp);
+                AllMMPStates.add(s);
+            }
+        }
+        for (State state : AllMMPStates) {
+            state.Terrain.PrintTerrain();
+            System.out.println(state.score());
+        }
+    }
+
     public static void main(String[] args) {
         MiniMax mm = new MiniMax();
         Terrain tr = new Terrain();
@@ -68,6 +125,6 @@ public class MiniMax {
         Jeu j = new Jeu(tr);
         State s = new State(j);
         mm.M2P(s);
-
+        mm.MMP(s);
     }
 }

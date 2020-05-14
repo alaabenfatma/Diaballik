@@ -27,7 +27,7 @@ public class IA_utils {
                     ArrayList<Position> positions = p.PossiblePositions(distance);
                     Couple_piece_pos cpl = new Couple_piece_pos(p, new ArrayList<Position>());
                     for (Position pos : positions) {
-                        if (TerrainUtils.Distance(p.Position, pos) == distance) {
+                        if (TerrainUtils.Distance(p.Position, pos) == distance && p.Position!=pos) {
                             cpl.pos.add(pos);
                         }
                     }
