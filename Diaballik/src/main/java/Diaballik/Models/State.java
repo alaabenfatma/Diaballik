@@ -2,6 +2,7 @@ package Diaballik.Models;
 import Diaballik.IA.*;
 
 public class State implements Comparable{
+    public Sequence GameMode;
     public Jeu Game;
     public Terrain Terrain;
     public FromTo firstMove;

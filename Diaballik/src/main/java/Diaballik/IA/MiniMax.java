@@ -11,6 +11,7 @@ import Diaballik.Models.Jeu;
 import Diaballik.Models.Piece;
 import Diaballik.Models.PieceType;
 import Diaballik.Models.Position;
+import Diaballik.Models.Sequence;
 import Diaballik.Models.State;
 import Diaballik.Models.Terrain;
 
@@ -81,6 +82,7 @@ public class MiniMax {
                 tmp._terrain = currentState.Terrain.Copy(tmp);
                 tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                 State s = new State(tmp);
+                s.GameMode = Sequence.MMP;
                 s.firstMove = new FromTo(posMain, pos);
                 innerMMPStates.add(s);
             }
@@ -98,6 +100,7 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.GameMode = Sequence.MMP;
                     s.firstMove = state.firstMove;
                     s.secondMove = new FromTo(posMain, pos);
                     deepMMPStates.add(s);
@@ -117,6 +120,7 @@ public class MiniMax {
                         tmp._terrain[pos.l][pos.c]);
 
                 State s = new State(tmp);
+                s.GameMode = Sequence.MMP;
                 s.firstMove = state.firstMove;
                 s.secondMove = state.secondMove;
                 s.pass = new FromTo(ballHolder.Position, pos);
@@ -148,6 +152,7 @@ public class MiniMax {
                 tmp._terrain = currentState.Terrain.Copy(tmp);
                 tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                 State s = new State(tmp);
+                s.GameMode = Sequence.MPM;
                 s.firstMove = new FromTo(posMain, pos);
                 innerMPMStates.add(s);
             }
@@ -165,6 +170,7 @@ public class MiniMax {
                         tmp._terrain[pos.l][pos.c]);
 
                 State s = new State(tmp);
+                s.GameMode = Sequence.MPM;
                 s.firstMove = state.firstMove;
                 s.pass = new FromTo(ballHolder.Position, pos);
                 deepMPMStates.add(s);
@@ -181,6 +187,7 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.GameMode = Sequence.MPM;
                     s.firstMove = state.firstMove;
                     s.secondMove = new FromTo(posMain, pos);
                     s.pass = state.pass;
@@ -215,6 +222,7 @@ public class MiniMax {
             TerrainUtils.passeWrapper(tmp._terrain[ballHolder.Position.l][ballHolder.Position.c],
                     tmp._terrain[pos.l][pos.c]);
             State s = new State(tmp);
+            s.GameMode = Sequence.PMM;
             s.pass = new FromTo(ballHolder.Position, pos);
 
             innerPMMStates.add(s);
@@ -232,6 +240,7 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.GameMode = Sequence.PMM;
                     s.pass = state.pass;
                     s.firstMove = new FromTo(posMain, pos);
                     deepPMMStates.add(s);
@@ -249,6 +258,7 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.GameMode = Sequence.PMM;
                     s.pass = state.pass;
                     s.firstMove = state.firstMove;
                     s.secondMove = new FromTo(posMain, pos);
