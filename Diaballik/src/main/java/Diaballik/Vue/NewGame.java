@@ -2,10 +2,17 @@ package Diaballik.Vue;
 
 import java.awt.Color;
 import java.awt.Font;
-
+import java.awt.Image;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -18,16 +25,25 @@ import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
+import Diaballik.Models.JeuJSON;
 import Diaballik.Models.ConfigJeu.IALevel;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Models.ConfigJeu.Timer;
 
 public class NewGame extends JPanel {
+	
 
+	
 	private static final long serialVersionUID = 1L;
+	ObjectMapper objectMapper = new ObjectMapper();
 	JLabel titre = new JLabel("Nouvelle partie");
 	JLabel duree = new JLabel("Durée d'un tour :");
 	JLabel priorite = new JLabel("Joue en premier : ");
@@ -64,6 +80,9 @@ public class NewGame extends JPanel {
 	ihm i;
 	Jeu j;
 	ConfigJeu configJeu;
+	
+	JButton choixPersoJoueur1 = new JButton("Personnaliser");
+	JButton choixPersoJoueur2 = new JButton("Personnaliser");
 
 	// Parametres de la nouvelle partie
 	/*
@@ -90,7 +109,9 @@ public class NewGame extends JPanel {
 		mb.setBounds(0, 0, 600, 20);
 		this.add(mb);
 		this.setLayout(null);
-
+	
+		
+		
 		i.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent evt) {
 				jouerContre.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) - 80, 100, 100);
@@ -98,6 +119,9 @@ public class NewGame extends JPanel {
 				name2.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 80, 200, 20);
 				nomJoueur.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 50, 110, 20);
 				nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 80, 110, 20);
+				
+				choixPersoJoueur1.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 50, 130, 20);
+				choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 80, 130, 20);
 
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) - 120, 300, 100);
 				duree.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 90, 100, 100);
@@ -122,7 +146,7 @@ public class NewGame extends JPanel {
 				br2.setBounds((i.getWidth() / 2) - 30, (i.getHeight() / 4) + 40, 70, 20);
 				br3.setBounds((i.getWidth() / 2) + 40, (i.getHeight() / 4) + 40, 70, 20);
 				i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
-				varianteCheckbox.setBounds((i.getWidth() / 2) + 140, (i.getHeight() / 4) + 60, 100, 20);
+				varianteCheckbox.setBounds((i.getWidth() / 2) + 150, (i.getHeight() / 4), 100, 20);
 			}
 		});
 
@@ -196,6 +220,8 @@ public class NewGame extends JPanel {
 					name2.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 80, 200, 20);
 					nomJoueur.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 50, 110, 20);
 					nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 80, 110, 20);
+					choixPersoJoueur1.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 50, 130, 20);
+					choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 80, 130, 20);
 					bHumain = true;
 				}
 				niveauIA.setVisible(false);
@@ -221,6 +247,8 @@ public class NewGame extends JPanel {
 					name2.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 100, 200, 20);
 					nomJoueur.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 70, 110, 20);
 					nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 100, 110, 20);
+					choixPersoJoueur1.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 70, 130, 20);
+					choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 100, 130, 20);
 					bHumain = false;
 				}
 
@@ -342,6 +370,19 @@ public class NewGame extends JPanel {
 			}
 		});
 		
+		choixPersoJoueur1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		
+		choixPersoJoueur2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		
+		
 		String sInfo = "Mode de jeu alternatif avec 2 pions dans le camps adverse au départ";
         varianteCheckbox.setToolTipText(sInfo);
 
@@ -376,6 +417,8 @@ public class NewGame extends JPanel {
 		this.add(retour);
 		this.add(titre);
 		this.add(varianteCheckbox);
+		this.add(choixPersoJoueur1);
+		this.add(choixPersoJoueur2);
 		this.setVisible(true);
 	}
 

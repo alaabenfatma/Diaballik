@@ -1,6 +1,5 @@
 package Diaballik.Vue;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,6 +54,7 @@ public class ChargerPartie extends JPanel {
 				sample.setBounds(table.getWidth() + 20, 70, i.getWidth() / 2 - 90, i.getHeight() / 2);
 			}
 		});
+		
 		this.setSize(600, 600);
 		try {
 			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
@@ -101,12 +101,14 @@ public class ChargerPartie extends JPanel {
 				}
 			}
 		});
+		
 		jouer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final int row = table.getSelectedRow();
 				startGame(table.getValueAt(row, 2).toString());
 			}
 		});
+		
 		Font font = new Font("Arial", Font.BOLD, 30);
 		titre.setFont(font);
 		this.add(sp);

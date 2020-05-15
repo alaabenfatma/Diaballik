@@ -1,0 +1,22 @@
+
+ {
+	"quit": "Quit",
+	"newgame": "New Game",
+	"charger": "Load Game",
+	"reseau": "Play online",
+	"regles": "Rules",
+	
+	"humain" : "Human",
+	"ordinateur" : "Computer",
+	"jouerContre" : "Play against : ",
+	"nomJoueur1" : "Player 1 : ",
+	"nomJoueur2" : "Player 2 : ",
+	"joueur1" : "Player 1",
+	"joueur2" : "Player 2",
+	"variante" : "Variante",
+	"duree" : "Duration of a round : ",
+	"illimite" : "Illimited",
+	"priotite" : "Plays first :",
+	"retour" : "Return",
+	"jouer" : "Play"
+ }

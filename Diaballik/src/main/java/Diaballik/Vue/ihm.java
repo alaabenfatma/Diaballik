@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -13,24 +15,31 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class ihm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	ObjectMapper objectMapper = new ObjectMapper();
 	Menu menu = new Menu(this);
 	NewGame ng = new NewGame(this);
 	JouerReseau jr = new JouerReseau(this);
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
 	JButton sound = new JButton();
+	JButton drapeau = new JButton();
 	JMenuBar mb = new JMenuBar();
 	JMenu m1 = new JMenu("Thèmes");
 	JMenu m2 = new JMenu("Options");
 	JMenuItem mi1 = new JMenuItem("Daltonien");
 	JMenuItem mi2 = new JMenuItem("mute");
 	JMenuItem mi3 = new JMenuItem("son");
-	Image son, mute;
+	Image son, mute, drapeauFr, drapeauGB;
 	
 	playSound ps = new playSound();
 	boolean bmute = true;
+	boolean blang = true;
 	
 	
 
@@ -60,10 +69,35 @@ public class ihm extends JFrame {
     		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		sound.setIcon(new ImageIcon(mute));
+    		drapeau.setBounds(this.getWidth() - 80, 25, 40, 40);
     	}
     	catch (Exception e) {
     		System.out.println(e);
     	}
+		
+		try {
+    		menu.drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
+    	}
+    	catch (Exception e) {
+    		System.out.println(e);
+    	}
+        
+		try {
+			
+			
+			words w = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
+			
+					
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		changerLangues(drapeau);
 		
 		sound.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
@@ -83,6 +117,7 @@ public class ihm extends JFrame {
             } 
         } );
         
+		menu.add(drapeau);
 		menu.add(sound);
 	    this.setLocationRelativeTo(null);
 	    this.add(menu);
@@ -93,8 +128,10 @@ public class ihm extends JFrame {
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(601, 550);
-		NewGame ng = new NewGame(this);	
+		final NewGame ng = new NewGame(this);	
 		ng.add(sound);
+		ng.add(drapeau);
+		changerLangues(drapeau);		
 		this.setContentPane(ng);
 		this.setTitle("Nouvelle partie");
 		this.repaint();
@@ -108,6 +145,7 @@ public class ihm extends JFrame {
 		this.setSize(800, 550);
 		ChargerPartie cp = new ChargerPartie(this, false);
 		cp.add(sound);
+		//cp.add(drapeau);
 		this.setContentPane(cp);
 		this.setTitle("Charger partie");
 		this.repaint();
@@ -134,6 +172,7 @@ public class ihm extends JFrame {
 		this.setSize(600, 510);
 		this.setLocationRelativeTo(null);
 		Menu m = new Menu(this);
+		m.add(drapeau);
 		m.add(sound);
 		this.setContentPane(m);
 		this.setTitle("Menu principal");
@@ -197,5 +236,44 @@ public class ihm extends JFrame {
 		ps.play("son/buttonClick.wav", bmute);
 		msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
 	}
+	
+	
+	public void changerLangues(final JButton drapeau) {
+		drapeau.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	try {
+    				if (blang == true) {
+    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(menu.drapeauGB));
+    		    		words wEn = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
+    		    		menu.nouvelle.setText(wEn.newgame);
+    		    		menu.charger.setText(wEn.charger);
+    		    		menu.reseau.setText(wEn.reseau);
+    		    		menu.regles.setText(wEn.regles);
+    		    		menu.quitter.setText(wEn.quit);
+    		    		ng.humain.setText(wEn.humain);
+    		    		ng.jouer.setText(wEn.jouer);
+    		    		blang = false;
+    				} else {
+    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
+    		    		words wFr = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesFr.json"), words.class);
+    		    		menu.nouvelle.setText(wFr.newgame);
+    		    		menu.charger.setText(wFr.charger);
+    		    		menu.reseau.setText(wFr.reseau);
+    		    		menu.regles.setText(wFr.regles);
+    		    		menu.quitter.setText(wFr.quit);
+    		    		blang = true;
+    				}
+    			}
+    			catch (Exception e1) {
+    				System.out.println(e1);
+    			}
+            } 
+        } );
+
+	}
+	
+	
 	
 }
