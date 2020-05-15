@@ -23,7 +23,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void annule() {
-	
+
 		jeu.jctrl_z();
 		System.out.println("Annulation");
 	}
@@ -49,6 +49,12 @@ public class ControleurMediateur implements CollecteurEvenements {
 		jeu.start();
 	}
 
+	public void IAvsIA(){
+		jeu.IaVSIa = true;
+		System.out.println("Mode IA vs IA");
+
+	}
+
 	@Override
 	public void toucheClavier(String touche) {
 		switch (touche) {
@@ -72,6 +78,9 @@ public class ControleurMediateur implements CollecteurEvenements {
 				break;
 			case "Replay":
 				replay();
+				break;
+			case "IAvsIA":
+				IAvsIA();
 				break;
 			default:
 				System.out.println("Touche inconnue : " + touche);
