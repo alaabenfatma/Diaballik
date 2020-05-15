@@ -78,12 +78,13 @@ public class Jeu extends Observable {
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
             switch (config.getIALevel()) {
-                case difficile:
-                    break;
                 case facile:
-                    iaEasy = new IA_easy(this);
+                    iaRandomIHM = new IaRandomIHM(this);
                     break;
                 case moyen:
+                    iaEasy = new IA_easy(this);
+                    break;
+                case difficile:
                     minimax = new MiniMax(null, PieceType.Black);
                     break;
                 default:
@@ -106,12 +107,13 @@ public class Jeu extends Observable {
         // IA joue en premier
         if (IA && joueurCourant == joueur2) {
             switch (config.getIALevel()) {
-                case difficile:
+                case moyen:
+                    iaEasy.joueTourIAEasy();
                     break;
                 case facile:
                     iaRandomIHM.JoueTourIARand();
                     break;
-                case moyen:
+                case difficile:
                     this.tr._terrain = minimax.winningMove(this);
                     FinTour();
                     break;
@@ -138,14 +140,16 @@ public class Jeu extends Observable {
             listePasseJ2.clear();
             if (IA) {
                 switch (config.getIALevel()) {
-                    case difficile:
+                    case moyen:
+                        iaEasy.joueTourIAEasy();
                         break;
                     case facile:
                         iaRandomIHM.JoueTourIARand();
                         break;
-                    case moyen:
+                    case difficile:
                         this.tr._terrain = minimax.winningMove(this);
                         this.tr.PrintTerrain();
+                        FinTour();
                         break;
                     default:
                         break;
