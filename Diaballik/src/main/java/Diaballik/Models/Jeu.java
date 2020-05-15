@@ -224,6 +224,8 @@ public class Jeu extends Observable {
     }
 
     public void SelectionPieceIA(Piece select) {
+        if (gameOver)
+            return;
         // Piece select = tr._terrain[l][c];
         if (from == null) {
             from = select;
