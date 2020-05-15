@@ -2,15 +2,10 @@ package Diaballik.Vue;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -59,7 +54,7 @@ public class Menu extends JPanel {
                     reseau.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 140, 150, 50 + (i.getHeight()/150));
                     regles.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 200, 150, 50 + (i.getHeight()/150));
                     quitter.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 260, 150, 50 + (i.getHeight()/150));
-                    drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
+                    i.drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
                     i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
                 }
         });

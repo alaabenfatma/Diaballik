@@ -71,6 +71,8 @@ public class NewGame extends JPanel {
 	
 	JButton choixPersoJoueur1 = new JButton("Personnaliser");
 	JButton choixPersoJoueur2 = new JButton("Personnaliser");
+	JButton choisirTerrain = new JButton("Terrain par défaut");
+	JLabel choisirTerrainlabel = new JLabel("Choisir terrain : ");
 
 	// Parametres de la nouvelle partie
 	/*
@@ -95,6 +97,7 @@ public class NewGame extends JPanel {
 		mb.add(m1);
 		mb.add(m2);
 		mb.setBounds(0, 0, 600, 20);
+		i.setLocationRelativeTo(null);
 		this.add(mb);
 		this.setLayout(null);
 	
@@ -108,31 +111,33 @@ public class NewGame extends JPanel {
 				
 				choixPersoJoueur1.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 50, 130, 20);
 				choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 80, 130, 20);
-
+				choisirTerrainlabel.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 120, 30);
+				choisirTerrain.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 120, 200, 30);
+				
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) - 120, 300, 100);
-				duree.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 90, 100, 100);
-				priorite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 160, 150, 120);
+				duree.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 100, 100);
+				priorite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 190, 150, 120);
 
-				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 320, 120, 40);
-				retour.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 320, 120, 40);
+				jouer.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 350, 120, 40);
+				retour.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 350, 120, 40);
 
 				humain.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) - 20, 120, 40);
 				ordinateur.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) - 20, 120, 40);
 
-				illimite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 155, 100, 40);
-				uneMin.setBounds((i.getWidth() / 2) - 120, (i.getHeight() / 4) + 155, 100, 40);
-				deuxMin.setBounds((i.getWidth() / 2), (i.getHeight() / 4) + 155, 100, 40);
-				troisMin.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 155, 100, 40);
+				illimite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 185, 100, 40);
+				uneMin.setBounds((i.getWidth() / 2) - 120, (i.getHeight() / 4) + 185, 100, 40);
+				deuxMin.setBounds((i.getWidth() / 2), (i.getHeight() / 4) + 185, 100, 40);
+				troisMin.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 185, 100, 40);
 
-				joueur2.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 240, 120, 40);
-				joueur1.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 240, 120, 40);
+				joueur2.setBounds((i.getWidth() / 2) + 20, (i.getHeight() / 4) + 270, 120, 40);
+				joueur1.setBounds((i.getWidth() / 2) - 130, (i.getHeight() / 4) + 270, 120, 40);
 
 				niveauIA.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 40, 110, 20);
 				br1.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) + 40, 70, 20);
 				br2.setBounds((i.getWidth() / 2) - 30, (i.getHeight() / 4) + 40, 70, 20);
 				br3.setBounds((i.getWidth() / 2) + 40, (i.getHeight() / 4) + 40, 70, 20);
 				i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
-				varianteCheckbox.setBounds((i.getWidth() / 2) + 150, (i.getHeight() / 4), 100, 20);
+				varianteCheckbox.setBounds((i.getWidth() / 2) + 150, (i.getHeight() / 4) + 125, 100, 20);
 			}
 		});
 
@@ -208,6 +213,10 @@ public class NewGame extends JPanel {
 					nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 80, 110, 20);
 					choixPersoJoueur1.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 50, 130, 20);
 					choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 80, 130, 20);
+					choisirTerrainlabel.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 120, 30);
+					choisirTerrain.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 120, 200, 30);
+					varianteCheckbox.setBounds((i.getWidth() / 2) + 150, (i.getHeight() / 4) + 125, 100, 20);
+					
 					bHumain = true;
 				}
 				niveauIA.setVisible(false);
@@ -235,6 +244,10 @@ public class NewGame extends JPanel {
 					nomJoueur2.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 100, 110, 20);
 					choixPersoJoueur1.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 70, 130, 20);
 					choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 100, 130, 20);
+					choisirTerrainlabel.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 130, 120, 30);
+					choisirTerrain.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 130, 200, 30);
+					varianteCheckbox.setBounds((i.getWidth() / 2) + 150, (i.getHeight() / 4) + 135, 100, 20);
+					
 					bHumain = false;
 				}
 
@@ -359,7 +372,7 @@ public class NewGame extends JPanel {
 		choixPersoJoueur1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				persoJoueur = 1;
-				choisirPerso cp = new choisirPerso(persoJoueur);
+				new choisirPerso(persoJoueur);
 				
 			}
 		});
@@ -367,7 +380,15 @@ public class NewGame extends JPanel {
 		choixPersoJoueur2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				persoJoueur = 2;
-				choisirPerso cp = new choisirPerso(persoJoueur);
+				new choisirPerso(persoJoueur);
+				
+			}
+		});
+		
+		
+		choisirTerrain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new choisirTerrain();
 				
 			}
 		});
@@ -409,6 +430,8 @@ public class NewGame extends JPanel {
 		this.add(varianteCheckbox);
 		this.add(choixPersoJoueur1);
 		this.add(choixPersoJoueur2);
+		this.add(choisirTerrainlabel);
+		this.add(choisirTerrain);
 		this.setVisible(true);
 	}
 

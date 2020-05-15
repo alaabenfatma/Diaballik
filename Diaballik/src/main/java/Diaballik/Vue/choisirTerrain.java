@@ -8,16 +8,17 @@ import java.awt.event.ComponentEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class choisirPerso extends JFrame{
+public class choisirTerrain extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	JButton suivant = new JButton(">");
 	JButton precedent = new JButton("<");
 	JButton valider = new JButton("Valider");
 	
-	public choisirPerso(int persoJoueur) {
-		choisirPersoPanel panel = new choisirPersoPanel(this, persoJoueur);
-		this.setTitle("Personnalisation");
+
+	public choisirTerrain() {
+		choisirTerrainPanel panel = new choisirTerrainPanel();
+		this.setTitle("Choisir Terrain");
 		this.setSize(300, 300);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
@@ -58,9 +59,4 @@ public class choisirPerso extends JFrame{
 		this.setVisible(true);
 	}
 	
-	
 }
-
-
-
-

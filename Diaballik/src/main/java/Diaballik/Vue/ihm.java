@@ -82,20 +82,13 @@ public class ihm extends JFrame {
     		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		sound.setIcon(new ImageIcon(mute));
-    		drapeau.setBounds(this.getWidth() - 80, 25, 40, 40);
-    	}
-    	catch (Exception e) {
-    		System.out.println(e);
-    	}
-		
-		try {
     		menu.drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
     		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
     	}
     	catch (Exception e) {
     		System.out.println(e);
     	}
-        
+
 		
 		drapeau.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
@@ -234,7 +227,7 @@ public class ihm extends JFrame {
 	
 	public void fenetreNouvellePartie() {
 		ps.play("son/buttonClick.wav", bmute);
-		this.setSize(601, 550);
+		this.setSize(700, 600);
 		ng.add(sound);
 		ng.add(drapeau);		
 		this.setContentPane(ng);
