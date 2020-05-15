@@ -16,9 +16,6 @@ import javax.swing.event.DocumentListener;
 
 public class RejoindrePartieReseau extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Rejoindre une partie");
 	JLabel nomJoueur = new JLabel("Nom du joueur");

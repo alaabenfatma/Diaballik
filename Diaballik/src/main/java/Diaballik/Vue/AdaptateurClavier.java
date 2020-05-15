@@ -28,6 +28,9 @@ public class AdaptateurClavier extends KeyAdapter {
 			case KeyEvent.VK_S:
 				control.toucheClavier("Save");
 				break;
+			case KeyEvent.VK_R:
+				control.toucheClavier("Replay");
+				break;
 			case KeyEvent.VK_ESCAPE:
 				control.toucheClavier("Full");
 				break;

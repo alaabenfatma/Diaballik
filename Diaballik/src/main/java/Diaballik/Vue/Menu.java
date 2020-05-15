@@ -2,16 +2,22 @@ package Diaballik.Vue;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 public class Menu extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	ObjectMapper objectMapper = new ObjectMapper();
 	JButton nouvelle = new JButton("Nouvelle partie");
 	JButton charger = new JButton("Charger partie");
 	JButton reseau = new JButton("Jouer en réseau");
@@ -53,27 +59,34 @@ public class Menu extends JPanel {
                     reseau.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 140, 150, 50 + (i.getHeight()/150));
                     regles.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 200, 150, 50 + (i.getHeight()/150));
                     quitter.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 260, 150, 50 + (i.getHeight()/150));
-                    drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
+                    i.drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
                     i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
                 }
         });
         
-        try {
-    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-    		drapeau.setIcon(new ImageIcon(drapeauFr));
-    	}
-    	catch (Exception e) {
-    		System.out.println(e);
-    	}
         
         this.add(nouvelle);
         this.add(charger);
         this.add(reseau);
         this.add(regles);
         this.add(quitter);
-        this.add(drapeau);
+        //this.add(drapeau);
         
-
+    	/*	try {
+    			
+    			
+    			words w = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
+    			
+    					
+    		} catch (JsonParseException e) {
+    			e.printStackTrace();
+    		} catch (JsonMappingException e) {
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+    */
+    		
         nouvelle.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	i.fenetreNouvellePartie();
@@ -104,27 +117,7 @@ public class Menu extends JPanel {
             } 
         } );
         
-        drapeau.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	try {
-    				if (blang == true) {
-    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
-    		    		drapeau.setIcon(new ImageIcon(drapeauGB));
-    		    		blang = false;
-    				} else {
-    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
-    		    		drapeau.setIcon(new ImageIcon(drapeauFr));
-    		    		blang = true;
-    				}
-    			}
-    			catch (Exception e1) {
-    				System.out.println(e1);
-    			}
-            } 
-        } );
-        
-   
-        
+  
         mi2.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
@@ -172,12 +165,12 @@ public class Menu extends JPanel {
     	    	}
             } 
         } );
-        
-        
+       
         this.setVisible(true);
 	
 	}
 	
+
 	public void paintComponent(Graphics g){
         drawable = (Graphics2D) g;
         afficherLogo();

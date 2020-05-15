@@ -12,6 +12,9 @@ public class TerrainUtils {
         if(a.Parent != b.Parent){
             throw new IllegalStateException("Not on the same terrain.");
         }
+        if(a.Type == b.Type){
+            throw new IllegalStateException("Can not overlap!");
+        }
         Piece x = a;
         a.Parent.getTerrain()[a.Position.l][a.Position.c] = b;
         b.Parent.getTerrain()[b.Position.l][b.Position.c] = x;
@@ -68,5 +71,9 @@ public class TerrainUtils {
             return false;
             //throw new IllegalAccessError("Erreur coup illegal: les pieces choisies ne devraient pas faire de passes");
         }
+    }
+
+    public static int Distance(Position p1,Position p2){
+        return (int)(Math.hypot(p1.c - p2.c, p1.l - p2.l));
     }
 }
