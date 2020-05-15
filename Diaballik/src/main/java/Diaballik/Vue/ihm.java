@@ -110,11 +110,13 @@ public class ihm extends JFrame {
     					menu.drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauGB));
     		    		words wEn = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
+    		    		
     		    		menu.nouvelle.setText(wEn.newgame);
     		    		menu.charger.setText(wEn.charger);
     		    		menu.reseau.setText(wEn.reseau);
     		    		menu.regles.setText(wEn.regles);
     		    		menu.quitter.setText(wEn.quit);
+    		    		
     		    		ng.titre.setText(wEn.newgame);
     		    		ng.humain.setText(wEn.humain);
     		    		ng.ordinateur.setText(wEn.ordinateur);
@@ -131,17 +133,25 @@ public class ihm extends JFrame {
     		    		ng.duree.setText(wEn.duree);
     		    		ng.retour.setText(wEn.retour);
     		    		ng.jouer.setText(wEn.jouer);
+    		    		
+    		    		jr.titre.setText(wEn.reseau);
+    		    		jr.creer.setText(wEn.creerPartieReseau);
+    		    		jr.rejoindre.setText(wEn.rejoindrePartieReseau);
+    		    		jr.menuPrincipal.setText(wEn.menuPrincipal);
+    		    	
     		    		blang = false;
     				} else {
     					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
     		    		words wFr = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesFr.json"), words.class);
+    		    		
     		    		menu.nouvelle.setText(wFr.newgame);
     		    		menu.charger.setText(wFr.charger);
     		    		menu.reseau.setText(wFr.reseau);
-    		    		ng.titre.setText(wFr.newgame);
     		    		menu.regles.setText(wFr.regles);
     		    		menu.quitter.setText(wFr.quit);
+    		    		
+    		    		ng.titre.setText(wFr.newgame);
     		    		ng.humain.setText(wFr.humain);
     		    		ng.ordinateur.setText(wFr.ordinateur);
     		    		ng.jouerContre.setText(wFr.jouerContre);
@@ -157,6 +167,12 @@ public class ihm extends JFrame {
     		    		ng.duree.setText(wFr.duree);
     		    		ng.retour.setText(wFr.retour);
     		    		ng.jouer.setText(wFr.jouer);
+    		    		
+    		    		jr.titre.setText(wFr.reseau);
+    		    		jr.creer.setText(wFr.creerPartieReseau);
+    		    		jr.rejoindre.setText(wFr.rejoindrePartieReseau);
+    		    		jr.menuPrincipal.setText(wFr.menuPrincipal);
+    		    		
     		    		blang = true;
     				}
     			}
@@ -222,7 +238,6 @@ public class ihm extends JFrame {
 		ps.play("son/buttonClick.wav", bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
-		JouerReseau jr = new JouerReseau(this);
 		jr.add(sound);
 		jr.add(drapeau);
 		this.setContentPane(jr);

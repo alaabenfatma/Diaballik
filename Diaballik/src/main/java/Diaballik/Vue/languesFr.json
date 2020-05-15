@@ -19,5 +19,9 @@
 	"priorite" : "Joue en premier :",
 	"personnaliser" : "Personnaliser",
 	"retour" : "Retour",
-	"jouer" : "Jouer"
+	"jouer" : "Jouer",
+	
+	"creerPartieReseau" : "Créer une partie",
+	"rejoindrePartieReseau" : "Rejoindre une partie",
+	"menuPrincipal" : "Menu principal"
  }

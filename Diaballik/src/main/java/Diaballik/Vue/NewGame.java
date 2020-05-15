@@ -2,20 +2,12 @@ package Diaballik.Vue;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Scanner;
 
-import javax.imageio.ImageIO;
+import java.awt.event.*;
+
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -26,15 +18,11 @@ import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import Diaballik.Controllers.ControleurMediateur;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
-import Diaballik.Models.JeuJSON;
 import Diaballik.Models.ConfigJeu.IALevel;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Models.ConfigJeu.Timer;

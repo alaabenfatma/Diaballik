@@ -23,6 +23,10 @@ public class words {
 	public String retour = "Return";
 	public String jouer = "Play";
 	
+	public String creerPartieReseau = "Create online game";
+	public String rejoindrePartieReseau = "Join online game";
+	public String menuPrincipal = "Main menu";
+
 	
 	@JsonCreator
 	public words() {
