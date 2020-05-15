@@ -47,6 +47,7 @@ public class Jeu extends Observable {
     Stack<Couple> stackZ = new Stack<Couple>();
     Stack<Couple> stackY = new Stack<Couple>();
     public boolean antijeuBool;
+    public boolean IaVSIa = true;
 
     public Jeu() {
         tr = new Terrain();
@@ -77,19 +78,10 @@ public class Jeu extends Observable {
             IA = true;
             joueur1 = new Joueur(TypeJoueur.Joueur1, PieceType.White, 2, 1, config.getName1());
             joueur2 = new Joueur(TypeJoueur.IA, PieceType.Black, 2, 1, config.getName3());
-            switch (config.getIALevel()) {
-                case facile:
-                    iaRandomIHM = new IaRandomIHM(this);
-                    break;
-                case moyen:
-                    iaEasy = new IA_easy(this);
-                    break;
-                case difficile:
-                    minimax = new MiniMax(null, PieceType.Black);
-                    break;
-                default:
-                    break;
-            }
+
+            iaRandomIHM = new IaRandomIHM(this);
+            iaEasy = new IA_easy(this);
+            minimax = new MiniMax(null, PieceType.Black);
 
         } else {
             IA = false;
@@ -121,6 +113,8 @@ public class Jeu extends Observable {
                 default:
                     break;
             }
+        } else if (IaVSIa) {
+            iaRandomIHM.JoueTourIARand();
         }
 
     }
@@ -162,6 +156,9 @@ public class Jeu extends Observable {
             joueurCourant = joueur1;
             listeDeplacementJ1.clear();
             listePasseJ1.clear();
+            if (IaVSIa) {
+                iaRandomIHM.JoueTourIARand();
+            }
         }
         if (config.getTimer() != ConfigJeu.Timer.illimite) {
             if (config.getTimer() == ConfigJeu.Timer.un)

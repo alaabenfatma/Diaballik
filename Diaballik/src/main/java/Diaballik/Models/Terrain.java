@@ -217,7 +217,7 @@ public class Terrain implements ITerrain {
             }
         }
         if (cpt >= 3) {
-            System.out.println(adverse + " a fait antijeu");
+            //System.out.println(adverse + " a fait antijeu");
             return true;
         } else
             return false;

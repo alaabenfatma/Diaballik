@@ -23,7 +23,7 @@ public class IaRandomIHM {
         ArrayList<Piece> list = new ArrayList<Piece>();
         for (int l = 0; l < tr.taille(); l++) {
             for (int c = 0; c < tr.taille(); c++) {
-                if (tr.getTerrain()[l][c].Type == j.joueur2.couleur && !tr.getTerrain()[l][c].HasBall) {
+                if (tr.getTerrain()[l][c].Type == j.joueurCourant.couleur && !tr.getTerrain()[l][c].HasBall) {
                     list.add(tr.getTerrain()[l][c]);
                 }
             }
@@ -40,7 +40,7 @@ public class IaRandomIHM {
         int choix = rand.nextInt(3);
         switch (choix) {
             case 0: // 1 passe
-                from = tr.getPieceWithBall(j.joueur2.couleur);
+                from = tr.getPieceWithBall(j.joueurCourant.couleur);
                 if (from.passesPossibles().size() > 0) {
                     if (from.passesPossibles().size() == 1) {
                         i = 0;
