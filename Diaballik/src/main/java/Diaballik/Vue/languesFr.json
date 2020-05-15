@@ -18,10 +18,23 @@
 	"illimite" : "Illimité",
 	"priorite" : "Joue en premier :",
 	"personnaliser" : "Personnaliser",
+	"IAFacile": "Facile",
+	"IAMedium": "Moyen",
+	"IADifficile": "Difficile",
+	"niveauIAlabel": "Niveau de l'IA : ",
+	"name1": "Joueur 1",
+	"name2": "Joueur 2",
+	"name3": "IA",
 	"retour" : "Retour",
 	"jouer" : "Jouer",
 	
 	"creerPartieReseau" : "Créer une partie",
 	"rejoindrePartieReseau" : "Rejoindre une partie",
-	"menuPrincipal" : "Menu principal"
+	"menuPrincipal" : "Menu principal",
+	
+	"nomJoueurlabel": "Nom du joueur : ",
+	"nomJoueurTextArea": "Joueur 1",
+	
+	"attenteTitre": "Attente du 2nd joueur",
+	"codelabel" : "Code"
  }

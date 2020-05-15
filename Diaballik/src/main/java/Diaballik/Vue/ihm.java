@@ -55,14 +55,25 @@ public class ihm extends JFrame {
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 				@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-				if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0){
+				
+					if(blang == false) {
+						if(msgBox.msgYesNo("Do you want to quit ?", "Quit") == 0){
+							System.exit(0);
+		            } else {
+		               return;
+		            }
+					
+				} else {
+					if(msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0){
 						System.exit(0);
-	            }
-	            else{
-	               return;
-	               }
+					} else {
+						return;
+					}
+				}
+				
 				}
 	    });
+		
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			
 		sound.setBounds(this.getWidth() - 80, 75, 40, 40);
@@ -112,7 +123,14 @@ public class ihm extends JFrame {
     		    		ng.priorite.setText(wEn.priorite);
     		    		ng.choixPersoJoueur1.setText(wEn.personnaliser);
     		    		ng.choixPersoJoueur2.setText(wEn.personnaliser);
+    		    		ng.name1.setText(wEn.name1);
+    		    		ng.name2.setText(wEn.name2);
+    		    		ng.name3.setText(wEn.name3);
+    		    		ng.niveauIA.setText(wEn.niveauIAlabel);
     		    		ng.duree.setText(wEn.duree);
+    		    		ng.br1.setText(wEn.IAFacile);
+    		    		ng.br2.setText(wEn.IAMedium);
+    		    		ng.br3.setText(wEn.IADifficile);
     		    		ng.retour.setText(wEn.retour);
     		    		ng.jouer.setText(wEn.jouer);
     		    		
@@ -121,7 +139,17 @@ public class ihm extends JFrame {
     		    		jr.rejoindre.setText(wEn.rejoindrePartieReseau);
     		    		jr.menuPrincipal.setText(wEn.menuPrincipal);
     		    	
+    		    		crr.titre.setText(wEn.creerPartieReseau);
+    		    		crr.nomJoueur.setText(wEn.nomJoueurlabel);
+    		    		crr.name.setText(wEn.nomJoueurTextArea);
+    		    		crr.retour.setText(wEn.retour);
+    		    		
+    		    		ajr.titre.setText(wEn.attenteTitre);
+    		    		ajr.codelabel.setText(wEn.codelabel);
+    		    		ajr.retour.setText(wEn.retour);
+    		    		
     		    		blang = false;
+    		    		
     				} else {
     					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
@@ -145,6 +173,10 @@ public class ihm extends JFrame {
     		    		ng.priorite.setText(wFr.priorite);
     		    		ng.choixPersoJoueur1.setText(wFr.personnaliser);
     		    		ng.choixPersoJoueur2.setText(wFr.personnaliser);
+    		    		ng.name1.setText(wFr.name1);
+    		    		ng.name2.setText(wFr.name2);
+    		    		ng.name3.setText(wFr.name3);
+    		    		ng.niveauIA.setText(wFr.niveauIAlabel);
     		    		ng.duree.setText(wFr.duree);
     		    		ng.retour.setText(wFr.retour);
     		    		ng.jouer.setText(wFr.jouer);
@@ -154,7 +186,17 @@ public class ihm extends JFrame {
     		    		jr.rejoindre.setText(wFr.rejoindrePartieReseau);
     		    		jr.menuPrincipal.setText(wFr.menuPrincipal);
     		    		
+    		    		crr.titre.setText(wFr.creerPartieReseau);
+    		    		crr.nomJoueur.setText(wFr.nomJoueurlabel);
+    		    		crr.name.setText(wFr.nomJoueurTextArea);
+    		    		crr.retour.setText(wFr.retour);
+    		    		
+    		    		ajr.titre.setText(wFr.attenteTitre);
+    		    		ajr.codelabel.setText(wFr.codelabel);
+    		    		ajr.retour.setText(wFr.retour);
+    		    		
     		    		blang = true;
+    		    		
     				}
     			}
     			catch (Exception e1) {
@@ -247,6 +289,7 @@ public class ihm extends JFrame {
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		crr.add(sound);
+		crr.add(drapeau);
 		this.setContentPane(crr);
 		this.setTitle("Créer une partie en réseau");
 		this.repaint();
@@ -259,6 +302,7 @@ public class ihm extends JFrame {
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		rpr.add(sound);
+		rpr.add(drapeau);
 		this.setContentPane(rpr);
 		this.setTitle("Rejoindre une partie");
 		this.repaint();
@@ -271,6 +315,7 @@ public class ihm extends JFrame {
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		ajr.add(sound);
+		ajr.add(drapeau);
 		this.setContentPane(ajr);
 		this.setTitle("Attente du 2ème joueur");
 		this.repaint();

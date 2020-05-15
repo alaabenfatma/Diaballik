@@ -20,13 +20,25 @@ public class words {
 	public String illimite = "Illimité";
 	public String priorite = "Joue en premier :";
 	public String personnaliser = "Personnaliser";
+	public String IAFacile = "Facile";
+	public String IAMedium = "Moyen";
+	public String IADifficile = "Difficile";
+	public String niveauIAlabel = "Niveau de l'IA : ";
+	public String name1 = "Joueur 1";
+	public String name2 = "Joueur 2";
+	public String name3 = "IA";
 	public String retour = "Return";
 	public String jouer = "Play";
 	
 	public String creerPartieReseau = "Create online game";
 	public String rejoindrePartieReseau = "Join online game";
 	public String menuPrincipal = "Main menu";
-
+	
+	public String nomJoueurlabel = "Nom du joueur :";
+	public String nomJoueurTextArea = "Joueur 1";
+	
+	public String attenteTitre = "Attente du 2nd joueur";
+	public String codelabel = "Code";
 	
 	@JsonCreator
 	public words() {

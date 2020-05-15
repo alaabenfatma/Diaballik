@@ -18,7 +18,7 @@ public class AttenteJoueurReseau extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JLabel titre = new JLabel("Attente du 2ème joueur");
+	JLabel titre = new JLabel("Attente du 2nd joueur");
 	JLabel codelabel = new JLabel("Code");
 	JTextArea code = new JTextArea("(generation d'un code aléatoire)");
 	JButton retour = new JButton("Retour");

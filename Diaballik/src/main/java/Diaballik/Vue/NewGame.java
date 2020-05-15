@@ -98,8 +98,6 @@ public class NewGame extends JPanel {
 		this.add(mb);
 		this.setLayout(null);
 	
-		
-		
 		i.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent evt) {
 				jouerContre.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) - 80, 100, 100);

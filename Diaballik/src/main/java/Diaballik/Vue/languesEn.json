@@ -17,12 +17,25 @@
 	"duree" : "Duration : ",
 	"illimite" : "Unlimited",
 	"priorite" : "Plays first :",
+	"IAFacile": "Easy",
+	"IAMedium": "Medium",
+	"IADifficile": "Hard",
+	"niveauIAlabel": "AI level : ",
+	"name1": "Player 1",
+	"name2": "Player 2",
+	"name3": "AI",
 	"retour" : "Return",
 	"jouer" : "Play",
 	"personnaliser" : "Customize",
 	
 	"creerPartieReseau" : "Create online game",
 	"rejoindrePartieReseau" : "Join online game",
-	"menuPrincipal" : "Main menu"
+	"menuPrincipal" : "Main menu",
+	
+	"nomJoueurlabel": "Player : ",
+	"nomJoueurTextArea": "Player 1",
+	
+	"attenteTitre": "Waiting for the 2nd player",
+	"codelabel" : "Code"
 	
  }
