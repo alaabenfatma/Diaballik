@@ -13,9 +13,9 @@
 	"nomJoueur2" : "Player 2 : ",
 	"joueur1" : "Player 1",
 	"joueur2" : "Player 2",
-	"variante" : "Variante",
-	"duree" : "Duration of a round : ",
-	"illimite" : "Illimited",
+	"variante" : "Mixture",
+	"duree" : "Duration : ",
+	"illimite" : "Unlimited",
 	"priotite" : "Plays first :",
 	"retour" : "Return",
 	"jouer" : "Play"

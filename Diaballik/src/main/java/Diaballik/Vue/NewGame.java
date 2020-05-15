@@ -75,6 +75,7 @@ public class NewGame extends JPanel {
 	JRadioButton br3 = new JRadioButton("Difficile");
 	boolean bHumain = true;
 	boolean bson;
+	int persoJoueur;
 	playSound ps = new playSound();
 	ihm i;
 	Jeu j;
@@ -371,13 +372,17 @@ public class NewGame extends JPanel {
 		
 		choixPersoJoueur1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				choisirPerso cp = new choisirPerso();
+				persoJoueur = 1;
+				choisirPerso cp = new choisirPerso(persoJoueur);
+				
 			}
 		});
 		
 		choixPersoJoueur2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				choisirPerso cp = new choisirPerso();
+				persoJoueur = 2;
+				choisirPerso cp = new choisirPerso(persoJoueur);
+				
 			}
 		});
 		

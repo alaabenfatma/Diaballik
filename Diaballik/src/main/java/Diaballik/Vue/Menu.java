@@ -70,23 +70,7 @@ public class Menu extends JPanel {
         this.add(reseau);
         this.add(regles);
         this.add(quitter);
-        //this.add(drapeau);
-        
-    	/*	try {
-    			
-    			
-    			words w = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
-    			
-    					
-    		} catch (JsonParseException e) {
-    			e.printStackTrace();
-    		} catch (JsonMappingException e) {
-    			e.printStackTrace();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    */
-    		
+
         nouvelle.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	i.fenetreNouvellePartie();
