@@ -115,8 +115,8 @@ public class Jeu extends Observable {
                     break;
                 case difficile:
                     State bestState = minimax.winningMove(this);
-                    this.tr._terrain = bestState.Terrain.Copy(this.tr);
-                    FinTour();
+                    JoueTourIAMiniMax(bestState);
+                    // this.tr._terrain = bestState.Terrain.Copy(this.tr);
                     break;
                 default:
                     break;
@@ -149,10 +149,10 @@ public class Jeu extends Observable {
                         break;
                     case difficile:
                         State bestState = minimax.winningMove(this);
-                        this.tr._terrain = bestState.Terrain.Copy(this.tr);
-                        this.tr.PrintTerrain();
-                        System.out.println(bestState);
-                        FinTour();
+                        JoueTourIAMiniMax(bestState);
+                        // this.tr._terrain = bestState.Terrain.Copy(this.tr);
+                        // this.tr.PrintTerrain();
+                        // System.out.println(bestState);
                         break;
                     default:
                         break;
@@ -441,6 +441,104 @@ public class Jeu extends Observable {
     public void jctrl_y() {
         tr.ctrl_y();
         metAJour();
+    }
+
+    private void JoueTourIAMiniMax(State bState) {
+        int l;
+        int c;
+        Piece p;
+        switch (bState.GameMode) {
+            case MMP:
+                l = bState.firstMove.From.l;
+                c = bState.firstMove.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.firstMove.To.l;
+                c = bState.firstMove.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                l = bState.secondMove.From.l;
+                c = bState.secondMove.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.secondMove.To.l;
+                c = bState.secondMove.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                l = bState.pass.From.l;
+                c = bState.pass.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.pass.To.l;
+                c = bState.pass.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                break;
+            case MPM:
+                l = bState.firstMove.From.l;
+                c = bState.firstMove.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.firstMove.To.l;
+                c = bState.firstMove.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                l = bState.pass.From.l;
+                c = bState.pass.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.pass.To.l;
+                c = bState.pass.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                l = bState.secondMove.From.l;
+                c = bState.secondMove.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.secondMove.To.l;
+                c = bState.secondMove.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                break;
+            case PMM:
+                l = bState.pass.From.l;
+                c = bState.pass.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.pass.To.l;
+                c = bState.pass.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                l = bState.firstMove.From.l;
+                c = bState.firstMove.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.firstMove.To.l;
+                c = bState.firstMove.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                l = bState.secondMove.From.l;
+                c = bState.secondMove.From.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+                l = bState.secondMove.To.l;
+                c = bState.secondMove.To.c;
+                p = tr._terrain[l][c];
+                SelectionPieceIA(p);
+
+                break;
+            default:
+                break;
+        }
+        FinTour();
     }
 
     // mode textuelle
