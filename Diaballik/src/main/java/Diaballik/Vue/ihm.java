@@ -92,7 +92,7 @@ public class ihm extends JFrame {
 		try {
 			
 			
-			words w = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
+			words w = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
 			
 					
 		} catch (JsonParseException e) {
@@ -109,7 +109,7 @@ public class ihm extends JFrame {
     				if (blang == true) {
     					menu.drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauGB));
-    		    		words wEn = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
+    		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
     		    		menu.nouvelle.setText(wEn.newgame);
     		    		menu.charger.setText(wEn.charger);
     		    		menu.reseau.setText(wEn.reseau);
@@ -135,7 +135,7 @@ public class ihm extends JFrame {
     				} else {
     					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
-    		    		words wFr = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesFr.json"), words.class);
+    		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesAr.json"), words.class);
     		    		menu.nouvelle.setText(wFr.newgame);
     		    		menu.charger.setText(wFr.charger);
     		    		menu.reseau.setText(wFr.reseau);
