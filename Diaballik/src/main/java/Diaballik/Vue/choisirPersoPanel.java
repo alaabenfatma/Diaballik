@@ -3,13 +3,8 @@ package Diaballik.Vue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class choisirPersoPanel extends JPanel{
@@ -38,11 +33,10 @@ public class choisirPersoPanel extends JPanel{
     		if (persoJoueur == 1) {
     			joueur1 = ImageIO.read(this.getClass().getResourceAsStream("img/pionB_bas.png"));
         		drawable.drawImage(joueur1, 70, 30, 170, 200, null);
-    		} else {
+    		} else if (persoJoueur == 2){
     			joueur1 = ImageIO.read(this.getClass().getResourceAsStream("img/pionA_bas.png"));
         		drawable.drawImage(joueur1, 70, 30, 170, 200, null);
     		}
-    		
     	}
     	catch (Exception e) {
     		System.out.println(e);

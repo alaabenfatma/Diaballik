@@ -4,5 +4,20 @@
 	"newgame": "Nouvelle partie",
 	"charger": "Charger partie",
 	"reseau": "Jouer en réseau",
-	"regles": "Règles"
+	"regles": "Règles",
+	
+	"humain" : "Humain",
+	"ordinateur" : "Ordinateur",
+	"jouerContre" : "Jouer Contre : ",
+	"nomJoueur1" : "Nom du joueur 1 : ",
+	"nomJoueur2" : "Nom du joueur 2 : ",
+	"joueur1" : "Joueur 1",
+	"joueur2" : "Joueur 2",
+	"variante" : "Variante",
+	"duree" : "Durée d'un tour : ",
+	"illimite" : "Illimité",
+	"priorite" : "Joue en premier :",
+	"personnaliser" : "Personnaliser",
+	"retour" : "Retour",
+	"jouer" : "Jouer"
  }

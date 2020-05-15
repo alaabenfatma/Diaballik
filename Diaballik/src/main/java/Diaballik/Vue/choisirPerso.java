@@ -1,18 +1,12 @@
 package Diaballik.Vue;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class choisirPerso extends JFrame{
 
@@ -22,8 +16,8 @@ public class choisirPerso extends JFrame{
 	JButton valider = new JButton("Valider");
 	
 	public choisirPerso(int persoJoueur) {
-		choisirPersoPanel panel = new choisirPersoPanel(this, persoJoueur);
 		int p = persoJoueur;
+		choisirPersoPanel panel = new choisirPersoPanel(this, persoJoueur);
 		this.setTitle("Personnalisation");
 		this.setSize(300, 300);
 		this.setLocationRelativeTo(null);
@@ -32,8 +26,8 @@ public class choisirPerso extends JFrame{
 
 		addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
-            	precedent.setBounds(0, 100, 50, 50);
-        		suivant.setBounds(240, 100, 50, 50);
+            	precedent.setBounds(0, 100, 45, 30);
+        		suivant.setBounds(240, 100, 45, 30);
         		valider.setBounds(100, 230, 100, 30);
             }
 		});
@@ -41,7 +35,7 @@ public class choisirPerso extends JFrame{
 		
 		valider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 			}
 		});
 
@@ -53,7 +47,7 @@ public class choisirPerso extends JFrame{
 		
 		suivant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+		
 			}
 		});
 		
