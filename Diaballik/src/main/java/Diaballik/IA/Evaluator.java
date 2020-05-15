@@ -9,6 +9,7 @@ class EvaluationConfig {
     int valueOfPiece = 10;
     int diagonalBonus = 5;
     int hasBallBonus = 10;
+    int onOtherSide = 50;
 
     /**
      * Configures the values that are needed to calculate the final score of the
@@ -26,10 +27,11 @@ class EvaluationConfig {
      * @param diagonalBonus
      * @param hasBallBonus
      */
-    public EvaluationConfig(int valueOfPiece, int diagonalBonus, int hasBallBonus) {
+    public EvaluationConfig(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide) {
         this.valueOfPiece = valueOfPiece;
         this.diagonalBonus = diagonalBonus;
         this.hasBallBonus = hasBallBonus;
+        this.onOtherSide = onOtherSide;
     }
 }
 
@@ -49,8 +51,8 @@ public class Evaluator {
      * @param diagonalBonus
      * @param hasBallBonus
      */
-    public static void init(int valueOfPiece, int diagonalBonus, int hasBallBonus) {
-        heuristics = new EvaluationConfig(valueOfPiece, diagonalBonus, hasBallBonus);
+    public static void init(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide) {
+        heuristics = new EvaluationConfig(valueOfPiece, diagonalBonus, hasBallBonus, onOtherSide);
     }
 
     /**
@@ -71,6 +73,9 @@ public class Evaluator {
             if (passesPossibles.contains(p.Position)) {
                 score += heuristics.diagonalBonus;
             }
+            if (p.Position.l == 0) {
+                score += heuristics.onOtherSide;
+            }
         } else if (p.Type == PieceType.Black) {
             score -= heuristics.valueOfPiece;
             if (p.HasBall) {
@@ -81,6 +86,9 @@ public class Evaluator {
             if (passesPossibles.contains(p.Position)) {
                 score -= heuristics.diagonalBonus;
             }
+            if (p.Position.l == 6) {
+                score -= heuristics.onOtherSide;
+            }
         }
         return score;
     }
@@ -90,6 +98,12 @@ public class Evaluator {
             return -9999;
         } else if (t.victoire() == PieceType.White) {
             return 9999;
+        }
+
+        if (t.antijeuIA(t, PieceType.Black)) {
+            return 9999;
+        } else if (t.antijeuIA(t, PieceType.White)) {
+            return -9999;
         }
         int score = 0;
         Piece[][] board = t.getTerrain();

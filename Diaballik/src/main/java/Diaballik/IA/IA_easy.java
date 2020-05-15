@@ -129,20 +129,20 @@ public class IA_easy {
 
         else {
             ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMoves(type, tr, nbMove);
+            System.out.println("the array : "+possibleMoves);
             int min = 9999;
             From_to bestMove = new From_to(possibleMoves.get(0).piece.Position, possibleMoves.get(0).pos.get(0));
             for (Couple_piece_pos pp : possibleMoves) {
-                Terrain trTemp = tr.clone();
                 for (Position p : pp.pos) {
+                    Position origin = new Position(pp.piece.Position.l, pp.piece.Position.c);
                     pp.piece.move(p.l, p.c);
                     maj_nbMove(bestMove);
                     int sc = Evaluator.scoreOfBoard(tr);
+                    pp.piece.move(origin.l, origin.c);
                     if (min > sc) {
                         min = sc;
                         bestMove = new From_to(pp.piece.Position, p);
                     }
-                    tr = trTemp.clone();
-                    trTemp = tr.clone();
                 }
             }
 
@@ -153,13 +153,20 @@ public class IA_easy {
     }
 
     public void joueTourIAEasy() {
+        nbMove = 2;
+        nbPasse = 1;
         //mvm
-        From_to mouvement = getNextMove(PieceType.Black, tr); // là l'IA joue les noirs mais on changera
+        
+        Terrain trTemp = tr.clone();
+        
+        From_to mouvement = getNextMove(PieceType.Black, trTemp); // là l'IA joue les noirs mais on changera
         
         j.SelectionPieceIA(tr.getTerrain()[mouvement.from.l][mouvement.from.c]);
         j.SelectionPieceIA(tr.getTerrain()[mouvement.to.l][mouvement.to.c]);
+        
         //passe
-        Position passe = getNextPasse(PieceType.Black, tr);
+        trTemp = tr.clone();
+        Position passe = getNextPasse(PieceType.Black, trTemp);
         Piece balle = null;
         for (int i = 0; i < tr.taille(); i++) {
             for (Piece p : tr.getTerrain()[i]) {
@@ -172,7 +179,9 @@ public class IA_easy {
         }
         j.SelectionPieceIA(tr.getTerrain()[balle.Position.l][balle.Position.c]);
         j.SelectionPieceIA(tr.getTerrain()[passe.l][passe.c]);
+        
         j.FinTour();
+        
     }
 
     public static void main(String args[]) {
@@ -181,8 +190,8 @@ public class IA_easy {
         tr._jeuParent = jeu;
         IA_easy ia_med = new IA_easy(tr, PieceType.Black);
         // ia_med.Strategy_PPE();
-        ia_med.getNextMove(PieceType.White, tr);
-        ia_med.getNextPasse(PieceType.White, tr);
+        ia_med.getNextMove(PieceType.Black, tr);
+        tr.PrintTerrain();
     }
 }
 

@@ -11,10 +11,6 @@ public class msgBox {
         int result = JOptionPane.showConfirmDialog(frame, msg, titre, JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE);
         if (result == JOptionPane.YES_OPTION) {
-            /*
-             * frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); i.dispose();
-             * i.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-             */
             System.exit(0);
         } else if (result == JOptionPane.NO_OPTION) {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -25,12 +21,6 @@ public class msgBox {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, msg, titre, dialogButton);
         return dialogResult; //0 = yes, 1 = no
-    }
-
-    public String msgNumPartie(){
-        JFrame frame = new JFrame();
-        String num = JOptionPane.showInputDialog(frame, "Quel est le numéro de la partie que vous voulez lancer ?");
-        return num;
     }
     
 }
