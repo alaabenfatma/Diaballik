@@ -15,6 +15,7 @@ import Diaballik.IA.IA_easy;
 import Diaballik.IA.IaRandomIHM;
 import Diaballik.IA.MiniMax;
 import Diaballik.IA.Random_IA;
+import Diaballik.Models.ConfigJeu.IALevel;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
 import Diaballik.Vue.Plateau;
@@ -114,7 +115,19 @@ public class Jeu extends Observable {
                     break;
             }
         } else if (IaVSIa) {
-            iaRandomIHM.JoueTourIARand();
+            Thread t = new Thread() {
+                public void run() {
+                    try {
+                        Thread.sleep(500);
+                        iaRandomIHM.JoueTourIARand();
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                   
+                }
+            };
+            t.start();
         }
 
     }
