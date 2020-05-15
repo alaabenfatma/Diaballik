@@ -15,6 +15,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -39,8 +40,6 @@ import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Models.ConfigJeu.Timer;
 
 public class NewGame extends JPanel {
-	
-
 	
 	private static final long serialVersionUID = 1L;
 	ObjectMapper objectMapper = new ObjectMapper();
@@ -372,13 +371,13 @@ public class NewGame extends JPanel {
 		
 		choixPersoJoueur1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				choisirPerso cp = new choisirPerso();
 			}
 		});
 		
 		choixPersoJoueur2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				choisirPerso cp = new choisirPerso();
 			}
 		});
 		
