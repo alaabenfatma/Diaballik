@@ -18,7 +18,8 @@ public class words {
 	public String variante = "Variante";
 	public String duree = "Durée d'un tour : ";
 	public String illimite = "Illimité";
-	public String priotite = "Joue en premier :";
+	public String priorite = "Joue en premier :";
+	public String personnaliser = "Personnaliser";
 	public String retour = "Return";
 	public String jouer = "Play";
 	

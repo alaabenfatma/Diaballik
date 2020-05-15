@@ -59,7 +59,7 @@ public class Menu extends JPanel {
                     reseau.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 140, 150, 50 + (i.getHeight()/150));
                     regles.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 200, 150, 50 + (i.getHeight()/150));
                     quitter.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 260, 150, 50 + (i.getHeight()/150));
-                    i.drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
+                    drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
                     i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
                 }
         });
@@ -70,7 +70,7 @@ public class Menu extends JPanel {
         this.add(reseau);
         this.add(regles);
         this.add(quitter);
-
+    		
         nouvelle.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	i.fenetreNouvellePartie();
@@ -154,7 +154,6 @@ public class Menu extends JPanel {
 	
 	}
 	
-
 	public void paintComponent(Graphics g){
         drawable = (Graphics2D) g;
         afficherLogo();
