@@ -153,6 +153,76 @@ public class Terrain implements ITerrain {
         coups.add(new InfCoups(clone(), _jeuParent.joueurCourant, moves, passes));
     }
 
+    public boolean antijeuIA(Terrain terr, PieceType actuel) {
+        int cpt = 0;
+        int nbAdverseColonne = 0;
+        // PieceType actuel = joueurCourant.couleur;
+        PieceType adverse = (actuel == PieceType.Black) ? PieceType.White : PieceType.Black;
+        int l = -1, c = -1;
+
+        for (int colonne = 0; colonne < terr.taille(); colonne++) {
+            nbAdverseColonne = 0;
+            // verifie s'il y a un pion adverse dans la premiere colonne
+            if (colonne == 0) {
+                for (int ligne = 0; ligne < terr.taille(); ligne++) {
+                    if (terr.getTerrain()[ligne][colonne].Type == adverse) {
+                        nbAdverseColonne++;
+                        l = ligne;
+                        c = colonne;
+                        if ((l + 1 < terr.taille()) && terr.getTerrain()[l + 1][c].Type == actuel)
+                            cpt++;
+                        if ((l - 1 >= 0) && terr.getTerrain()[l - 1][c].Type == actuel) {
+                            cpt++;
+                        }
+                    }
+                    if (nbAdverseColonne > 1)
+                        return false;
+                }
+                if (nbAdverseColonne == 0)
+                    return false;
+
+            } else {
+                // verifie dans les cases adjacente à droite la presence de pions adverses
+                int ligne = l;
+                if (ligne - 1 >= 0 && terr.getTerrain()[ligne - 1][colonne].Type == adverse) {
+                    nbAdverseColonne++;
+                    l = ligne - 1;
+                    c = colonne;
+                    if (l + 1 < terr.taille() && terr.getTerrain()[l + 1][c].Type == actuel)
+                        cpt++;
+                    if ((l - 1 >= 0) && terr.getTerrain()[l - 1][c].Type == actuel) {
+                        cpt++;
+                    }
+                } else if (terr.getTerrain()[ligne][colonne].Type == adverse) {
+                    nbAdverseColonne++;
+                    l = ligne;
+                    c = colonne;
+                    if (l + 1 < terr.taille() && terr.getTerrain()[l + 1][c].Type == actuel)
+                        cpt++;
+                    if ((l - 1 >= 0) && terr.getTerrain()[l - 1][c].Type == actuel) {
+                        cpt++;
+                    }
+                } else if (ligne + 1 < 7 && terr.getTerrain()[ligne + 1][colonne].Type == adverse) {
+                    nbAdverseColonne++;
+                    l = ligne + 1;
+                    c = colonne;
+                    if (l + 1 < terr.taille() && terr.getTerrain()[l + 1][c].Type == actuel)
+                        cpt++;
+                    if ((l - 1 >= 0) && terr.getTerrain()[l - 1][c].Type == actuel) {
+                        cpt++;
+                    }
+                }
+                if (nbAdverseColonne != 1)
+                    return false;
+            }
+        }
+        if (cpt >= 3) {
+            System.out.println(adverse + " a fait antijeu");
+            return true;
+        } else
+            return false;
+    }
+
     public void ctrl_z() {
 
         if (coups.size() == 0) {
@@ -168,8 +238,8 @@ public class Terrain implements ITerrain {
         _jeuParent.joueurCourant.nbMove = coups.peek().moves;
         _jeuParent.joueurCourant.passeDispo = coups.peek().passes;
         coups.pop();
-        if(_jeuParent.joueur2.n == TypeJoueur.IA){
-            while(_jeuParent.joueurCourant != _jeuParent.joueur1){
+        if (_jeuParent.joueur2.n == TypeJoueur.IA) {
+            while (_jeuParent.joueurCourant != _jeuParent.joueur1) {
                 ctrl_z();
             }
         }

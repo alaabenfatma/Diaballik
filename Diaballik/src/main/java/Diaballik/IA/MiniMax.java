@@ -11,7 +11,6 @@ import Diaballik.Models.Jeu;
 import Diaballik.Models.Piece;
 import Diaballik.Models.PieceType;
 import Diaballik.Models.Position;
-import Diaballik.Models.Sequence;
 import Diaballik.Models.State;
 import Diaballik.Models.Terrain;
 

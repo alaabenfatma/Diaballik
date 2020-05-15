@@ -10,6 +10,7 @@ class EvaluationConfig {
     int diagonalBonus = 5;
     int hasBallBonus = 10;
     int onOtherSide = 50;
+
     /**
      * Configures the values that are needed to calculate the final score of the
      * board.
@@ -72,7 +73,7 @@ public class Evaluator {
             if (passesPossibles.contains(p.Position)) {
                 score += heuristics.diagonalBonus;
             }
-            if(p.Position.l==0){
+            if (p.Position.l == 0) {
                 score += heuristics.onOtherSide;
             }
         } else if (p.Type == PieceType.Black) {
@@ -85,7 +86,7 @@ public class Evaluator {
             if (passesPossibles.contains(p.Position)) {
                 score -= heuristics.diagonalBonus;
             }
-            if(p.Position.l==6){
+            if (p.Position.l == 6) {
                 score -= heuristics.onOtherSide;
             }
         }
@@ -97,6 +98,12 @@ public class Evaluator {
             return -9999;
         } else if (t.victoire() == PieceType.White) {
             return 9999;
+        }
+
+        if (t.antijeuIA(t, PieceType.Black)) {
+            return 9999;
+        } else if (t.antijeuIA(t, PieceType.White)) {
+            return -9999;
         }
         int score = 0;
         Piece[][] board = t.getTerrain();
