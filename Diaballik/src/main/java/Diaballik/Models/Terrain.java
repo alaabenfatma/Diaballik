@@ -168,6 +168,11 @@ public class Terrain implements ITerrain {
         _jeuParent.joueurCourant.nbMove = coups.peek().moves;
         _jeuParent.joueurCourant.passeDispo = coups.peek().passes;
         coups.pop();
+        if(_jeuParent.joueur2.n == TypeJoueur.IA){
+            while(_jeuParent.joueurCourant != _jeuParent.joueur1){
+                ctrl_z();
+            }
+        }
     }
 
     public void ctrl_y() {
