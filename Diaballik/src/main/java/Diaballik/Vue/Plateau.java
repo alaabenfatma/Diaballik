@@ -57,7 +57,7 @@ public class Plateau implements Runnable, Observateur {
 
     public void run() {
         // Creation d'une fenetre
-        frame = new JFrame("Plateau");
+        frame = new JFrame("Diaballik");
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
