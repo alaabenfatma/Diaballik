@@ -48,7 +48,7 @@ public class Jeu extends Observable {
     Stack<Couple> stackZ = new Stack<Couple>();
     Stack<Couple> stackY = new Stack<Couple>();
     public boolean antijeuBool;
-    public boolean IaVSIa = true;
+    public boolean IaVSIa = false;
 
     public Jeu() {
         tr = new Terrain();
