@@ -4,8 +4,9 @@ import Diaballik.IA.*;
 public class State implements Comparable{
     public Jeu Game;
     public Terrain Terrain;
-    public int nbmoves = 2;
-    public int nbpasses = 1;
+    public FromTo firstMove;
+    public FromTo secondMove;
+    public FromTo pass;
     public int score(){
         return Evaluator.scoreOfBoard(this.Terrain);
     }

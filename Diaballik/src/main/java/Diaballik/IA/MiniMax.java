@@ -6,6 +6,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import Diaballik.Controllers.TerrainUtils;
+import Diaballik.Models.FromTo;
 import Diaballik.Models.Jeu;
 import Diaballik.Models.Piece;
 import Diaballik.Models.PieceType;
@@ -37,6 +38,7 @@ public class MiniMax {
                 tmp._terrain = currentState.Terrain.Copy(tmp);
                 tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                 State s = new State(tmp);
+
                 innerM2PStates.add(s);
             }
         }
@@ -79,6 +81,7 @@ public class MiniMax {
                 tmp._terrain = currentState.Terrain.Copy(tmp);
                 tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                 State s = new State(tmp);
+                s.firstMove = new FromTo(posMain, pos);
                 innerMMPStates.add(s);
             }
         }
@@ -95,6 +98,8 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.firstMove = state.firstMove;
+                    s.secondMove = new FromTo(posMain, pos);
                     deepMMPStates.add(s);
                 }
             }
@@ -112,6 +117,9 @@ public class MiniMax {
                         tmp._terrain[pos.l][pos.c]);
 
                 State s = new State(tmp);
+                s.firstMove = state.firstMove;
+                s.secondMove = state.secondMove;
+                s.pass = new FromTo(ballHolder.Position, pos);
                 AllMMPStates.add(s);
             }
         }
@@ -140,6 +148,7 @@ public class MiniMax {
                 tmp._terrain = currentState.Terrain.Copy(tmp);
                 tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                 State s = new State(tmp);
+                s.firstMove = new FromTo(posMain, pos);
                 innerMPMStates.add(s);
             }
         }
@@ -156,6 +165,8 @@ public class MiniMax {
                         tmp._terrain[pos.l][pos.c]);
 
                 State s = new State(tmp);
+                s.firstMove = state.firstMove;
+                s.pass = new FromTo(ballHolder.Position, pos);
                 deepMPMStates.add(s);
             }
         }
@@ -170,6 +181,9 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.firstMove = state.firstMove;
+                    s.secondMove = new FromTo(posMain, pos);
+                    s.pass = state.pass;
                     AllMPMStates.add(s);
                 }
             }
@@ -201,6 +215,8 @@ public class MiniMax {
             TerrainUtils.passeWrapper(tmp._terrain[ballHolder.Position.l][ballHolder.Position.c],
                     tmp._terrain[pos.l][pos.c]);
             State s = new State(tmp);
+            s.pass = new FromTo(ballHolder.Position, pos);
+
             innerPMMStates.add(s);
         }
         ArrayList<State> deepPMMStates = new ArrayList<State>();
@@ -216,6 +232,8 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.pass = state.pass;
+                    s.firstMove = new FromTo(posMain, pos);
                     deepPMMStates.add(s);
                 }
             }
@@ -231,6 +249,9 @@ public class MiniMax {
                     tmp._terrain = state.Terrain.Copy(tmp);
                     tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
                     State s = new State(tmp);
+                    s.pass = state.pass;
+                    s.firstMove = state.firstMove;
+                    s.secondMove = new FromTo(posMain, pos);
                     AllPMMStates.add(s);
                 }
             }
@@ -241,11 +262,11 @@ public class MiniMax {
          */
     }
 
-    public MiniMax(Jeu j,PieceType type) {
+    public MiniMax(Jeu j, PieceType type) {
         AI_TYPE = type;
     }
 
-    public Piece[][] winningMove(Jeu game) {
+    public State winningMove(Jeu game) {
         AllMMPStates.clear();
         AllMMPStates.clear();
         AllPMMStates.clear();
@@ -256,27 +277,27 @@ public class MiniMax {
         MMP(s);
         MPM(s);
         PMM(s);
-        
+
         shuffle(AllMMPStates);
         shuffle(AllMPMStates);
         shuffle(AllPMMStates);
-        
+
         sort(AllMMPStates);
         sort(AllMPMStates);
         sort(AllPMMStates);
-        
+
         if (this.AI_TYPE == PieceType.White) {
             bestOptions.add(AllMMPStates.get(AllMMPStates.size() - 1));
             bestOptions.add(AllMMPStates.get(AllMPMStates.size() - 1));
             bestOptions.add(AllMMPStates.get(AllPMMStates.size() - 1));
             sort(bestOptions);
-            return bestOptions.get(2).Terrain.Copy(game.tr);
+            return bestOptions.get(2);
         } else {
             bestOptions.add(AllMMPStates.get(0));
             bestOptions.add(AllMMPStates.get(0));
             bestOptions.add(AllMMPStates.get(0));
             sort(bestOptions);
-            return bestOptions.get(0).Terrain.Copy(game.tr);
+            return bestOptions.get(0);
         }
 
     }

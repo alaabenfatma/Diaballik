@@ -114,7 +114,8 @@ public class Jeu extends Observable {
                     iaRandomIHM.JoueTourIARand();
                     break;
                 case difficile:
-                    this.tr._terrain = minimax.winningMove(this);
+                    State bestState = minimax.winningMove(this);
+                    this.tr._terrain = bestState.Terrain.Copy(this.tr);
                     FinTour();
                     break;
                 default:
@@ -147,8 +148,10 @@ public class Jeu extends Observable {
                         iaRandomIHM.JoueTourIARand();
                         break;
                     case difficile:
-                        this.tr._terrain = minimax.winningMove(this);
+                        State bestState = minimax.winningMove(this);
+                        this.tr._terrain = bestState.Terrain.Copy(this.tr);
                         this.tr.PrintTerrain();
+                        System.out.println(bestState);
                         FinTour();
                         break;
                     default:

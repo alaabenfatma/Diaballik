@@ -20,6 +20,10 @@ public class Position {
         return (this.l == p.l && this.c == p.c);
     }
 
+    public void CopyCoordinates(Position p){
+        p.l = this.l;
+        p.c = this.c;
+    }
     @Override
     public String toString(){
         return "("+l+","+c+")";
