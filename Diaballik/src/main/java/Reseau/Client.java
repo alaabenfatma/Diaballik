@@ -19,9 +19,9 @@ public class Client {
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			System.out.println(in.readLine());
 			
-			PrintWriter out = new PrintWriter(s.getOutputStream());
+			/*PrintWriter out = new PrintWriter(s.getOutputStream());
 			out.println("J'envoie du Client au Serveur");
-			out.flush();
+			out.flush();*/
 			
 			s.close();
 		}catch(IOException e) {

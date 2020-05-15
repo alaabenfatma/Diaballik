@@ -45,7 +45,7 @@ public class Serveur {
 		try {
 			out = new PrintWriter(s.getOutputStream());
 			//TODO méthode conversion terrain en String et inversement
-			out.print(j.tr.PrintTerrain());
+			out.println();
 			out.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
