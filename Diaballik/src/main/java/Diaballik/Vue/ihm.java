@@ -4,8 +4,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -15,8 +13,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ihm extends JFrame {
@@ -89,19 +85,6 @@ public class ihm extends JFrame {
     		System.out.println(e);
     	}
         
-		try {
-			
-			
-			words w = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
-			
-					
-		} catch (JsonParseException e) {
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		drapeau.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
@@ -109,8 +92,7 @@ public class ihm extends JFrame {
     				if (blang == true) {
     					menu.drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauGB));
-    		    		words wEn = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesEn.json"), words.class);
-    		    		
+    		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
     		    		menu.nouvelle.setText(wEn.newgame);
     		    		menu.charger.setText(wEn.charger);
     		    		menu.reseau.setText(wEn.reseau);
@@ -143,8 +125,7 @@ public class ihm extends JFrame {
     				} else {
     					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
-    		    		words wFr = objectMapper.readValue(new File("src/main/java/Diaballik/Vue/languesFr.json"), words.class);
-    		    		
+    		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
     		    		menu.nouvelle.setText(wFr.newgame);
     		    		menu.charger.setText(wFr.charger);
     		    		menu.reseau.setText(wFr.reseau);
