@@ -1,18 +1,32 @@
+/*
+MIT License
+
+Copyright (c) 2020 Alaa Ben Fatma
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 package Diaballik.IA;
 
 import static java.util.Collections.*;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
-import Diaballik.Controllers.TerrainUtils;
-import Diaballik.Models.FromTo;
-import Diaballik.Models.Jeu;
-import Diaballik.Models.Piece;
-import Diaballik.Models.PieceType;
-import Diaballik.Models.Position;
-import Diaballik.Models.State;
-import Diaballik.Models.Terrain;
+import java.util.*;
+import Diaballik.Controllers.*;
+import Diaballik.Models.*;
 
 public class MiniMax {
     public PieceType AI_TYPE = PieceType.Black;
@@ -127,12 +141,9 @@ public class MiniMax {
                 AllMMPStates.add(s);
             }
         }
+        // Merge the three lists of states
         AllMMPStates.addAll(deepMMPStates);
         AllMMPStates.addAll(innerMMPStates);
-        /*
-         * for (State state : AllMMPStates) { state.Terrain.PrintTerrain();
-         * System.out.println(state.score()); }
-         */
     }
 
     ArrayList<State> AllMPMStates = new ArrayList<State>();
@@ -197,12 +208,9 @@ public class MiniMax {
                 }
             }
         }
+        // Merge the three lists of states
         AllMPMStates.addAll(deepMPMStates);
         AllMPMStates.addAll(innerMPMStates);
-        /*
-         * for (State state : AllMPMStates) { state.Terrain.PrintTerrain();
-         * System.out.println(state.score()); }
-         */
     }
 
     ArrayList<State> AllPMMStates = new ArrayList<State>();
@@ -270,12 +278,9 @@ public class MiniMax {
                 }
             }
         }
+        // Merge the three lists of states
         AllPMMStates.addAll(deepPMMStates);
         AllPMMStates.addAll(innerPMMStates);
-        /*
-         * for (State state : AllPMMStates) { state.Terrain.PrintTerrain();
-         * System.out.println(state.score()); }
-         */
     }
 
     public MiniMax(Jeu j, PieceType type) {
@@ -285,6 +290,17 @@ public class MiniMax {
 
     public State bestMove;
 
+    /**
+     * This is a function that calculates all the possible outcomes of the current
+     * state of the game. It will try to make the most relevant move in the end.
+     * 
+     * @param currentState The current state of the game.
+     * @param maxDepth     The higher this value, the smarter the IA. Must be higher
+     *                     than 0.
+     * @param maxPlayer    true = AI. false = Human
+     * @return
+     * @author Alaa
+     */
     public int VanillaMiniMax(State currentState, int maxDepth, boolean maxPlayer) {
         if (maxDepth == 0) {
             bestMove = currentState;
@@ -306,11 +322,16 @@ public class MiniMax {
         }
     }
 
+    /**
+     * This function returns the most relevant "next" move.
+     * 
+     * @param game
+     * @return
+     */
     public State winningMove(Jeu game) {
         AllMMPStates.clear();
         AllMMPStates.clear();
         AllPMMStates.clear();
-        Terrain newTer = new Terrain();
         State s = new State(game);
         s.Terrain.PrintTerrain();
         ArrayList<State> bestOptions = new ArrayList<State>();
