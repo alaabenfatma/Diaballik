@@ -3,7 +3,9 @@ package Diaballik.Models.IA;
 import java.util.ArrayList;
 
 import Diaballik.Models.*;
-
+/**
+ * Heuristics
+ */
 class EvaluationConfig {
 
     int valueOfPiece = 10;

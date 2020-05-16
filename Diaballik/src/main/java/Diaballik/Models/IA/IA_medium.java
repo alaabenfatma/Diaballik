@@ -5,7 +5,19 @@ import java.util.Stack;
 
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.*;
-
+class Sauve {
+    int nbMove = 2;
+    int nbPasse = 1;
+    Terrain tr;
+    ArrayList<Position> Mouvement;
+    
+    public Sauve(int n,int b,Terrain t,ArrayList<Position> m){
+        nbMove = n;
+        nbPasse = b;
+        tr = t;
+        Mouvement = m;
+    }
+}
 public class IA_medium {
 
     int nbMove = 2;
