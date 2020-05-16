@@ -307,13 +307,13 @@ public class MiniMax {
             return Evaluator.scoreOfBoard(currentState.Terrain);
         }
         if (!maxPlayer) {
-            int bestScore = -9999;
+            int bestScore = Integer.MIN_VALUE;
             this.AI_TYPE = PieceType.White;
             int score = VanillaMiniMax(winningMove(currentState.Game), maxDepth - 1, false);
             bestScore = Math.max(bestScore, score);
             return bestScore;
         } else {
-            int bestScore = 9999;
+            int bestScore = Integer.MAX_VALUE;
             this.AI_TYPE = PieceType.Black;
 
             int score = VanillaMiniMax(winningMove(currentState.Game), maxDepth - 1, true);
