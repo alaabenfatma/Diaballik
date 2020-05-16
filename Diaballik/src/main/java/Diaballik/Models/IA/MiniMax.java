@@ -85,21 +85,27 @@ public class MiniMax {
      * @param currentState
      */
     public void MMP(State currentState) {
+        boolean foundVictory = false;
         ArrayList<State> innerMMPStates = new ArrayList<State>();
         ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE, currentState.Game.tr,
                 1);
         for (Couple_piece_pos couple : possibleMoves) {
-            for (Position pos : couple.pos) {
-                Position posMain = couple.piece.Position;
-                Terrain tmp = new Terrain(Game);
-                tmp.Create();
-                tmp._terrain = currentState.Terrain.Copy(tmp);
-                tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
-                State s = new State(tmp);
-                s.GameMode = Sequence.MMP;
-                s.firstMove = new FromTo(posMain, pos);
-                innerMMPStates.add(s);
-            }
+            if (!foundVictory)
+                for (Position pos : couple.pos) {
+                    Position posMain = couple.piece.Position;
+                    Terrain tmp = new Terrain(Game);
+                    tmp.Create();
+                    tmp._terrain = currentState.Terrain.Copy(tmp);
+                    tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                    State s = new State(tmp);
+                    s.GameMode = Sequence.MMP;
+                    s.firstMove = new FromTo(posMain, pos);
+                    innerMMPStates.add(s);
+                    if (Math.abs(s.score()) == 9999) {
+                        foundVictory = true;
+                        break;
+                    }
+                }
         }
         ArrayList<State> deepMMPStates = new ArrayList<State>();
 
@@ -107,18 +113,23 @@ public class MiniMax {
             ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
                     state.Terrain, 1);
             for (Couple_piece_pos couple : innerPossibleMoves) {
-                for (Position pos : couple.pos) {
-                    Position posMain = couple.piece.Position;
-                    Terrain tmp = new Terrain(Game);
-                    tmp.Create();
-                    tmp._terrain = state.Terrain.Copy(tmp);
-                    tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
-                    State s = new State(tmp);
-                    s.GameMode = Sequence.MMP;
-                    s.firstMove = state.firstMove;
-                    s.secondMove = new FromTo(posMain, pos);
-                    deepMMPStates.add(s);
-                }
+                if (!foundVictory)
+                    for (Position pos : couple.pos) {
+                        Position posMain = couple.piece.Position;
+                        Terrain tmp = new Terrain(Game);
+                        tmp.Create();
+                        tmp._terrain = state.Terrain.Copy(tmp);
+                        tmp._terrain[posMain.l][posMain.c].move(pos.l, pos.c);
+                        State s = new State(tmp);
+                        s.GameMode = Sequence.MMP;
+                        s.firstMove = state.firstMove;
+                        s.secondMove = new FromTo(posMain, pos);
+                        deepMMPStates.add(s);
+                        if (Math.abs(s.score()) == 9999) {
+                            foundVictory = true;
+                            break;
+                        }
+                    }
             }
         }
 
@@ -126,7 +137,8 @@ public class MiniMax {
             Piece ballHolder = state.Terrain.getPieceWithBall(AI_TYPE);
             ArrayList<Position> passes = ballHolder.passesPossibles();
             for (Position pos : passes) {
-
+                if (foundVictory)
+                    break;
                 Terrain tmp = new Terrain(Game);
                 tmp.Create();
                 tmp._terrain = state.Terrain.Copy(tmp);
@@ -139,6 +151,10 @@ public class MiniMax {
                 s.secondMove = state.secondMove;
                 s.pass = new FromTo(ballHolder.Position, pos);
                 AllMMPStates.add(s);
+                if (Math.abs(s.score()) == 9999) {
+                    foundVictory = true;
+                    break;
+                }
             }
         }
         // Merge the three lists of states
@@ -154,10 +170,13 @@ public class MiniMax {
      * @param currentState
      */
     public void MPM(State currentState) {
+        boolean foundVictory = false;
         ArrayList<State> innerMPMStates = new ArrayList<State>();
         ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE, currentState.Game.tr,
                 1);
         for (Couple_piece_pos couple : possibleMoves) {
+            if (foundVictory)
+                break;
             for (Position pos : couple.pos) {
                 Position posMain = couple.piece.Position;
                 Terrain tmp = new Terrain(Game);
@@ -168,14 +187,19 @@ public class MiniMax {
                 s.GameMode = Sequence.MPM;
                 s.firstMove = new FromTo(posMain, pos);
                 innerMPMStates.add(s);
+                if (Math.abs(s.score()) == 9999) {
+                    foundVictory = true;
+                    break;
+                }
             }
         }
         ArrayList<State> deepMPMStates = new ArrayList<State>();
         for (State state : innerMPMStates) {
+            if (foundVictory)
+                break;
             Piece ballHolder = state.Terrain.getPieceWithBall(AI_TYPE);
             ArrayList<Position> passes = ballHolder.passesPossibles();
             for (Position pos : passes) {
-
                 Terrain tmp = new Terrain(Game);
                 tmp.Create();
                 tmp._terrain = state.Terrain.Copy(tmp);
@@ -187,12 +211,18 @@ public class MiniMax {
                 s.firstMove = state.firstMove;
                 s.pass = new FromTo(ballHolder.Position, pos);
                 deepMPMStates.add(s);
+                if (Math.abs(s.score()) == 9999) {
+                    foundVictory = true;
+                    break;
+                }
             }
         }
         for (State state : deepMPMStates) {
             ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
                     state.Terrain, 1);
             for (Couple_piece_pos couple : innerPossibleMoves) {
+                if (foundVictory)
+                    break;
                 for (Position pos : couple.pos) {
                     Position posMain = couple.piece.Position;
                     Terrain tmp = new Terrain(Game);
@@ -205,6 +235,10 @@ public class MiniMax {
                     s.secondMove = new FromTo(posMain, pos);
                     s.pass = state.pass;
                     AllMPMStates.add(s);
+                    if (Math.abs(s.score()) == 9999) {
+                        foundVictory = true;
+                        break;
+                    }
                 }
             }
         }
@@ -221,13 +255,15 @@ public class MiniMax {
      * @param currentState
      */
     public void PMM(State currentState) {
+        boolean foundVictory = false;
 
         Piece ballHolder = currentState.Terrain.getPieceWithBall(AI_TYPE);
         ArrayList<Position> passes = ballHolder.passesPossibles();
         ArrayList<State> innerPMMStates = new ArrayList<State>();
 
         for (Position pos : passes) {
-
+            if (foundVictory)
+                break;
             Terrain tmp = new Terrain(Game);
             tmp.Create();
             tmp._terrain = currentState.Terrain.Copy(tmp);
@@ -238,6 +274,10 @@ public class MiniMax {
             s.pass = new FromTo(ballHolder.Position, pos);
 
             innerPMMStates.add(s);
+            if (Math.abs(s.score()) == 9999) {
+                foundVictory = true;
+                break;
+            }
         }
         ArrayList<State> deepPMMStates = new ArrayList<State>();
 
@@ -245,6 +285,8 @@ public class MiniMax {
             ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
                     state.Terrain, 1);
             for (Couple_piece_pos couple : innerPossibleMoves) {
+                if (foundVictory)
+                    break;
                 for (Position pos : couple.pos) {
                     Position posMain = couple.piece.Position;
                     Terrain tmp = new Terrain(Game);
@@ -256,6 +298,10 @@ public class MiniMax {
                     s.pass = state.pass;
                     s.firstMove = new FromTo(posMain, pos);
                     deepPMMStates.add(s);
+                    if (Math.abs(s.score()) == 9999) {
+                        foundVictory = true;
+                        break;
+                    }
                 }
             }
         }
@@ -263,6 +309,8 @@ public class MiniMax {
             ArrayList<Couple_piece_pos> innerPossibleMoves = IA_utils.getAllPossibleMovesDistance(AI_TYPE,
                     state.Terrain, 1);
             for (Couple_piece_pos couple : innerPossibleMoves) {
+                if (foundVictory)
+                    break;
                 for (Position pos : couple.pos) {
                     Position posMain = couple.piece.Position;
                     Terrain tmp = new Terrain(Game);
@@ -275,6 +323,10 @@ public class MiniMax {
                     s.firstMove = state.firstMove;
                     s.secondMove = new FromTo(posMain, pos);
                     AllPMMStates.add(s);
+                    if (Math.abs(s.score()) == 9999) {
+                        foundVictory = true;
+                        break;
+                    }
                 }
             }
         }
