@@ -285,7 +285,7 @@ public class MiniMax {
 
     public State bestMove;
 
-    public int AlphaBetaMiniMax(State currentState, int maxDepth, int alpha, int beta, boolean maxPlayer) {
+    public int VanillaMiniMax(State currentState, int maxDepth, boolean maxPlayer) {
         if (maxDepth == 0) {
             bestMove = currentState;
             return Evaluator.scoreOfBoard(currentState.Terrain);
@@ -293,14 +293,14 @@ public class MiniMax {
         if (!maxPlayer) {
             int bestScore = -9999;
             this.AI_TYPE = PieceType.White;
-            int score = AlphaBetaMiniMax(winningMove(currentState.Game), maxDepth - 1, alpha, beta, false);
+            int score = VanillaMiniMax(winningMove(currentState.Game), maxDepth - 1, false);
             bestScore = Math.max(bestScore, score);
             return bestScore;
         } else {
             int bestScore = 9999;
             this.AI_TYPE = PieceType.Black;
 
-            int score = AlphaBetaMiniMax(winningMove(currentState.Game), maxDepth - 1, alpha, beta, true);
+            int score = VanillaMiniMax(winningMove(currentState.Game), maxDepth - 1, true);
             bestScore = Math.min(bestScore, score);
             return bestScore;
         }

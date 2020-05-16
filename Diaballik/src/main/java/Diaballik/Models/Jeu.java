@@ -107,7 +107,7 @@ public class Jeu extends Observable {
                     iaRandomIHM.JoueTourIARand();
                     break;
                 case difficile:
-                    minimax.AlphaBetaMiniMax(new State(this),2, 0, 0, true);
+                    minimax.VanillaMiniMax(new State(this), 2, true);
                     State bestState = minimax.bestMove;
                     JoueTourIAMiniMax(bestState);
                     // this.tr._terrain = bestState.Terrain.Copy(this.tr);
@@ -144,7 +144,7 @@ public class Jeu extends Observable {
                         iaRandomIHM.JoueTourIARand();
                         break;
                     case difficile:
-                        minimax.AlphaBetaMiniMax(new State(this), 2, 0, 0, true);
+                        minimax.VanillaMiniMax(new State(this), 2, true);
                         State bestState = minimax.bestMove;
                         JoueTourIAMiniMax(bestState);
                         // this.tr._terrain = bestState.Terrain.Copy(this.tr);
