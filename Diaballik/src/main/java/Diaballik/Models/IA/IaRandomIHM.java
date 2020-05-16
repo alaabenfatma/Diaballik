@@ -1,4 +1,4 @@
-package Diaballik.IA;
+package Diaballik.Models.IA;
 
 import Diaballik.Models.Jeu;
 import java.util.ArrayList;

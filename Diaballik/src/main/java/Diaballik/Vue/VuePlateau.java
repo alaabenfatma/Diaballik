@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-import Diaballik.IA.Couple;
+import Diaballik.Models.IA.*;
 import Diaballik.Models.Jeu;
 import Diaballik.Models.PieceType;
 

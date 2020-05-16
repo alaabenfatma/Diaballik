@@ -1,4 +1,4 @@
-package Diaballik.IA;
+package Diaballik.Models.IA;
 
 import java.util.ArrayList;
 import java.util.Random;

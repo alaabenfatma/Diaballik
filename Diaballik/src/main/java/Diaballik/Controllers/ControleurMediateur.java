@@ -3,7 +3,7 @@ package Diaballik.Controllers;
 import Diaballik.Models.Jeu;
 import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
-import Diaballik.IA.*;
+import Diaballik.Models.IA.*;
 
 public class ControleurMediateur implements CollecteurEvenements {
 

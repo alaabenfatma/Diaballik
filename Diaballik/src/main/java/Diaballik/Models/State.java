@@ -1,5 +1,5 @@
 package Diaballik.Models;
-import Diaballik.IA.*;
+import Diaballik.Models.IA.*;
 
 public class State implements Comparable{
     public Sequence GameMode;
