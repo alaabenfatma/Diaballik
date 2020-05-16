@@ -72,6 +72,9 @@ public class Evaluator {
             ArrayList<Position> passesPossibles = p.Parent.getPieceWithBall(p.Type).passesPossibles();
             if (passesPossibles.contains(p.Position)) {
                 score += heuristics.diagonalBonus;
+                if (p.Position.l == 0) {
+                    score += 999;
+                }
             }
             if (p.Position.l == 0) {
                 score += heuristics.onOtherSide;
@@ -85,6 +88,9 @@ public class Evaluator {
             ArrayList<Position> passesPossibles = p.Parent.getPieceWithBall(p.Type).passesPossibles();
             if (passesPossibles.contains(p.Position)) {
                 score -= heuristics.diagonalBonus;
+                if (p.Position.l == 6) {
+                    score -= 999;
+                }
             }
             if (p.Position.l == 6) {
                 score -= heuristics.onOtherSide;
