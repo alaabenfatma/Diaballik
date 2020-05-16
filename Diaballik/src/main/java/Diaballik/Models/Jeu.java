@@ -82,7 +82,7 @@ public class Jeu extends Observable {
 
             iaRandomIHM = new IaRandomIHM(this);
             iaEasy = new IA_easy(this);
-            minimax = new MiniMax(null, PieceType.Black);
+            minimax = new MiniMax(this, PieceType.Black);
 
         } else {
             IA = false;
@@ -107,7 +107,8 @@ public class Jeu extends Observable {
                     iaRandomIHM.JoueTourIARand();
                     break;
                 case difficile:
-                    State bestState = minimax.winningMove(this);
+                    minimax.AlphaBetaMiniMax(new State(this), 3, 0, 0, true);
+                    State bestState = minimax.bestMove;
                     JoueTourIAMiniMax(bestState);
                     // this.tr._terrain = bestState.Terrain.Copy(this.tr);
                     break;
@@ -115,19 +116,7 @@ public class Jeu extends Observable {
                     break;
             }
         } else if (IaVSIa) {
-            Thread t = new Thread() {
-                public void run() {
-                    try {
-                        Thread.sleep(500);
-                        iaRandomIHM.JoueTourIARand();
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                   
-                }
-            };
-            t.start();
+            iaRandomIHM.JoueTourIARand();
         }
 
     }
@@ -155,7 +144,8 @@ public class Jeu extends Observable {
                         iaRandomIHM.JoueTourIARand();
                         break;
                     case difficile:
-                        State bestState = minimax.winningMove(this);
+                        minimax.AlphaBetaMiniMax(new State(this), 3, 0, 0, true);
+                        State bestState = minimax.bestMove;
                         JoueTourIAMiniMax(bestState);
                         // this.tr._terrain = bestState.Terrain.Copy(this.tr);
                         // this.tr.PrintTerrain();

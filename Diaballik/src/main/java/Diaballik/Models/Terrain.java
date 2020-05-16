@@ -132,7 +132,13 @@ public class Terrain implements ITerrain {
         }
         return copy;
     }
+    public Terrain(){
 
+    }
+
+    public Terrain(Jeu j){
+        this._jeuParent = j;
+    }
     // retourne le type de piece qui a gagnée
     public PieceType victoire() {
         for (int i = 0; i < this.taille(); i++) {

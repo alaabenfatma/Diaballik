@@ -17,6 +17,7 @@ public class State implements Comparable{
     }
     public State(Terrain tr){
         Terrain = tr;
+        Game = tr._jeuParent;
     }
 
     @Override
