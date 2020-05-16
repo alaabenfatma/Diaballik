@@ -25,10 +25,14 @@ public class Commandes implements Runnable {
 				else if(cmd.equalsIgnoreCase("total")) {
 					System.out.println("Nombre de connexions : " + Serv.nbClient());
 				}
+				else if(cmd.equalsIgnoreCase("para")) {
+					Serveur.paraPartie();
+				}
 				else {
-					System.out.println("Commande inconnu !");
+					System.out.println("Commande inconnue !");
 					System.out.println(" - quit");
 					System.out.println(" - total");
+					System.out.println(" - para");
 				}
 				System.out.flush();
 			}
