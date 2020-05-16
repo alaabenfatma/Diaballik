@@ -15,7 +15,7 @@ public class Serveur {
 	private static int port = 4242;// si 0 prend le premier libre
 	private static InetAddress add;
 	private ArrayList<PrintWriter> AllClient = new ArrayList<PrintWriter>(); // contient tous les flux de sortie vers les clients
-	private static int nbC;
+	private static int nbC = 0;
 	private static ServerSocket sS;
 	
 	public static void main(String[] args) {
@@ -71,7 +71,7 @@ public class Serveur {
 		nbC++;
 	}
 	synchronized public int nbClient() {
-		return AllClient.size()-1;
+		return nbC;
 	}
 	synchronized public void sendAllClient(String message,String sLast){
 	    PrintWriter out;
