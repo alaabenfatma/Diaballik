@@ -19,5 +19,15 @@
 	"priorite" : "الأولويّة",
 	"retour" : "عودة",
 	"personnaliser" : "تعديل",
-	"jouer" : "إلعب"
+	"jouer" : "إلعب",
+	
+	"creerPartieReseau" : "إلعب على الشبكة",
+	"rejoindrePartieReseau" : "إلعب أونلاين",
+	"menuPrincipal" : "القائمة الرئيسية",
+	
+	"nomJoueurlabel": "إسم اللاعب : ",
+	"nomJoueurTextArea": "اللاعب الأوّل",
+	
+	"attenteTitre": "في إنتظار الخصم",
+	"codelabel" : "الكود"
  }
