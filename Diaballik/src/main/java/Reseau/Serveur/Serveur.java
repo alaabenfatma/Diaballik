@@ -12,7 +12,7 @@ import java.net.SocketTimeoutException;
 
 public class Serveur {
 	// Serveur = Joueur qui créer une partie
-	private static int port;// si 0 prend le premier libre
+	private static int port = 4242;// si 0 prend le premier libre
 	private static InetAddress add;
 	private ArrayList<PrintWriter> AllClient = new ArrayList<PrintWriter>(); // contient tous les flux de sortie vers les clients
 	private static int nbC = 0;
@@ -24,12 +24,15 @@ public class Serveur {
 		try {
 			new Commandes( Serv ); // Lance el thread de la gestion des commandes
 		
-			sS = new ServerSocket( 0 ); // Ouverture d'une socket
+			sS = new ServerSocket( port ); // Ouverture d'une socket
 			port = sS.getLocalPort(); // récupère le port 
 			info();
 			while(true) { // Attente d'une connexion
 				if(nbC==0) {
 					sS.setSoTimeout(10000); // attente d'une connexion (10s) avant de crash(se règle avec le catch)
+				}
+				else if(nbC == 1) {
+					sS.setSoTimeout(0); // attente d'une connexion (infini)
 				}
 				new Connexion(sS.accept(),Serv); // Lance le thread du nouveau client
 			}
