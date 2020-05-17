@@ -242,7 +242,6 @@ public class Plateau implements Runnable, Observateur {
         boutonRecommencer.setVisible(false);
         boutonRecommencer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                timer.stop();
                 j.init();
                 j.start();
             }
