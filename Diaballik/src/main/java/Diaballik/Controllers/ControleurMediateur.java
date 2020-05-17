@@ -29,10 +29,8 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void refait() {
-		jeu.tr.PrintTerrain();
-		jeu.tr.ctrl_y();
+		jeu.jctrl_y();
 		System.out.println("Refait");
-		jeu.tr.PrintTerrain();
 	}
 
 	public void finTour() {
