@@ -18,12 +18,12 @@ public class Plateau implements Runnable, Observateur {
     JFrame frame;
     JButton boutonMenu = new JButton("Menu");
     JButton boutonFinTour = new JButton("Fin du tour");
-	ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper = new ObjectMapper();
     JButton boutonRecommencer = new JButton("Recommencer");
     JButton boutonRejouer = new JButton("Rejouer");
-	JButton sound = new JButton();
-	JButton drapeau = new JButton();
-	JButton suggestion = new JButton("Suggestion coup");
+    JButton sound = new JButton();
+    JButton drapeau = new JButton();
+    JButton suggestion = new JButton("Suggestion");
     JLabel boutonInfo;
     PlateauGraphique plat;
     Jeu j;
@@ -63,9 +63,11 @@ public class Plateau implements Runnable, Observateur {
         c.ajouteInterfaceUtilisateur(vue);
         SwingUtilities.invokeLater(vue);
     }
-    public static void setEnabled(){
-        
+
+    public static void setEnabled() {
+
     }
+
     public void run() {
         // Creation d'une fenetre
         frame = new JFrame("Diaballik");
@@ -73,7 +75,7 @@ public class Plateau implements Runnable, Observateur {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (interHM.blang == false) {
-                	if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
+                    if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
                         if (msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder") == 0) {
                             control.toucheClavier("Save");
                         }
@@ -83,7 +85,7 @@ public class Plateau implements Runnable, Observateur {
                         return;
                     }
                 } else {
-                	if (msgBox.msgYesNo("Do you want to quit?", "Quit") == 0) {
+                    if (msgBox.msgYesNo("Do you want to quit?", "Quit") == 0) {
                         if (msgBox.msgYesNo("Do you want to save ?", "Save") == 0) {
                             control.toucheClavier("Save");
                         }
@@ -93,8 +95,7 @@ public class Plateau implements Runnable, Observateur {
                         return;
                     }
                 }
-            	
-            	
+
             }
         });
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -106,101 +107,106 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.setOpaque(true);
         boiteTexte.setBackground(Color.lightGray);
 
-        // bouton info
         Image img = null;
-        
         try {
-            
-        	img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-        	son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-    		sound.setIcon(new ImageIcon(mute));
-    		
-    		if (interHM.blang == false) {
-				drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
-	    		drapeau.setIcon(new ImageIcon(drapeauGB));
-	    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
-	    		boutonFinTour.setText(wEn.finTour);
-	    		buttonViewArrow.setText(wEn.indicateur);
-	    		mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
-	    		passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
-	    		
-	    		interHM.blang = true;
-	    		
-			} else {
-				drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
-	    		drapeau.setIcon(new ImageIcon(drapeauFr));
-	    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
-	    		boutonFinTour.setText(wFr.finTour);
-	    		buttonViewArrow.setText(wFr.indicateur);
-	    		mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
-	    		passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
-	    		
-	    		interHM.blang = false;
-			}
-    		
+
+            img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
+                    Image.SCALE_DEFAULT);
+            son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(20, 20,
+                    Image.SCALE_DEFAULT);
+            mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(20, 20,
+                    Image.SCALE_DEFAULT);
+            sound.setIcon(new ImageIcon(mute));
+
+            if (interHM.blang == false) {
+                drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20,
+                        20, Image.SCALE_DEFAULT);
+                drapeau.setIcon(new ImageIcon(drapeauGB));
+                words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
+                boutonFinTour.setText(wEn.finTour);
+                buttonViewArrow.setText(wEn.indicateur);
+                mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
+                passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
+
+                interHM.blang = true;
+
+            } else {
+                drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png")))
+                        .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+                drapeau.setIcon(new ImageIcon(drapeauFr));
+                words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
+                boutonFinTour.setText(wFr.finTour);
+                buttonViewArrow.setText(wFr.indicateur);
+                mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
+                passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
+
+                interHM.blang = false;
+            }
+
         } catch (Exception e) {
             System.out.println(e);
         }
-        
-        boiteTexte.add(drapeau);
-        boiteTexte.add(sound);
-        boiteTexte.add(suggestion);
-        
-        sound.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	try {
-    				if (interHM.bmute == false) { 
-    		    		sound.setIcon(new ImageIcon(mute));
-    		    		interHM.bmute = true;
-    				} else {
-    		    		sound.setIcon(new ImageIcon(son));
-    		    		interHM.bmute = false;
-    				}
-    					
-    	    	}
-    	    	catch (Exception e1) {
-    	    		System.out.println(e1);
-    	    	}
-            } 
-        } );
-    
-        drapeau.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	try {
-    				if (interHM.blang == false) {
-    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
-    		    		drapeau.setIcon(new ImageIcon(drapeauGB));
-    		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
-    		    		
-    		    		boutonFinTour.setText(wEn.finTour);
-    		    		buttonViewArrow.setText(wEn.indicateur);
-    		    		mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
-    		    		passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
-    		    		
-    		    		interHM.blang = true;
-    		    		
-    				} else {
-    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
-    		    		drapeau.setIcon(new ImageIcon(drapeauFr));
-    		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
 
-       		    		boutonFinTour.setText(wFr.finTour);
-    		    		buttonViewArrow.setText(wFr.indicateur);
-    		    		mouvements.setText(wFr.deplacements + " : " +  j.joueurCourant.nbMove);
-    		    		passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
-    		    		
-    		    		
-    		    		interHM.blang = false;
-    		    		
-    				}
-    			}
-    			catch (Exception e1) {
-    				System.out.println(e1);
-    			}
-            } 
-        } );
-          
+        Box option = Box.createHorizontalBox();
+        option.add(drapeau);
+        option.add(sound);
+
+        sound.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (interHM.bmute == false) {
+                        sound.setIcon(new ImageIcon(mute));
+                        interHM.bmute = true;
+                    } else {
+                        sound.setIcon(new ImageIcon(son));
+                        interHM.bmute = false;
+                    }
+
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+            }
+        });
+
+        drapeau.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (interHM.blang == false) {
+                        drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg"))
+                                .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+                        drapeau.setIcon(new ImageIcon(drapeauGB));
+                        words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"),
+                                words.class);
+
+                        boutonFinTour.setText(wEn.finTour);
+                        buttonViewArrow.setText(wEn.indicateur);
+                        mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
+                        passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
+
+                        interHM.blang = true;
+
+                    } else {
+                        drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png")))
+                                .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+                        drapeau.setIcon(new ImageIcon(drapeauFr));
+                        words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"),
+                                words.class);
+
+                        boutonFinTour.setText(wFr.finTour);
+                        buttonViewArrow.setText(wFr.indicateur);
+                        mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
+                        passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
+
+                        interHM.blang = false;
+
+                    }
+                } catch (Exception e1) {
+                    System.out.println(e1);
+                }
+            }
+        });
+
+        // bouton info
         boutonInfo = new JLabel(new ImageIcon(img));
         String sInfo = "<html> <b>Raccourcis : </b> <br> f : fin du tour <br> z : annuler <br> y : refaire  <br> s : sauvegarder <br> r : recommencer <br> echap : plein écran <br> q : quitter  </html>  ";
         boutonInfo.setToolTipText(sInfo);
@@ -372,12 +378,33 @@ public class Plateau implements Runnable, Observateur {
          * 
          * } });
          */
+        // suggestion
+        boiteTexte.add(Box.createGlue());
+        suggestion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        boiteTexte.add(suggestion);
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
+
+        // Annuler / refaire
+        BoutonAnnuler annuler = new BoutonAnnuler(j);
+        annuler.setFocusable(false);
+        annuler.setToolTipText("Annuler un coup");
+        BoutonRefaire refaire = new BoutonRefaire(j);
+        refaire.setFocusable(false);
+        refaire.setToolTipText("Refaire un  coup");
+        Box annulerRefaire = Box.createHorizontalBox();
+        annulerRefaire.add(annuler);
+        annulerRefaire.add(refaire);
+        annulerRefaire.setAlignmentX(Component.CENTER_ALIGNMENT);
+        annulerRefaire.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+        boiteTexte.add(annulerRefaire);
+        boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // Retransmission des évènements au contrôleur
         plat.addMouseListener(new AdaptateurSouris(plat, control));
         frame.addKeyListener(new AdaptateurClavier(control));
-        // Timer chrono = new Timer(dureeTour, new AdaptateurTemps(control));
         boutonFinTour.addActionListener(new AdaptateurFinTour(control));
+        annuler.addActionListener(new AdaptateurAnnuler(control));
+        refaire.addActionListener(new AdaptateurRefaire(control));
 
         // Mise en place de l'interface
         boiteTexte.setPreferredSize(new Dimension(170, 600));
@@ -386,9 +413,7 @@ public class Plateau implements Runnable, Observateur {
         plat.setPreferredSize(new Dimension(600, 600));
         frame.add(plat, BorderLayout.CENTER);
         j.ajouteObservateur(this);
-        // chrono.start();
         frame.pack();
-        // frame.setSize(700, 600);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
