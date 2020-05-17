@@ -3,9 +3,6 @@ package Reseau.Serveur;
 import java.util.Scanner;
 
 public class Partie {
-
-    
-
     public static void paraPartie(Diaballik.Models.ConfigJeu C){		
 		C.setMode(Diaballik.Models.ConfigJeu.Mode.humain);
 		Scanner saisie = new Scanner(System.in);
