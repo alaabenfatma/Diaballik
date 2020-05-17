@@ -380,6 +380,7 @@ public class Plateau implements Runnable, Observateur {
          */
         // suggestion
         boiteTexte.add(Box.createGlue());
+        suggestion.setFocusable(false);
         suggestion.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(suggestion);
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
