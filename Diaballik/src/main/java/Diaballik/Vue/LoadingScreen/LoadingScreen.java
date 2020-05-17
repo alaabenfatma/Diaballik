@@ -1,3 +1,6 @@
+/**
+ * GIF ARTIST : https://www.pinterest.fr/dribbble/
+ */
 package Diaballik.Vue.LoadingScreen;
 
 import javax.swing.*;

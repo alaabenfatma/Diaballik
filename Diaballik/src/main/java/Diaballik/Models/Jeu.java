@@ -110,10 +110,16 @@ public class Jeu extends Observable {
                         public void run() {
                             try {
 
-                                minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
-                                State bestState = minimax.bestMove;
-                                JoueTourIAMiniMax(bestState);
-                                minimax.loadingScreen.Hide();
+                                minimax.loadingScreen.Show();
+                                Runnable r = new Runnable() {
+                                    public void run() {
+                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                                        State bestState = minimax.bestMove;
+                                        JoueTourIAMiniMax(bestState);
+                                        minimax.loadingScreen.Hide();
+                                    }
+                                };
+                                new Thread(r).start();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -154,17 +160,17 @@ public class Jeu extends Observable {
                         break;
                     case difficile:
 
-                        // minimax.loadingScreen.Show();
+                        minimax.loadingScreen.Show();
                         Runnable r = new Runnable() {
                             public void run() {
-
-                                // minimax.loadingScreen.Hide();
+                                minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                                State bestState = minimax.bestMove;
+                                JoueTourIAMiniMax(bestState);
+                                minimax.loadingScreen.Hide();
                             }
                         };
                         new Thread(r).start();
-                        minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
-                        State bestState = minimax.bestMove;
-                        JoueTourIAMiniMax(bestState);
+
                         // this.tr._terrain = bestState.Terrain.Copy(this.tr);
                         // this.tr.PrintTerrain();
                         //
