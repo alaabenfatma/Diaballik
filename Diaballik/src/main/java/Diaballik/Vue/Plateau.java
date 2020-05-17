@@ -125,6 +125,7 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
 
         // indicateur de mouvements
+        buttonViewArrow.setSelected(true);
         buttonViewArrow.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {

@@ -15,7 +15,7 @@ public class VuePlateau extends PlateauGraphique {
     Image caseA, caseB, pionA_ballon, pionB_ballon, pionA_bas, pionB_bas;
     int hauteurCase, largeurCase;
     Jeu j;
-    public static boolean viewArrow;
+    public static boolean viewArrow = true;
 
     VuePlateau(Jeu jeu) {
         try {
