@@ -111,6 +111,7 @@ public class Plateau implements Runnable, Observateur {
                 f.setSize(700, 530);
                 f.setLayout(null);
                 MenuEnJeu m = new MenuEnJeu(f, frame);
+                m.SetControl(control);
                 f.setContentPane(m);
                 f.setVisible(true);
             }

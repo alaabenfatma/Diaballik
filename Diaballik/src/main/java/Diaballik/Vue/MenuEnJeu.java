@@ -15,6 +15,12 @@ public class MenuEnJeu extends JPanel {
     JButton quit = new JButton("Quitter");
     boolean mute = false;
     playSound ps = new playSound();
+    CollecteurEvenements control;
+
+    public void SetControl( CollecteurEvenements c){
+    control = c;
+
+    }
 
     public MenuEnJeu(final JFrame frame, final JFrame plateau) {
         frame.setSize(600, 530);
@@ -48,6 +54,7 @@ public class MenuEnJeu extends JPanel {
 
         sauvegarde.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                control.toucheClavier("Save");
             }
         });
 
