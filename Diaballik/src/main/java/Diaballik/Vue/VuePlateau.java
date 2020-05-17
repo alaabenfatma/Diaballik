@@ -29,7 +29,7 @@ public class VuePlateau extends PlateauGraphique {
             pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("img/pionB_bas.png")));
 
         } catch (IOException e) {
-            
+
         }
     }
 
@@ -121,6 +121,13 @@ public class VuePlateau extends PlateauGraphique {
                         cpl.p1.l * hauteurCase + hauteurCase / 2, cpl.p2.c * largeurCase + largeurCase / 2,
                         cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
             }
+            if (j.suggetionCoup != null) {
+                drawArrowLine(Color.lightGray, j.suggetionCoup.From.c * largeurCase + largeurCase / 2,
+                        j.suggetionCoup.From.l * hauteurCase + hauteurCase / 2,
+                        j.suggetionCoup.To.c * largeurCase + largeurCase / 2,
+                        j.suggetionCoup.To.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
+            }
+
         }
     }
 }

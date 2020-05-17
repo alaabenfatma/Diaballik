@@ -47,6 +47,7 @@ public class Jeu extends Observable {
     Stack<Couple> stackY = new Stack<Couple>();
     public boolean antijeuBool;
     public boolean IaVSIa = false;
+    public FromTo suggetionCoup = null;
 
     public Jeu() {
         tr = new Terrain();
@@ -126,7 +127,6 @@ public class Jeu extends Observable {
                             }
                         }
                     });
-
                     break;
                 default:
                     break;
@@ -213,6 +213,7 @@ public class Jeu extends Observable {
     }
 
     public void SelectionPiece(int l, int c) {
+        suggetionCoup = null;
         if ((0 > l || l > 6 || 0 > c || c > 6) || gameOver)
             return;
         Piece select = tr._terrain[l][c];
@@ -588,6 +589,31 @@ public class Jeu extends Observable {
         FinTour();
     }
 
+    public void suggestion() {
+        MiniMax mimax = new MiniMax(this, joueurCourant.couleur);
+        State sugState = mimax.winningMove(this);
+        switch (sugState.GameMode) {
+            case MMP:
+                if (sugState.firstMove != null) {
+                    suggetionCoup = sugState.firstMove;
+                }
+                break;
+            case MPM:
+                if (sugState.firstMove != null) {
+                    suggetionCoup = sugState.firstMove;
+                }
+                break;
+            case PMM:
+                if (sugState.pass != null) {
+                    suggetionCoup = sugState.pass;
+                }
+                break;
+            default:
+                break;
+        }
+        metAJour();
+    }
+
     // mode textuelle
     public Piece getPiece(PieceType t) {
         Scanner sc = new Scanner(System.in);
@@ -880,7 +906,7 @@ public class Jeu extends Observable {
     public String JSONfromGame(Jeu j) {
         JeuJSON jte = new JeuJSON(j);
         ObjectMapper objectMapper = new ObjectMapper();
-        String json="";
+        String json = "";
         try {
             json = objectMapper.writeValueAsString(jte);
         } catch (JsonProcessingException e) {
@@ -888,7 +914,7 @@ public class Jeu extends Observable {
             e.printStackTrace();
         }
         return json;
-      
+
     }
 
     public void ExportGameToJSON(Jeu j) {
