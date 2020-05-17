@@ -20,6 +20,7 @@ import Diaballik.Patterns.Observable;
 import Diaballik.Vue.Plateau;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -953,7 +954,21 @@ public class Jeu extends Observable {
         j.test_Coup_Gagnant_IA_P(j.tr);
         // j.move();
     }
-
+    
+    public String JSONfromGame(Jeu j) {
+        JeuJSON jte = new JeuJSON(j);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json="";
+        try {
+            json = objectMapper.writeValueAsString(jte);
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return json;
+      
+    }
+    
     public void ExportGameToJSON(Jeu j) {
         JeuJSON jte = new JeuJSON(j);
         ObjectMapper objectMapper = new ObjectMapper();
