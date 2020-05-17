@@ -90,19 +90,4 @@ public class Serveur {
 	    }
 	}
 
-	public static void paraPartie(){
-		Diaballik.Models.ConfigJeu C = new Diaballik.Models.ConfigJeu();
-		C.setMode(Diaballik.Models.ConfigJeu.Mode.humain);
-		Scanner saisie = new Scanner(System.in);
-		System.out.println("Veuillez saisir la durée du timer :");
-		String timer = saisie.next();
-		System.out.println("Veuillez saisir le nom du joueur1 :");
-		String name1 = saisie.next();
-		System.out.println("Veuillez saisir le nom du joueur2 :");
-		String name2 = saisie.next();
-		System.out.println("Veuillez saisir j1 si le joueur1 joue en premier, j2 sinon :");
-		String premier = saisie.next();
-	}
-
-
 }

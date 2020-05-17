@@ -26,7 +26,8 @@ public class Commandes implements Runnable {
 					System.out.println("Nombre de connexions : " + Serv.nbClient());
 				}
 				else if(cmd.equalsIgnoreCase("para")) {
-					Serveur.paraPartie();
+					Diaballik.Models.ConfigJeu C = new Diaballik.Models.ConfigJeu();
+					Partie.paraPartie(C);
 				}
 				else {
 					System.out.println("Commande inconnue !");
