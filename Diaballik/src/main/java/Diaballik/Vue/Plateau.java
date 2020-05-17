@@ -123,8 +123,10 @@ public class Plateau implements Runnable, Observateur {
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     VuePlateau.viewArrow = true;
+                    j.metAJour();
                 } else {
                     VuePlateau.viewArrow = false;
+                    j.metAJour();
                 }
                 ;
             }
