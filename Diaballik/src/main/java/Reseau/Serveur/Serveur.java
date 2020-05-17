@@ -95,5 +95,12 @@ public class Serveur {
 			out.flush();
 		}
 	}
+	synchronized public void C_total(int Client) {
+		out = AllClient.get(Client);
+		if(out != null) {
+			out.println(AllClient.size());
+			out.flush();
+		}
+	}
 
 }
