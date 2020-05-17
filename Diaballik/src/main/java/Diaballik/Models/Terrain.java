@@ -234,6 +234,7 @@ public class Terrain implements ITerrain {
         if (coups.size() == 0) {
             return;
         }
+        ctrly.add(new InfCoups(clone(), _jeuParent.joueurCourant,_jeuParent.joueurCourant.nbMove,_jeuParent.joueurCourant.passeDispo));
         _terrain = new Piece[taille][taille];
         for (int l = 0; l < taille; l++) {
             for (int c = 0; c < taille; c++) {
@@ -263,7 +264,15 @@ public class Terrain implements ITerrain {
                 _terrain[l][c] = ctrly.peek().tr.getTerrain()[l][c];
             }
         }
-
+        _jeuParent.joueurCourant = ctrly.peek().jCourant;
+        _jeuParent.joueurCourant.nbMove = ctrly.peek().moves;
+        _jeuParent.joueurCourant.passeDispo = ctrly.peek().passes;
+        ctrly.pop();
+        if (_jeuParent.joueur2.n == TypeJoueur.IA) {
+            while (_jeuParent.joueurCourant != _jeuParent.joueur1) {
+                ctrl_y();
+            }
+        }
     }
 
     public char[][] toChar() {
