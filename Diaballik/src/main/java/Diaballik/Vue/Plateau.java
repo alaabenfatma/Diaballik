@@ -406,6 +406,7 @@ public class Plateau implements Runnable, Observateur {
         boutonFinTour.addActionListener(new AdaptateurFinTour(control));
         annuler.addActionListener(new AdaptateurAnnuler(control));
         refaire.addActionListener(new AdaptateurRefaire(control));
+        suggestion.addActionListener(new AdaptateurSuggestion(control));
 
         // Mise en place de l'interface
         boiteTexte.setPreferredSize(new Dimension(170, 600));

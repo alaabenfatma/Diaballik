@@ -17,7 +17,6 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	@Override
 	public void clicSouris(int l, int c) {
-		System.out.printf("Mouse position : (%d,%d)\n", l, c);
 		jeu.SelectionPiece(l, c);
 		
 
@@ -43,7 +42,6 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	public void save() {
 		jeu.ExportGameToJSON(jeu);
-		
 	}
 
 	public void replay() {
@@ -65,10 +63,12 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	public void IAvsIA() {
 		jeu.IaVSIa = true;
-		
-
 	}
 
+	public void suggestion(){
+		jeu.suggestion();
+	}
+	
 	@Override
 	public void toucheClavier(String touche) {
 		switch (touche) {
@@ -96,6 +96,8 @@ public class ControleurMediateur implements CollecteurEvenements {
 			case "IAvsIA":
 				IAvsIA();
 				break;
+			case "Suggestion":
+				suggestion();
 			default:
 				
 		}
