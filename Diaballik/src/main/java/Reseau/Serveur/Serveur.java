@@ -102,5 +102,34 @@ public class Serveur {
 			out.flush();
 		}
 	}
+	synchronized public void C_test_Json(int Client,String message){
+		if(Client == 0) {
+			out = AllClient.get(1);
+			if(out != null) {
+				out.println("rep");
+				out.flush();
+				
+				out.println(message);
+				out.flush();
+				
+				out = AllClient.get(0);
+				out.println("ok");
+				out.flush();
+			}
+		}else {
+			out = AllClient.get(0);
+			if(out != null) {
+				out.println("rep");
+				out.flush();
+				
+				out.println(message);
+				out.flush();
+				
+				out = AllClient.get(1);
+				out.println("ok");
+				out.flush();
+			}
+		}
+	}
 
 }

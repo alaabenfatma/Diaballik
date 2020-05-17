@@ -41,8 +41,14 @@ public class Connexion implements Runnable {
 				if(message.contentEquals("total")) {
 					Serv.C_total(numClient);
 				}
-				System.out.println("Message du client :"+ numClient);
-				System.out.println(message);
+				else if(message.contentEquals("test_json")) {
+					System.out.println("Json recu:");
+					message = in.readLine();
+					Serv.C_test_Json(numClient,message);
+				}else {
+					System.out.println("Message du client :"+ numClient);
+					System.out.println(message);
+				}
 				message = in.readLine();
 			}
 			System.exit(0);
