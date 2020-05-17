@@ -21,19 +21,32 @@ public class Partie {
         Diaballik.Models.ConfigJeu.Timer T ;
 
         if(timer == "1min"){
-            //T = T.un;
-            //C.setTimer(T);
+            C.setTimer(Diaballik.Models.ConfigJeu.Timer.un);
         }else if(timer == "2min"){
-            //T = T.deux;
-            //C.setTimer(T);
+            C.setTimer(Diaballik.Models.ConfigJeu.Timer.deux);
         }else if(timer == "3min"){
-            //T = T.trois;
-            //C.setTimer(T);
+            C.setTimer(Diaballik.Models.ConfigJeu.Timer.trois);
         }else if(timer == "illimite"){
-            //T = T.illimite;
-            //C.setTimer(T);
+            C.setTimer(Diaballik.Models.ConfigJeu.Timer.illimite);
         }
-
+        C.setName1(name1);
+        C.setName2(name2);
+        if(premier == "j1"){
+            C.setP1First(true);
+        }else {
+            C.setP1First(false);
+        }
+    }
+    
+    public static void main(String[] args) {
+        Diaballik.Vue.ihm i = new Diaballik.Vue.ihm();
+        Diaballik.Models.Jeu j = new Diaballik.Models.Jeu();
+        Diaballik.Models.ConfigJeu C = new Diaballik.Models.ConfigJeu();
+        j.configurer(C);
+        j.start();
+		Diaballik.Vue.CollecteurEvenements control = new Diaballik.Controllers.ControleurMediateur(j);
+		Diaballik.Vue.Plateau.demarrer(j, control, C);
+		i.setVisible(false);
 	}
     
 }
