@@ -15,6 +15,10 @@ import javax.swing.JMenuItem;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import Diaballik.Models.ConfigJeu;
+import Diaballik.Models.Jeu;
+
+
 public class ihm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +32,7 @@ public class ihm extends JFrame {
 	CreerPartieReseau crr = new CreerPartieReseau(this);
 	Regles r = new Regles(this);
 	RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
+	Plateau plateau;
 	choisirPerso cP;
 	choisirTerrain cT;
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
@@ -153,6 +158,8 @@ public class ihm extends JFrame {
     		    		ajr.codelabel.setText(wEn.codelabel);
     		    		ajr.retour.setText(wEn.retour);
     		    		
+    		    		//plateau.boutonFinTour.setText(wEn.finTour);
+    		    		
     		    		blang = false;
     		    		
     				} else {
@@ -208,6 +215,8 @@ public class ihm extends JFrame {
     		    		ajr.titre.setText(wFr.attenteTitre);
     		    		ajr.codelabel.setText(wFr.codelabel);
     		    		ajr.retour.setText(wFr.retour);
+    		    		
+    		    		//plateau.boutonFinTour.setText(wFr.finTour);
     		    		
     		    		blang = true;
     		    		

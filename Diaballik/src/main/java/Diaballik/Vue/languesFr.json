@@ -40,5 +40,10 @@
 	"nomJoueurTextArea": "Joueur 1",
 	
 	"attenteTitre": "Attente du 2nd joueur",
-	"codelabel" : "Code"
+	"codelabel" : "Code",
+	
+	"finTour": "Fin de tour",
+	"deplacements": "Déplacements",
+	"passe" : "Passe",
+	"indicateur" : "Indicateur coups joués"
  }

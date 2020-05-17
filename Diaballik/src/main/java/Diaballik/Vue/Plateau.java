@@ -8,6 +8,8 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Patterns.Observateur;
@@ -16,25 +18,29 @@ public class Plateau implements Runnable, Observateur {
     JFrame frame;
     JButton boutonMenu = new JButton("Menu");
     JButton boutonFinTour = new JButton("Fin du tour");
+	ObjectMapper objectMapper = new ObjectMapper();
     JButton boutonRecommencer = new JButton("Recommencer");
     JButton boutonRejouer = new JButton("Rejouer");
 	JButton sound = new JButton();
 	JButton drapeau = new JButton();
+	JButton suggestion = new JButton("Suggestion coup");
     JLabel boutonInfo;
-    JLabel joueur, mouvements, passe;
     PlateauGraphique plat;
     Jeu j;
-    ihm i;
     ConfigJeu conf;
     CollecteurEvenements control;
     boolean maximized;
     boolean bmute = true;
+    boolean blang = true;
     static ihm interHM;
     public static Timer timer;
     JLabel iconePion;
     ImageIcon pionA_bas = null;
     ImageIcon pionB_bas = null;
-    Image son, mute, drapeauFr, drapeauuk;
+    Image son, mute, drapeauFr, drapeauGB;
+    JLabel mouvements = new JLabel();
+    JLabel joueur = new JLabel();
+    JLabel passe = new JLabel();
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
     ActionListener al;
@@ -64,15 +70,29 @@ public class Plateau implements Runnable, Observateur {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
-                    if (msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder") == 0) {
-                        control.toucheClavier("Save");
+                if (interHM.blang == false) {
+                	if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
+                        if (msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder") == 0) {
+                            control.toucheClavier("Save");
+                        }
+                        System.exit(0);
+                        // ajouter la sauvegarde
+                    } else {
+                        return;
                     }
-                    System.exit(0);
-                    // ajouter la sauvegarde
                 } else {
-                    return;
+                	if (msgBox.msgYesNo("Do you want to quit?", "Quit") == 0) {
+                        if (msgBox.msgYesNo("Do you want to save ?", "Save") == 0) {
+                            control.toucheClavier("Save");
+                        }
+                        System.exit(0);
+                        // ajouter la sauvegarde
+                    } else {
+                        return;
+                    }
                 }
+            	
+            	
             }
         });
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -89,30 +109,51 @@ public class Plateau implements Runnable, Observateur {
         
         try {
             
-        	img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
-                    Image.SCALE_DEFAULT);
+        	img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         	son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
     		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
     		sound.setIcon(new ImageIcon(mute));
-    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
-    		drapeau.setIcon(new ImageIcon(drapeauFr));
-        
+    		
+    		if (interHM.blang == false) {
+				drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
+	    		drapeau.setIcon(new ImageIcon(drapeauGB));
+	    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
+	    		boutonFinTour.setText(wEn.finTour);
+	    		buttonViewArrow.setText(wEn.indicateur);
+	    		mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
+	    		passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
+	    		
+	    		interHM.blang = true;
+	    		
+			} else {
+				drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
+	    		drapeau.setIcon(new ImageIcon(drapeauFr));
+	    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
+	    		boutonFinTour.setText(wFr.finTour);
+	    		buttonViewArrow.setText(wFr.indicateur);
+	    		mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
+	    		passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
+	    		
+	    		interHM.blang = false;
+			}
+    		
         } catch (Exception e) {
             System.out.println(e);
         }
         
         boiteTexte.add(drapeau);
         boiteTexte.add(sound);
+        boiteTexte.add(suggestion);
         
         sound.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
-    				if (bmute == false) { 
+    				if (interHM.bmute == false) { 
     		    		sound.setIcon(new ImageIcon(mute));
-    		    		bmute = true;
+    		    		interHM.bmute = true;
     				} else {
     		    		sound.setIcon(new ImageIcon(son));
-    		    		bmute = false;
+    		    		interHM.bmute = false;
     				}
     					
     	    	}
@@ -122,6 +163,41 @@ public class Plateau implements Runnable, Observateur {
             } 
         } );
     
+        drapeau.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	try {
+    				if (interHM.blang == false) {
+    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(drapeauGB));
+    		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
+    		    		
+    		    		boutonFinTour.setText(wEn.finTour);
+    		    		buttonViewArrow.setText(wEn.indicateur);
+    		    		mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
+    		    		passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
+    		    		
+    		    		interHM.blang = true;
+    		    		
+    				} else {
+    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(20, 20, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(drapeauFr));
+    		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
+
+       		    		boutonFinTour.setText(wFr.finTour);
+    		    		buttonViewArrow.setText(wFr.indicateur);
+    		    		mouvements.setText(wFr.deplacements + " : " +  j.joueurCourant.nbMove);
+    		    		passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
+    		    		
+    		    		
+    		    		interHM.blang = false;
+    		    		
+    				}
+    			}
+    			catch (Exception e1) {
+    				System.out.println(e1);
+    			}
+            } 
+        } );
           
         boutonInfo = new JLabel(new ImageIcon(img));
         String sInfo = "<html> <b>Raccourcis : </b> <br> f : fin du tour <br> z : annuler <br> y : refaire  <br> s : sauvegarder <br> r : recommencer <br> echap : plein écran <br> q : quitter  </html>  ";
@@ -176,7 +252,6 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 90)));
 
         // Info joueur
-        joueur = new JLabel("Joue : " + j.joueurCourant.name);
         joueur.setAlignmentX(Component.CENTER_ALIGNMENT);
         joueur.setAlignmentY(Component.CENTER_ALIGNMENT);
 
@@ -203,14 +278,12 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Info mouvements
-        mouvements = new JLabel("Déplacements : " + j.joueurCourant.nbMove);
         mouvements.setAlignmentX(Component.CENTER_ALIGNMENT);
         mouvements.setOpaque(true);
         mouvements.setBackground(Color.white);
         boiteTexte.add(mouvements);
 
         // Info passe
-        passe = new JLabel("Passe : " + j.joueurCourant.passeDispo);
         passe.setAlignmentX(Component.CENTER_ALIGNMENT);
         passe.setOpaque(true);
         passe.setBackground(Color.white);

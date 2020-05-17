@@ -44,6 +44,11 @@ public class words {
 	public String attenteTitre = "Attente du 2nd joueur";
 	public String codelabel = "Code";
 	
+	public String finTour = "Fin de tour";
+	public String deplacements = "Déplacements";
+	public String passe = "Passe";
+	public String indicateur = "Indicateur coups joués";
+	
 	@JsonCreator
 	public words() {
 		
