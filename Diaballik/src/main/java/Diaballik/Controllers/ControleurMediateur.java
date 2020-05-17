@@ -23,14 +23,17 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void annule() {
-
-		jeu.jctrl_z();
-		System.out.println("Annulation");
+		if (jeu.tr.UndoStackNotEmpty()) {
+			jeu.jctrl_z();
+			System.out.println("Annulation");
+		}
 	}
 
 	public void refait() {
-		jeu.jctrl_y();
-		System.out.println("Refait");
+		if (jeu.tr.RedoStackNotEmpty()) {
+			jeu.jctrl_y();
+			System.out.println("Refait");
+		}
 	}
 
 	public void finTour() {
@@ -47,7 +50,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 		jeu.start();
 	}
 
-	public void IAvsIA(){
+	public void IAvsIA() {
 		jeu.IaVSIa = true;
 		System.out.println("Mode IA vs IA");
 

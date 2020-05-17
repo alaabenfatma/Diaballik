@@ -275,6 +275,14 @@ public class Terrain implements ITerrain {
         }
     }
 
+    public boolean UndoStackNotEmpty(){
+        return (coups.size() != 0);
+    }
+
+    public boolean RedoStackNotEmpty(){
+        return (ctrly.size() != 0);
+    }
+
     public char[][] toChar() {
         char[][] pieces = new char[7][7];
         for (int i = 0; i < 7; i++) {
