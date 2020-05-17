@@ -312,6 +312,7 @@ public class Jeu extends Observable {
             }
             if (joueurCourant.nbMove >= 0) {
                 this.tr.updateStack(temp, joueurCourant.passeDispo);
+                this.tr.ctrly.clear();
                 from.move(to.Position.l, to.Position.c);
                 infc.moves = temp;
                 if (joueurCourant == joueur1)
