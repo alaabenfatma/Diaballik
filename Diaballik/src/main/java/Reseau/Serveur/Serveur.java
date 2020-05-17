@@ -23,7 +23,7 @@ public class Serveur {
 		System.out.println("Démarage du serveur");
 		Serveur Serv = new Serveur();
 		try {
-			new Commandes( Serv ); // Lance el thread de la gestion des commandes
+			new Commandes( Serv ); // Lance le thread de la gestion des commandes
 		
 			sS = new ServerSocket( port ); // Ouverture d'une socket
 			port = sS.getLocalPort(); // récupère le port 
