@@ -63,7 +63,30 @@ public abstract class PlateauGraphique extends JComponent implements Observateur
         drawable.fillOval(x, y, r, r);
     }
 
-    protected void drawArrowLine(Color couleur, int x1, int y1, int x2, int y2, int d, int h, boolean dashedBool) {
+    protected void drawArrowLine(Color couleur, int x1, int y1, int x2, int y2, int d, int h, boolean dashedBool,
+            int hauteur, int largeur) {
+
+        if (x1 == x2) {
+            if (y1 < y2)
+                y2 -= hauteur / 2;
+            else
+                y2 += hauteur / 2;
+        } else if (y1 == y2) {
+            if (x1 < x2)
+                x2 -= hauteur / 2;
+            else
+                x2 += hauteur / 2;
+        } else {
+            if (y1 < y2)
+                y2 -= hauteur / 3;
+            else
+                y2 += hauteur / 3;
+            if (x1 < x2)
+                x2 -= hauteur / 3;
+            else
+                x2 += hauteur / 3;
+        }
+
         drawable.setColor(couleur);
         drawable.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         if (dashedBool) {
