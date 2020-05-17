@@ -29,21 +29,20 @@ public class Partie {
         C.setName1(name1);
         C.setName2(name2);
         if(premier == "j1"){
-            C.setP1First(true);
-        }else {
             C.setP1First(false);
+        }else {
+            C.setP1First(true);
         }
     }
     
     public static void main(String[] args) {
-        Diaballik.Vue.ihm i = new Diaballik.Vue.ihm();
         Diaballik.Models.Jeu j = new Diaballik.Models.Jeu();
         Diaballik.Models.ConfigJeu C = new Diaballik.Models.ConfigJeu();
+        paraPartie(C);
         j.configurer(C);
         j.start();
 		Diaballik.Vue.CollecteurEvenements control = new Diaballik.Controllers.ControleurMediateur(j);
 		Diaballik.Vue.Plateau.demarrer(j, control, C);
-		i.setVisible(false);
 	}
     
 }
