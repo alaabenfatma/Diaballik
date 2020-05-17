@@ -59,7 +59,7 @@ public class Serveur {
 		if(AllClient.get(i) != null) {
 			AllClient.remove(i);
 			nbC--;
-			if(nbC == 0) {
+			if(nbC == -1) {
 				System.out.println(" --- Aucun client sur le serveur ---");
 				System.out.println(" --- Extinction du serveur ---");
 				try {

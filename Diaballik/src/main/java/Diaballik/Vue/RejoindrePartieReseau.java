@@ -21,7 +21,7 @@ public class RejoindrePartieReseau extends JPanel {
 	JLabel nomJoueur = new JLabel("Nom du joueur");
 	JLabel codelabel = new JLabel("Code");
 	JTextArea name = new JTextArea("Joueur 2");
-	JTextArea code = new JTextArea("copier coller");
+	JTextArea code = new JTextArea("");
 	JButton ok = new JButton("Ok");
 	JButton retour = new JButton("Retour");
 	JLabel erreur = new JLabel("Entrez un nom de joueur");
@@ -144,6 +144,8 @@ public class RejoindrePartieReseau extends JPanel {
 		
 		ok.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
+				String c = code.getText();
+				System.out.println(c);
             } 
         } );
 		
