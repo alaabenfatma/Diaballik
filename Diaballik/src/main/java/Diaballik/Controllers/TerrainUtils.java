@@ -12,9 +12,6 @@ public class TerrainUtils {
         if(a.Parent != b.Parent){
             throw new IllegalStateException("Not on the same terrain.");
         }
-        if(a.Type == b.Type){
-            throw new IllegalStateException("Can not overlap!");
-        }
         Piece x = a;
         a.Parent.getTerrain()[a.Position.l][a.Position.c] = b;
         b.Parent.getTerrain()[b.Position.l][b.Position.c] = x;
