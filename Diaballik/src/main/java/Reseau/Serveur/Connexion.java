@@ -38,6 +38,9 @@ public class Connexion implements Runnable {
 			Serv.sendClient(message, numClient);
 			message = in.readLine();
 			while(!message.equals("quit")) {
+				if(message.contentEquals("total")) {
+					Serv.C_total(numClient);
+				}
 				System.out.println("Message du client :"+ numClient);
 				System.out.println(message);
 				message = in.readLine();
