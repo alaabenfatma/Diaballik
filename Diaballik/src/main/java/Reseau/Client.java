@@ -8,12 +8,19 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Scanner;
 
-public class Client {
+public class Client implements Runnable {
 	private static int port = 4242;
 	private static String host = "127.0.0.1";
 	static Socket s;
 	static Scanner s_in = new Scanner(System.in);
-	public static void main(String[] args) {
+	Thread T;
+	
+	Client(){
+		T = new Thread(this);
+		T.start();
+	}
+	
+	public void run() {
 		System.out.println("je suis le client");
 		System.out.println("Connexion au serveur");
 		try {
