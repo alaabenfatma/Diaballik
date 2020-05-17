@@ -1,6 +1,7 @@
 package Diaballik.Vue;
 
 import java.awt.event.*;
+import java.io.IOException;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -16,6 +17,7 @@ import javax.swing.*;
 
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
+import Diaballik.Models.Joueur;
 import Diaballik.Patterns.Observateur;
 
 public class Plateau implements Runnable, Observateur {
@@ -33,6 +35,9 @@ public class Plateau implements Runnable, Observateur {
     boolean maximized;
     static ihm interHM;
     Timer timer;
+    JLabel iconePion;
+    ImageIcon pionA_bas = null;
+    ImageIcon pionB_bas = null;
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
 
@@ -111,13 +116,15 @@ public class Plateau implements Runnable, Observateur {
 
         // Ajout des boutons en haut
         Box topButton = Box.createHorizontalBox();
-        topButton.add(boutonInfo);
-        topButton.add(Box.createRigidArea(new Dimension(5, 0)));
+        boutonMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
         topButton.add(boutonMenu);
+        topButton.add(Box.createRigidArea(new Dimension(30, 0)));
+        topButton.add(boutonInfo);
         topButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(topButton);
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
 
+        // indicateur de mouvements
         buttonViewArrow.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -140,6 +147,24 @@ public class Plateau implements Runnable, Observateur {
         joueur = new JLabel("Joue : " + j.joueurCourant.name);
         joueur.setAlignmentX(Component.CENTER_ALIGNMENT);
         joueur.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        // icone pion joueur
+        try {
+            pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("img/pionA_bas.png")))
+                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("img/pionB_bas.png")))
+                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        if (j.joueurCourant == j.joueur1) {
+            iconePion = new JLabel(pionB_bas);
+
+        } else {
+            iconePion = new JLabel(pionA_bas);
+        }
+        iconePion.setAlignmentX(Component.CENTER_ALIGNMENT);
+        boiteTexte.add(iconePion);
         joueur.setOpaque(true);
         joueur.setBackground(Color.white);
         boiteTexte.add(joueur);
@@ -198,6 +223,7 @@ public class Plateau implements Runnable, Observateur {
 
         }
 
+        // bouton fin de tour
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
         boutonFinTour.setFocusable(false);
         boutonFinTour.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -235,6 +261,7 @@ public class Plateau implements Runnable, Observateur {
         // Mise en place de l'interface
         boiteTexte.setPreferredSize(new Dimension(170, 600));
         frame.add(boiteTexte, BorderLayout.EAST);
+        frame.add(Box.createGlue());
         plat.setPreferredSize(new Dimension(600, 600));
         frame.add(plat, BorderLayout.CENTER);
         j.ajouteObservateur(this);
@@ -303,6 +330,12 @@ public class Plateau implements Runnable, Observateur {
                 passe.setText("Passe : " + j.joueurCourant.passeDispo);
                 if (conf.getTimer() != ConfigJeu.Timer.illimite)
                     clock.setVisible(true);
+                if (j.joueurCourant == j.joueur1)
+                    iconePion.setIcon(pionB_bas);
+                else {
+                    iconePion.setIcon(pionA_bas);
+                }
+
             }
 
         } catch (Exception e) {
