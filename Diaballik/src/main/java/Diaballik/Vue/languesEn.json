@@ -40,6 +40,11 @@
 	"nomJoueurTextArea": "Player 1",
 	
 	"attenteTitre": "Waiting for the 2nd player",
-	"codelabel" : "Code"
+	"codelabel" : "Code",
+	
+	"finTour": "End round",
+	"deplacements": "Moves",
+	"passe" : "Pass",
+	"indicateur" : "Traces"
 	
  }
