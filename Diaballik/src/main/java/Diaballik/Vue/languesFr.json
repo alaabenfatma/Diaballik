@@ -25,8 +25,12 @@
 	"name1": "Joueur 1",
 	"name2": "Joueur 2",
 	"name3": "IA",
+	"choisirTerrain" : "Terrain par défaut",
+	"choisirTerrainlabel": "Choisir un terrain : ",
 	"retour" : "Retour",
 	"jouer" : "Jouer",
+	
+	"validerPersonnaliser" : "Valider",
 	
 	"creerPartieReseau" : "Créer une partie",
 	"rejoindrePartieReseau" : "Rejoindre une partie",

@@ -2,16 +2,9 @@ package Diaballik.Vue;
 
 import java.awt.event.*;
 import java.io.IOException;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GraphicsEnvironment;
-import java.awt.GraphicsDevice;
 import java.awt.*;
 import java.util.Date;
 
-import javax.swing.JButton;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -25,18 +18,23 @@ public class Plateau implements Runnable, Observateur {
     JButton boutonFinTour = new JButton("Fin du tour");
     JButton boutonRecommencer = new JButton("Recommencer");
     JButton boutonRejouer = new JButton("Rejouer");
+	JButton sound = new JButton();
+	JButton drapeau = new JButton();
     JLabel boutonInfo;
     JLabel joueur, mouvements, passe;
     PlateauGraphique plat;
     Jeu j;
+    ihm i;
     ConfigJeu conf;
     CollecteurEvenements control;
     boolean maximized;
+    boolean bmute = true;
     static ihm interHM;
     public static Timer timer;
     JLabel iconePion;
     ImageIcon pionA_bas = null;
     ImageIcon pionB_bas = null;
+    Image son, mute, drapeauFr, drapeauuk;
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
     ActionListener al;
@@ -88,13 +86,43 @@ public class Plateau implements Runnable, Observateur {
 
         // bouton info
         Image img = null;
+        
         try {
-            img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
+            
+        	img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
                     Image.SCALE_DEFAULT);
-            ;
+        	son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+    		sound.setIcon(new ImageIcon(mute));
+    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+    		drapeau.setIcon(new ImageIcon(drapeauFr));
+        
         } catch (Exception e) {
             System.out.println(e);
         }
+        
+        boiteTexte.add(drapeau);
+        boiteTexte.add(sound);
+        
+        sound.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	try {
+    				if (bmute == false) { 
+    		    		sound.setIcon(new ImageIcon(mute));
+    		    		bmute = true;
+    				} else {
+    		    		sound.setIcon(new ImageIcon(son));
+    		    		bmute = false;
+    				}
+    					
+    	    	}
+    	    	catch (Exception e1) {
+    	    		System.out.println(e1);
+    	    	}
+            } 
+        } );
+    
+          
         boutonInfo = new JLabel(new ImageIcon(img));
         String sInfo = "<html> <b>Raccourcis : </b> <br> f : fin du tour <br> z : annuler <br> y : refaire  <br> s : sauvegarder <br> r : recommencer <br> echap : plein écran <br> q : quitter  </html>  ";
         boutonInfo.setToolTipText(sInfo);

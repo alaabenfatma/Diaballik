@@ -24,9 +24,13 @@
 	"name1": "Player 1",
 	"name2": "Player 2",
 	"name3": "AI",
+	"choisirTerrain" : "Terrain par défaut ???",
+	"choisirTerrainlabel": "Choose un terrain ???: ",
 	"retour" : "Return",
 	"jouer" : "Play",
 	"personnaliser" : "Customize",
+	
+	"validerPersonnaliser" : "Ok",
 	
 	"creerPartieReseau" : "Create online game",
 	"rejoindrePartieReseau" : "Join online game",

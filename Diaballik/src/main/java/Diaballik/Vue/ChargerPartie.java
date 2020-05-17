@@ -30,7 +30,7 @@ public class ChargerPartie extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Charger partie");
 	ObjectMapper mapper = new ObjectMapper();
-	String column[] = { "Player1", "Player2", "Date" };
+	String column[] = { "Joueur 1", "Joueur 2", "Date" };
 	DefaultTableModel data = new DefaultTableModel(column, 0);
 	JButton retour = new JButton("Retour");
 	JButton jouer = new JButton("Jouer");
@@ -47,9 +47,9 @@ public class ChargerPartie extends JPanel {
 		i.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent evt) {
 				table.setBounds(10, 90, i.getWidth() / 2 - 20, i.getHeight() / 2);
-				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 110, 300, 100);
-				retour.setBounds((i.getWidth() / 2) - 130, table.getHeight() + 100, 120, 40);
-				jouer.setBounds((i.getWidth() / 2) + 20, table.getHeight() + 100, 120, 40);
+				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 6) - 90, 300, 100);
+				retour.setBounds((i.getWidth() / 2) - 130, table.getHeight() + 120, 120, 40);
+				jouer.setBounds((i.getWidth() / 2) + 20, table.getHeight() + 120, 120, 40);
 				sp.setBounds(10, 70, i.getWidth() / 2 - 20, i.getHeight() / 2);
 				sample.setBounds(table.getWidth() + 20, 70, i.getWidth() / 2 - 90, i.getHeight() / 2);
 			}

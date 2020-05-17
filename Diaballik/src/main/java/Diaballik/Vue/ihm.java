@@ -28,6 +28,8 @@ public class ihm extends JFrame {
 	CreerPartieReseau crr = new CreerPartieReseau(this);
 	Regles r = new Regles(this);
 	RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
+	choisirPerso cP;
+	choisirTerrain cT;
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
 	JButton sound = new JButton();
 	JButton drapeau = new JButton();
@@ -48,6 +50,7 @@ public class ihm extends JFrame {
 	public ihm() {
 		
 		this.setIconImage(icon); 
+		
 		this.setTitle("Menu principal");
 		this.setSize(600, 510);
 		
@@ -124,8 +127,17 @@ public class ihm extends JFrame {
     		    		ng.br1.setText(wEn.IAFacile);
     		    		ng.br2.setText(wEn.IAMedium);
     		    		ng.br3.setText(wEn.IADifficile);
+    		    		ng.choisirTerrain.setText(wEn.choisirTerrain);
+    		    		ng.choisirTerrainlabel.setText(wEn.choisirTerrainlabel);
     		    		ng.retour.setText(wEn.retour);
     		    		ng.jouer.setText(wEn.jouer);
+    		    		
+    		    		//cT.valider.setText(wEn.validerPersonnaliser);
+    		    		//cP.valider.setText(wEn.validerPersonnaliser);
+    		    		
+    		    		cp.titre.setText(wEn.charger);
+    		    		cp.retour.setText(wEn.retour);
+    		    		cp.jouer.setText(wEn.jouer);
     		    		
     		    		jr.titre.setText(wEn.reseau);
     		    		jr.creer.setText(wEn.creerPartieReseau);
@@ -171,8 +183,17 @@ public class ihm extends JFrame {
     		    		ng.name3.setText(wFr.name3);
     		    		ng.niveauIA.setText(wFr.niveauIAlabel);
     		    		ng.duree.setText(wFr.duree);
+    		    		ng.choisirTerrain.setText(wFr.choisirTerrain);
+    		    		ng.choisirTerrainlabel.setText(wFr.choisirTerrainlabel);
     		    		ng.retour.setText(wFr.retour);
     		    		ng.jouer.setText(wFr.jouer);
+    		    		
+    		    		//cT.valider.setText(wFr.validerPersonnaliser);
+    		    		//cP.valider.setText(wFr.validerPersonnaliser);
+    		    		
+    		    		cp.titre.setText(wFr.charger);
+    		    		cp.retour.setText(wFr.retour);
+    		    		cp.jouer.setText(wFr.jouer);
     		    		
     		    		jr.titre.setText(wFr.reseau);
     		    		jr.creer.setText(wFr.creerPartieReseau);
@@ -231,7 +252,13 @@ public class ihm extends JFrame {
 		ng.add(sound);
 		ng.add(drapeau);		
 		this.setContentPane(ng);
-		this.setTitle("Nouvelle partie");
+		
+		if (blang == false) {
+			this.setTitle("New Game");
+		} else {
+			this.setTitle("Nouvelle partie");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -239,12 +266,17 @@ public class ihm extends JFrame {
 	
 	public void fenetreChargerPartie() {
 		ps.play("son/buttonClick.wav", bmute);
-		this.setSize(800, 540);
-		this.setSize(800, 550);
+		this.setSize(700, 450);
 		cp.add(sound);
 		cp.add(drapeau);
 		this.setContentPane(cp);
-		this.setTitle("Charger partie");
+		
+		if (blang == false) {
+			this.setTitle("Load Game");
+		} else {
+			this.setTitle("Charger partie");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -257,7 +289,12 @@ public class ihm extends JFrame {
 		jr.add(sound);
 		jr.add(drapeau);
 		this.setContentPane(jr);
-		this.setTitle("Jouer en réseau");
+		if (blang == false) {
+			this.setTitle("Play online");
+		} else {
+			this.setTitle("Jouer en réseau");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -271,7 +308,12 @@ public class ihm extends JFrame {
 		menu.add(drapeau);
 		menu.add(sound);
 		this.setContentPane(menu);
-		this.setTitle("Menu principal");
+		if (blang == false) {
+			this.setTitle("Main Menu");
+		} else {
+			this.setTitle("Menu principal");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -284,7 +326,12 @@ public class ihm extends JFrame {
 		crr.add(sound);
 		crr.add(drapeau);
 		this.setContentPane(crr);
-		this.setTitle("Créer une partie en réseau");
+		if (blang == false) {
+			this.setTitle("Create online game");
+		} else {
+			this.setTitle("Créer une partie en réseau");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -297,7 +344,12 @@ public class ihm extends JFrame {
 		rpr.add(sound);
 		rpr.add(drapeau);
 		this.setContentPane(rpr);
-		this.setTitle("Rejoindre une partie");
+		if (blang == false) {
+			this.setTitle("Join online game");
+		} else {
+			this.setTitle("Rejoindre une partie");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -310,7 +362,12 @@ public class ihm extends JFrame {
 		ajr.add(sound);
 		ajr.add(drapeau);
 		this.setContentPane(ajr);
-		this.setTitle("Attente du 2ème joueur");
+		if (blang == false) {
+			this.setTitle("Waiting for the 2nd player");
+		} else {
+			this.setTitle("Attente du 2ème joueur");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -321,7 +378,12 @@ public class ihm extends JFrame {
 		this.setSize(800, 620);
 		this.setLocationRelativeTo(null);
 		this.setContentPane(r);
-		this.setTitle("Règles du jeu");
+		if (blang == false) {
+			this.setTitle("Rules");
+		} else {
+			this.setTitle("Règles du jeu");
+		}
+		
 		this.repaint();
 		this.revalidate();
 	}
@@ -329,7 +391,12 @@ public class ihm extends JFrame {
 	
 	public void quit() {
 		ps.play("son/buttonClick.wav", bmute);
-		msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
+		if (blang == false) {
+			msgBox.MessageBox("Do you want to quit ?", "Quit", this);
+		} else {
+			msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
+		}
+		
 	}
 		
 }

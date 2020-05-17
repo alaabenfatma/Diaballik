@@ -65,8 +65,8 @@ public class MenuEnJeu extends JPanel {
                 frame.setVisible(false);
                 plateau.setVisible(false);
                 ihm i = new ihm();
+                i.setSize(700, 600);
                 NewGame m = new NewGame(i);
-                i.setSize(601, 550);
                 i.setContentPane(m);
                 i.repaint();
                 i.revalidate();
@@ -78,7 +78,7 @@ public class MenuEnJeu extends JPanel {
                 frame.setVisible(false);
                 ihm i = new ihm();
                 ChargerPartie m = new ChargerPartie(i, true);
-                i.setSize(800, 550);
+                i.setSize(700, 450);
                 i.setContentPane(m);
                 i.repaint();
                 i.revalidate();
