@@ -83,8 +83,9 @@ public class Terrain implements ITerrain {
                         }
                     }
                 }
+               
             }
-            
+            System.out.println("");
         }
         
     }

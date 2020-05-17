@@ -13,7 +13,6 @@ class EvaluationConfig {
     int diagonalBonus = 5;
     int hasBallBonus = 10;
     int onOtherSide = 50;
-    int almostOnOtherSide = 25;
 
     /**
      * Configures the values that are needed to calculate the final score of the
@@ -31,12 +30,11 @@ class EvaluationConfig {
      * @param diagonalBonus
      * @param hasBallBonus
      */
-    public EvaluationConfig(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide, int almostOnOtherSide) {
+    public EvaluationConfig(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide) {
         this.valueOfPiece = valueOfPiece;
         this.diagonalBonus = diagonalBonus;
         this.hasBallBonus = hasBallBonus;
         this.onOtherSide = onOtherSide;
-        this.almostOnOtherSide = almostOnOtherSide;
     }
 }
 
@@ -56,8 +54,8 @@ public class Evaluator {
      * @param diagonalBonus
      * @param hasBallBonus
      */
-    public static void init(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide, int almostOnOtherSide) {
-        heuristics = new EvaluationConfig(valueOfPiece, diagonalBonus, hasBallBonus, onOtherSide, almostOnOtherSide);
+    public static void init(int valueOfPiece, int diagonalBonus, int hasBallBonus, int onOtherSide) {
+        heuristics = new EvaluationConfig(valueOfPiece, diagonalBonus, hasBallBonus, onOtherSide);
     }
 
     /**
@@ -90,13 +88,9 @@ public class Evaluator {
                 score -= heuristics.hasBallBonus;
             }
             score += score * (p.Position.l);
-
             ArrayList<Position> passesPossibles = p.Parent.getPieceWithBall(p.Type).passesPossibles();
             if (passesPossibles.contains(p.Position)) {
                 score -= heuristics.diagonalBonus;
-                if (p.Position.l == 6) {
-                    score -= 999;
-                }
                 if (p.Position.l == 6) {
                     score -= 999;
                 }
@@ -125,29 +119,9 @@ public class Evaluator {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 int innerScore = scoreOfPiece(board[i][j]);
-                if (Math.abs(innerScore) >= 999) {
-                    score = innerScore;
+                if (Math.abs(innerScore) >= 999)
                     return innerScore;
-                } else {
-                    score += innerScore;
-                }
-
-            }
-        }
-        ArrayList<Couple_piece_pos> futurePositions = IA_utils.getAllPossibleMovesDistance(PieceType.Black, t, 1);
-        for (Couple_piece_pos cpl : futurePositions) {
-            for (Position pos : cpl.pos) {
-                if (pos.l == 6) {
-                    score -= heuristics.onOtherSide;
-                }
-            }
-        }
-        futurePositions = IA_utils.getAllPossibleMovesDistance(PieceType.White, t, 1);
-        for (Couple_piece_pos cpl : futurePositions) {
-            for (Position pos : cpl.pos) {
-                if (pos.l == 0) {
-                    score += heuristics.onOtherSide;
-                }
+                score += innerScore;
             }
         }
         return score;

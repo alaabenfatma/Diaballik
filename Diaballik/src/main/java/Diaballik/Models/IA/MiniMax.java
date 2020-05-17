@@ -358,6 +358,7 @@ public class MiniMax {
     public int VanillaMiniMax(State currentState, int maxDepth, boolean maxPlayer) {
         if (maxDepth == 0) {
             bestMove = currentState;
+            System.out.println("Score : "+currentState.score());
             return Evaluator.scoreOfBoard(currentState.Terrain);
         }
         if (!maxPlayer) {

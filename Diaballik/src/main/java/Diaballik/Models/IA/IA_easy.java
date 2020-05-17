@@ -182,15 +182,6 @@ public class IA_easy {
         
     }
 
-    public static void main(String args[]) {
-        Jeu jeu = new Jeu();
-        Terrain tr = jeu.tr;
-        tr._jeuParent = jeu;
-        IA_easy ia_med = new IA_easy(tr, PieceType.Black);
-        // ia_med.Strategy_PPE();
-        ia_med.getNextMove(PieceType.Black, tr);
-        tr.PrintTerrain();
-    }
 }
 
 class From_to {
