@@ -401,16 +401,22 @@ public class MiniMax {
         sort(AllPMMStates);
 
         if (this.AI_TYPE == PieceType.White) {
-            bestOptions.add(AllPMMStates.get(AllPMMStates.size() - 1));
-            bestOptions.add(AllMPMStates.get(AllMPMStates.size() - 1));
-            bestOptions.add(AllMMPStates.get(AllMMPStates.size() - 1));
+            if (AllPMMStates.size() > 0)
+                bestOptions.add(AllPMMStates.get(AllPMMStates.size() - 1));
+            if (AllMPMStates.size() > 0)
+                bestOptions.add(AllMPMStates.get(AllMPMStates.size() - 1));
+            if (AllMMPStates.size() > 0)
+                bestOptions.add(AllMMPStates.get(AllMMPStates.size() - 1));
 
             sort(bestOptions);
             return bestOptions.get(2);
         } else {
-            bestOptions.add(AllPMMStates.get(0));
-            bestOptions.add(AllMPMStates.get(0));
-            bestOptions.add(AllMMPStates.get(0));
+            if (AllPMMStates.size() > 0)
+                bestOptions.add(AllPMMStates.get(0));
+            if (AllMPMStates.size() > 0)
+                bestOptions.add(AllMPMStates.get(0));
+            if (AllMMPStates.size() > 0)
+                bestOptions.add(AllMMPStates.get(0));
             sort(bestOptions);
             return bestOptions.get(0);
         }
