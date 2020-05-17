@@ -34,10 +34,20 @@ public class Connexion implements Runnable {
 		System.out.println("Connexion d'un nouveau client");
 		System.out.println("Numéro attribué au client : "+ numClient);
 		try {
+			message = "Connexion établie";
+			Serv.sendClient(message, numClient);
 			message = in.readLine();
-			Serv.sendAllClient(message, "\n\0");
-			message ="";
-		}catch(Exception e) {
+			while(!message.equals("quit")) {
+				System.out.println("Message du client :"+ numClient);
+				System.out.println(message);
+				message = in.readLine();
+			}
+			System.exit(0);
+		}
+		catch(NullPointerException p) {
+			System.out.println("Client " + numClient + " déconnecté");
+		}
+		catch(Exception e) {
 			e.printStackTrace();
 		}
 		

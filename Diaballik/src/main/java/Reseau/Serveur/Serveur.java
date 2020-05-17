@@ -16,9 +16,9 @@ public class Serveur {
 	private static int port = 4242;// si 0 prend le premier libre
 	private static InetAddress add;
 	private ArrayList<PrintWriter> AllClient = new ArrayList<PrintWriter>(); // contient tous les flux de sortie vers les clients
-	private static int nbC = 0;
+	private static int nbC = -1;
 	private static ServerSocket sS;
-	
+	PrintWriter out;
 	public static void main(String[] args) {
 		System.out.println("Démarage du serveur");
 		Serveur Serv = new Serveur();
@@ -29,10 +29,10 @@ public class Serveur {
 			port = sS.getLocalPort(); // récupère le port 
 			info();
 			while(true) { // Attente d'une connexion
-				if(nbC==0) {
+				if(nbC +1==0) {
 					sS.setSoTimeout(10000); // attente d'une connexion (10s) avant de crash(se règle avec le catch)
 				}
-				else if(nbC == 1) {
+				else if(nbC +1 == 1) {
 					sS.setSoTimeout(0); // attente d'une connexion (infini)
 				}
 				new Connexion(sS.accept(),Serv); // Lance le thread du nouveau client
@@ -79,15 +79,21 @@ public class Serveur {
 		return nbC;
 	}
 	synchronized public void sendAllClient(String message,String sLast){
-	    PrintWriter out;
 	    for (int i = 0; i < AllClient.size(); i++){
 	      out = AllClient.get(i); // extraction de l'élément courant (type PrintWriter)
 	      if (out != null) {// sécurité, l'élément ne doit pas être vide
 	        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
-	        out.print(message+sLast);
+	        out.println(message+sLast);
 	        out.flush(); // envoi dans le flux de sortie
 	      }
 	    }
+	}
+	synchronized public void sendClient(String message,int Client) {
+		out = AllClient.get(Client);
+		if(out != null) {
+			out.println(message);
+			out.flush();
+		}
 	}
 
 }
