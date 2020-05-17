@@ -27,10 +27,12 @@ import static java.util.Collections.*;
 import java.util.*;
 import Diaballik.Controllers.*;
 import Diaballik.Models.*;
+import Diaballik.Vue.LoadingScreen.LoadingScreen;
 
 public class MiniMax {
     public PieceType AI_TYPE = PieceType.Black;
     public Jeu Game;
+    public LoadingScreen loadingScreen = new LoadingScreen();
     ArrayList<State> AllM2PStates = new ArrayList<State>();
 
     /**
@@ -385,7 +387,6 @@ public class MiniMax {
         AllMMPStates.clear();
         AllPMMStates.clear();
         State s = new State(game);
-        s.Terrain.PrintTerrain();
         ArrayList<State> bestOptions = new ArrayList<State>();
         MMP(s);
         MPM(s);

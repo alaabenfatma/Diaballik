@@ -84,9 +84,9 @@ public class Terrain implements ITerrain {
                     }
                 }
             }
-            System.out.println();
+            
         }
-        System.out.println();
+        
     }
 
     @Override
@@ -132,23 +132,23 @@ public class Terrain implements ITerrain {
         }
         return copy;
     }
-    public Terrain(){
+
+    public Terrain() {
 
     }
 
-    public Terrain(Jeu j){
+    public Terrain(Jeu j) {
         this._jeuParent = j;
     }
+
     // retourne le type de piece qui a gagnée
     public PieceType victoire() {
         for (int i = 0; i < this.taille(); i++) {
             if ((this.getTerrain()[0][i].Type == PieceType.White) && (this.getTerrain()[0][i].HasBall)) {
-                System.out.println("Les blancs ont gagné !");
                 return PieceType.White;
             }
             if ((this.getTerrain()[this.taille() - 1][i].Type == PieceType.Black)
                     && (this.getTerrain()[this.taille() - 1][i].HasBall)) {
-                System.out.println("Les noirs ont gagné !");
                 return PieceType.Black;
             }
         }
@@ -223,7 +223,7 @@ public class Terrain implements ITerrain {
             }
         }
         if (cpt >= 3) {
-            //System.out.println(adverse + " a fait antijeu");
+            // 
             return true;
         } else
             return false;
@@ -234,7 +234,8 @@ public class Terrain implements ITerrain {
         if (coups.size() == 0) {
             return;
         }
-        ctrly.add(new InfCoups(clone(), _jeuParent.joueurCourant,_jeuParent.joueurCourant.nbMove,_jeuParent.joueurCourant.passeDispo));
+        ctrly.add(new InfCoups(clone(), _jeuParent.joueurCourant, _jeuParent.joueurCourant.nbMove,
+                _jeuParent.joueurCourant.passeDispo));
         _terrain = new Piece[taille][taille];
         for (int l = 0; l < taille; l++) {
             for (int c = 0; c < taille; c++) {
@@ -275,11 +276,11 @@ public class Terrain implements ITerrain {
         }
     }
 
-    public boolean UndoStackNotEmpty(){
+    public boolean UndoStackNotEmpty() {
         return (coups.size() != 0);
     }
 
-    public boolean RedoStackNotEmpty(){
+    public boolean RedoStackNotEmpty() {
         return (ctrly.size() != 0);
     }
 

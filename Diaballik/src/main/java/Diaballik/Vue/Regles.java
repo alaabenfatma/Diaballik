@@ -49,7 +49,7 @@ public class Regles extends JPanel {
     		drawable.drawImage(regles2, 400, 45, 319, 361, null);
     	}
     	catch (Exception e) {
-    		System.out.println(e);
+    		
     	}
     }
 }

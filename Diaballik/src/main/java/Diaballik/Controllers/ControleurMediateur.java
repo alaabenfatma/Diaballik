@@ -19,21 +19,21 @@ public class ControleurMediateur implements CollecteurEvenements {
 	public void clicSouris(int l, int c) {
 		System.out.printf("Mouse position : (%d,%d)\n", l, c);
 		jeu.SelectionPiece(l, c);
-		System.out.println("Score de plateau : " + Evaluator.scoreOfBoard(jeu.tr));
+		
 
 	}
 
 	public void annule() {
 		if (jeu.tr.UndoStackNotEmpty()) {
 			jeu.jctrl_z();
-			System.out.println("Annulation");
+			
 		}
 	}
 
 	public void refait() {
 		if (jeu.tr.RedoStackNotEmpty()) {
 			jeu.jctrl_y();
-			System.out.println("Refait");
+			
 		}
 	}
 
@@ -43,7 +43,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	public void save() {
 		jeu.ExportGameToJSON(jeu);
-		System.out.println("Sauvegarde de la partie");
+		
 	}
 
 	public void replay() {
@@ -65,7 +65,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	public void IAvsIA() {
 		jeu.IaVSIa = true;
-		System.out.println("Mode IA vs IA");
+		
 
 	}
 
@@ -97,7 +97,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 				IAvsIA();
 				break;
 			default:
-				System.out.println("Touche inconnue : " + touche);
+				
 		}
 	}
 

@@ -48,7 +48,6 @@ public class ihm extends JFrame {
 	
 
 	public ihm() {
-		
 		this.setIconImage(icon); 
 		
 		this.setTitle("Menu principal");

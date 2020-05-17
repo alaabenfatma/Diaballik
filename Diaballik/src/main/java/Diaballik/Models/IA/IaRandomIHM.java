@@ -103,7 +103,7 @@ public class IaRandomIHM {
                 }
                 break;
             default:
-                System.out.println("Erreur IA");
+                
                 break;
 
         }

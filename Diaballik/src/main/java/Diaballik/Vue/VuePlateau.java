@@ -29,7 +29,7 @@ public class VuePlateau extends PlateauGraphique {
             pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("img/pionB_bas.png")));
 
         } catch (IOException e) {
-            System.out.println(e.toString());
+            
         }
     }
 

@@ -57,7 +57,9 @@ public class Plateau implements Runnable, Observateur {
         c.ajouteInterfaceUtilisateur(vue);
         SwingUtilities.invokeLater(vue);
     }
-
+    public static void setEnabled(){
+        
+    }
     public void run() {
         // Creation d'une fenetre
         frame = new JFrame("Diaballik");

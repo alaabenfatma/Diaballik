@@ -45,10 +45,10 @@ public class Random_IA {
         ArrayList<Position> diag;
         int nb_tour = 0;
         int choix = 0;
-        System.out.println("L'IA est en train de jouer ");
+        
         while((nbMove > 0 || passe_faite > 0) && nb_tour < 10){
             choix = R.nextInt(2)+binf;
-            System.out.println("nbMove : "+nbMove+" passe_faite : "+passe_faite + " Choix : "+choix);
+            
             switch (choix) {
                 case 0: // Passe
                     if(passe_faite == 0){break;}
@@ -60,11 +60,11 @@ public class Random_IA {
                         to = tr.getTerrain()[pos.l][pos.c];
                         TerrainUtils.passeWrapper(from, to);
                         if (Couleur_IA == PieceType.White && to.Position.l == 0) {
-                            System.out.println("Victoire IA !");
+                            
                             Victoire_IA = true;
                         }
                         else if (Couleur_IA == PieceType.Black && to.Position.l == tr.taille()-1) {
-                            System.out.println("Victoire IA !");
+                            
                             Victoire_IA = true;
                         }
                         passe_faite--;
@@ -87,11 +87,11 @@ public class Random_IA {
                     passe_faite = 0;
                     break;
                 default:
-                    System.out.println("Erreur IA");
+                    
                     break;
             }
             nb_tour++;
         }
-        System.out.println("nbMove : "+nbMove+" passe_faite : "+passe_faite + " Choix : "+choix);
+        
     }
 }

@@ -2,10 +2,13 @@ package Diaballik.Models;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Stack;
+
+import javax.swing.SwingUtilities;
 
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.IA.*;
@@ -101,10 +104,22 @@ public class Jeu extends Observable {
                     iaRandomIHM.JoueTourIARand();
                     break;
                 case difficile:
-                    minimax.VanillaMiniMax(new State(this), 7, true);
-                    State bestState = minimax.bestMove;
-                    JoueTourIAMiniMax(bestState);
-                    // this.tr._terrain = bestState.Terrain.Copy(this.tr);
+                    minimax.loadingScreen.Show();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+
+                                minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                                State bestState = minimax.bestMove;
+                                JoueTourIAMiniMax(bestState);
+                                minimax.loadingScreen.Hide();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
                     break;
                 default:
                     break;
@@ -138,16 +153,26 @@ public class Jeu extends Observable {
                         iaRandomIHM.JoueTourIARand();
                         break;
                     case difficile:
-                        minimax.VanillaMiniMax(new State(this), 7, true);
+
+                        // minimax.loadingScreen.Show();
+                        Runnable r = new Runnable() {
+                            public void run() {
+
+                                // minimax.loadingScreen.Hide();
+                            }
+                        };
+                        new Thread(r).start();
+                        minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
                         State bestState = minimax.bestMove;
                         JoueTourIAMiniMax(bestState);
                         // this.tr._terrain = bestState.Terrain.Copy(this.tr);
                         // this.tr.PrintTerrain();
-                        // System.out.println(bestState);
+                        //
                         break;
                     default:
                         break;
                 }
+
             }
         } else {
             joueurCourant = joueur1;
@@ -218,6 +243,7 @@ public class Jeu extends Observable {
     }
 
     public void SelectionPieceIA(Piece select) {
+
         if (gameOver)
             return;
         // Piece select = tr._terrain[l][c];
@@ -231,14 +257,20 @@ public class Jeu extends Observable {
         } else if (from != null) {
             to = select;
             if ((from.HasBall)) {
-                if (from != to)
+                if (from != to) {
                     Passe();
-                else {
+                } else {
                     RetirerMarque();
                     from = to = null;
                 }
             } else {
-                Deplacement();
+                try {
+                    Deplacement();
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
             }
         }
         // mauvaise selection, reinitialisation de from et to
@@ -415,7 +447,7 @@ public class Jeu extends Observable {
         }
         if (cpt >= 3) {
             String nameAdv = (joueurCourant == joueur1) ? joueur2.name : joueur1.name;
-            System.out.println(nameAdv + " a fait antijeu");
+
             return true;
         } else
             return false;
@@ -559,7 +591,7 @@ public class Jeu extends Observable {
         Piece res = tr.getTerrain()[0][0];
         boolean done = false;
         while (!done) {
-            System.out.println("Entrez les coordonnées de la pièce " + t + " : l c ");
+
             ligne = sc.nextLine();
             ligne_split = ligne.split(" ");
             pieceL = Integer.parseInt(ligne_split[0]);
@@ -573,10 +605,10 @@ public class Jeu extends Observable {
                 done = true;
             } else {
                 if (res.HasBall) {
-                    System.out.println("Erreur : Vous ne pouvez pas bouger la piece qui a la balle");
+
                 }
                 if (res.Type != t) {
-                    System.out.println("Erreur : Veuillez choisir une piece de type " + t);
+
                 }
             }
         }
@@ -623,31 +655,27 @@ public class Jeu extends Observable {
                     endTurn();
                 }
                 tr.PrintTerrain();
-                System.out.println("tour des " + joueurCourant.couleur);
-                System.out.println("Nombre de mouvements restants : " + joueurCourant.nbMove);
-                System.out.println("Nombre de passes restantes : " + joueurCourant.passeDispo);
-                System.out.println(
-                        "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
+
                 choix = sc.nextLine().charAt(0);
                 switch (choix) {
                     case 'p':
                         // passe
                         if (joueurCourant.passeDispo == 1) {
                             from = tr.getPieceWithBall(joueurCourant.couleur);
-                            System.out.println("Les passes possibles sont : " + from.passesPossibles());
+
                             to = getPiece(joueurCourant.couleur);
                             TerrainUtils.passeWrapper(from, to);
                             joueurCourant.passeDispo = 0;
                             gameOver = tr.victoire() != PieceType.Empty;
                         } else {
-                            System.out.println("Vous ne pourrez faire qu'une seule passe");
+
                         }
                         break;
                     case 'm':
                         // mouvement
                         from = getPiece(joueurCourant.couleur);
                         ArrayList<Position> ar = from.PossiblePositions(joueurCourant.nbMove);
-                        System.out.println("Positions possibles : " + ar);
+
                         to = getPiece(PieceType.Empty);
                         // On verifie si c est bien un mouvement legal
 
@@ -665,7 +693,7 @@ public class Jeu extends Observable {
                             if (joueurCourant.nbMove >= 0) {
                                 from.move(to.Position.l, to.Position.c);
                             } else {
-                                System.out.println("Vous n'avez plus de mouvements");
+
                                 joueurCourant.nbMove = temp;
                             }
                         } else {
@@ -678,7 +706,7 @@ public class Jeu extends Observable {
                         endTurn();
                         break;
                     default:
-                        System.out.println("Choix invalide");
+
                         break;
                 }
             }
@@ -696,21 +724,16 @@ public class Jeu extends Observable {
         Piece from;
         Piece to;
         while (!victoire) {
-            System.out.println(" Tour = " + tour);
+
             if (tour == PieceType.White) {
                 // tant qu'il y a un truc à faire
                 while (nbMove > 0 || passe_faite > 0) {
                     tr.PrintTerrain();
-                    System.out.println("tour des " + tour);
-                    System.out.println("Nombre de mouvements restants : " + nbMove);
-                    System.out.println("Nombre de passes restantes : " + passe_faite);
-                    System.out.println(
-                            "entrez 'p' pour faire une passe, 'm' pour faire un mouvement, ou 'q' pour passer votre tour");
 
                     String s = sc.nextLine();
 
                     if (s.length() == 0) {
-                        System.out.println("Choix invalide");
+
                         continue;
                     }
                     choix = s.charAt(0);
@@ -719,32 +742,32 @@ public class Jeu extends Observable {
                             // passe
                             if (passe_faite == 1) {
                                 from = tr.getPieceWithBall(tour);
-                                System.out.println("Les passes possibles sont : " + from.passesPossibles());
+
                                 to = getPiece(tour);
                                 TerrainUtils.passeWrapper(from, to);
                                 passe_faite = 0;
                                 // victoire?
                                 if (to.Position.l == 0) {
-                                    System.out.println("Les blanc ont gagnés !");
+
                                     victoire = true;
                                     // System.exit(0); // La j'ai fais un system.exit mais on changera plus tard si
                                     // il le faut
                                 }
                             } else {
-                                System.out.println("Vous ne pourrez faire qu'une seule passe");
+
                             }
                             break;
                         case 'm':
                             // mouvement
-                            System.out.println("nb moves : " + nbMove);
+
                             if (nbMove == 0) {
-                                System.out.println("Vous n'avez plus de mouvements");
+
                                 nbMove = 0;
                                 continue;
                             }
                             from = getPiece(tour);
                             ArrayList<Position> ar = from.PossiblePositions(nbMove);
-                            System.out.println("Positions possibles : " + ar);
+
                             to = getPiece(PieceType.Empty);
                             // On verifie si c est bien un mouvement legal
                             if (ar.contains(to.Position)) {
@@ -760,7 +783,7 @@ public class Jeu extends Observable {
                                 if (nbMove >= 0) {
                                     from.move(to.Position.l, to.Position.c);
                                 } else {
-                                    System.out.println("Vous n'avez plus de mouvements");
+
                                     nbMove = 0;
                                 }
                             } else {
@@ -774,7 +797,7 @@ public class Jeu extends Observable {
                             passe_faite = 0;
                             break;
                         default:
-                            System.out.println("Choix invalide");
+
                             break;
                     }
                 }
@@ -797,7 +820,7 @@ public class Jeu extends Observable {
         Boolean victoire = false;
         while (!victoire) {
             tr.PrintTerrain();
-            System.out.println(" Tour = " + tour);
+
             if (tour == PieceType.White) {
                 B.IA();
                 victoire = B.Victoire_IA;
@@ -809,9 +832,9 @@ public class Jeu extends Observable {
             }
         }
         if (A.Victoire_IA) {
-            System.out.println("Victoire IA A");
+
         } else {
-            System.out.println("Victoire IA B");
+
         }
     }
 
@@ -847,9 +870,6 @@ public class Jeu extends Observable {
         }
     }
 
-   
-
-
     public void ExportGameToJSON(Jeu j) {
         JeuJSON jte = new JeuJSON(j);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -864,7 +884,6 @@ public class Jeu extends Observable {
             } catch (IOException ioe) {
                 System.err.println("IOException: " + ioe.getMessage());
             } finally {
-                System.out.println(this.getClass().getResource("../data/history.json").getFile());
 
             }
         } catch (JsonGenerationException e) {

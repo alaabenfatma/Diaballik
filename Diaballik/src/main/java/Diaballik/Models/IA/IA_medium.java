@@ -100,7 +100,7 @@ public class IA_medium {
 
     private void Strategy_PPE() {
         int score = PPE_REC(0);
-        System.out.println("Score = " + score + " Movement = " + Sauve);
+        
     }
 
     /**

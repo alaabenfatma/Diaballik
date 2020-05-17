@@ -66,7 +66,7 @@ public class IA_easy {
                 tr.getTerrain()[p.l][p.c].HasBall = false;
                 balle.HasBall = true;
             }
-            System.out.println("les blancs doivent passer à : " + bestPasse);
+            
             return bestPasse;
         } else {
             ArrayList<Position> passes;
@@ -94,7 +94,7 @@ public class IA_easy {
                 tr.getTerrain()[p.l][p.c].HasBall = false;
                 balle.HasBall = true;
             }
-            System.out.println("les noirs doivent passer à : " + bestPasse);
+            
             return bestPasse;
         }
     }
@@ -122,14 +122,13 @@ public class IA_easy {
                 }
             }
 
-            System.out.println("meilleur coup pour les blancs (profondeur de 1):" + bestMove);
-            tr.PrintTerrain();
+            
             return bestMove;
         }
 
         else {
             ArrayList<Couple_piece_pos> possibleMoves = IA_utils.getAllPossibleMoves(type, tr, nbMove);
-            System.out.println("the array : "+possibleMoves);
+            
             int min = 9999;
             From_to bestMove = new From_to(possibleMoves.get(0).piece.Position, possibleMoves.get(0).pos.get(0));
             for (Couple_piece_pos pp : possibleMoves) {
@@ -146,8 +145,7 @@ public class IA_easy {
                 }
             }
 
-            System.out.println("meilleur coup pour les noirs (profondeur de 1):" + bestMove);
-            tr.PrintTerrain();
+            
             return bestMove;
         }
     }
