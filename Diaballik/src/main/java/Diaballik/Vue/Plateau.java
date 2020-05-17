@@ -17,7 +17,6 @@ import javax.swing.*;
 
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
-import Diaballik.Models.Joueur;
 import Diaballik.Patterns.Observateur;
 
 public class Plateau implements Runnable, Observateur {
@@ -34,12 +33,13 @@ public class Plateau implements Runnable, Observateur {
     CollecteurEvenements control;
     boolean maximized;
     static ihm interHM;
-    Timer timer;
+    public static Timer timer;
     JLabel iconePion;
     ImageIcon pionA_bas = null;
     ImageIcon pionB_bas = null;
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
+    ActionListener al;
 
     private static JLabel clock;
     private static long x;
@@ -105,6 +105,8 @@ public class Plateau implements Runnable, Observateur {
         // boiteTexte.add(boutonMenu);
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (timer != null)
+                    timer.stop();
                 JFrame f = new JFrame();
                 f.setSize(700, 530);
                 f.setLayout(null);
@@ -190,13 +192,13 @@ public class Plateau implements Runnable, Observateur {
         final long temps;
         if (conf.getTimer() != ConfigJeu.Timer.illimite) {
             if (conf.getTimer() == ConfigJeu.Timer.un)
-                temps = 60000;
+                temps = 10000;
             else if (conf.getTimer() == ConfigJeu.Timer.deux)
-                temps = 120000;
+                temps = 30000;
             else if (conf.getTimer() == ConfigJeu.Timer.trois)
-                temps = 180000;
+                temps = 60000;
             else
-                temps = 180000;
+                temps = 60000;
 
             final java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("mm : ss");
             clock = new JLabel(sdf.format(new Date(temps)), JLabel.CENTER);
@@ -207,7 +209,7 @@ public class Plateau implements Runnable, Observateur {
             clock.setFont(new Font("Serif", Font.BOLD, 20));
             clock.setAlignmentX(Component.CENTER_ALIGNMENT);
             x = temps - 1000;
-            ActionListener al = new ActionListener() {
+            al = new ActionListener() {
 
                 public void actionPerformed(ActionEvent ae) {
                     if (x <= 0) {
@@ -219,7 +221,9 @@ public class Plateau implements Runnable, Observateur {
 
                 }
             };
-            new javax.swing.Timer(1000, al).start();
+            if (timer == null)
+                timer = new javax.swing.Timer(1000, al);
+            timer.start();
             boiteTexte.add(clock);
 
         }
@@ -238,6 +242,7 @@ public class Plateau implements Runnable, Observateur {
         boutonRecommencer.setVisible(false);
         boutonRecommencer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                timer.stop();
                 j.init();
                 j.start();
             }

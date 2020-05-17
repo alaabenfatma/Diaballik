@@ -39,9 +39,9 @@ public class NewGame extends JPanel {
 	JButton humain = new JButton("Humain");
 	JButton ordinateur = new JButton("Ordinateur");
 	JButton illimite = new JButton("Illimité");
-	JButton uneMin = new JButton("1 min");
-	JButton deuxMin = new JButton("2 min");
-	JButton troisMin = new JButton("3 min");
+	JButton uneMin = new JButton("10 sec");
+	JButton deuxMin = new JButton("30 sec");
+	JButton troisMin = new JButton("1 min");
 	JButton joueur1 = new JButton("Joueur 1");
 	JButton joueur2 = new JButton("Joueur 2");
 	JLabel nomJoueur = new JLabel("Nom du joueur 1 : ");

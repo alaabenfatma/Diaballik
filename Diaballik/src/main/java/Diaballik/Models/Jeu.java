@@ -159,11 +159,11 @@ public class Jeu extends Observable {
         }
         if (config.getTimer() != ConfigJeu.Timer.illimite) {
             if (config.getTimer() == ConfigJeu.Timer.un)
-                Plateau.setX(60000);
+                Plateau.setX(10000);
             else if (config.getTimer() == ConfigJeu.Timer.deux)
-                Plateau.setX(120000);
+                Plateau.setX(30000);
             else if (config.getTimer() == ConfigJeu.Timer.trois)
-                Plateau.setX(180000);
+                Plateau.setX(60000);
             else
                 Plateau.setX(60000);
         }
