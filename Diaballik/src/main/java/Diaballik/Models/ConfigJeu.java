@@ -7,6 +7,10 @@ public class ConfigJeu {
     private String name1 = "Joueur 1", name2 = "Joueur 2", name3 = "IA";
     private IALevel iaLevel = IALevel.facile;
     private boolean variante = false;
+    public String avatarA = "";
+    public String avatarB = "";
+    public String damierA = "";
+    public String damierB = "";
 
     public Mode getMode() {
         return mode;
