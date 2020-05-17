@@ -242,6 +242,18 @@ public class Plateau implements Runnable, Observateur {
         boutonRecommencer.setVisible(false);
         boutonRecommencer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if (conf.getTimer() != ConfigJeu.Timer.illimite) {
+                    if (conf.getTimer() == ConfigJeu.Timer.un)
+                        setX(10000);
+                    else if (conf.getTimer() == ConfigJeu.Timer.deux)
+                        setX(30000);
+                    else if (conf.getTimer() == ConfigJeu.Timer.trois)
+                        setX(60000);
+                    else
+                        setX(60000);
+                }
+                if (timer != null)
+                    timer.restart();
                 j.init();
                 j.start();
             }

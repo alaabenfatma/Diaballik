@@ -1,5 +1,6 @@
 package Diaballik.Controllers;
 
+import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
@@ -46,6 +47,18 @@ public class ControleurMediateur implements CollecteurEvenements {
 	}
 
 	public void replay() {
+		if (jeu.config.getTimer() != ConfigJeu.Timer.illimite) {
+            if (jeu.config.getTimer() == ConfigJeu.Timer.un)
+                Plateau.setX(10000);
+            else if (jeu.config.getTimer() == ConfigJeu.Timer.deux)
+                Plateau.setX(30000);
+            else if (jeu.config.getTimer() == ConfigJeu.Timer.trois)
+                Plateau.setX(60000);
+            else
+                Plateau.setX(60000);
+        }
+		if (Plateau.timer != null)
+			Plateau.timer.restart();
 		jeu.init();
 		jeu.start();
 	}
