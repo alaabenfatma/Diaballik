@@ -68,7 +68,7 @@ public class Plateau implements Runnable, Observateur {
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
                     if (msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder") == 0) {
-                        j.ExportGameToJSON(j);
+                        control.toucheClavier("Save");
                     }
                     System.exit(0);
                     // ajouter la sauvegarde
