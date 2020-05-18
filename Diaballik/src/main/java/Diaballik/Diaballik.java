@@ -7,6 +7,7 @@ import Diaballik.Vue.*;
  *
  */
 public class Diaballik {
+   
 
     public static void main(String[] args) {
         new ihm();
