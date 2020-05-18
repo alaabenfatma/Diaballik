@@ -1,5 +1,6 @@
 package Diaballik.Models;
-
+import java.awt.Color;
+import java.awt.color.*;
 public class ConfigJeu {
     private Mode mode = Mode.humain;
     private Timer timer = Timer.illimite;
@@ -9,8 +10,8 @@ public class ConfigJeu {
     private boolean variante = false;
     public String avatarA = "";
     public String avatarB = "";
-    public String damierA = "";
-    public String damierB = "";
+    public String damierA = "#0033cc";
+    public String damierB = "#6699ff";
 
     public Mode getMode() {
         return mode;
