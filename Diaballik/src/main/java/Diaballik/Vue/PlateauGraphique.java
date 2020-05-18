@@ -114,6 +114,11 @@ public abstract class PlateauGraphique extends JComponent implements Observateur
         // drawable.fillPolygon(xpoints, ypoints, 3);
     }
 
+    protected void tracerDamier(Color couleur, int x, int y, int l, int h) {
+        drawable.setColor(couleur);
+        drawable.fillRect(x, y, l, h);
+    }
+
     abstract void tracerPlateau();
 
     public void paintComponent(Graphics g) {

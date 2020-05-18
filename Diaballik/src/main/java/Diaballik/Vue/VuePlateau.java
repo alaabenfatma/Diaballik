@@ -60,15 +60,21 @@ public class VuePlateau extends PlateauGraphique {
                 // int marque = n.marque(ligne, colonne);
                 // Tracé du sol
                 if (ligne % 2 == 0) {
-                    if (colonne % 2 == 0)
-                        tracer(caseA, x, y, largeurCase, hauteurCase);
-                    else
-                        tracer(caseB, x, y, largeurCase, hauteurCase);
+                    if (colonne % 2 == 0) {
+                        tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase,
+                                hauteurCase);
+                    } else {
+                        tracerDamier(Color.decode(j.config.damierB), x, y, largeurCase,
+                                hauteurCase);
+                    }
                 } else {
-                    if (colonne % 2 == 0)
-                        tracer(caseB, x, y, largeurCase, hauteurCase);
-                    else
-                        tracer(caseA, x, y, largeurCase, hauteurCase);
+                    if (colonne % 2 == 0) {
+                        tracerDamier(Color.decode(j.config.damierB), x, y, largeurCase,
+                        hauteurCase);
+                    } else {
+                        tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase,
+                        hauteurCase);
+                    }
                 }
                 // Pose des pions
                 if (j.tr._terrain[ligne][colonne].Type == PieceType.Black) {

@@ -393,7 +393,7 @@ public class NewGame extends JPanel {
 		
 		choisirTerrain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new choisirTerrain();
+				new TerrainCustomize(configJeu);
 				
 			}
 		});
