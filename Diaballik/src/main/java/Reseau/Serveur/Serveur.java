@@ -2,7 +2,7 @@ package Reseau.Serveur;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.net.InetAddress;
 import java.io.BufferedReader;
@@ -12,6 +12,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Collections;
 
 
 public class Serveur {
@@ -19,7 +22,7 @@ public class Serveur {
 	private static int port = 4242;// si 0 prend le premier libre
 	private static InetAddress add;
 	private ArrayList<PrintWriter> AllClient = new ArrayList<PrintWriter>(); // contient tous les flux de sortie vers les clients
-	private Hashtable<Integer ,PrintWriter> numC_out = new Hashtable<Integer ,PrintWriter>();
+	private HashMap<Integer ,PrintWriter> numC_out = new HashMap<Integer ,PrintWriter>();
 	private static int nbC = -1;
 	private static ServerSocket sS;
 	PrintWriter out;
@@ -96,6 +99,7 @@ public class Serveur {
 		return nbC;
 	}
 	synchronized public void sendAllClient(String message,String sLast){
+		/*
 		numC_out.forEach((k,v)->{
 	    	out = v;
 	    	if (out != null) {// sécurité, l'élément ne doit pas être vide
@@ -103,15 +107,32 @@ public class Serveur {
 		        out.println(message+sLast);
 		        out.flush(); // envoi dans le flux de sortie
 		      }
-	    });
-		/*for (int i = 0; i < AllClient.size(); i++){
+		});
+		*/
+
+		Iterator<Map.Entry<Integer ,PrintWriter>> it = numC_out.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry<Integer ,PrintWriter> entry = it.next();
+		  
+			out = entry.getValue(); // extraction de l'élément courant (type PrintWriter)
+	      if (out != null) {// sécurité, l'élément ne doit pas être vide
+	        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
+	        out.println(message+sLast);
+	        out.flush(); // envoi dans le flux de sortie
+	      }
+		}
+
+
+		/*
+		for (int i = 0; i < AllClient.size(); i++){
 	      out = AllClient.get(i); // extraction de l'élément courant (type PrintWriter)
 	      if (out != null) {// sécurité, l'élément ne doit pas être vide
 	        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
 	        out.println(message+sLast);
 	        out.flush(); // envoi dans le flux de sortie
 	      }
-	    }*/
+		}
+		*/
 	}
 	synchronized public void sendClient(String message,int Client) {
 		out = numC_out.get(Client);
@@ -136,7 +157,7 @@ public class Serveur {
 		}
 	}
 	synchronized public void C_test_Json(int Client,String message){
-		Enumeration<Integer> k = numC_out.keys();
+		Enumeration<Integer> k = Collections.enumeration(numC_out.keySet());
 		Integer C1 = k.nextElement();
 		Integer C2 = k.nextElement();
 		
