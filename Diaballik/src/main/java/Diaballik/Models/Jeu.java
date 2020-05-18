@@ -31,7 +31,7 @@ public class Jeu extends Observable {
     Piece to = null;
     private ArrayList<Position> listeMarque = new ArrayList<Position>();
     private ArrayList<Position> listePositionsPossibles = new ArrayList<Position>();
-    private boolean IA;
+    public boolean IA;
     Random_IA I;
     public ConfigJeu config;
     IaRandomIHM iaRandomIHM;

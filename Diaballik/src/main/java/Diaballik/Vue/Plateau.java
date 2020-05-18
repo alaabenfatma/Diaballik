@@ -35,7 +35,9 @@ public class Plateau implements Runnable, Observateur {
 	JMenu m2 = new JMenu("Options");
 	JMenuItem menuTerrain = new JMenuItem("Terrain");
 	JMenuItem menuPerso = new JMenuItem("Personnages");
-	JMenuItem niveauIA = new JMenuItem("Niveau de l'IA");
+	JCheckBoxMenuItem niveauIAfacile = new JCheckBoxMenuItem("IA facile");
+	JCheckBoxMenuItem niveauIAmoyen = new JCheckBoxMenuItem("IA moyen");
+	JCheckBoxMenuItem niveauIAdifficile = new JCheckBoxMenuItem("IA difficile");
 
     static ihm interHM;
     public static Timer timer;
@@ -81,10 +83,18 @@ public class Plateau implements Runnable, Observateur {
         frame.setIconImage(icon);
     	m1.add(menuTerrain);
 		m1.add(menuPerso);
-		m2.add(niveauIA);
+		m2.add(niveauIAfacile);
+		m2.add(niveauIAmoyen);
+		m2.add(niveauIAdifficile);
+		
+		niveauIAfacile.setMnemonic(KeyEvent.VK_C);  
+		niveauIAmoyen.setMnemonic(KeyEvent.VK_C);  
+		niveauIAdifficile.setMnemonic(KeyEvent.VK_C);  
+
 		mb.add(m1);
 		mb.add(m2);
 		mb.setBounds(0, 0, 800, 20);
+		m2.setMnemonic(KeyEvent.VK_F);  
 		frame.add(mb);
 		frame.add(mb, BorderLayout.NORTH);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -168,6 +178,7 @@ public class Plateau implements Runnable, Observateur {
         sound.setFocusable(false);
         drapeau.setFocusable(false);
         
+
         sound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -200,10 +211,54 @@ public class Plateau implements Runnable, Observateur {
                 new choisirPerso(2);
             }
         });
+       
+        if (j.IA == false) {
+        	niveauIAfacile.setSelected(false);
+    		niveauIAmoyen.setSelected(false);
+    		niveauIAdifficile.setSelected(false);
+        } else if (j.IA == true) {
+        	if (conf.getIALevel() == ConfigJeu.IALevel.facile) {
+        		niveauIAfacile.setSelected(true);
+    			niveauIAmoyen.setSelected(false);
+    			niveauIAdifficile.setSelected(false);
+            } else if (conf.getIALevel() == ConfigJeu.IALevel.moyen) {
+            	niveauIAfacile.setSelected(false);
+            	niveauIAmoyen.setSelected(true);
+    			niveauIAdifficile.setSelected(false);
+            } else if (conf.getIALevel() == ConfigJeu.IALevel.difficile){
+            	niveauIAfacile.setSelected(false);
+    			niveauIAmoyen.setSelected(false);
+            	niveauIAdifficile.setSelected(true);
+            }	
+        	
+        }
         
-        niveauIA.addActionListener(new ActionListener() {
+        niveauIAfacile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	new FenetreNiveauIAPlateau();
+            	conf.setIALevel(ConfigJeu.IALevel.facile);            		
+        		niveauIAfacile.setSelected(true);
+        		niveauIAmoyen.setSelected(false);
+        		niveauIAdifficile.setSelected(false);
+            }
+        });
+        
+        
+        niveauIAmoyen.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	conf.setIALevel(ConfigJeu.IALevel.moyen);            		
+        		niveauIAfacile.setSelected(false);
+        		niveauIAmoyen.setSelected(true);
+        		niveauIAdifficile.setSelected(false);
+            }
+        });
+        
+        niveauIAdifficile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	conf.setIALevel(ConfigJeu.IALevel.difficile);            		
+        		niveauIAfacile.setSelected(false);
+        		niveauIAmoyen.setSelected(false);
+        		niveauIAdifficile.setSelected(true);
+
             }
         });
 
@@ -408,7 +463,8 @@ public class Plateau implements Runnable, Observateur {
                 j.start();
             }
         });
-
+        
+      
         /*
          * //bouton rejouer boutonRejouer.setFocusable(false);
          * boiteTexte.add(boutonRejouer); //boiteTexte.add(Box.createRigidArea(new
@@ -524,7 +580,7 @@ public class Plateau implements Runnable, Observateur {
                 else {
                     iconePion.setIcon(pionA_bas);
                 }
-
+                
             }
 
         } catch (Exception e) {
