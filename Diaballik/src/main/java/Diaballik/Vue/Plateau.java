@@ -24,6 +24,7 @@ public class Plateau implements Runnable, Observateur {
     JButton sound = new JButton();
     JButton drapeau = new JButton();
     JButton suggestion = new JButton("Suggestion");
+    Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
     JLabel boutonInfo;
     PlateauGraphique plat;
     Jeu j;
@@ -52,13 +53,11 @@ public class Plateau implements Runnable, Observateur {
         interHM = i;
     }
 
-    boolean blang = staticConfig.blang;
-    boolean bmute = staticConfig.bmute;
 
     Plateau(Jeu jeu, CollecteurEvenements c, ConfigJeu cj) {
         j = jeu;
         control = c;
-        conf = cj;
+        conf = cj; 
     }
 
     public static void demarrer(Jeu j, CollecteurEvenements c, ConfigJeu cj) {
@@ -74,16 +73,16 @@ public class Plateau implements Runnable, Observateur {
     public void run() {
         // Creation d'une fenetre
         frame = new JFrame("Diaballik");
+        frame.setIconImage(icon);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (blang == false) {
+                if (staticConfig.blang == true) {
                     if (msgBox.msgYesNo("Voulez-vous quitter?", "Quitter") == 0) {
                         if (msgBox.msgYesNo("Voulez-vous sauvegarder votre partie", "Sauvegarder") == 0) {
                             control.toucheClavier("Save");
                         }
                         System.exit(0);
-                        // ajouter la sauvegarde
                     } else {
                         return;
                     }
@@ -93,7 +92,6 @@ public class Plateau implements Runnable, Observateur {
                             control.toucheClavier("Save");
                         }
                         System.exit(0);
-                        // ajouter la sauvegarde
                     } else {
                         return;
                     }
@@ -120,15 +118,13 @@ public class Plateau implements Runnable, Observateur {
             mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(20, 20,
                     Image.SCALE_DEFAULT);
 
-            if (bmute == false) {
+            if (staticConfig.bmute == true) {
                 sound.setIcon(new ImageIcon(mute));
-                bmute = true;
             } else {
                 sound.setIcon(new ImageIcon(son));
-                bmute = false;
             }
 
-            if (blang == false) {
+            if (staticConfig.blang == false) {
                 drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20,
                         20, Image.SCALE_DEFAULT);
                 drapeau.setIcon(new ImageIcon(drapeauGB));
@@ -137,8 +133,6 @@ public class Plateau implements Runnable, Observateur {
                 buttonViewArrow.setText(wEn.indicateur);
                 mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
                 passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
-
-                blang = true;
 
             } else {
                 drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png")))
@@ -149,8 +143,6 @@ public class Plateau implements Runnable, Observateur {
                 buttonViewArrow.setText(wFr.indicateur);
                 mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
                 passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
-
-                blang = false;
             }
 
         } catch (Exception e) {
@@ -166,12 +158,12 @@ public class Plateau implements Runnable, Observateur {
         sound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (bmute == false) {
+                    if (staticConfig.bmute == false) {
                         sound.setIcon(new ImageIcon(mute));
-                        bmute = true;
+                        staticConfig.bmute = true;
                     } else {
                         sound.setIcon(new ImageIcon(son));
-                        bmute = false;
+                        staticConfig.bmute = false;
                     }
 
                 } catch (Exception e1) {
@@ -183,7 +175,7 @@ public class Plateau implements Runnable, Observateur {
         drapeau.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (blang == false) {
+                    if (staticConfig.blang == true) {
                         drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg"))
                                 .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
                         drapeau.setIcon(new ImageIcon(drapeauGB));
@@ -195,7 +187,7 @@ public class Plateau implements Runnable, Observateur {
                         mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
                         passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
 
-                        blang = true;
+                        staticConfig.blang = false;
 
                     } else {
                         drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png")))
@@ -209,7 +201,7 @@ public class Plateau implements Runnable, Observateur {
                         mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
                         passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
 
-                        blang = false;
+                        staticConfig.blang = true;
 
                     }
                 } catch (Exception e1) {
@@ -228,7 +220,7 @@ public class Plateau implements Runnable, Observateur {
         // boiteTexte.add(boutonMenu);
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ps.play("son/buttonClick.wav", bmute);
+                ps.play("son/buttonClick.wav", staticConfig.bmute);
                 if (timer != null)
                     timer.stop();
                 JFrame f = new JFrame();
@@ -334,7 +326,7 @@ public class Plateau implements Runnable, Observateur {
             al = new ActionListener() {
 
                 public void actionPerformed(ActionEvent ae) {
-                    ps.play("son/buttonClick.wav", bmute);
+                    ps.play("son/buttonClick.wav", staticConfig.bmute);
                     if (x <= 0) {
                         control.toucheClavier("FinTour");
                         x = temps;

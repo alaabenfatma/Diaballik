@@ -21,15 +21,6 @@ public class MenuEnJeu extends JPanel {
     Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
 	ObjectMapper objectMapper = new ObjectMapper();
 	static ihm interHM;
-	Menu menu;
-	Menu m;
-	NewGame ng;
-	ChargerPartie cp;
-	JouerReseau jr;
-	AttenteJoueurReseau ajr;
-	CreerPartieReseau crr;
-	Regles r;
-	RejoindrePartieReseau rpr;
 	ihm i;
 	
 
@@ -47,6 +38,7 @@ public class MenuEnJeu extends JPanel {
     public MenuEnJeu(final JFrame frame, final JFrame plateau) {
         frame.setSize(600, 530);
         frame.setTitle("Menu");
+        frame.setIconImage(icon);
         this.setLayout(null);
         reprendre.setBounds(220, 20, 150, 50);
         sauvegarde.setBounds(220, 95, 150, 50);
@@ -67,7 +59,6 @@ public class MenuEnJeu extends JPanel {
 	    		menup.setText(wEn.menuPrincipal);
 	    		quit.setText(wEn.quit);
 	    		
-	    		staticConfig.blang = true;
 	    		
 			} else {
 	    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
@@ -78,9 +69,7 @@ public class MenuEnJeu extends JPanel {
 	    		charger.setText(wFr.charger);
 	    		menup.setText(wFr.menuPrincipal);
 	    		quit.setText(wFr.quit);
-	    		
-	    		staticConfig.blang = false;
-	    		
+	    			    		
 			}
 		}
 		catch (Exception e1) {

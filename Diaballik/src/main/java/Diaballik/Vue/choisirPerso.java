@@ -16,7 +16,7 @@ public class choisirPerso extends JFrame{
 	JButton valider = new JButton("Valider");
 	
 	public choisirPerso(int persoJoueur) {
-		choisirPersoPanel panel = new choisirPersoPanel(this, persoJoueur);
+		final choisirPersoPanel panel = new choisirPersoPanel(this, persoJoueur);
 		this.setTitle("Personnalisation");
 		this.setSize(300, 300);
 		this.setLocationRelativeTo(null);
@@ -40,13 +40,30 @@ public class choisirPerso extends JFrame{
 
 		precedent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (panel.persoJoueur == 2) {
+					panel.persoJoueur = 1;
+					repaint();
+					revalidate();
+				} else if (panel.persoJoueur == 1){
+					panel.persoJoueur = 2;
+					repaint();
+					revalidate();
+				}
 			}
 		});
 		
 		suivant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		
+				if (panel.persoJoueur == 1) {
+					panel.persoJoueur = 2;
+					repaint();
+					revalidate();
+				} else if (panel.persoJoueur == 2){
+					panel.persoJoueur = 1;
+					repaint();
+					revalidate();
+				}
+				
 			}
 		});
 		

@@ -2,10 +2,14 @@ package Diaballik.Vue;
 
 import java.awt.Color;
 import java.awt.Font;
-
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.*;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -67,6 +71,7 @@ public class NewGame extends JPanel {
 	ihm i;
 	Jeu j;
 	ConfigJeu configJeu;
+	Image icon; 
 	
 	JButton choixPersoJoueur1 = new JButton("Personnaliser");
 	JButton choixPersoJoueur2 = new JButton("Personnaliser");
@@ -111,6 +116,8 @@ public class NewGame extends JPanel {
 				choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 80, 130, 20);
 				choisirTerrainlabel.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 120, 30);
 				choisirTerrain.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 120, 200, 30);
+				
+				//choixPersoJoueur1.setIcon(new ImageIcon(icon));
 				
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) - 120, 300, 100);
 				duree.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 100, 100);
