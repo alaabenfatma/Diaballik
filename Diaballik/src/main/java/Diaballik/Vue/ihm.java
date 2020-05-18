@@ -15,10 +15,6 @@ import javax.swing.JMenuItem;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import Diaballik.Models.ConfigJeu;
-import Diaballik.Models.Jeu;
-
-
 public class ihm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -137,9 +133,6 @@ public class ihm extends JFrame {
     		    		ng.choisirTerrainlabel.setText(wEn.choisirTerrainlabel);
     		    		ng.retour.setText(wEn.retour);
     		    		ng.jouer.setText(wEn.jouer);
-    		    		
-    		    		//cT.valider.setText(wEn.validerPersonnaliser);
-    		    		//cP.valider.setText(wEn.validerPersonnaliser);
     		    		
     		    		cp.titre.setText(wEn.charger);
     		    		cp.retour.setText(wEn.retour);

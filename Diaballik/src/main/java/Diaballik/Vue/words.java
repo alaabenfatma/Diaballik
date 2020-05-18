@@ -48,6 +48,8 @@ public class words {
 	public String deplacements = "Déplacements";
 	public String passe = "Passe";
 	public String indicateur = "Indicateur coups joués";
+	public String sauvegarde = "Sauvegarde";
+	public String reprendre = "Reprendre";
 	
 	@JsonCreator
 	public words() {

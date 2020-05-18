@@ -160,7 +160,9 @@ public class Plateau implements Runnable, Observateur {
         boiteTexte.add(drapeau);
         boiteTexte.add(sound);
         boiteTexte.add(suggestion);
-
+        sound.setFocusable(false);
+        drapeau.setFocusable(false);
+        
         sound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {

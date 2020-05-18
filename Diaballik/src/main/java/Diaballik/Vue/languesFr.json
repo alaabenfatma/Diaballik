@@ -45,5 +45,7 @@
 	"finTour": "Fin de tour",
 	"deplacements": "Déplacements",
 	"passe" : "Passe",
-	"indicateur" : "Indicateur coups joués"
+	"indicateur" : "Indicateur coups joués",
+	"sauvegarde" : "Sauvegarder",
+	"reprendre": "Reprendre"
  }

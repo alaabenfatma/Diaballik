@@ -45,6 +45,8 @@
 	"finTour": "End round",
 	"deplacements": "Moves",
 	"passe" : "Pass",
-	"indicateur" : "Traces"
+	"indicateur" : "Traces",
+		"sauvegarde" : "Save",
+	"reprendre": "Resume"
 	
  }
