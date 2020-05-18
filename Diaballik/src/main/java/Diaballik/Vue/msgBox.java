@@ -1,11 +1,14 @@
 package Diaballik.Vue;
 
+import java.awt.Toolkit;
+
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class msgBox {
 
-    public static void MessageBox(String msg, String titre, JFrame i) {
+    public static void MessageBox(String msg, String titre) {
 
         JFrame frame = new JFrame();
         int result = JOptionPane.showConfirmDialog(frame, msg, titre, JOptionPane.YES_NO_OPTION,
@@ -17,10 +20,15 @@ public class msgBox {
         }
     }
 
+    public static void Confirm(String msg, String titre) {
+        JFrame frame = new JFrame();
+        JOptionPane.showMessageDialog(frame, msg, titre, JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public static int msgYesNo(String msg, String titre) {
         int dialogButton = JOptionPane.YES_NO_OPTION;
         int dialogResult = JOptionPane.showConfirmDialog(null, msg, titre, dialogButton);
-        return dialogResult; //0 = yes, 1 = no
+        return dialogResult; // 0 = yes, 1 = no
     }
-    
+
 }
