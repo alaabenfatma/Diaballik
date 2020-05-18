@@ -4,7 +4,7 @@ import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 import Diaballik.Vue.CollecteurEvenements;
 import Diaballik.Vue.Plateau;
-import Diaballik.Vue.Screens.TickScreen;
+import Diaballik.Vue.msgBox;
 import Diaballik.Models.IA.*;
 
 public class ControleurMediateur implements CollecteurEvenements {
@@ -43,6 +43,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	public void save() {
 		jeu.ExportGameToJSON(jeu);
+		msgBox.Confirm("La partie a été enregistrée.", "Information");
 	}
 
 	public void replay() {
@@ -68,7 +69,7 @@ public class ControleurMediateur implements CollecteurEvenements {
 
 	public void suggestion(){
 		jeu.suggestion();
-		jeu.tick.Show();
+		
 	}
 	
 	@Override

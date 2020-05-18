@@ -388,9 +388,9 @@ public class ihm extends JFrame {
 	public void quit() {
 		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		if (staticConfig.blang == false) {
-			msgBox.MessageBox("Do you want to quit ?", "Quit", this);
+			msgBox.MessageBox("Do you want to quit ?", "Quit");
 		} else {
-			msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);
+			msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter");
 		}
 		
 	}

@@ -33,11 +33,12 @@ public class LoadingScreen {
     }
 
     public void Show() {
-        frame.setVisible(true);
+       
         Frame[] allFrames = Frame.getFrames();
         for (Frame frame : allFrames) {
             frame.setEnabled(false);
         }
+        frame.setVisible(true);
     }
 
     public void Hide() {
@@ -45,6 +46,8 @@ public class LoadingScreen {
         Frame[] allFrames = Frame.getFrames();
         for (Frame frame : allFrames) {
             frame.setEnabled(true);
+            frame.toFront();
+            frame.repaint();
         }
     }
 
