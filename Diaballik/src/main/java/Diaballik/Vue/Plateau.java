@@ -105,6 +105,8 @@ public class Plateau implements Runnable, Observateur {
 
         // Texte et contrôles à droite de la fenêtre
         Box boiteTexte = Box.createVerticalBox();
+        boiteTexte.setOpaque(true);
+        //boiteTexte.setBackground(Color.decode( "#6699ff"));
 
         Image img = null;
         try {
@@ -121,6 +123,7 @@ public class Plateau implements Runnable, Observateur {
             } else {
                 sound.setIcon(new ImageIcon(son));
             }
+            
 
             if (staticConfig.blang == false) {
                 drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20,
@@ -230,7 +233,13 @@ public class Plateau implements Runnable, Observateur {
                 f.setVisible(true);
             }
         });
-
+        
+        sound.add(Box.createRigidArea(new Dimension(10, 20)));
+        sound.setAlignmentX(Component.LEFT_ALIGNMENT);
+        boiteTexte.add(sound);
+        drapeau.add(Box.createRigidArea(new Dimension(10, 20)));
+        drapeau.setAlignmentX(Component.RIGHT_ALIGNMENT);
+        boiteTexte.add(drapeau);
         // Ajout des boutons en haut
         Box topButton = Box.createHorizontalBox();
         boutonMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -282,21 +291,15 @@ public class Plateau implements Runnable, Observateur {
         }
         iconePion.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(iconePion);
-        joueur.setOpaque(true);
-        joueur.setBackground(Color.white);
         boiteTexte.add(joueur);
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
         // Info mouvements
         mouvements.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mouvements.setOpaque(true);
-        mouvements.setBackground(Color.white);
         boiteTexte.add(mouvements);
 
         // Info passe
         passe.setAlignmentX(Component.CENTER_ALIGNMENT);
-        passe.setOpaque(true);
-        passe.setBackground(Color.white);
         boiteTexte.add(passe);
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 20)));
 
