@@ -77,6 +77,7 @@ public class TerrainCustomize {
         final  JButton ok = new JButton("Ok");
         frame.setSize(400, 400);
         frame.setLocationRelativeTo(null);
+        frame.setResizable(false);
         
         ok.addActionListener(new ActionListener() {
             @Override

@@ -3,7 +3,6 @@ package Diaballik.Models.IA;
 import java.util.ArrayList;
 
 import Diaballik.Models.*;
-
 /**
  * Heuristics
  */
@@ -119,9 +118,14 @@ public class Evaluator {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
                 int innerScore = scoreOfPiece(board[i][j]);
-                if (Math.abs(innerScore) >= 999)
+                if(Math.abs(innerScore)>999){
+                    score = innerScore;
                     return innerScore;
-                score += innerScore;
+                }
+                else{
+                    score += innerScore;
+                }
+                
             }
         }
         return score;

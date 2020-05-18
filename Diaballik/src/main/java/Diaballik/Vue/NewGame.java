@@ -112,9 +112,7 @@ public class NewGame extends JPanel {
 				choixPersoJoueur2.setBounds((i.getWidth() / 2) + 120, (i.getHeight() / 4) + 80, 130, 20);
 				choisirTerrainlabel.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 120, 30);
 				choisirTerrain.setBounds((i.getWidth() / 2) - 90, (i.getHeight() / 4) + 120, 200, 30);
-				
-				//choixPersoJoueur1.setIcon(new ImageIcon(icon));
-				
+								
 				titre.setBounds((i.getWidth() / 2) - 100, (i.getHeight() / 4) - 120, 300, 100);
 				duree.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 120, 100, 100);
 				priorite.setBounds((i.getWidth() / 2) - 240, (i.getHeight() / 4) + 190, 150, 120);

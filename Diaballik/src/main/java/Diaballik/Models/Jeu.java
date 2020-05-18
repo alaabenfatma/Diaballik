@@ -114,7 +114,7 @@ public class Jeu extends Observable {
                                 Runnable r = new Runnable() {
                                     public void run() {
                                         tr.PrintTerrain();
-                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 8, true);
                                         State bestState = minimax.bestMove;
                                         JoueTourIAMiniMax(bestState);
                                         minimax.loadingScreen.Hide();
@@ -164,7 +164,7 @@ public class Jeu extends Observable {
                         Runnable r = new Runnable() {
                             public void run() {
                                 tr.PrintTerrain();
-                                minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                                minimax.VanillaMiniMax(new State(tr._jeuParent), 8, true);
                                 State bestState = minimax.bestMove;
                                 JoueTourIAMiniMax(bestState);
                                 minimax.loadingScreen.Hide();

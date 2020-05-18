@@ -39,7 +39,6 @@ public class Menu extends JPanel {
 		mb.setBounds(0, 0, 600, 20);
 		this.add(mb);
 		this.setSize(600, 510);
-
         this.setLayout(null);
         
         i.addComponentListener(new ComponentAdapter() {
