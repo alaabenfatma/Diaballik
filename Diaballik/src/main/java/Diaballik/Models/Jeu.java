@@ -14,6 +14,7 @@ import Diaballik.Models.IA.*;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
 import Diaballik.Vue.Plateau;
+import Diaballik.Vue.Screens.TickScreen;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,7 +47,7 @@ public class Jeu extends Observable {
     public boolean antijeuBool;
     public boolean IaVSIa = false;
     public FromTo suggetionCoup = null;
-
+    public TickScreen tick = new TickScreen();
     public Jeu() {
         tr = new Terrain();
         tr.Create();

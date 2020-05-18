@@ -27,7 +27,7 @@ import static java.util.Collections.*;
 import java.util.*;
 import Diaballik.Controllers.*;
 import Diaballik.Models.*;
-import Diaballik.Vue.LoadingScreen.LoadingScreen;
+import Diaballik.Vue.Screens.*;
 
 public class MiniMax {
     public PieceType AI_TYPE = PieceType.Black;

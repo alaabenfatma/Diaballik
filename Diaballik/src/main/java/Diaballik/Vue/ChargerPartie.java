@@ -129,7 +129,10 @@ public class ChargerPartie extends JPanel {
 						JeuJSON j = mapper.readValue(line, JeuJSON.class);
 						Jeu realJeu = new Jeu();
 						ConfigJeu cfg = new ConfigJeu();
+					
 						realJeu.configurer(cfg);
+						realJeu.config.damierA = j.config.damierA;
+						realJeu.config.damierB = j.config.damierB;
 						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
 						realJeu.start();
 						PlateauGraphique plat;

@@ -1,7 +1,7 @@
 /**
  * GIF ARTIST : https://www.pinterest.fr/dribbble/
  */
-package Diaballik.Vue.LoadingScreen;
+package Diaballik.Vue.Screens;
 
 import javax.swing.*;
 import java.awt.Frame;
