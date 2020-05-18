@@ -33,9 +33,12 @@ public class Client  {
 			s = new Socket(host,port);
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			Joueur = in.readLine(); // definition du joueur
-			if(Joueur.equals("j1")) {attente = false;}
+			
+			if(Joueur.equals("j1")){attente = false;}
 			else {attente = true;}
-			System.out.println(in.readLine()); // Connexion établie
+			System.out.println("attente : "+ attente);
+			
+			System.out.println("test "+in.readLine()); // Connexion établie
 			
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 			
@@ -50,7 +53,7 @@ public class Client  {
 					if(cmp.equals("rep")) {
 						System.out.println(in.readLine());
 					}
-					
+					attente = !attente;
 				}else {
 					System.out.print(">");
 					String message = s_in.nextLine();
@@ -62,6 +65,7 @@ public class Client  {
 					}
 					else if(message.equals("test_json")){
 						C.C_test_json();
+						attente = !attente;
 					}
 					else {
 						System.out.println("Envoi du message : "+message);
@@ -69,7 +73,7 @@ public class Client  {
 						out.flush();
 					}
 				}
-				attente = !attente;
+				
 				
 			}
 			out.close();

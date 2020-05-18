@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Connexion implements Runnable {
 	private Thread T;
@@ -33,11 +34,8 @@ public class Connexion implements Runnable {
 		String message;
 		System.out.println(" --- Connexion d'un nouveau client ---");
 		System.out.println(" --- Numéro attribué au client : "+ numClient +" --- ");
-		out.println(numClient);
-		out.flush();
 		try {
-			message = "Connexion établie";
-			Serv.sendClient(message, numClient);
+			Serv.sendClient("Connexion établie", numClient);
 			message = in.readLine();
 			while(!message.equals("quit")) {
 				if(message.equals("total")) {
@@ -60,6 +58,9 @@ public class Connexion implements Runnable {
 			in.close();
 			out.close();
 			System.exit(0);
+		}
+		catch(SocketException sE) {
+			System.out.println("Client " + numClient + " déconnecté");
 		}
 		catch(NullPointerException p) {
 			System.out.println("Client " + numClient + " déconnecté");

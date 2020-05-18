@@ -99,17 +99,6 @@ public class Serveur {
 		return nbC;
 	}
 	synchronized public void sendAllClient(String message,String sLast){
-		/*
-		numC_out.forEach((k,v)->{
-	    	out = v;
-	    	if (out != null) {// sécurité, l'élément ne doit pas être vide
-		        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
-		        out.println(message+sLast);
-		        out.flush(); // envoi dans le flux de sortie
-		      }
-		});
-		*/
-
 		Iterator<Map.Entry<Integer ,PrintWriter>> it = numC_out.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry<Integer ,PrintWriter> entry = it.next();
@@ -121,18 +110,6 @@ public class Serveur {
 	        out.flush(); // envoi dans le flux de sortie
 	      }
 		}
-
-
-		/*
-		for (int i = 0; i < AllClient.size(); i++){
-	      out = AllClient.get(i); // extraction de l'élément courant (type PrintWriter)
-	      if (out != null) {// sécurité, l'élément ne doit pas être vide
-	        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
-	        out.println(message+sLast);
-	        out.flush(); // envoi dans le flux de sortie
-	      }
-		}
-		*/
 	}
 	synchronized public void sendClient(String message,int Client) {
 		out = numC_out.get(Client);
@@ -143,9 +120,9 @@ public class Serveur {
 		}
 	}
 	synchronized public void C_total(int Client) {
-		out = AllClient.get(Client);
+		out = numC_out.get(Client);
 		if(out != null) {
-			out.println(AllClient.size());
+			out.println(numC_out.size());
 			out.flush();
 		}
 	}
