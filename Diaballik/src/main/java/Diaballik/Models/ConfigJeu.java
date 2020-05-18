@@ -1,6 +1,6 @@
 package Diaballik.Models;
-import java.awt.Color;
-import java.awt.color.*;
+
+
 public class ConfigJeu {
     private Mode mode = Mode.humain;
     private Timer timer = Timer.illimite;
