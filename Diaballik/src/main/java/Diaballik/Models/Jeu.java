@@ -468,6 +468,7 @@ public class Jeu extends Observable {
     }
 
     public void jctrl_z() {
+        gameOver = false;
         tr.ctrl_z();
         clearListe();
         metAJour();
