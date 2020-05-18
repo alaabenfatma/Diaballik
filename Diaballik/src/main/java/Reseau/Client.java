@@ -22,7 +22,6 @@ public class Client  {
 	static String numP;
 	static PrintWriter out;
 	static BufferedReader in;
-	static boolean Connexion_ok;
 	/*
 	private Thread T;
 	public Client(String c){
@@ -55,9 +54,12 @@ public class Client  {
 			out.flush();
 			
 			Joueur = in.readLine(); // definition du joueur
-			if(Joueur.equals("Déconnexion")) {Connexion_ok = false;}
-			else if(Joueur.equals("j1")){attente = false;Connexion_ok = true;}
-			else {attente = true;Connexion_ok = true;}
+			if(Joueur.equals("Déconnexion")) {
+				System.out.println("Déconnexion du client");
+				System.exit(0);
+			}
+			else if(Joueur.equals("j1")){attente = false;}
+			else {attente = true;}
 			System.out.println("attente : "+ attente);
 			
 			System.out.println("test "+in.readLine()); // Connexion établie
@@ -69,7 +71,7 @@ public class Client  {
 			System.out.print(">");
 			System.out.println(Joueur);
 			
-			while(true && Connexion_ok) {
+			while(true) {
 				if(attente) {
 					String cmp = in.readLine();
 					if(cmp.equals("rep")) {
