@@ -213,9 +213,9 @@ public class Plateau implements Runnable, Observateur {
         });
        
         if (j.IA == false) {
-        	niveauIAfacile.setSelected(false);
-    		niveauIAmoyen.setSelected(false);
-    		niveauIAdifficile.setSelected(false);
+        	niveauIAfacile.setEnabled(false);
+    		niveauIAmoyen.setEnabled(false);
+    		niveauIAdifficile.setEnabled(false);
         } else if (j.IA == true) {
         	if (conf.getIALevel() == ConfigJeu.IALevel.facile) {
         		niveauIAfacile.setSelected(true);
