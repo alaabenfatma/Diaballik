@@ -10,8 +10,8 @@ public class ConfigJeu {
     private boolean variante = false;
     public String avatarA = "";
     public String avatarB = "";
-    public String damierA = "#0033cc";
-    public String damierB = "#6699ff";
+    public String damierA = "#007acc";
+    public String damierB = "#79beed";
 
     public Mode getMode() {
         return mode;
