@@ -113,8 +113,7 @@ public class Jeu extends Observable {
                                 minimax.loadingScreen.Show();
                                 Runnable r = new Runnable() {
                                     public void run() {
-                                        tr.PrintTerrain();
-                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 8, true);
+                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 12, true);
                                         State bestState = minimax.bestMove;
                                         JoueTourIAMiniMax(bestState);
                                         minimax.loadingScreen.Hide();
@@ -163,8 +162,7 @@ public class Jeu extends Observable {
                         minimax.loadingScreen.Show();
                         Runnable r = new Runnable() {
                             public void run() {
-                                tr.PrintTerrain();
-                                minimax.VanillaMiniMax(new State(tr._jeuParent), 8, true);
+                                minimax.VanillaMiniMax(new State(tr._jeuParent), 12, true);
                                 State bestState = minimax.bestMove;
                                 JoueTourIAMiniMax(bestState);
                                 minimax.loadingScreen.Hide();
@@ -614,7 +612,7 @@ public class Jeu extends Observable {
         metAJour();
     }
 
-    public boolean DebutTour(){
+    public boolean DebutTour() {
         return (joueurCourant.nbMove == 2 && joueurCourant.passeDispo == 1);
     }
 
