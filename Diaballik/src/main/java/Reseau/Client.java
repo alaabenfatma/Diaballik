@@ -19,11 +19,18 @@ public class Client implements Runnable  {
 	static Jeu j;
 	static String Joueur;
 	static boolean attente;
+<<<<<<< HEAD
+	static String numP = "123";
+	static PrintWriter out;
+	static BufferedReader in;
+	
+=======
 	private Thread T;
 	public Client(String c){
 		T = new Thread(this);
 		T.start();
 	}
+>>>>>>> 3f430a6943e750f139867206ae91b70a89f7507c
 	static void init_test_jeu() {
 		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
 	}
@@ -32,9 +39,15 @@ public class Client implements Runnable  {
 		System.out.println("je suis le client");
 		System.out.println("Connexion au serveur");
 		try {
-			init_test_jeu();
 			s = new Socket(host,port);
-			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			out = new PrintWriter(s.getOutputStream());
+			out.println(numP);
+			out.flush();
+			
+			init_test_jeu();
+			
+			
 			Joueur = in.readLine(); // definition du joueur
 			
 			if(Joueur.equals("j1")){attente = false;}

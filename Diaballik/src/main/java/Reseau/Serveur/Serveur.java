@@ -23,9 +23,11 @@ public class Serveur {
 	private static InetAddress add;
 	private ArrayList<PrintWriter> AllClient = new ArrayList<PrintWriter>(); // contient tous les flux de sortie vers les clients
 	private HashMap<Integer ,PrintWriter> numC_out = new HashMap<Integer ,PrintWriter>();
+	private HashMap<String,HashMap<Integer ,PrintWriter>> AllConnexion = new HashMap<String,HashMap<Integer ,PrintWriter>>(); 
 	private static int nbC = -1;
 	private static ServerSocket sS;
 	PrintWriter out;
+	
 	public static void main(String[] args) {
 		System.out.println("Démarage du serveur");
 		Serveur Serv = new Serveur();
@@ -65,33 +67,44 @@ public class Serveur {
 		System.out.println(" --- Server Ok ---");
 		System.out.println(" --- Démaré sur le port : " + port + "---");
 	}
-	synchronized public void supp_client(int i) {
-		if(numC_out.containsKey(i)) {
-			numC_out.remove(i);
-			//AllClient.remove(i);
-			nbC--;
-			if(nbC == -1) {
-				System.out.println(" --- Aucun client sur le serveur ---");
-				System.out.println(" --- Extinction du serveur ---");
-				try {
-					sS.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+	synchronized public void supp_client(int i,String m) {
+		if(AllConnexion.containsKey(m)) {
+			numC_out = AllConnexion.get(m);
+			if(numC_out.containsKey(i)) {
+				numC_out.remove(i);
+				if(numC_out.size() == 0) {
+					AllConnexion.remove(m);
 				}
-				
+				nbC--;
+				if(nbC == -1) {
+					System.out.println(" --- Aucun client sur le serveur ---");
+					System.out.println(" --- Extinction du serveur ---");
+					try {
+						sS.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+				}
 			}
 		}
 	}
-	synchronized public void ajout_client(PrintWriter out,int numC) {
-		//AllClient.add(out);
-		numC_out.put(numC, out);
-		nbC++;
-		if(numC_out.size() == 1) {
-			out.println("j1");
-			out.flush();
-		}
-		else {
+	synchronized public void ajout_client(PrintWriter out,int numC,String m) {
+		System.out.println(m);
+		if(AllConnexion.containsKey(m)) {
+			numC_out = AllConnexion.get(m);
+			numC_out.put(numC, out);
+			nbC++;
+			
 			out.println("j2");
+			out.flush();
+		}else {
+			numC_out = new HashMap<Integer ,PrintWriter>();
+			numC_out.put(numC,out);
+			AllConnexion.put(m,numC_out);
+			nbC++;
+			
+			out.println("j1");
 			out.flush();
 		}
 	}
@@ -99,73 +112,88 @@ public class Serveur {
 		return nbC;
 	}
 	synchronized public void sendAllClient(String message,String sLast){
-		Iterator<Map.Entry<Integer ,PrintWriter>> it = numC_out.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry<Integer ,PrintWriter> entry = it.next();
-		  
-			out = entry.getValue(); // extraction de l'élément courant (type PrintWriter)
-	      if (out != null) {// sécurité, l'élément ne doit pas être vide
-	        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
-	        out.println(message+sLast);
-	        out.flush(); // envoi dans le flux de sortie
-	      }
+		Iterator<Map.Entry<String,HashMap<Integer ,PrintWriter>>> A_it = AllConnexion.entrySet().iterator();
+		while(A_it.hasNext()) {
+			Map.Entry<String,HashMap<Integer ,PrintWriter>> Key = A_it.next();
+			numC_out = Key.getValue();
+			
+			Iterator<Map.Entry<Integer ,PrintWriter>> it = numC_out.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry<Integer ,PrintWriter> entry = it.next();
+			  
+				out = entry.getValue(); // extraction de l'élément courant (type PrintWriter)
+		      if (out != null) {// sécurité, l'élément ne doit pas être vide
+		        // écriture du texte passé en paramètre (et concaténation d'une string de fin de chaine si besoin)
+		        out.println(message+sLast);
+		        out.flush(); // envoi dans le flux de sortie
+		      }
+			}	
 		}
 	}
-	synchronized public void sendClient(String message,int Client) {
-		out = numC_out.get(Client);
-		//out = AllClient.get(Client);
-		if(out != null) {
-			out.println(message);
-			out.flush();
+	synchronized public void sendClient(String message,int Client,String m) {
+		if(AllConnexion.containsKey(m) && AllConnexion.get(m).containsKey(Client)) {
+			out = AllConnexion.get(m).get(Client);
+			if(out != null) {
+				out.println(message);
+				out.flush();
+			}
 		}
 	}
-	synchronized public void C_total(int Client) {
-		out = numC_out.get(Client);
-		if(out != null) {
-			out.println(numC_out.size());
-			out.flush();
+	synchronized public void C_total(int Client,String m) {
+		if(AllConnexion.containsKey(m) && AllConnexion.get(m).containsKey(Client)) {
+			out = AllConnexion.get(m).get(Client);
+			if(out != null) {
+				out.println(numC_out.size());
+				out.flush();
+			}
 		}
 	}
-	synchronized public void C_rep(int Client,BufferedReader in) {
-		out = AllClient.get(Client);
-		if(out != null) {
-			out.println(AllClient.size());
-			out.flush();
+	synchronized public void C_rep(int Client,BufferedReader in,String m) {
+		if(AllConnexion.containsKey(m) && AllConnexion.get(m).containsKey(Client)) {
+			out = AllConnexion.get(m).get(Client);
+			if(out != null) {
+				out.println(AllClient.size());
+				out.flush();
+			}
 		}
 	}
-	synchronized public void C_test_Json(int Client,String message){
-		Enumeration<Integer> k = Collections.enumeration(numC_out.keySet());
-		Integer C1 = k.nextElement();
-		Integer C2 = k.nextElement();
+	synchronized public void C_test_Json(int Client,String message,String m){
+		if(AllConnexion.containsKey(m)) {
+			numC_out = AllConnexion.get(m);
+			Enumeration<Integer> k = Collections.enumeration(numC_out.keySet());
+			Integer C1 = k.nextElement();
+			Integer C2 = k.nextElement();
+			
+			if(Client == C1) {
+				out = numC_out.get(C2);
+				//out = AllClient.get(1);
+				if(out != null) {
+					out.println("rep");
+					out.flush();
+					
+					out.println(message);
+					out.flush();
+					
+					out = numC_out.get(Client);
+					out.println("ok");
+					out.flush();
+				}
+			}else {
+				out = numC_out.get(C1);
+				if(out != null) {
+					out.println("rep");
+					out.flush();
+					
+					out.println(message);
+					out.flush();
+					
+					out = numC_out.get(Client);
+					out.println("ok");
+					out.flush();
+				}
+			}
+		}
 		
-		if(Client == C1) {
-			out = numC_out.get(C2);
-			//out = AllClient.get(1);
-			if(out != null) {
-				out.println("rep");
-				out.flush();
-				
-				out.println(message);
-				out.flush();
-				
-				out = numC_out.get(Client);
-				out.println("ok");
-				out.flush();
-			}
-		}else {
-			out = numC_out.get(C1);
-			if(out != null) {
-				out.println("rep");
-				out.flush();
-				
-				out.println(message);
-				out.flush();
-				
-				out = numC_out.get(Client);
-				out.println("ok");
-				out.flush();
-			}
-		}
 	}
 
 }
