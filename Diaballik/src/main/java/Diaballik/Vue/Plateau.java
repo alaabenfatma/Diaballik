@@ -173,12 +173,6 @@ public class Plateau implements Runnable, Observateur {
             System.out.println(e);
         }
 
-        boiteTexte.add(drapeau);
-        boiteTexte.add(sound);
-        sound.setFocusable(false);
-        drapeau.setFocusable(false);
-        
-
         sound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -323,22 +317,23 @@ public class Plateau implements Runnable, Observateur {
             }
         });
 
-        sound.add(Box.createRigidArea(new Dimension(10, 20)));
-        sound.setAlignmentX(Component.LEFT_ALIGNMENT);
-        boiteTexte.add(sound);
+
+        // Ajout des boutons en haut
+        drapeau.setFocusable(false);
         drapeau.add(Box.createRigidArea(new Dimension(10, 20)));
         drapeau.setAlignmentX(Component.RIGHT_ALIGNMENT);
         boiteTexte.add(drapeau);
-        // Ajout des boutons en haut
         Box topButton = Box.createHorizontalBox();
-        boutonMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        drapeau.setAlignmentX(Component.LEFT_ALIGNMENT);
+        topButton.add(drapeau);
+        topButton.add(Box.createRigidArea(new Dimension(10, 0)));
         topButton.add(boutonMenu);
-        topButton.add(Box.createRigidArea(new Dimension(30, 0)));
+        boutonMenu.setAlignmentX(Component.CENTER_ALIGNMENT);
+        topButton.add(Box.createRigidArea(new Dimension(20, 0)));
         topButton.add(boutonInfo);
         topButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(topButton);
         boiteTexte.add(Box.createRigidArea(new Dimension(0, 10)));
-
         // indicateur de mouvements
         buttonViewArrow.setSelected(true);
         buttonViewArrow.addItemListener(new ItemListener() {

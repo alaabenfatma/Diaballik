@@ -11,7 +11,7 @@ public class BoutonSuggestion extends JButton implements Observateur {
 
 	public BoutonSuggestion(Jeu j) {
 		jeu = j;
-		setText("Coup conseillé");
+		setText("Coups conseillés");
 		jeu.ajouteObservateur(this);
 		setEnabled(jeu.DebutTour());
 	}

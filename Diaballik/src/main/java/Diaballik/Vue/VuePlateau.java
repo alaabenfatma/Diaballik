@@ -126,19 +126,19 @@ public class VuePlateau extends PlateauGraphique {
             // affichage suggestion
             if (j.sugState != null) {
                 if (j.sugState.firstMove != null)
-                    drawArrowLine(new Color(75, 0, 130), j.sugState.firstMove.From.c * largeurCase + largeurCase / 2,
+                    drawArrowLine(Color.ORANGE, j.sugState.firstMove.From.c * largeurCase + largeurCase / 2,
                             j.sugState.firstMove.From.l * hauteurCase + hauteurCase / 2,
                             j.sugState.firstMove.To.c * largeurCase + largeurCase / 2,
                             j.sugState.firstMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
                             hauteurCase);
                 if (j.sugState.secondMove != null)
-                    drawArrowLine(new Color(75, 0, 130), j.sugState.secondMove.From.c * largeurCase + largeurCase / 2,
+                    drawArrowLine(Color.ORANGE, j.sugState.secondMove.From.c * largeurCase + largeurCase / 2,
                             j.sugState.secondMove.From.l * hauteurCase + hauteurCase / 2,
                             j.sugState.secondMove.To.c * largeurCase + largeurCase / 2,
                             j.sugState.secondMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
                             hauteurCase);
                 if (j.sugState.pass != null)
-                    drawArrowLine(new Color(75, 0, 130), j.sugState.pass.From.c * largeurCase + largeurCase / 2,
+                    drawArrowLine(Color.ORANGE, j.sugState.pass.From.c * largeurCase + largeurCase / 2,
                             j.sugState.pass.From.l * hauteurCase + hauteurCase / 2,
                             j.sugState.pass.To.c * largeurCase + largeurCase / 2,
                             j.sugState.pass.To.l * hauteurCase + hauteurCase / 2, 8, 8, true, largeurCase, hauteurCase);
