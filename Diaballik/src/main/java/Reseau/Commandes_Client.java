@@ -36,7 +36,7 @@ public class Commandes_Client {
 		}
 	}
 	public void C_test_json() {
-		out.println("test_json");
+		out.println("test_json"); // prépare l'autre joueur à recevoir
 		out.flush();
 		String message;
 		CM.save();
@@ -44,6 +44,8 @@ public class Commandes_Client {
 		//System.out.println(message);
 		out.println(message);
 		out.flush();
+		
+		C_reponse_Serv();
 	}
 	public void C_reponse_Serv() {
 		try {

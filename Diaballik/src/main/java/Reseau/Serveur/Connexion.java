@@ -20,8 +20,8 @@ public class Connexion implements Runnable {
 		try {
 			out = new PrintWriter(s.getOutputStream());
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			Serv.ajout_client(out);
-			numClient = Serv.nbClient();
+			numClient = Serv.nbClient() +1;
+			Serv.ajout_client(out,numClient);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -31,26 +31,34 @@ public class Connexion implements Runnable {
 	
 	public void run() {
 		String message;
-		System.out.println("Connexion d'un nouveau client");
-		System.out.println("Numéro attribué au client : "+ numClient);
+		System.out.println(" --- Connexion d'un nouveau client ---");
+		System.out.println(" --- Numéro attribué au client : "+ numClient +" --- ");
+		out.println(numClient);
+		out.flush();
 		try {
 			message = "Connexion établie";
 			Serv.sendClient(message, numClient);
 			message = in.readLine();
 			while(!message.equals("quit")) {
-				if(message.contentEquals("total")) {
+				if(message.equals("total")) {
 					Serv.C_total(numClient);
 				}
-				else if(message.contentEquals("test_json")) {
+				else if(message.equals("test_json")) {
 					System.out.println("Json recu:");
 					message = in.readLine();
 					Serv.C_test_Json(numClient,message);
-				}else {
+				}
+				else if(message.equals("rep")){
+					Serv.C_rep(numClient,in);
+				}
+					else {
 					System.out.println("Message du client :"+ numClient);
 					System.out.println(message);
 				}
 				message = in.readLine();
 			}
+			in.close();
+			out.close();
 			System.exit(0);
 		}
 		catch(NullPointerException p) {
@@ -62,7 +70,7 @@ public class Connexion implements Runnable {
 		
 		finally { // Se produit lors de la déconnexion du client
 			try {
-				System.out.println("Déconnexion du client : "+numClient);
+				System.out.println(" --- Déconnexion du client : "+numClient + " ---");
 				Serv.supp_client(numClient);
 				s.close();
 			}catch(IOException e) {

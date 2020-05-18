@@ -17,7 +17,8 @@ public class Client  {
 	static Socket s;
 	static Scanner s_in = new Scanner(System.in);
 	static Jeu j;
-	
+	static String Joueur;
+	static boolean attente;
 	static void init_test_jeu() {
 		j = new Jeu();
 		j.configurer(new ConfigJeu());
@@ -31,32 +32,47 @@ public class Client  {
 			init_test_jeu();
 			s = new Socket(host,port);
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			System.out.println(in.readLine());
+			Joueur = in.readLine(); // definition du joueur
+			if(Joueur.equals("j1")) {attente = false;}
+			else {attente = true;}
+			System.out.println(in.readLine()); // Connexion établie
 			
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 			
 			Commandes_Client C = new Commandes_Client(s,s_in,in,out,j);
 			
 			System.out.print(">");
-			String message = s_in.nextLine();
-			while(!message.equals("quit")) {
-				if(message.equals("total")) {
-					C.C_total(message);
+			System.out.println(Joueur);
+			
+			while(true) {
+				if(attente) {
+					String cmp = in.readLine();
+					if(cmp.equals("rep")) {
+						System.out.println(in.readLine());
+					}
+					
+				}else {
+					System.out.print(">");
+					String message = s_in.nextLine();
+					if(message.equals("quit")) {
+						break;
+					}
+					else if(message.equals("total")) {
+						C.C_total(message);
+					}
+					else if(message.equals("test_json")){
+						C.C_test_json();
+					}
+					else {
+						System.out.println("Envoi du message : "+message);
+						out.println(message);
+						out.flush();
+					}
 				}
-				else if(message.equals("test_json")){
-					C.C_test_json();
-				}
-				else if(message.equals("rep")) {
-					C.C_reponse_Serv();
-				}
-				else {
-					System.out.println("Envoi du message : "+message);
-					out.println(message);
-					out.flush();
-				}
-				System.out.print(">");
-				message = s_in.nextLine();
+				attente = !attente;
+				
 			}
+			out.close();
 			s.close();
 			s_in.close();
 			System.exit(0);
