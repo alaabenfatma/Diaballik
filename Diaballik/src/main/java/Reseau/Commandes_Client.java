@@ -45,9 +45,9 @@ public class Commandes_Client {
 		out.println(message);
 		out.flush();
 		
-		C_reponse_Serv();
+		C_reponse_Serv_JSON(message);
 	}
-	public void C_reponse_Serv() {
+	public void C_reponse_Serv_JSON(String message) {
 		try {
 			System.out.println(in.readLine());
 		} catch (IOException e) {
