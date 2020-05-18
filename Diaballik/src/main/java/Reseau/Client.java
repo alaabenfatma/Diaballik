@@ -11,7 +11,7 @@ import java.util.Scanner;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 
-public class Client  {
+public class Client implements Runnable  {
 	private static int port = 4242;
 	private static String host = "127.0.0.1";
 	static Socket s;
@@ -19,13 +19,16 @@ public class Client  {
 	static Jeu j;
 	static String Joueur;
 	static boolean attente;
+	private Thread T;
+	public Client(){
+		T = new Thread(this);
+		T.start();
+	}
 	static void init_test_jeu() {
-		j = new Jeu();
-		j.configurer(new ConfigJeu());
-		j.start();
+		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
 	}
 	
-	public static void main(String []args) {
+	public void run() {
 		System.out.println("je suis le client");
 		System.out.println("Connexion au serveur");
 		try {
