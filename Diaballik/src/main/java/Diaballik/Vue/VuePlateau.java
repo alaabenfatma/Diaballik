@@ -123,6 +123,7 @@ public class VuePlateau extends PlateauGraphique {
                         cpl.p1.l * hauteurCase + hauteurCase / 2, cpl.p2.c * largeurCase + largeurCase / 2,
                         cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
             }
+            // affichage suggestion
             if (j.sugState != null) {
                 if (j.sugState.firstMove != null)
                     drawArrowLine(new Color(75, 0, 130), j.sugState.firstMove.From.c * largeurCase + largeurCase / 2,
@@ -140,8 +141,7 @@ public class VuePlateau extends PlateauGraphique {
                     drawArrowLine(new Color(75, 0, 130), j.sugState.pass.From.c * largeurCase + largeurCase / 2,
                             j.sugState.pass.From.l * hauteurCase + hauteurCase / 2,
                             j.sugState.pass.To.c * largeurCase + largeurCase / 2,
-                            j.sugState.pass.To.l * hauteurCase + hauteurCase / 2, 8, 8, true, largeurCase,
-                            hauteurCase);
+                            j.sugState.pass.To.l * hauteurCase + hauteurCase / 2, 8, 8, true, largeurCase, hauteurCase);
 
             }
 

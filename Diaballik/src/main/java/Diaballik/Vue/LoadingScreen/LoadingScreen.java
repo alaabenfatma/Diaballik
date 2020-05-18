@@ -4,7 +4,7 @@
 package Diaballik.Vue.LoadingScreen;
 
 import javax.swing.*;
-
+import java.awt.Frame;
 public class LoadingScreen {
     private JFrame frame = new JFrame("AI is thinking...");
 
@@ -34,10 +34,18 @@ public class LoadingScreen {
 
     public void Show() {
         frame.setVisible(true);
+        Frame[] allFrames = Frame.getFrames();
+        for (Frame frame : allFrames) {
+            frame.setEnabled(false);
+        }
     }
 
     public void Hide() {
         frame.setVisible(false);
+        Frame[] allFrames = Frame.getFrames();
+        for (Frame frame : allFrames) {
+            frame.setEnabled(true);
+        }
     }
 
 }

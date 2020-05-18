@@ -30,6 +30,12 @@ public class Plateau implements Runnable, Observateur {
     ConfigJeu conf;
     CollecteurEvenements control;
     boolean maximized;
+    JMenuBar mb = new JMenuBar();
+	JMenu m1 = new JMenu("Thèmes");
+	JMenu m2 = new JMenu("Options");
+	JMenuItem menuTerrain = new JMenuItem("Terrain");
+	JMenuItem menuPerso = new JMenuItem("Personnages");
+	JMenuItem niveauIA = new JMenuItem("Niveau de l'IA");
 
     static ihm interHM;
     public static Timer timer;
@@ -73,6 +79,14 @@ public class Plateau implements Runnable, Observateur {
         // Creation d'une fenetre
         frame = new JFrame("Diaballik");
         frame.setIconImage(icon);
+    	m1.add(menuTerrain);
+		m1.add(menuPerso);
+		m2.add(niveauIA);
+		mb.add(m1);
+		mb.add(m2);
+		mb.setBounds(0, 0, 800, 20);
+		frame.add(mb);
+		frame.add(mb, BorderLayout.NORTH);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -170,6 +184,28 @@ public class Plateau implements Runnable, Observateur {
                 }
             }
         });
+        
+        
+        menuTerrain.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new TerrainCustomize(conf);
+                frame.repaint();
+                frame.revalidate();
+            }
+        });
+        
+        menuPerso.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                new choisirPerso(1);
+                new choisirPerso(2);
+            }
+        });
+        
+        niveauIA.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	new FenetreNiveauIAPlateau();
+            }
+        });
 
         drapeau.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -231,7 +267,7 @@ public class Plateau implements Runnable, Observateur {
                 f.setVisible(true);
             }
         });
-        
+
         sound.add(Box.createRigidArea(new Dimension(10, 20)));
         sound.setAlignmentX(Component.LEFT_ALIGNMENT);
         boiteTexte.add(sound);

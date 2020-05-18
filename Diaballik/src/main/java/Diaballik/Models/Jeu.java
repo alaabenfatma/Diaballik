@@ -106,19 +106,21 @@ public class Jeu extends Observable {
                     iaRandomIHM.JoueTourIARand();
                     break;
                 case difficile:
-                    minimax.loadingScreen.Show();
+
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
                             try {
 
                                 minimax.loadingScreen.Show();
+
                                 Runnable r = new Runnable() {
                                     public void run() {
                                         minimax.VanillaMiniMax(new State(tr._jeuParent), 9, true);
                                         State bestState = minimax.bestMove;
                                         JoueTourIAMiniMax(bestState);
                                         minimax.loadingScreen.Hide();
+                                        this.notify();
                                     }
                                 };
                                 new Thread(r).start();
@@ -601,10 +603,10 @@ public class Jeu extends Observable {
                     minMaxSug.loadingScreen.Show();
                     Runnable r = new Runnable() {
                         public void run() {
-                            if(joueurCourant == joueur1)
-                            minMaxSug.VanillaMiniMax(new State(tr._jeuParent), 4, false);
-                            else 
-                            minMaxSug.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                            if (joueurCourant == joueur1)
+                                minMaxSug.VanillaMiniMax(new State(tr._jeuParent), 4, false);
+                            else
+                                minMaxSug.VanillaMiniMax(new State(tr._jeuParent), 4, true);
                             sugState = minMaxSug.bestMove;
                             minMaxSug.loadingScreen.Hide();
                             metAJour();
