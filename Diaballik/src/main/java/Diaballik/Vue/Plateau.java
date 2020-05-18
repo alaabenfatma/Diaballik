@@ -134,11 +134,11 @@ public class Plateau implements Runnable, Observateur {
         Image img = null;
         try {
 
-            img = ImageIO.read(this.getClass().getResourceAsStream(("img/info2.png"))).getScaledInstance(30, 30,
+            img = ImageIO.read(this.getClass().getResourceAsStream(("/info2.png"))).getScaledInstance(30, 30,
                     Image.SCALE_DEFAULT);
-            son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(20, 20,
+            son = ImageIO.read(this.getClass().getResourceAsStream("/sound.png")).getScaledInstance(20, 20,
                     Image.SCALE_DEFAULT);
-            mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(20, 20,
+            mute = ImageIO.read(this.getClass().getResourceAsStream("/mute.png")).getScaledInstance(20, 20,
                     Image.SCALE_DEFAULT);
 
             if (staticConfig.bmute == true) {
@@ -149,20 +149,20 @@ public class Plateau implements Runnable, Observateur {
             
 
             if (staticConfig.blang == false) {
-                drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(20,
+                drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("/drapeauuk.jpg")).getScaledInstance(20,
                         20, Image.SCALE_DEFAULT);
                 drapeau.setIcon(new ImageIcon(drapeauGB));
-                words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
+                words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("/languesEn.json"), words.class);
                 boutonFinTour.setText(wEn.finTour);
                 buttonViewArrow.setText(wEn.indicateur);
                 mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
                 passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
 
             } else {
-                drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png")))
+                drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png")))
                         .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
                 drapeau.setIcon(new ImageIcon(drapeauFr));
-                words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
+                words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("/languesFr.json"), words.class);
                 boutonFinTour.setText(wFr.finTour);
                 buttonViewArrow.setText(wFr.indicateur);
                 mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
@@ -260,10 +260,10 @@ public class Plateau implements Runnable, Observateur {
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (staticConfig.blang == true) {
-                        drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg"))
+                        drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("/drapeauuk.jpg"))
                                 .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
                         drapeau.setIcon(new ImageIcon(drapeauGB));
-                        words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"),
+                        words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("/languesEn.json"),
                                 words.class);
 
                         boutonFinTour.setText(wEn.finTour);
@@ -274,10 +274,10 @@ public class Plateau implements Runnable, Observateur {
                         staticConfig.blang = false;
 
                     } else {
-                        drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png")))
+                        drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png")))
                                 .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
                         drapeau.setIcon(new ImageIcon(drapeauFr));
-                        words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"),
+                        words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("/languesFr.json"),
                                 words.class);
 
                         boutonFinTour.setText(wFr.finTour);
@@ -304,7 +304,7 @@ public class Plateau implements Runnable, Observateur {
         // boiteTexte.add(boutonMenu);
         boutonMenu.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ps.play("son/buttonClick.wav", staticConfig.bmute);
+                ps.play("/buttonClick.wav", staticConfig.bmute);
                 if (timer != null)
                     timer.stop();
                 JFrame f = new JFrame();
@@ -360,9 +360,9 @@ public class Plateau implements Runnable, Observateur {
 
         // icone pion joueur
         try {
-            pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("img/pionA_bas.png")))
+            pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
                     .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-            pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("img/pionB_bas.png")))
+            pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")))
                     .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -411,7 +411,7 @@ public class Plateau implements Runnable, Observateur {
             al = new ActionListener() {
 
                 public void actionPerformed(ActionEvent ae) {
-                    ps.play("son/buttonClick.wav", staticConfig.bmute);
+                    ps.play("/buttonClick.wav", staticConfig.bmute);
                     if (x <= 0) {
                         control.toucheClavier("FinTour");
                         x = temps;

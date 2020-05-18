@@ -13,8 +13,8 @@ public class LoadingScreen {
             @Override
             public void run() {
                 try {
-
-                    Icon icon = new ImageIcon(this.getClass().getResource("loading.gif").getPath());
+                    frame.setSize(400, 400);
+                    Icon icon = new ImageIcon(this.getClass().getResource("/loading.gif"));
                     JLabel label = new JLabel(icon);
                     JTextField jtxtf = new JTextField();
                     frame.add(jtxtf);

@@ -146,7 +146,7 @@ public class Menu extends JPanel {
     
     public void afficherLogo() {
     	try {
-    		logo = ImageIO.read(this.getClass().getResourceAsStream("img/logo.png"));
+    		logo = ImageIO.read(this.getClass().getResourceAsStream("/logo.png"));
     		drawable.drawImage(logo, (i.getWidth()/2) - 130, (i.getHeight()/25) + 20, 250, (i.getHeight()/5), null);
     	}
     	catch (Exception e) {

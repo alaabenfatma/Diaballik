@@ -31,10 +31,10 @@ public class choisirPersoPanel extends JPanel{
     public void afficherJoueur() {
     	try {
     		if (persoJoueur == 1) {
-    			joueur1 = ImageIO.read(this.getClass().getResourceAsStream("img/pionB_bas.png"));
+    			joueur1 = ImageIO.read(this.getClass().getResourceAsStream("/pionB_bas.png"));
         		drawable.drawImage(joueur1, 70, 30, 170, 200, null);
     		} else if (persoJoueur == 2){
-    			joueur1 = ImageIO.read(this.getClass().getResourceAsStream("img/pionA_bas.png"));
+    			joueur1 = ImageIO.read(this.getClass().getResourceAsStream("/pionA_bas.png"));
         		drawable.drawImage(joueur1, 70, 30, 170, 200, null);
     		}
     	}

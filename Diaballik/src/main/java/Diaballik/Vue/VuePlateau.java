@@ -21,12 +21,12 @@ public class VuePlateau extends PlateauGraphique {
         try {
             j = jeu;
             j.ajouteObservateur(this);
-            caseA = ImageIO.read(this.getClass().getResourceAsStream(("img/caseA.png")));
-            caseB = ImageIO.read(this.getClass().getResourceAsStream(("img/caseB.png")));
-            pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("img/pionA_ballon.png")));
-            pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("img/pionB_ballon.png")));
-            pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("img/pionA_bas.png")));
-            pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("img/pionB_bas.png")));
+            caseA = ImageIO.read(this.getClass().getResourceAsStream(("/caseA.png")));
+            caseB = ImageIO.read(this.getClass().getResourceAsStream(("/caseB.png")));
+            pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_ballon.png")));
+            pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_ballon.png")));
+            pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")));
+            pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")));
 
         } catch (IOException e) {
 

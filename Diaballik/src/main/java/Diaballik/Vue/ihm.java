@@ -79,11 +79,11 @@ public class ihm extends JFrame {
 		sound.setBounds(this.getWidth() - 80, 75, 40, 40);
 		
 		try {
-    		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
-    		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+    		son = ImageIO.read(this.getClass().getResourceAsStream("/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+    		mute = ImageIO.read(this.getClass().getResourceAsStream("/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		sound.setIcon(new ImageIcon(mute));
-    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-			drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+			drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		if (staticConfig.blang == true) {
     			drapeau.setIcon(new ImageIcon(drapeauFr));
     		} else {
@@ -99,9 +99,9 @@ public class ihm extends JFrame {
             public void actionPerformed(ActionEvent e) { 
             	try {
     				if (staticConfig.blang == true) {
-    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(drapeauGB));
-    		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
+    		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("/languesEn.json"), words.class);
     		    		menu.nouvelle.setText(wEn.newgame);
     		    		menu.charger.setText(wEn.charger);
     		    		menu.reseau.setText(wEn.reseau);
@@ -155,9 +155,9 @@ public class ihm extends JFrame {
     		    		staticConfig.blang = false;
     		    		
     				} else {
-    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
     		    		drapeau.setIcon(new ImageIcon(drapeauFr));
-    		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
+    		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("/languesFr.json"), words.class);
     		    		menu.nouvelle.setText(wFr.newgame);
     		    		menu.charger.setText(wFr.charger);
     		    		menu.reseau.setText(wFr.reseau);
@@ -243,7 +243,7 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreNouvellePartie() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(700, 600);
 		ng.add(sound);
 		ng.add(drapeau);		
@@ -261,7 +261,7 @@ public class ihm extends JFrame {
 
 	
 	public void fenetreChargerPartie() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(700, 450);
 		cp.add(sound);
 		cp.add(drapeau);
@@ -279,7 +279,7 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreJouerEnReseau() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
 		jr.add(sound);
@@ -297,7 +297,7 @@ public class ihm extends JFrame {
 	
 	
 	public void retourMenuPrincipal() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
 		this.setLocationRelativeTo(null);
@@ -316,7 +316,7 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreCreerPartieReseau() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		crr.add(sound);
@@ -334,7 +334,7 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreRejoindrePartieReseau() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		rpr.add(sound);
@@ -352,7 +352,7 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreAttenteJoueurReseau() {
-		ps.play("son/buttonClick.wav", staticConfig.bmute);
+		ps.play("/buttonClick.wav", staticConfig.bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		ajr.add(sound);
@@ -370,7 +370,7 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreRegles() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(800, 620);
 		this.setLocationRelativeTo(null);
 		this.setContentPane(r);
@@ -386,7 +386,7 @@ public class ihm extends JFrame {
 	
 	
 	public void quit() {
-		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		ps.play("/buttonClick.wav",  staticConfig.bmute);
 		if (staticConfig.blang == false) {
 			msgBox.MessageBox("Do you want to quit ?", "Quit");
 		} else {

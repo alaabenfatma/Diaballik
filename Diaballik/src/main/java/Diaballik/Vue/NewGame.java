@@ -355,7 +355,7 @@ public class NewGame extends JPanel {
 
 		jouer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ps.play("son/buttonClick.wav",  staticConfig.bmute);
+				ps.play("/buttonClick.wav",  staticConfig.bmute);
 				j.configurer(configJeu);
 				j.start();
 				CollecteurEvenements control = new ControleurMediateur(j);

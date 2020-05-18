@@ -50,7 +50,7 @@ public class MenuEnJeu extends JPanel {
 
     	try {
 			if (staticConfig.blang == false) {
-	    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
+	    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("/languesEn.json"), words.class);
 	    		
 	    		nouvelle.setText(wEn.newgame);
 	    		sauvegarde.setText(wEn.sauvegarde);
@@ -61,7 +61,7 @@ public class MenuEnJeu extends JPanel {
   		
 	    		
 			} else {
-	    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
+	    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("/languesFr.json"), words.class);
 	    		
 	    		nouvelle.setText(wFr.newgame);
 	    		sauvegarde.setText(wFr.sauvegarde);
@@ -140,7 +140,7 @@ public class MenuEnJeu extends JPanel {
 
         quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                ps.play("son/buttonClick.wav", staticConfig.bmute);
+                ps.play("/buttonClick.wav", staticConfig.bmute);
 
 				if(staticConfig.blang == false) {
 					if(msgBox.msgYesNo("Do you want to quit ?", "Quit") == 0){

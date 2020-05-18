@@ -6,9 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -54,10 +53,11 @@ public class ChargerPartie extends JPanel {
 				sample.setBounds(table.getWidth() + 20, 70, i.getWidth() / 2 - 90, i.getHeight() / 2);
 			}
 		});
-		
+
 		this.setSize(600, 600);
 		try {
-			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
+			InputStream is = new FileInputStream("Data.json");
+			scan = new Scanner(is);
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				try {
@@ -72,10 +72,10 @@ public class ChargerPartie extends JPanel {
 					e.printStackTrace();
 				}
 			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (menu == false) {
@@ -101,14 +101,14 @@ public class ChargerPartie extends JPanel {
 				}
 			}
 		});
-		
+
 		jouer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				final int row = table.getSelectedRow();
 				startGame(table.getValueAt(row, 2).toString());
 			}
 		});
-		
+
 		Font font = new Font("Arial", Font.BOLD, 30);
 		titre.setFont(font);
 		this.add(sp);
@@ -121,7 +121,7 @@ public class ChargerPartie extends JPanel {
 	private void showSample(String date) {
 		Scanner scan;
 		try {
-			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
+			scan = new Scanner(new FileInputStream("Data.json"));
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				if (line.contains(date)) {
@@ -129,7 +129,7 @@ public class ChargerPartie extends JPanel {
 						JeuJSON j = mapper.readValue(line, JeuJSON.class);
 						Jeu realJeu = new Jeu();
 						ConfigJeu cfg = new ConfigJeu();
-					
+
 						realJeu.configurer(cfg);
 						realJeu.config.damierA = j.config.damierA;
 						realJeu.config.damierB = j.config.damierB;
@@ -165,7 +165,7 @@ public class ChargerPartie extends JPanel {
 	private void startGame(String date) {
 		Scanner scan;
 		try {
-			scan = new Scanner(new FileInputStream(this.getClass().getResource("../data/history.json").getFile()));
+			scan = new Scanner(new FileInputStream("Data.json"));
 			while (scan.hasNextLine()) {
 				String line = scan.nextLine();
 				if (line.contains(date)) {

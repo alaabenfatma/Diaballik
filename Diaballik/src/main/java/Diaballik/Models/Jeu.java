@@ -935,7 +935,7 @@ public class Jeu extends Observable {
             String json = objectMapper.writeValueAsString(jte);
             try {
 
-                FileWriter fw = new FileWriter(this.getClass().getResource("../data/history.json").getFile(), true);
+                FileWriter fw = new FileWriter("Data.json", true);
                 fw.write(json + System.lineSeparator());
                 fw.close();
 

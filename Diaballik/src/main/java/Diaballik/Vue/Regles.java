@@ -43,8 +43,8 @@ public class Regles extends JPanel {
     
     public void afficherLogo() {
     	try {
-    		regles1 = ImageIO.read(this.getClass().getResourceAsStream("img/reglesDuJeu1.png"));
-    		regles2 = ImageIO.read(this.getClass().getResourceAsStream("img/reglesDuJeu2.png"));
+    		regles1 = ImageIO.read(this.getClass().getResourceAsStream("/reglesDuJeu1.png"));
+    		regles2 = ImageIO.read(this.getClass().getResourceAsStream("/reglesDuJeu2.png"));
     		drawable.drawImage(regles1, 70, 0, 326, 544, null);
     		drawable.drawImage(regles2, 400, 45, 319, 361, null);
     	}

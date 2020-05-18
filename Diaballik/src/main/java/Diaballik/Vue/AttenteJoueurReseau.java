@@ -33,7 +33,7 @@ public class AttenteJoueurReseau extends JPanel {
 		code.setEditable(false);
 		this.setLayout(null);
 		try {
-			gif = new ImageIcon(getClass().getResource("img/gifchargement.gif"));
+			gif = new ImageIcon(getClass().getResource("/gifchargement.gif"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
