@@ -128,10 +128,10 @@ public class VuePlateau extends PlateauGraphique {
                         cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
             }
             if (j.suggetionCoup != null) {
-                drawArrowLine(Color.lightGray, j.suggetionCoup.From.c * largeurCase + largeurCase / 2,
+                drawArrowLine(new Color(0, 128, 128), j.suggetionCoup.From.c * largeurCase + largeurCase / 2,
                         j.suggetionCoup.From.l * hauteurCase + hauteurCase / 2,
                         j.suggetionCoup.To.c * largeurCase + largeurCase / 2,
-                        j.suggetionCoup.To.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
+                        j.suggetionCoup.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase, hauteurCase);
             }
 
         }
