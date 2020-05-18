@@ -2,7 +2,6 @@ package Diaballik.Models;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -12,7 +11,6 @@ import javax.swing.SwingUtilities;
 
 import Diaballik.Controllers.TerrainUtils;
 import Diaballik.Models.IA.*;
-import Diaballik.Models.ConfigJeu.IALevel;
 import Diaballik.Models.ConfigJeu.Mode;
 import Diaballik.Patterns.Observable;
 import Diaballik.Vue.Plateau;
@@ -614,6 +612,10 @@ public class Jeu extends Observable {
                 break;
         }
         metAJour();
+    }
+
+    public boolean DebutTour(){
+        return (joueurCourant.nbMove == 2 && joueurCourant.passeDispo == 1);
     }
 
     // mode textuelle

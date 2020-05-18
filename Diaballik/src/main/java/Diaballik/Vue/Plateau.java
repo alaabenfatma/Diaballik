@@ -23,7 +23,6 @@ public class Plateau implements Runnable, Observateur {
     JButton boutonRejouer = new JButton("Rejouer");
     JButton sound = new JButton();
     JButton drapeau = new JButton();
-    JButton suggestion = new JButton("Suggestion");
     Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
     JLabel boutonInfo;
     PlateauGraphique plat;
@@ -152,7 +151,6 @@ public class Plateau implements Runnable, Observateur {
 
         boiteTexte.add(drapeau);
         boiteTexte.add(sound);
-        boiteTexte.add(suggestion);
         sound.setFocusable(false);
         drapeau.setFocusable(false);
         
@@ -385,6 +383,7 @@ public class Plateau implements Runnable, Observateur {
          * } });
          */
         // suggestion
+        BoutonSuggestion suggestion = new BoutonSuggestion(j) ; 
         boiteTexte.add(Box.createGlue());
         suggestion.setFocusable(false);
         suggestion.setAlignmentX(Component.CENTER_ALIGNMENT);
