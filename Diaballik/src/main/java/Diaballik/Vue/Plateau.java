@@ -86,6 +86,7 @@ public class Plateau implements Runnable, Observateur {
 		mb.add(m2);
 		mb.setBounds(0, 0, 800, 20);
 		frame.add(mb);
+		frame.add(mb, BorderLayout.NORTH);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -196,6 +197,7 @@ public class Plateau implements Runnable, Observateur {
         menuPerso.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new choisirPerso(1);
+                new choisirPerso(2);
             }
         });
         
@@ -265,7 +267,7 @@ public class Plateau implements Runnable, Observateur {
                 f.setVisible(true);
             }
         });
-        
+
         sound.add(Box.createRigidArea(new Dimension(10, 20)));
         sound.setAlignmentX(Component.LEFT_ALIGNMENT);
         boiteTexte.add(sound);
