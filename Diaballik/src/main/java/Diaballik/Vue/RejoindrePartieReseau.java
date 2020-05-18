@@ -145,7 +145,7 @@ public class RejoindrePartieReseau extends JPanel {
 		ok.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
 				String c = code.getText();
-				//Reseau.Client C = new Reseau.Client(c); //client qui rejoint la partie
+				Reseau.Client C = new Reseau.Client(c); //client qui rejoint la partie
             } 
         } );
 		
