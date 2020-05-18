@@ -113,7 +113,7 @@ public class Jeu extends Observable {
                                 minimax.loadingScreen.Show();
                                 Runnable r = new Runnable() {
                                     public void run() {
-                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 12, true);
+                                        minimax.VanillaMiniMax(new State(tr._jeuParent), 9, true);
                                         State bestState = minimax.bestMove;
                                         JoueTourIAMiniMax(bestState);
                                         minimax.loadingScreen.Hide();
@@ -162,7 +162,7 @@ public class Jeu extends Observable {
                         minimax.loadingScreen.Show();
                         Runnable r = new Runnable() {
                             public void run() {
-                                minimax.VanillaMiniMax(new State(tr._jeuParent), 12, true);
+                                minimax.VanillaMiniMax(new State(tr._jeuParent), 9, true);
                                 State bestState = minimax.bestMove;
                                 JoueTourIAMiniMax(bestState);
                                 minimax.loadingScreen.Hide();
@@ -590,7 +590,9 @@ public class Jeu extends Observable {
 
     public void suggestion() {
         MiniMax mimax = new MiniMax(this, joueurCourant.couleur);
-        State sugState = mimax.winningMove(this);
+        mimax.AI_TYPE = joueurCourant.couleur;
+        mimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+        State sugState =  minimax.bestMove;
         switch (sugState.GameMode) {
             case MMP:
                 if (sugState.firstMove != null) {
