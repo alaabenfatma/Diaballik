@@ -22,6 +22,7 @@ public class Client  {
 	static String numP;
 	static PrintWriter out;
 	static BufferedReader in;
+	static boolean Connexion_ok;
 	/*
 	private Thread T;
 	public Client(String c){
@@ -37,7 +38,7 @@ public class Client  {
 		j = new Jeu();
 		j.configurer(new ConfigJeu());
 		j.start();
-		numP = "123";
+		numP="123";
 	}
 	
 	//public void run() {
@@ -45,19 +46,18 @@ public class Client  {
 		System.out.println("je suis le client");
 		System.out.println("Connexion au serveur");
 		try {
+			init_test_jeu();
 			s = new Socket(host,port);
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out = new PrintWriter(s.getOutputStream());
+			System.out.println("nump2 :"+numP);
 			out.println(numP);
 			out.flush();
 			
-			init_test_jeu();
-			
-			
 			Joueur = in.readLine(); // definition du joueur
-			
-			if(Joueur.equals("j1")){attente = false;}
-			else {attente = true;}
+			if(Joueur.equals("Déconnexion")) {Connexion_ok = false;}
+			else if(Joueur.equals("j1")){attente = false;Connexion_ok = true;}
+			else {attente = true;Connexion_ok = true;}
 			System.out.println("attente : "+ attente);
 			
 			System.out.println("test "+in.readLine()); // Connexion établie
@@ -69,7 +69,7 @@ public class Client  {
 			System.out.print(">");
 			System.out.println(Joueur);
 			
-			while(true) {
+			while(true && Connexion_ok) {
 				if(attente) {
 					String cmp = in.readLine();
 					if(cmp.equals("rep")) {

@@ -90,20 +90,28 @@ public class Serveur {
 		}
 	}
 	synchronized public void ajout_client(PrintWriter out,int numC,String m) {
-		System.out.println(m);
+		System.out.println("Connecté à la partie N° : "+m);
 		if(AllConnexion.containsKey(m)) {
-			numC_out = AllConnexion.get(m);
-			numC_out.put(numC, out);
-			nbC++;
-			
-			out.println("j2");
-			out.flush();
-		}else {
+			if(AllConnexion.get(m).size()<2) {
+				numC_out = AllConnexion.get(m);
+				numC_out.put(numC, out);
+				nbC++;
+				
+				out.println("j2");
+				out.flush();
+			}
+			else {
+				System.out.println("Déconnexion forcée du Client : " + numC);
+				out.println("Déconnexion");
+				out.flush();
+			}
+		}
+		else {
 			numC_out = new HashMap<Integer ,PrintWriter>();
 			numC_out.put(numC,out);
 			AllConnexion.put(m,numC_out);
 			nbC++;
-			
+				
 			out.println("j1");
 			out.flush();
 		}
