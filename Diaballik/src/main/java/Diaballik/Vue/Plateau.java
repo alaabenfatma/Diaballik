@@ -105,8 +105,6 @@ public class Plateau implements Runnable, Observateur {
 
         // Texte et contrôles à droite de la fenêtre
         Box boiteTexte = Box.createVerticalBox();
-        boiteTexte.setOpaque(true);
-        boiteTexte.setBackground(Color.lightGray);
 
         Image img = null;
         try {

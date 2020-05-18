@@ -29,7 +29,7 @@ public class TerrainCustomize {
         final ColorPicker colorPicker2 = new ColorPicker(true, true);
         colorPicker2.setColor(Color.CYAN);
 
-        final JButton color1 = new JButton();
+        final JButton color1 = new JButton("1");
         color1.addActionListener(new ActionListener() {
             JFrame pickerFrame = new JFrame();
 
@@ -52,7 +52,7 @@ public class TerrainCustomize {
             }
         });
 
-        final JButton color2 = new JButton();
+        final JButton color2 = new JButton("2");
         color2.addActionListener(new ActionListener() {
             JFrame pickerFrame = new JFrame();
 
@@ -74,15 +74,25 @@ public class TerrainCustomize {
             }
         });
 
-        final  JButton ok = new JButton();
+        final  JButton ok = new JButton("Ok");
         frame.setSize(400, 400);
+        frame.setLocationRelativeTo(null);
+        
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               frame.dispose(); 
+            }
+         });
+
+            
 
         frame.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
                 board.setLocation(0, 50);
-                color1.setBounds((frame.getWidth() / 2) - 40, 0, 40, 40);
-                color2.setBounds((frame.getWidth() / 2) + 40, 0, 40, 40);
-                ok.setBounds(frame.getWidth() - 40, 0, 40, 40);
+                color1.setBounds((frame.getWidth() / 2) - 150, 0, 50, 40);
+                color2.setBounds((frame.getWidth() / 2) - 90, 0, 50, 40);
+                ok.setBounds(frame.getWidth() - 70, 0, 50, 40);
             }
         });
         frame.add(color1);

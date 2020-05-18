@@ -151,6 +151,7 @@ public class ihm extends JFrame {
     		    		ajr.titre.setText(wEn.attenteTitre);
     		    		ajr.codelabel.setText(wEn.codelabel);
     		    		ajr.retour.setText(wEn.retour);
+    		    		System.out.print("aaaa");
  
     		    		staticConfig.blang = false;
     		    		
@@ -204,7 +205,9 @@ public class ihm extends JFrame {
     		    		ajr.titre.setText(wFr.attenteTitre);
     		    		ajr.codelabel.setText(wFr.codelabel);
     		    		ajr.retour.setText(wFr.retour);
-    		    		    		    		
+    		    		System.out.print("bbbbb");
+    		    		repaint();
+    		    		revalidate();
     		    		staticConfig.blang = true;
     		    		
     				}

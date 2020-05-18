@@ -58,7 +58,7 @@ public class MenuEnJeu extends JPanel {
 	    		charger.setText(wEn.charger);
 	    		menup.setText(wEn.menuPrincipal);
 	    		quit.setText(wEn.quit);
-	    		
+  		
 	    		
 			} else {
 	    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
@@ -108,7 +108,7 @@ public class MenuEnJeu extends JPanel {
                     Plateau.timer.restart();
                 frame.setVisible(false);
                 plateau.setVisible(false);
-                ihm i = new ihm();
+                i = new ihm();
                 i.setSize(700, 600);
                 NewGame m = new NewGame(i);
                 i.setContentPane(m);
@@ -120,7 +120,7 @@ public class MenuEnJeu extends JPanel {
         charger.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                ihm i = new ihm();
+                i = new ihm();
                 ChargerPartie m = new ChargerPartie(i, true);
                 i.setSize(700, 450);
                 i.setContentPane(m);
