@@ -102,8 +102,7 @@ public class CreerPartieReseau extends JPanel {
 		ok.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
 				i.fenetreAttenteJoueurReseau();
-				Reseau.Client C = new Reseau.Client();
-            } 
+				} 
         });
 		
 		retour.addActionListener(new ActionListener() { 

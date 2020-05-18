@@ -2,14 +2,14 @@ package Reseau.Serveur;
 
 import java.util.Scanner;
 
-public class Partie implements Runnable {
+public class Partie implements Runnable{
     private Thread T;
 
     public Partie(){
         T = new Thread(this);
 		T.start();
     }
-    public static void paraPartie(Diaballik.Models.ConfigJeu C){		
+    public static void paraPartie(Diaballik.Models.ConfigJeu C){
 		C.setMode(Diaballik.Models.ConfigJeu.Mode.humain);
 		Scanner saisie = new Scanner(System.in);
 		System.out.println("Veuillez saisir la durée du timer : 1min, 2min, 3min, illimite");
@@ -20,8 +20,6 @@ public class Partie implements Runnable {
 		String name2 = saisie.next();
 		System.out.println("Veuillez saisir j1 si le joueur1 joue en premier, j2 sinon :");
         String premier = saisie.next();
-        
-        Diaballik.Models.ConfigJeu.Timer T ;
 
         if(timer == "1min"){
             C.setTimer(Diaballik.Models.ConfigJeu.Timer.un);

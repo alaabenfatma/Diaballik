@@ -20,7 +20,7 @@ public class Client implements Runnable  {
 	static String Joueur;
 	static boolean attente;
 	private Thread T;
-	public Client(){
+	public Client(String c){
 		T = new Thread(this);
 		T.start();
 	}

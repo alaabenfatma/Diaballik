@@ -77,6 +77,7 @@ public class AttenteJoueurReseau extends JPanel {
 		Font fontnomJoueur = new Font("Arial",Font.BOLD,15);
 		c.setFont(fontnomJoueur);
 		codelabel.setFont(fontnomJoueur);
+		Reseau.Client C = new Reseau.Client(code); //client hote
 		
 		titre.setFont(font);
 		this.setVisible(true);
