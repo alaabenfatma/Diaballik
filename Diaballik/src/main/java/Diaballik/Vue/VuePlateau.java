@@ -61,19 +61,15 @@ public class VuePlateau extends PlateauGraphique {
                 // Tracé du sol
                 if (ligne % 2 == 0) {
                     if (colonne % 2 == 0) {
-                        tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase,
-                                hauteurCase);
+                        tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase, hauteurCase);
                     } else {
-                        tracerDamier(Color.decode(j.config.damierB), x, y, largeurCase,
-                                hauteurCase);
+                        tracerDamier(Color.decode(j.config.damierB), x, y, largeurCase, hauteurCase);
                     }
                 } else {
                     if (colonne % 2 == 0) {
-                        tracerDamier(Color.decode(j.config.damierB), x, y, largeurCase,
-                        hauteurCase);
+                        tracerDamier(Color.decode(j.config.damierB), x, y, largeurCase, hauteurCase);
                     } else {
-                        tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase,
-                        hauteurCase);
+                        tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase, hauteurCase);
                     }
                 }
                 // Pose des pions
@@ -127,11 +123,26 @@ public class VuePlateau extends PlateauGraphique {
                         cpl.p1.l * hauteurCase + hauteurCase / 2, cpl.p2.c * largeurCase + largeurCase / 2,
                         cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
             }
-            if (j.suggetionCoup != null) {
-                drawArrowLine(new Color(0, 128, 128), j.suggetionCoup.From.c * largeurCase + largeurCase / 2,
-                        j.suggetionCoup.From.l * hauteurCase + hauteurCase / 2,
-                        j.suggetionCoup.To.c * largeurCase + largeurCase / 2,
-                        j.suggetionCoup.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase, hauteurCase);
+            if (j.sugState != null) {
+                if (j.sugState.firstMove != null)
+                    drawArrowLine(new Color(75, 0, 130), j.sugState.firstMove.From.c * largeurCase + largeurCase / 2,
+                            j.sugState.firstMove.From.l * hauteurCase + hauteurCase / 2,
+                            j.sugState.firstMove.To.c * largeurCase + largeurCase / 2,
+                            j.sugState.firstMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
+                            hauteurCase);
+                if (j.sugState.secondMove != null)
+                    drawArrowLine(new Color(75, 0, 130), j.sugState.secondMove.From.c * largeurCase + largeurCase / 2,
+                            j.sugState.secondMove.From.l * hauteurCase + hauteurCase / 2,
+                            j.sugState.secondMove.To.c * largeurCase + largeurCase / 2,
+                            j.sugState.secondMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
+                            hauteurCase);
+                if (j.sugState.pass != null)
+                    drawArrowLine(new Color(75, 0, 130), j.sugState.pass.From.c * largeurCase + largeurCase / 2,
+                            j.sugState.pass.From.l * hauteurCase + hauteurCase / 2,
+                            j.sugState.pass.To.c * largeurCase + largeurCase / 2,
+                            j.sugState.pass.To.l * hauteurCase + hauteurCase / 2, 8, 8, true, largeurCase,
+                            hauteurCase);
+
             }
 
         }

@@ -36,6 +36,7 @@ public class Jeu extends Observable {
     IaRandomIHM iaRandomIHM;
     IA_easy iaEasy;
     MiniMax minimax;
+    MiniMax minMaxSug;
     public ArrayList<Couple> listeDeplacementJ1 = new ArrayList<Couple>();
     public ArrayList<Couple> listeDeplacementJ2 = new ArrayList<Couple>();
     public ArrayList<Couple> listePasseJ1 = new ArrayList<Couple>();
@@ -46,6 +47,7 @@ public class Jeu extends Observable {
     public boolean antijeuBool;
     public boolean IaVSIa = false;
     public FromTo suggetionCoup = null;
+    public State sugState;
 
     public Jeu() {
         tr = new Terrain();
@@ -197,6 +199,7 @@ public class Jeu extends Observable {
             else
                 Plateau.setX(60000);
         }
+        sugState = null;
         metAJour();
         RetirerMarque();
     }
@@ -211,7 +214,6 @@ public class Jeu extends Observable {
     }
 
     public void SelectionPiece(int l, int c) {
-        suggetionCoup = null;
         if ((0 > l || l > 6 || 0 > c || c > 6) || gameOver)
             return;
         Piece select = tr._terrain[l][c];
@@ -589,29 +591,31 @@ public class Jeu extends Observable {
     }
 
     public void suggestion() {
-        MiniMax mimax = new MiniMax(this, joueurCourant.couleur);
-        mimax.AI_TYPE = joueurCourant.couleur;
-        mimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
-        State sugState =  minimax.bestMove;
-        switch (sugState.GameMode) {
-            case MMP:
-                if (sugState.firstMove != null) {
-                    suggetionCoup = sugState.firstMove;
+        minMaxSug = new MiniMax(this, joueurCourant.couleur);
+        minMaxSug.AI_TYPE = joueurCourant.couleur;
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    minMaxSug.loadingScreen.Show();
+                    Runnable r = new Runnable() {
+                        public void run() {
+                            if(joueurCourant == joueur1)
+                            minMaxSug.VanillaMiniMax(new State(tr._jeuParent), 4, false);
+                            else 
+                            minMaxSug.VanillaMiniMax(new State(tr._jeuParent), 4, true);
+                            sugState = minMaxSug.bestMove;
+                            minMaxSug.loadingScreen.Hide();
+                            metAJour();
+                        }
+                    };
+                    new Thread(r).start();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                break;
-            case MPM:
-                if (sugState.firstMove != null) {
-                    suggetionCoup = sugState.firstMove;
-                }
-                break;
-            case PMM:
-                if (sugState.pass != null) {
-                    suggetionCoup = sugState.pass;
-                }
-                break;
-            default:
-                break;
-        }
+            }
+        });
         metAJour();
     }
 
