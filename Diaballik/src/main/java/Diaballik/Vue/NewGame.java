@@ -323,7 +323,7 @@ public class NewGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configJeu.setIALevel(IALevel.facile);
-
+				configJeu.setName3("IA facile");
 			}
 		});
 
@@ -331,7 +331,7 @@ public class NewGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configJeu.setIALevel(IALevel.moyen);
-
+				configJeu.setName3("IA moyen");
 			}
 		});
 
@@ -339,7 +339,7 @@ public class NewGame extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				configJeu.setIALevel(IALevel.difficile);
-
+				configJeu.setName3("IA difficile");
 			}
 		});
 
@@ -360,8 +360,6 @@ public class NewGame extends JPanel {
 				ps.play("son/buttonClick.wav",  staticConfig.bmute);
 				j.configurer(configJeu);
 				j.start();
-				// SwingUtilities.getWindowAncestor(this).dispose();
-				// super.setVisible(false);
 				CollecteurEvenements control = new ControleurMediateur(j);
 				Plateau.setIHM(i);
 				Plateau.demarrer(j, control, configJeu);
