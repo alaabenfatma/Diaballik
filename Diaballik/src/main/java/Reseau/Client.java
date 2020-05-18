@@ -19,13 +19,14 @@ public class Client implements Runnable  {
 	static Jeu j;
 	static String Joueur;
 	static boolean attente;
-	static String numP = "123";
+	static String numP;
 	static PrintWriter out;
 	static BufferedReader in;
 	
 
 	private Thread T;
 	public Client(String c){
+		numP = c;
 		T = new Thread(this);
 		T.start();
 	}
