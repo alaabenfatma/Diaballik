@@ -64,7 +64,7 @@ public class TerrainCustomize {
                     public void colorChanged(ColorModel colorModel) {
                         color2.setBackground(colorPicker2.getColor());
                         cfg.damierB = String.format("#%02x%02x%02x", colorPicker2.getColor().getRed(),
-                                colorPicker1.getColor().getGreen(), colorPicker1.getColor().getBlue());
+                                colorPicker2.getColor().getGreen(), colorPicker2.getColor().getBlue());
                         board.repaint();
                     }
                 });
