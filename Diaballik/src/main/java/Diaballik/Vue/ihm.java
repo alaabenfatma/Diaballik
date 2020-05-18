@@ -47,10 +47,7 @@ public class ihm extends JFrame {
 	Image son, mute, drapeauFr, drapeauGB;
 	
 	playSound ps = new playSound();
-	boolean bmute = true;
-	boolean blang = true;
-	
-	
+
 
 	public ihm() {
 		this.setIconImage(icon); 
@@ -63,7 +60,7 @@ public class ihm extends JFrame {
 				@Override
 			public void windowClosing(java.awt.event.WindowEvent windowEvent) {
 				
-					if(blang == false) {
+					if(staticConfig.blang == false) {
 						if(msgBox.msgYesNo("Do you want to quit ?", "Quit") == 0){
 							System.exit(0);
 		            } else {
@@ -89,8 +86,13 @@ public class ihm extends JFrame {
     		son = ImageIO.read(this.getClass().getResourceAsStream("img/sound.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		mute = ImageIO.read(this.getClass().getResourceAsStream("img/mute.png")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
     		sound.setIcon(new ImageIcon(mute));
-    		menu.drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
-    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
+    		drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT);; 
+			drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+    		if (staticConfig.blang == true) {
+    			drapeau.setIcon(new ImageIcon(drapeauFr));
+    		} else {
+    			drapeau.setIcon(new ImageIcon(drapeauGB));
+    		}
     	}
     	catch (Exception e) {
     		System.out.println(e);
@@ -100,9 +102,9 @@ public class ihm extends JFrame {
 		drapeau.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
-    				if (blang == true) {
-    					menu.drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
-    		    		drapeau.setIcon(new ImageIcon(menu.drapeauGB));
+    				if (staticConfig.blang == true) {
+    					drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("img/drapeauuk.jpg")).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
+    		    		drapeau.setIcon(new ImageIcon(drapeauGB));
     		    		words wEn = objectMapper.readValue(this.getClass().getResourceAsStream("languesEn.json"), words.class);
     		    		menu.nouvelle.setText(wEn.newgame);
     		    		menu.charger.setText(wEn.charger);
@@ -156,14 +158,12 @@ public class ihm extends JFrame {
     		    		ajr.titre.setText(wEn.attenteTitre);
     		    		ajr.codelabel.setText(wEn.codelabel);
     		    		ajr.retour.setText(wEn.retour);
-    		    		
-    		    		//plateau.boutonFinTour.setText(wEn.finTour);
-    		    		
-    		    		blang = false;
+ 
+    		    		staticConfig.blang = false;
     		    		
     				} else {
     					drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("img/drapeaufr.png"))).getScaledInstance(40, 40, Image.SCALE_DEFAULT); 
-    		    		drapeau.setIcon(new ImageIcon(menu.drapeauFr));
+    		    		drapeau.setIcon(new ImageIcon(drapeauFr));
     		    		words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("languesFr.json"), words.class);
     		    		menu.nouvelle.setText(wFr.newgame);
     		    		menu.charger.setText(wFr.charger);
@@ -194,9 +194,6 @@ public class ihm extends JFrame {
     		    		ng.retour.setText(wFr.retour);
     		    		ng.jouer.setText(wFr.jouer);
     		    		
-    		    		//cT.valider.setText(wFr.validerPersonnaliser);
-    		    		//cP.valider.setText(wFr.validerPersonnaliser);
-    		    		
     		    		cp.titre.setText(wFr.charger);
     		    		cp.retour.setText(wFr.retour);
     		    		cp.jouer.setText(wFr.jouer);
@@ -214,10 +211,8 @@ public class ihm extends JFrame {
     		    		ajr.titre.setText(wFr.attenteTitre);
     		    		ajr.codelabel.setText(wFr.codelabel);
     		    		ajr.retour.setText(wFr.retour);
-    		    		
-    		    		//plateau.boutonFinTour.setText(wFr.finTour);
-    		    		
-    		    		blang = true;
+    		    		    		    		
+    		    		staticConfig.blang = true;
     		    		
     				}
     			}
@@ -231,12 +226,12 @@ public class ihm extends JFrame {
 		sound.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
-    				if (bmute == false) { 
+    				if ( staticConfig.bmute == false) { 
     		    		sound.setIcon(new ImageIcon(mute));
-    		    		bmute = true;
+    		    		 staticConfig.bmute = true;
     				} else {
     		    		sound.setIcon(new ImageIcon(son));
-    		    		bmute = false;
+    		    		 staticConfig.bmute = false;
     				}
     					
     	    	}
@@ -255,13 +250,13 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreNouvellePartie() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(700, 600);
 		ng.add(sound);
 		ng.add(drapeau);		
 		this.setContentPane(ng);
 		
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("New Game");
 		} else {
 			this.setTitle("Nouvelle partie");
@@ -273,13 +268,13 @@ public class ihm extends JFrame {
 
 	
 	public void fenetreChargerPartie() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(700, 450);
 		cp.add(sound);
 		cp.add(drapeau);
 		this.setContentPane(cp);
 		
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Load Game");
 		} else {
 			this.setTitle("Charger partie");
@@ -291,13 +286,13 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreJouerEnReseau() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
 		jr.add(sound);
 		jr.add(drapeau);
 		this.setContentPane(jr);
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Play online");
 		} else {
 			this.setTitle("Jouer en réseau");
@@ -309,14 +304,14 @@ public class ihm extends JFrame {
 	
 	
 	public void retourMenuPrincipal() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 511);
 		this.setSize(600, 510);
 		this.setLocationRelativeTo(null);
 		menu.add(drapeau);
 		menu.add(sound);
 		this.setContentPane(menu);
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Main Menu");
 		} else {
 			this.setTitle("Menu principal");
@@ -328,13 +323,13 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreCreerPartieReseau() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		crr.add(sound);
 		crr.add(drapeau);
 		this.setContentPane(crr);
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Create online game");
 		} else {
 			this.setTitle("Créer une partie en réseau");
@@ -346,13 +341,13 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreRejoindrePartieReseau() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		rpr.add(sound);
 		rpr.add(drapeau);
 		this.setContentPane(rpr);
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Join online game");
 		} else {
 			this.setTitle("Rejoindre une partie");
@@ -364,13 +359,13 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreAttenteJoueurReseau() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav", staticConfig.bmute);
 		this.setSize(600, 401);
 		this.setSize(600, 400);
 		ajr.add(sound);
 		ajr.add(drapeau);
 		this.setContentPane(ajr);
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Waiting for the 2nd player");
 		} else {
 			this.setTitle("Attente du 2ème joueur");
@@ -382,11 +377,11 @@ public class ihm extends JFrame {
 	
 	
 	public void fenetreRegles() {
-		ps.play("son/buttonClick.wav", bmute);
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
 		this.setSize(800, 620);
 		this.setLocationRelativeTo(null);
 		this.setContentPane(r);
-		if (blang == false) {
+		if (staticConfig.blang == false) {
 			this.setTitle("Rules");
 		} else {
 			this.setTitle("Règles du jeu");
@@ -398,8 +393,8 @@ public class ihm extends JFrame {
 	
 	
 	public void quit() {
-		ps.play("son/buttonClick.wav", bmute);
-		if (blang == false) {
+		ps.play("son/buttonClick.wav",  staticConfig.bmute);
+		if (staticConfig.blang == false) {
 			msgBox.MessageBox("Do you want to quit ?", "Quit", this);
 		} else {
 			msgBox.MessageBox("Voulez-vous quitter le jeu ? ", "Quitter", this);

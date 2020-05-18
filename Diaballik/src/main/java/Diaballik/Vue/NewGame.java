@@ -62,7 +62,6 @@ public class NewGame extends JPanel {
 	JRadioButton br2 = new JRadioButton("Moyen");
 	JRadioButton br3 = new JRadioButton("Difficile");
 	boolean bHumain = true;
-	boolean bson;
 	int persoJoueur;
 	playSound ps = new playSound();
 	ihm i;
@@ -90,7 +89,6 @@ public class NewGame extends JPanel {
 	public NewGame(ihm ihm) {
 
 		i = ihm;
-		bson = i.menu.bson;
 		j = new Jeu();
 		configJeu = new ConfigJeu();
 		m1.add(mi1);
@@ -356,7 +354,7 @@ public class NewGame extends JPanel {
 
 		jouer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ps.play("son/buttonClick.wav", bson);
+				ps.play("son/buttonClick.wav",  staticConfig.bmute);
 				j.configurer(configJeu);
 				j.start();
 				// SwingUtilities.getWindowAncestor(this).dispose();

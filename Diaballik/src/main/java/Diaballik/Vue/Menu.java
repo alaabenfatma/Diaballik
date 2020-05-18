@@ -28,15 +28,10 @@ public class Menu extends JPanel {
 	Image logo, drapeauFr, drapeauGB;
 	playSound ps = new playSound();
 	ihm i;
-    Graphics2D drawable;
-    boolean bson;
-    boolean blang = true;
-  
-     	
+    Graphics2D drawable; 	
 	
 	public Menu(ihm ihm) {
 		i = ihm;
-		bson = i.bmute;
 		m1.add(mi1);
 		m2.add(mi2);
 		mb.add(m1);
@@ -100,18 +95,16 @@ public class Menu extends JPanel {
         mi2.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
-    				if (bson == false) { 
+    				if ( staticConfig.bmute == false) { 
     		    		i.sound.setIcon(new ImageIcon(i.mute));
     		    		m2.remove(mi2);
     		    		m2.add(mi3);
-    		    		bson = true;
-    		    		i.bmute = bson;
+    		    		 staticConfig.bmute = true;
     				} else {
     		    		i.sound.setIcon(new ImageIcon(i.son));
     		    		m2.remove(mi3);
     		    		m2.add(mi2);
-    		    		bson = false;
-    		    		i.bmute = bson;
+    		    		 staticConfig.bmute = false;
     				}
     					
     	    	}
@@ -124,18 +117,16 @@ public class Menu extends JPanel {
         mi3.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	try {
-    				if (bson == false) { 
+    				if ( staticConfig.bmute == false) { 
     		    		i.sound.setIcon(new ImageIcon(i.mute));
     		    		m2.remove(mi2);
     		    		m2.add(mi3);
-    		    		bson = true;
-    		    		i.bmute = bson;
+    		    		 staticConfig.bmute = true;
     				} else {
     		    		i.sound.setIcon(new ImageIcon(i.son));
     		    		m2.remove(mi3);
     		    		m2.add(mi2);
-    		    		bson = false;
-    		    		i.bmute = bson;
+    		    		 staticConfig.bmute = false;
     				}
     					
     	    	}
