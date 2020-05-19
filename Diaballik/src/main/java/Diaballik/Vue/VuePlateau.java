@@ -72,7 +72,7 @@ public class VuePlateau extends PlateauGraphique {
                         tracerDamier(Color.decode(j.config.damierA), x, y, largeurCase, hauteurCase);
                     }
                 }
-                // Pose des pions
+                // Affichage des pions
                 if (j.tr._terrain[ligne][colonne].Type == PieceType.Black) {
                     if (j.tr._terrain[ligne][colonne].HasBall == true) {
                         tracer(pionA_ballon, x, y, largeurCase, hauteurCase);
@@ -86,19 +86,18 @@ public class VuePlateau extends PlateauGraphique {
                         tracer(pionB_bas, x, y, largeurCase, hauteurCase);
                     }
                 }
-                // Traçage des marques
+                // Affichage des marques
                 if (j.tr._terrain[ligne][colonne].SelectionPasse == true)
                     tracerCarre(Color.yellow, x, y, largeurCase, hauteurCase);
                 else if (j.tr._terrain[ligne][colonne].SelectionDeplacement == true)
                     tracerCarre(Color.yellow, x, y, largeurCase, hauteurCase);
                 else if (j.tr._terrain[ligne][colonne].PossibleDeplacement == true)
-                    // tracerCarre(Color.blue, x, y, largeurCase, hauteurCase);
                     tracerCercle(x + largeurCase / 2, y + hauteurCase / 2);
                 else if (j.tr._terrain[ligne][colonne].PossiblePasse == true)
                     tracerCarre(Color.green, x, y, largeurCase, hauteurCase);
             }
         }
-        // Tracage des feeedback mouvements
+        // Affichage des feeedback mouvements
         if (viewArrow) {
             for (Couple cpl2 : j.listeDeplacementJ2) {
                 drawArrowLine(Color.blue, cpl2.p2.c * largeurCase + largeurCase / 2,
@@ -123,28 +122,26 @@ public class VuePlateau extends PlateauGraphique {
                         cpl.p1.l * hauteurCase + hauteurCase / 2, cpl.p2.c * largeurCase + largeurCase / 2,
                         cpl.p2.l * hauteurCase + hauteurCase / 2, 6, 6, true, largeurCase, hauteurCase);
             }
-            // affichage suggestion
-            if (j.sugState != null) {
-                if (j.sugState.firstMove != null)
-                    drawArrowLine(Color.ORANGE, j.sugState.firstMove.From.c * largeurCase + largeurCase / 2,
-                            j.sugState.firstMove.From.l * hauteurCase + hauteurCase / 2,
-                            j.sugState.firstMove.To.c * largeurCase + largeurCase / 2,
-                            j.sugState.firstMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
-                            hauteurCase);
-                if (j.sugState.secondMove != null)
-                    drawArrowLine(Color.ORANGE, j.sugState.secondMove.From.c * largeurCase + largeurCase / 2,
-                            j.sugState.secondMove.From.l * hauteurCase + hauteurCase / 2,
-                            j.sugState.secondMove.To.c * largeurCase + largeurCase / 2,
-                            j.sugState.secondMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
-                            hauteurCase);
-                if (j.sugState.pass != null)
-                    drawArrowLine(Color.ORANGE, j.sugState.pass.From.c * largeurCase + largeurCase / 2,
-                            j.sugState.pass.From.l * hauteurCase + hauteurCase / 2,
-                            j.sugState.pass.To.c * largeurCase + largeurCase / 2,
-                            j.sugState.pass.To.l * hauteurCase + hauteurCase / 2, 8, 8, true, largeurCase, hauteurCase);
-
-            }
-
+        }
+        // Affichage suggestion
+        if (j.sugState != null) {
+            if (j.sugState.firstMove != null)
+                drawArrowLine(Color.ORANGE, j.sugState.firstMove.From.c * largeurCase + largeurCase / 2,
+                        j.sugState.firstMove.From.l * hauteurCase + hauteurCase / 2,
+                        j.sugState.firstMove.To.c * largeurCase + largeurCase / 2,
+                        j.sugState.firstMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
+                        hauteurCase);
+            if (j.sugState.secondMove != null)
+                drawArrowLine(Color.ORANGE, j.sugState.secondMove.From.c * largeurCase + largeurCase / 2,
+                        j.sugState.secondMove.From.l * hauteurCase + hauteurCase / 2,
+                        j.sugState.secondMove.To.c * largeurCase + largeurCase / 2,
+                        j.sugState.secondMove.To.l * hauteurCase + hauteurCase / 2, 8, 8, false, largeurCase,
+                        hauteurCase);
+            if (j.sugState.pass != null)
+                drawArrowLine(Color.ORANGE, j.sugState.pass.From.c * largeurCase + largeurCase / 2,
+                        j.sugState.pass.From.l * hauteurCase + hauteurCase / 2,
+                        j.sugState.pass.To.c * largeurCase + largeurCase / 2,
+                        j.sugState.pass.To.l * hauteurCase + hauteurCase / 2, 8, 8, true, largeurCase, hauteurCase);
         }
     }
 }
