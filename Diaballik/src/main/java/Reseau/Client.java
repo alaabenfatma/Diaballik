@@ -31,7 +31,7 @@ public class Client implements Runnable {
 	}
 	static void init_test_jeu() {
 		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
-		numP="123";
+		//numP="123";
 	}
 	/*
 	static void init_test_jeu() {
@@ -67,20 +67,30 @@ public class Client implements Runnable {
 
 			Commandes_Client C = new Commandes_Client(s,s_in,in,out,j);
 			
-			System.out.print(">");
-			System.out.println(Joueur);
-			
+			if(Joueur.equals("j1") && in.readLine().equals("j2_ok")) {
+				System.out.println("Initialisation de la partie");
+				C.C_init_partie(attente);
+				System.out.println("Initialisation de la partie terminée");
+			}else if(Joueur.equals("j2")) {
+				in.readLine();
+			}
 			while(true) {
 				if(in == null || out == null) {break;}
 				if(attente) {
+					System.out.println("Attente de l'autre Client...");
 					String cmd = in.readLine();
 					System.out.println("Commande reçu = "+ cmd);
 					if(cmd.equals("rep")) {
 						System.out.println(in.readLine());
 					}else if(cmd.equals("test_json")) {
 						C.C_test_json(attente);
-					}else if(cmd.equals("quit")) {break;}
-					attente = !attente;
+						attente = !attente;
+					}
+					else if(cmd.equals("init")){
+						C.C_init_partie(attente);	
+					}
+					else if(cmd.equals("quit")) {break;}
+					
 				}else {
 					System.out.print(">");
 					String message = s_in.nextLine();

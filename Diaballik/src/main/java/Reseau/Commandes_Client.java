@@ -39,6 +39,43 @@ public class Commandes_Client {
 			e.printStackTrace();
 		}
 	}
+	public void C_init_partie(Boolean att) {
+		if(att) {
+			System.out.println(" --- Décodage du String JSON --- ");
+			String message;
+			try {
+				message = in.readLine();
+				System.out.println(message);
+				j_json = mapper.readValue(message, JeuJSON.class);
+				System.out.println(" --- Initailisation des données --- ");
+				
+				j.tr._terrain = j.tr.toPieces(j_json.Terrain); //MAJ du Terrain
+				j.joueurCourant = j_json.joueurCourant; //MAJ du joueur a jouer
+				j.config = j_json.config; //MAJ de la configuration
+				
+				System.out.println(" --- Initailisation terminée ---");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				out.println("init");
+				out.flush();
+				
+				String message;
+				CM.save();
+				message=j.JSONfromGame(j);
+				//System.out.println(message);
+				out.println(message);
+				out.flush();
+				System.out.println(in.readLine());//ok
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	public void C_test_json(Boolean att) {
 		if(att) {
 			System.out.println(" --- Décodage du String JSON --- ");
@@ -50,7 +87,8 @@ public class Commandes_Client {
 				System.out.println(" --- MAJ des données --- ");
 				
 				j.tr._terrain = j.tr.toPieces(j_json.Terrain); //MAJ du Terrain
-				j.joueurCourant = j.joueurCourant; //MAJ du joueur a jouer
+				j.joueurCourant = j_json.joueurCourant; //MAJ du joueur a jouer
+				j.config = j_json.config; //MAJ de la configuration
 				
 				System.out.println(" --- MAJ terminée ---");
 			} catch (IOException e) {

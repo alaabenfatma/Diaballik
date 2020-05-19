@@ -42,17 +42,17 @@ public class Connexion implements Runnable {
 		try {
 			Serv.sendClient("Connexion établie", numClient,numPartie);
 			message = in.readLine();
+			System.out.println(" --- Commande du client recu : " + message +" ---");
 			while(!message.equals("quit")) {
 				if(message.equals("total")) {
 					Serv.C_total(numClient,numPartie);
 				}
+				else if(message.equals("init")) {
+					Serv.C_initialisation(numClient,in.readLine(),numPartie);
+				}
 				else if(message.equals("test_json")) {
 					System.out.println("Json recu:");
-					message = in.readLine();
-					Serv.C_test_Json(numClient,message,numPartie);
-				}
-				else if(message.equals("rep")){
-					Serv.C_rep(numClient,in,numPartie);
+					Serv.C_test_Json(numClient,in.readLine(),numPartie);
 				}
 				else {
 					System.out.println("Message du client :"+ numClient);

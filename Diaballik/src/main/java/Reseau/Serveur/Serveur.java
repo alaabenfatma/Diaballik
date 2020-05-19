@@ -5,6 +5,9 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
+
+import Diaballik.Models.ConfigJeu;
+
 import java.net.InetAddress;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +25,6 @@ public class Serveur {
 	// Serveur = Joueur qui créer une partie
 	private static int port = 4242;// si 0 prend le premier libre
 	private static InetAddress add;
-	private ArrayList<PrintWriter> AllClient = new ArrayList<PrintWriter>(); // contient tous les flux de sortie vers les clients
 	private HashMap<Integer ,PrintWriter> numC_out = new HashMap<Integer ,PrintWriter>();
 	private HashMap<String,HashMap<Integer ,PrintWriter>> AllConnexion = new HashMap<String,HashMap<Integer ,PrintWriter>>(); 
 	private static int nbC = -1;
@@ -41,7 +43,7 @@ public class Serveur {
 			info();
 			while(true) { // Attente d'une connexion
 				if(nbC +1==0) {
-					sS.setSoTimeout(30000); // attente d'une connexion (10s) avant de crash(se règle avec le catch)
+					sS.setSoTimeout(60000); // attente d'une connexion (1 min) avant de crash(se règle avec le catch)
 				}
 				else if(nbC +1 == 1) {
 					sS.setSoTimeout(0); // attente d'une connexion (infini)
@@ -69,6 +71,7 @@ public class Serveur {
 		System.out.println(" --- Server Ok ---");
 		System.out.println(" --- Démaré sur le port : " + port + "---");
 	}
+	
 	synchronized public void supp_client(int i,String m,boolean hote) {
 		if(AllConnexion.containsKey(m)) {
 			numC_out = AllConnexion.get(m);
@@ -170,6 +173,16 @@ public class Serveur {
 				out.println(message);
 				out.flush();
 			}
+			if(AllConnexion.get(m).size() == 2) {
+				out.println("j2_ok");
+				out.flush();
+				
+				Set<Integer> k = AllConnexion.get(m).keySet();
+				Iterator<Integer> it = k.iterator();
+				out = AllConnexion.get(m).get(it.next());
+				out.println("j2_ok");
+				out.flush();
+			}
 		}
 	}
 	synchronized public void C_total(int Client,String m) {
@@ -181,14 +194,42 @@ public class Serveur {
 			}
 		}
 	}
-	synchronized public void C_rep(int Client,BufferedReader in,String m) {
-		if(AllConnexion.containsKey(m) && AllConnexion.get(m).containsKey(Client)) {
-			out = AllConnexion.get(m).get(Client);
+synchronized public void C_initialisation(int Client,String message,String m) {
+	if(AllConnexion.containsKey(m)) {
+		numC_out = AllConnexion.get(m);
+		Enumeration<Integer> k = Collections.enumeration(numC_out.keySet());
+		Integer C1 = k.nextElement();
+		Integer C2 = k.nextElement();
+		
+		if(Client == C1) {
+			out = numC_out.get(C2);
+			//out = AllClient.get(1);
 			if(out != null) {
-				out.println(AllClient.size());
+				out.println("init");
+				out.flush();
+				
+				out.println(message);
+				out.flush();
+				
+				out = numC_out.get(Client);
+				out.println("ok");
+				out.flush();
+			}
+		}else {
+			out = numC_out.get(C1);
+			if(out != null) {
+				out.println("init");
+				out.flush();
+				
+				out.println(message);
+				out.flush();
+				
+				out = numC_out.get(Client);
+				out.println("ok");
 				out.flush();
 			}
 		}
+	}
 	}
 	synchronized public void C_test_Json(int Client,String message,String m){
 		if(AllConnexion.containsKey(m)) {
