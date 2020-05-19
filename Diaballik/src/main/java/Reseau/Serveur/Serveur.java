@@ -41,7 +41,7 @@ public class Serveur {
 			info();
 			while(true) { // Attente d'une connexion
 				if(nbC +1==0) {
-					sS.setSoTimeout(10000); // attente d'une connexion (10s) avant de crash(se règle avec le catch)
+					sS.setSoTimeout(30000); // attente d'une connexion (10s) avant de crash(se règle avec le catch)
 				}
 				else if(nbC +1 == 1) {
 					sS.setSoTimeout(0); // attente d'une connexion (infini)
