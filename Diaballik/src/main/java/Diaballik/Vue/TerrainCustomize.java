@@ -26,8 +26,9 @@ public class TerrainCustomize {
         colorPicker1.setColor(Color.BLUE);
         final ColorPicker colorPicker2 = new ColorPicker(true, true);
         colorPicker2.setColor(Color.CYAN);
-
-        final JButton color1 = new JButton("1");
+        frame.setLocationRelativeTo(null);
+        final JButton color1 = new JButton();
+        color1.setBackground(Color.decode(cfg.damierA));
         color1.addActionListener(new ActionListener() {
             JFrame pickerFrame = new JFrame();
 
@@ -36,6 +37,7 @@ public class TerrainCustomize {
                 pickerFrame.setSize(400, 400);
                 pickerFrame.add(colorPicker1);
                 pickerFrame.setVisible(true);
+                pickerFrame.setLocation(frame.getLocation().x-frame.getWidth(),frame.getLocation().y );
                 colorPicker1.addColorListener(new ColorListener() {
 
                     @Override
@@ -50,7 +52,8 @@ public class TerrainCustomize {
             }
         });
 
-        final JButton color2 = new JButton("2");
+        final JButton color2 = new JButton();
+        color2.setBackground(Color.decode(cfg.damierB));
         color2.addActionListener(new ActionListener() {
             JFrame pickerFrame = new JFrame();
 
@@ -59,6 +62,7 @@ public class TerrainCustomize {
                 pickerFrame.setSize(400, 400);
                 pickerFrame.add(colorPicker2);
                 pickerFrame.setVisible(true);
+                pickerFrame.setLocation(frame.getLocation().x+frame.getWidth(),frame.getLocation().y );
                 colorPicker2.addColorListener(new ColorListener() {
                     @Override
                     public void colorChanged(ColorModel colorModel) {

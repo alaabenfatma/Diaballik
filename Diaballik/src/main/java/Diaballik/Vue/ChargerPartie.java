@@ -98,6 +98,8 @@ public class ChargerPartie extends JPanel {
 				}
 				if (me.getClickCount() == 2) {
 					startGame(target.getValueAt(row, 2).toString());
+					i.dispose();
+
 				}
 			}
 		});
@@ -106,6 +108,8 @@ public class ChargerPartie extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				final int row = table.getSelectedRow();
 				startGame(table.getValueAt(row, 2).toString());
+				i.dispose();
+
 			}
 		});
 
@@ -174,6 +178,7 @@ public class ChargerPartie extends JPanel {
 						Jeu realJeu = new Jeu();
 
 						ConfigJeu cfg = new ConfigJeu();
+						
 						cfg.setName1(j.config.getName1());
 						cfg.setName2(j.config.getName2());
 						cfg.setMode(j.config.getMode());
@@ -184,6 +189,8 @@ public class ChargerPartie extends JPanel {
 						CollecteurEvenements control = new ControleurMediateur(realJeu);
 
 						realJeu.configurer(cfg);
+						realJeu.config.damierA = j.config.damierA;
+						realJeu.config.damierB = j.config.damierB;
 						realJeu.tr._terrain = realJeu.tr.toPieces(j.Terrain);
 						realJeu.start();
 						realJeu.joueurCourant.couleur = j.joueurCourant.couleur;
