@@ -19,6 +19,7 @@ public class Menu extends JPanel {
 	JButton regles = new JButton("Règles");
 	JButton quitter = new JButton("Quitter");
 	JButton drapeau = new JButton();
+	JButton credit = new JButton("Credits");
 	JMenuBar mb = new JMenuBar();
 	JMenu m1 = new JMenu("Thèmes");
 	JMenu m2 = new JMenu("Options");
@@ -48,6 +49,7 @@ public class Menu extends JPanel {
                     reseau.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 140, 150, 50 + (i.getHeight()/150));
                     regles.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 200, 150, 50 + (i.getHeight()/150));
                     quitter.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 260, 150, 50 + (i.getHeight()/150));
+                    credit.setBounds(440, 420, 100, 30);
                     i.drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
                     i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
                 }
@@ -58,6 +60,7 @@ public class Menu extends JPanel {
         this.add(charger);
         this.add(reseau);
         this.add(regles);
+        this.add(credit);
         this.add(quitter);
     		
         nouvelle.addActionListener(new ActionListener() { 
@@ -90,6 +93,11 @@ public class Menu extends JPanel {
             } 
         } );
         
+        credit.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e) { 
+            	new credits();
+            } 
+        } );
   
         mi2.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
