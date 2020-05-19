@@ -10,6 +10,7 @@ public class Partie implements Runnable{
     private Thread T;
     public Jeu j;
     public Partie(){
+    	j = new Diaballik.Models.Jeu();
         T = new Thread(this);
 		T.start();
     }
@@ -22,7 +23,6 @@ public class Partie implements Runnable{
     }
     
     public void run() {
-        j = new Diaballik.Models.Jeu();
         Diaballik.Models.ConfigJeu C = new Diaballik.Models.ConfigJeu();
         paraPartie(C);
 		

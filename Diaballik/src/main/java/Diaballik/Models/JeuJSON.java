@@ -16,7 +16,7 @@ public class JeuJSON {
     public ConfigJeu config;
     public Joueur joueurCourant;
     public JeuJSON(Jeu j) {
-        player1 = j.joueur1.name;
+    	player1 = j.joueur1.name;
         player2 = j.joueur2.name;
         Terrain = j.tr.toChar();
         config = j.config;

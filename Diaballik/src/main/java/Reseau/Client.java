@@ -16,7 +16,7 @@ public class Client implements Runnable {
 	private static String host = "127.0.0.1";
 	static Socket s;
 	static Scanner s_in = new Scanner(System.in);
-	static Jeu j;
+	static Jeu _j;
 	static String Joueur;
 	static boolean attente;
 	static String numP;
@@ -31,7 +31,7 @@ public class Client implements Runnable {
 	}
 	static void init_test_jeu() {
 		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
-		j = p.j;
+		_j = p.j;
 	}
 	/*
 	static void init_test_jeu() {
@@ -59,13 +59,19 @@ public class Client implements Runnable {
 				System.out.println("Déconnexion du client");
 				System.exit(0);
 			}
-			else if(Joueur.equals("j1")){attente = false;}
-			else {attente = true;}
+			else if(Joueur.equals("j1")){
+				System.out.println("--- je suis le client 1");
+				attente = false;
+			}
+			else {
+				System.out.println("--- je suis le client 2");
+				attente = true;
+			}
 			System.out.println(in.readLine()); // Connexion établie
 			
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 
-			Commandes_Client C = new Commandes_Client(s,s_in,in,out,j);
+			Commandes_Client C = new Commandes_Client(s,s_in,in,out,_j);
 			
 			if(Joueur.equals("j1") && in.readLine().equals("j2_ok")) {
 				System.out.println("Initialisation de la partie");
