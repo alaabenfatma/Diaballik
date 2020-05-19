@@ -49,7 +49,7 @@ public class Menu extends JPanel {
                     reseau.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 140, 150, 50 + (i.getHeight()/150));
                     regles.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 200, 150, 50 + (i.getHeight()/150));
                     quitter.setBounds((i.getWidth()/2) - 80, (i.getHeight()/4) + 260, 150, 50 + (i.getHeight()/150));
-                    credit.setBounds(440, 420, 100, 30);
+                    credit.setBounds((i.getWidth()/2) + 120, (i.getHeight()/4) + 280, 100, 30);
                     i.drapeau.setBounds(i.getWidth() - 80, 25, 40, 40);
                     i.sound.setBounds(i.getWidth() - 80, 75, 40, 40);
                 }
