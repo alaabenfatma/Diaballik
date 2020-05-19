@@ -109,9 +109,9 @@ public class Evaluator {
         }
 
         if (t.antijeuIA(t, PieceType.Black)) {
-            return 9999;
-        } else if (t.antijeuIA(t, PieceType.White)) {
             return -9999;
+        } else if (t.antijeuIA(t, PieceType.White)) {
+            return 9999;
         }
         int score = 0;
         Piece[][] board = t.getTerrain();

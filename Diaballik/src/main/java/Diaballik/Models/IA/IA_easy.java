@@ -22,6 +22,10 @@ public class IA_easy {
         this.type = type;
     }
 
+    /**
+     * @author Wassim
+     * Met a jour le nombre de coup restant pour l'IA selon le coup effectué
+     */
     private void maj_nbMove(From_to bestMove) {
         ArrayList<Position> diag = tr.getTerrain()[bestMove.from.l][bestMove.from.c].getDiagonals();
         // mise a jour de nbMove
@@ -37,7 +41,10 @@ public class IA_easy {
             nbMove = temp;
         }
     }
-
+    /**
+     * @author Wassim
+     * Retourne la meilleur passe selon l'IA avec une profondeur de 1
+     */
     public Position getNextPasse(PieceType type, Terrain tr) {
 
         if (type == PieceType.White) {
@@ -99,8 +106,10 @@ public class IA_easy {
         }
     }
 
-    // Renvoi le meilleur coup avec une profondeur de 1
-
+    /**
+     * @author Wassim
+     * Retourne le meilleur mouvement selon l'IA avec une profondeur de 1
+     */
     public From_to getNextMove(PieceType type, Terrain tr) {
 
         if (type == PieceType.White) {
@@ -150,6 +159,10 @@ public class IA_easy {
         }
     }
 
+    /**
+     * @author Wassim
+     * On demande à l'IA de jouer un tour
+     */
     public void joueTourIAEasy() {
         nbMove = 2;
         nbPasse = 1;
@@ -183,6 +196,12 @@ public class IA_easy {
     }
 
 }
+
+/**
+     * @author Wassim
+     * Celle classe va nous permettre de modéliser un deplacement. Une position source et
+     * une position destination
+     */
 
 class From_to {
     Position from;

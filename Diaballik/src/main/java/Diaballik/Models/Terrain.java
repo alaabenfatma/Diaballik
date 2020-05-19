@@ -104,7 +104,7 @@ public class Terrain implements ITerrain {
         return (_terrain[pos.l][pos.c].Type != PieceType.Empty);
     }
 
-    // Comme son nom l'indique
+    
     public Piece getPieceWithBall(PieceType tp) {
         if (tp == PieceType.Empty) {
             throw new RuntimeException("Erreur dans getPieceWithBall, une piece de type Empty ne peut avoir la balle");
@@ -118,7 +118,10 @@ public class Terrain implements ITerrain {
         }
         throw new RuntimeException("Erreur dans getPieceWithBall, aucune piece ne semble avoir la balle??");
     }
-
+    /**
+     * @author Wassim
+     * Permet de créer un objet clone (et non une reference) du terrain
+     */
     public Terrain clone() {
         Terrain copy = new Terrain();
         copy._jeuParent = this._jeuParent;
@@ -127,6 +130,7 @@ public class Terrain implements ITerrain {
         for (int i = 0; i < this.taille(); i++) {
             for (int j = 0; j < this.taille(); j++) {
                 Piece piece = this._terrain[i][j];
+                //On fait attention que les Pieces soit également clonés, et non passé en référence
                 copy._terrain[i][j] = new Piece(piece.Type, piece.HasBall, piece.Position.l, piece.Position.c,
                         piece.Parent);
             }
@@ -142,7 +146,10 @@ public class Terrain implements ITerrain {
         this._jeuParent = j;
     }
 
-    // retourne le type de piece qui a gagnée
+    /**
+     * @author Wassim
+     * Retourne le type de piece qui a gagné
+     */
     public PieceType victoire() {
         for (int i = 0; i < this.taille(); i++) {
             if ((this.getTerrain()[0][i].Type == PieceType.White) && (this.getTerrain()[0][i].HasBall)) {
@@ -156,7 +163,13 @@ public class Terrain implements ITerrain {
         return PieceType.Empty;
     }
 
+    /**
+     * @author Wassim
+     * Met a jour la pile
+     */
     public void updateStack(int moves, int passes) {
+        //A chaque mouvement, on empile le terrain courant dans la pile coups
+        //(Pour le ctrl-z)
         coups.add(new InfCoups(clone(), _jeuParent.joueurCourant, moves, passes));
     }
 
@@ -230,6 +243,10 @@ public class Terrain implements ITerrain {
             return false;
     }
 
+    /**
+     * @author Wassim
+     * Reviens à l'état précedent du terrain 
+     */
     public void ctrl_z() {
 
         if (coups.size() == 0) {
@@ -238,15 +255,18 @@ public class Terrain implements ITerrain {
         ctrly.add(new InfCoups(clone(), _jeuParent.joueurCourant, _jeuParent.joueurCourant.nbMove,
                 _jeuParent.joueurCourant.passeDispo));
         _terrain = new Piece[taille][taille];
+        //On reprend le terrain precedent
         for (int l = 0; l < taille; l++) {
             for (int c = 0; c < taille; c++) {
                 _terrain[l][c] = coups.peek().tr.getTerrain()[l][c];
             }
         }
+        //On remet le nombre de passes/deplacements comme il était avant
         _jeuParent.joueurCourant = coups.peek().jCourant;
         _jeuParent.joueurCourant.nbMove = coups.peek().moves;
         _jeuParent.joueurCourant.passeDispo = coups.peek().passes;
         coups.pop();
+        //Si on joue contre une IA, on ne peut annuler que nos coups à nous..
         if (_jeuParent.joueur2.n == TypeJoueur.IA) {
             while (_jeuParent.joueurCourant != _jeuParent.joueur1) {
                 ctrl_z();
@@ -254,8 +274,13 @@ public class Terrain implements ITerrain {
         }
     }
 
+    /**
+     * @author Wassim
+     * Annule le ctrl-z
+     */
     public void ctrl_y() {
 
+        //plus ou moin parreil que ctrl-z (voir plus haut)
         if (ctrly.size() == 0) {
             return;
         }
