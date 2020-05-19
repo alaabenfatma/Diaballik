@@ -20,6 +20,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Jeu est la classe qui représente une instance de Diaballik.
+ * <p>
+ * Elle comporte entre autre :
+ * <p>
+ * - une instance du plateau de jeu et des pions (Terrain tr)
+ * <p>
+ * - une configuration (ConfigJeu config)
+ * <p>
+ * - le joueur courant et ses informations (Joueur joueurCourant)
+ * <p>
+ * - l'état de la partie (boolean gameOver )
+ * <p>
+ * Ses méthodes permettent de modifier le Terrain tr en respectant les règles du
+ * Diaballik.
+ */
 public class Jeu extends Observable {
     public Terrain tr;
     public Joueur joueur1;
@@ -54,6 +70,10 @@ public class Jeu extends Observable {
         tr.Create();
     }
 
+    /**
+     * Initialise les variables d'instances de la classe Jeu à un état de début de
+     * partie.
+     */
     public void init() {
         tr = new Terrain();
         tr.Create();
@@ -66,10 +86,20 @@ public class Jeu extends Observable {
 
     }
 
+    /**
+     * Initialise Jeu.config
+     * 
+     * @param c La configuration ConfigJeu modifiée dans Vue.NewGame
+     */
     public void configurer(ConfigJeu c) {
         config = c;
     }
 
+    /**
+     * Initialise les variables d'instances de Jeu qui dépendent de ConfigJeu config
+     * <p>
+     * Joue un tour d'IA si elle joue en premier
+     */
     public void start() {
         antijeuBool = false;
         if (config.getVariante())
@@ -111,9 +141,7 @@ public class Jeu extends Observable {
                         @Override
                         public void run() {
                             try {
-
                                 minimax.loadingScreen.Show();
-
                                 Runnable r = new Runnable() {
                                     public void run() {
                                         minimax.VanillaMiniMax(new State(tr._jeuParent), 4, true);
@@ -136,7 +164,6 @@ public class Jeu extends Observable {
         } else if (IaVSIa) {
             iaRandomIHM.JoueTourIARand();
         }
-
     }
 
     public Jeu(Terrain terrain) {
@@ -144,6 +171,16 @@ public class Jeu extends Observable {
 
     }
 
+    /**
+     * Représente la fin d'un tour.
+     * <p>
+     * Le joueur courant est modifié, ses nombres de mouvements et passe
+     * réinitialisés.
+     * <p>
+     * Si l'IA est activée, elle joue son tour.
+     * <p>
+     * Le timer est réinitialiser si activé.
+     */
     public void FinTour() {
         if (gameOver)
             return;
@@ -173,15 +210,10 @@ public class Jeu extends Observable {
                             }
                         };
                         new Thread(r).start();
-
-                        // this.tr._terrain = bestState.Terrain.Copy(this.tr);
-                        // this.tr.PrintTerrain();
-                        //
                         break;
                     default:
                         break;
                 }
-
             }
         } else {
             joueurCourant = joueur1;
@@ -206,6 +238,12 @@ public class Jeu extends Observable {
         RetirerMarque();
     }
 
+    /**
+     * 
+     * @param select La pièce sélectionnée
+     * @return true si la pièce sélectionnée appartient au joueur courant, flase
+     *         sinon.
+     */
     private boolean PieceAuJoueur(Piece select) {
         if (select.Type == PieceType.White && joueurCourant == joueur1)
             return true;
@@ -215,6 +253,20 @@ public class Jeu extends Observable {
             return false;
     }
 
+    /**
+     * Gère la sélection d'une pièce faite par un clic souris par un joueur humain.
+     * <p>
+     * Un premier appel à la méthode, si la piece sélectionnée est correcte, affecte
+     * la piece selectionnée à Piece from.
+     * <p>
+     * Le second appel, affecte la piece à Piece to et effectue l'action de
+     * mouvement ou passe.
+     * <p>
+     * Modifie tr.
+     * 
+     * @param l L'indice de la ligne
+     * @param c L'indice de la colonne
+     */
     public void SelectionPiece(int l, int c) {
         if ((0 > l || l > 6 || 0 > c || c > 6) || gameOver)
             return;
@@ -246,14 +298,24 @@ public class Jeu extends Observable {
             RetirerMarque();
             from = to = null;
         }
+        // s'il n'y a plus d'action disponible, fin de tour automatique
         if (joueurCourant.nbMove == 0 && joueurCourant.passeDispo == 0)
             FinTour();
         metAJour();
 
     }
 
+    /**
+     * Gère la sélection d'une pièce faite l'IA.
+     * <p>
+     * Un premier appel à la méthode affecte la piece selectionnée à Piece from.
+     * <p>
+     * Le second appel, affecte la piece à Piece to et effectue l'action de
+     * mouvement ou passe. Modifie tr.
+     * 
+     * @param select La piece sélectionné par l'IA
+     */
     public void SelectionPieceIA(Piece select) {
-
         if (gameOver)
             return;
         // Piece select = tr._terrain[l][c];
@@ -277,10 +339,8 @@ public class Jeu extends Observable {
                 try {
                     Deplacement();
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-
             }
         }
         // mauvaise selection, reinitialisation de from et to
@@ -292,14 +352,16 @@ public class Jeu extends Observable {
 
     }
 
+    /**
+     * Ajoute la liste des déplacements disponibles à la liste
+     * listePositionsPossibles pour l'affichage graphique
+     * 
+     * @param select La piece sélectionnée
+     */
     public void SelectionDeplacement(Piece select) {
-        // tr._terrain[l][c].SelectionDeplacement = true;
         int l = select.Position.l;
         int c = select.Position.c;
         getPiecePos(select).SelectionDeplacement = true;
-        // Piece select = tr._terrain[l][c];
-        // System.out.printf("Selection déplacement : Piece position (%d,%d)\n",
-        // select.Position.l, select.Position.c);
         listeMarque.add(new Position(l, c));
         listePositionsPossibles = from.PossiblePositions(joueurCourant.nbMove);
         for (Position pos : listePositionsPossibles) {
@@ -310,6 +372,12 @@ public class Jeu extends Observable {
         }
     }
 
+    /**
+     * Ajoute la liste des passes disponibles à la liste ar pour l'affichage
+     * graphique
+     * 
+     * @param select
+     */
     public void SelectionPasse(Piece select) {
         getPiecePos(select).SelectionPasse = true;
         listeMarque.add(select.Position);
@@ -324,6 +392,12 @@ public class Jeu extends Observable {
         }
     }
 
+    /**
+     * Effectue une passe en échangeant la position des pièces from et to de Terrain
+     * tr.
+     * <p>
+     * Vérifie si la passe est gagnante, affecte cette valeur à gameOver
+     */
     public void Passe() {
         if (joueurCourant.passeDispo == 1) {
             infc.passes = 1;
@@ -341,6 +415,13 @@ public class Jeu extends Observable {
         from = to = null;
     }
 
+    /**
+     * Effectue un déplacement en échangeant la position des pièces from et to de
+     * Terrain tr.
+     * <p>
+     * Vérifie si ce mouvement conduit à un antijeu de l'adversaire et l'affecte à
+     * gameOver et antijeuBool.
+     */
     public void Deplacement() {
         if (listePositionsPossibles.contains(to.Position)) {
             ArrayList<Position> diag = from.getDiagonals();
@@ -372,8 +453,10 @@ public class Jeu extends Observable {
         from = to = null;
     }
 
+    /**
+     * Retire les marques des pièces ajoutées suite à une sélection
+     */
     public void RetirerMarque() {
-
         Iterator<Position> itr = listeMarque.iterator();
         while (itr.hasNext()) {
             Position pos = (Position) itr.next();
@@ -387,14 +470,24 @@ public class Jeu extends Observable {
         }
     }
 
+    /**
+     * 
+     * @param piece
+     * @return la piece de tr._terrain associée
+     */
     private Piece getPiecePos(Piece piece) {
         return tr._terrain[piece.Position.l][piece.Position.c];
     }
 
-    // retourne vrai s'il y a antijeu
+    /**
+     * Vérifie s'il y a antijeu.
+     * 
+     * @return true si'il y a antijeu, false sinon.
+     */
     public boolean antijeu() {
-        int cpt = 0;
-        int nbAdverseColonne = 0;
+
+        int cpt = 0; // compteur de pions du joueur courant au contact de la supposé ligne
+        int nbAdverseColonne = 0; // nombre de pions adverse dans une colonne
         PieceType actuel = joueurCourant.couleur;
         PieceType adverse = (actuel == PieceType.Black) ? PieceType.White : PieceType.Black;
         int l = -1, c = -1;
@@ -414,9 +507,11 @@ public class Jeu extends Observable {
                             cpt++;
                         }
                     }
+                    // plus d'un pion adverse dans une colonne, ligne continue impossible
                     if (nbAdverseColonne > 1)
                         return false;
                 }
+                // pas de pions adverse dans la colonne, pas de ligne
                 if (nbAdverseColonne == 0)
                     return false;
 
@@ -455,15 +550,18 @@ public class Jeu extends Observable {
                     return false;
             }
         }
+        // s'il y a au moins 3 pions du joueur courant au contact de la ligne complète
         if (cpt >= 3) {
-            String nameAdv = (joueurCourant == joueur1) ? joueur2.name : joueur1.name;
-
             return true;
         } else
             return false;
 
     }
 
+    /**
+     * Vide les listes de feedback listeDeplacementJ1, listeDeplacementJ2,
+     * listePasseJ1, listePasseJ2.
+     */
     private void clearListe() {
         listeDeplacementJ1.clear();
         listeDeplacementJ2.clear();
@@ -471,6 +569,9 @@ public class Jeu extends Observable {
         listePasseJ2.clear();
     }
 
+    /**
+     * Annule un coup
+     */
     public void jctrl_z() {
         gameOver = false;
         tr.ctrl_z();
@@ -478,11 +579,19 @@ public class Jeu extends Observable {
         metAJour();
     }
 
+    /**
+     * Refait un coup
+     */
     public void jctrl_y() {
         tr.ctrl_y();
         metAJour();
     }
 
+    /**
+     * Joue un tour de l'IA MiniMax
+     * 
+     * @param bState Le meilleur état du plateau après un tour d'IA
+     */
     private void JoueTourIAMiniMax(State bState) {
         int l;
         int c;
@@ -592,6 +701,9 @@ public class Jeu extends Observable {
         FinTour();
     }
 
+    /**
+     * Suggère un tour grâce à l'IA MiniMax
+     */
     public void suggestion() {
         minMaxSug = new MiniMax(this, joueurCourant.couleur);
         minMaxSug.AI_TYPE = joueurCourant.couleur;
@@ -621,6 +733,10 @@ public class Jeu extends Observable {
         metAJour();
     }
 
+    /**
+     * 
+     * @return vrai si aucune action effectuée, fasle sinon.
+     */
     public boolean DebutTour() {
         return (joueurCourant.nbMove == 2 && joueurCourant.passeDispo == 1);
     }
