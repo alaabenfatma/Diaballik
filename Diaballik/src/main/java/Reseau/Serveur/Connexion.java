@@ -15,6 +15,7 @@ public class Connexion implements Runnable {
 	private Serveur Serv;
 	private int numClient;
 	private String numPartie;
+	public boolean hote;
 	
 	Connexion(Socket sock, Serveur S){
 		Serv = S;
@@ -31,7 +32,9 @@ public class Connexion implements Runnable {
 		T = new Thread(this);
 		T.start();
 	}
-	
+	public void sethote(boolean h) {
+		hote = h;
+	}
 	public void run() {
 		String message;
 		System.out.println(" --- Connexion d'un nouveau client ---");
@@ -74,7 +77,7 @@ public class Connexion implements Runnable {
 		finally { // Se produit lors de la déconnexion du client
 			try {
 				System.out.println(" --- Déconnexion du client : "+numClient + " ---");
-				Serv.supp_client(numClient,numPartie);
+				Serv.supp_client(numClient,numPartie,hote);
 				s.close();
 			}catch(IOException e) {
 				e.printStackTrace();

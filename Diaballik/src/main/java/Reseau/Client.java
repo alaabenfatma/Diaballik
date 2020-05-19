@@ -11,7 +11,7 @@ import java.util.Scanner;
 import Diaballik.Models.ConfigJeu;
 import Diaballik.Models.Jeu;
 
-public class Client implements Runnable {
+public class Client {
 	private static int port = 4242;
 	private static String host = "127.0.0.1";
 	static Socket s;
@@ -22,7 +22,7 @@ public class Client implements Runnable {
 	static String numP;
 	static PrintWriter out;
 	static BufferedReader in;
-	
+	/*
 	private Thread T;
 	public Client(String c){
 		numP = c;
@@ -32,17 +32,17 @@ public class Client implements Runnable {
 	static void init_test_jeu() {
 		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
 		numP="123";
-	}
-	/*
+	}*/
+	
 	static void init_test_jeu() {
 		j = new Jeu();
 		j.configurer(new ConfigJeu());
 		j.start();
 		numP="123";
-	}*/
+	}
 	
-	public void run() {
-	//public static void main(String arg[]) {
+	//public void run() {
+	public static void main(String arg[]) {
 		System.out.println("je suis le client");
 		System.out.println("Connexion au serveur");
 		try {
@@ -79,7 +79,7 @@ public class Client implements Runnable {
 						System.out.println(in.readLine());
 					}else if(cmd.equals("test_json")) {
 						C.C_test_json(attente);
-					}
+					}else if(cmd.equals("quit")) {break;}
 					attente = !attente;
 				}else {
 					System.out.print(">");

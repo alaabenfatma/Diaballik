@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Set;
 import java.net.InetAddress;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class Serveur {
 	private static int nbC = -1;
 	private static ServerSocket sS;
 	PrintWriter out;
+	private static Connexion C;
 	
 	public static void main(String[] args) {
 		System.out.println("Démarage du serveur");
@@ -44,7 +46,7 @@ public class Serveur {
 				else if(nbC +1 == 1) {
 					sS.setSoTimeout(0); // attente d'une connexion (infini)
 				}
-				new Connexion(sS.accept(),Serv); // Lance le thread du nouveau client
+				C = new Connexion(sS.accept(),Serv); // Lance le thread du nouveau client
 			}
 		}
 		catch (SocketTimeoutException e){
@@ -67,20 +69,36 @@ public class Serveur {
 		System.out.println(" --- Server Ok ---");
 		System.out.println(" --- Démaré sur le port : " + port + "---");
 	}
-	synchronized public void supp_client(int i,String m) {
+	synchronized public void supp_client(int i,String m,boolean hote) {
 		if(AllConnexion.containsKey(m)) {
 			numC_out = AllConnexion.get(m);
 			if(numC_out.containsKey(i)) {
 				numC_out.remove(i);
-				if(numC_out.size() == 0) {
+				if(hote && numC_out.size() != 0) {
+					numC_out = AllConnexion.get(m);
+					
+					Set<Integer> k = numC_out.keySet();
+					Iterator<Integer> it = k.iterator();
+					
+					int j = it.next();
+					out = numC_out.get(j);
+					out.println("quit");
+					out.flush();
+					
+					numC_out.remove(j);
+					
+					nbC--;
+				}
+				if(numC_out.size() == 0 || hote) {
 					AllConnexion.remove(m);
 				}
 				nbC--;
 				if(nbC == -1) {
-					System.out.println(" --- Aucun client sur le serveur ---");
-					System.out.println(" --- Extinction du serveur ---");
 					try {
+						System.out.println(" --- Aucun client sur le serveur ---");
+						System.out.println(" --- Extinction du serveur ---");
 						sS.close();
+						System.exit(0);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -111,7 +129,7 @@ public class Serveur {
 			numC_out.put(numC,out);
 			AllConnexion.put(m,numC_out);
 			nbC++;
-				
+			
 			out.println("j1");
 			out.flush();
 		}
@@ -140,6 +158,13 @@ public class Serveur {
 	}
 	synchronized public void sendClient(String message,int Client,String m) {
 		if(AllConnexion.containsKey(m) && AllConnexion.get(m).containsKey(Client)) {
+			if(message.equals("Connexion établie")) {
+				if(AllConnexion.get(m).size()==1) {
+					C.sethote(true);
+				}else {
+					C.sethote(false);
+				}
+			}
 			out = AllConnexion.get(m).get(Client);
 			if(out != null) {
 				out.println(message);
