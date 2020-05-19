@@ -9,9 +9,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
@@ -51,10 +48,6 @@ public class NewGame extends JPanel {
 	JTextArea name1 = new JTextArea("Joueur 1");
 	JTextArea name2 = new JTextArea("Joueur 2");
 	JTextArea name3 = new JTextArea("IA");
-	JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
-	JMenuItem mi1 = new JMenuItem("Daltonien");
 	JCheckBox varianteCheckbox = new JCheckBox("Variante");
 
 	ButtonGroup b = new ButtonGroup();
@@ -92,12 +85,7 @@ public class NewGame extends JPanel {
 		i = ihm;
 		j = new Jeu();
 		configJeu = new ConfigJeu();
-		m1.add(mi1);
-		mb.add(m1);
-		mb.add(m2);
-		mb.setBounds(0, 0, 600, 20);
 		i.setLocationRelativeTo(null);
-		this.add(mb);
 		this.setLayout(null);
 	
 		i.addComponentListener(new ComponentAdapter() {

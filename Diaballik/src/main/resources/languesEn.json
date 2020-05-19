@@ -24,8 +24,8 @@
 	"name1": "Player 1",
 	"name2": "Player 2",
 	"name3": "AI",
-	"choisirTerrain" : "Terrain par défaut ???",
-	"choisirTerrainlabel": "Choose un terrain ???: ",
+	"choisirTerrain" : "Default board",
+	"choisirTerrainlabel": "Customize board : ",
 	"retour" : "Return",
 	"jouer" : "Play",
 	"personnaliser" : "Customize",
@@ -46,7 +46,18 @@
 	"deplacements": "Moves",
 	"passe" : "Pass",
 	"indicateur" : "Traces",
-		"sauvegarde" : "Save",
-	"reprendre": "Resume"
+	"sauvegarde" : "Save",
+	"reprendre": "Resume",
+	
+	"niveauIA" : "AI level",
+	"themes": "Themes",
+	"coupsConseilles" : "Suggestions",
+	
+	"niveauIAfacile" : "Easy AI",
+	"niveauIAmoyen" : "Medium AI",
+	"niveauIAdifficile" : "Hard AI",
+	
+	"terrain" : "Board",
+	"personnage": "Characters"
 	
  }

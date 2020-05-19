@@ -31,8 +31,8 @@ public class Plateau implements Runnable, Observateur {
     CollecteurEvenements control;
     boolean maximized;
     JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
+	JMenu m1 = new JMenu();
+	JMenu m2 = new JMenu();
 	JMenuItem menuTerrain = new JMenuItem("Terrain");
 	JMenuItem menuPerso = new JMenuItem("Personnages");
 	JCheckBoxMenuItem niveauIAfacile = new JCheckBoxMenuItem("IA facile");
@@ -49,6 +49,7 @@ public class Plateau implements Runnable, Observateur {
     JLabel joueur = new JLabel();
     JLabel passe = new JLabel();
     playSound ps = new playSound();
+    
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
     ActionListener al;
@@ -78,6 +79,7 @@ public class Plateau implements Runnable, Observateur {
     }
 
     public void run() {
+    	 final BoutonSuggestion suggestion = new BoutonSuggestion(j) ; 
         // Creation d'une fenetre
         frame = new JFrame("Diaballik");
         frame.setIconImage(icon);
@@ -157,6 +159,16 @@ public class Plateau implements Runnable, Observateur {
                 buttonViewArrow.setText(wEn.indicateur);
                 mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
                 passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
+                joueur.setText("Player : " + j.joueurCourant.name);
+                m1.setText(wEn.themes);
+                m2.setText(wEn.niveauIA);
+            	suggestion.setText(wEn.coupsConseilles);
+            	niveauIAfacile.setText(wEn.niveauIAfacile);
+            	niveauIAmoyen.setText(wEn.niveauIAmoyen);
+            	niveauIAdifficile.setText(wEn.niveauIAdifficile);
+            	menuTerrain.setText(wEn.terrain);
+            	menuPerso.setText(wEn.personnage);
+
 
             } else {
                 drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png")))
@@ -167,7 +179,18 @@ public class Plateau implements Runnable, Observateur {
                 buttonViewArrow.setText(wFr.indicateur);
                 mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
                 passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
+                joueur.setText("Joue : " + j.joueurCourant.name);
+                m1.setText(wFr.themes);
+               	m2.setText(wFr.niveauIA);
+            	suggestion.setText(wFr.coupsConseilles);
+            	niveauIAfacile.setText(wFr.niveauIAfacile);
+            	niveauIAmoyen.setText(wFr.niveauIAmoyen);
+            	niveauIAdifficile.setText(wFr.niveauIAdifficile);
+            	menuTerrain.setText(wFr.terrain);
+            	menuPerso.setText(wFr.personnage);
+
             }
+            
 
         } catch (Exception e) {
             System.out.println(e);
@@ -270,6 +293,16 @@ public class Plateau implements Runnable, Observateur {
                         buttonViewArrow.setText(wEn.indicateur);
                         mouvements.setText(wEn.deplacements + " : " + j.joueurCourant.nbMove);
                         passe.setText(wEn.passe + " : " + j.joueurCourant.passeDispo);
+                        joueur.setText("Player : " + j.joueurCourant.name);
+                        m1.setText(wEn.themes);
+                        m2.setText(wEn.niveauIA);
+                    	suggestion.setText(wEn.coupsConseilles);
+                    	niveauIAfacile.setText(wEn.niveauIAfacile);
+                    	niveauIAmoyen.setText(wEn.niveauIAmoyen);
+                    	niveauIAdifficile.setText(wEn.niveauIAdifficile);
+                    	menuTerrain.setText(wEn.terrain);
+                    	menuPerso.setText(wEn.personnage);
+
 
                         staticConfig.blang = false;
 
@@ -284,6 +317,16 @@ public class Plateau implements Runnable, Observateur {
                         buttonViewArrow.setText(wFr.indicateur);
                         mouvements.setText(wFr.deplacements + " : " + j.joueurCourant.nbMove);
                         passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
+                        joueur.setText("Joue : " + j.joueurCourant.name);
+                        m1.setText(wFr.themes);
+                       	m2.setText(wFr.niveauIA);
+                    	suggestion.setText(wFr.coupsConseilles);
+                    	niveauIAfacile.setText(wFr.niveauIAfacile);
+                    	niveauIAmoyen.setText(wFr.niveauIAmoyen);
+                    	niveauIAdifficile.setText(wFr.niveauIAdifficile);
+                    	menuTerrain.setText(wFr.terrain);
+                    	menuPerso.setText(wFr.personnage);
+
 
                         staticConfig.blang = true;
 
@@ -470,7 +513,7 @@ public class Plateau implements Runnable, Observateur {
          * } });
          */
         // suggestion
-        BoutonSuggestion suggestion = new BoutonSuggestion(j) ; 
+       
         boiteTexte.add(Box.createGlue());
         suggestion.setFocusable(false);
         suggestion.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -565,9 +608,17 @@ public class Plateau implements Runnable, Observateur {
                 mouvements.setVisible(true);
                 passe.setVisible(true);
                 boutonFinTour.setVisible(true);
-                joueur.setText("Joue : " + j.joueurCourant.name);
-                mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
-                passe.setText("Passe : " + j.joueurCourant.passeDispo);
+               
+                if (staticConfig.blang == false) {
+                	joueur.setText("Player : " + j.joueurCourant.name);
+                    mouvements.setText("Moves : " + j.joueurCourant.nbMove);
+                    passe.setText("Pass : " + j.joueurCourant.passeDispo);
+                } else {
+                	joueur.setText("Joue : " + j.joueurCourant.name);
+                    mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
+                    passe.setText("Passe : " + j.joueurCourant.passeDispo);
+                }
+                
                 if (conf.getTimer() != ConfigJeu.Timer.illimite)
                     clock.setVisible(true);
                 if (j.joueurCourant == j.joueur1)

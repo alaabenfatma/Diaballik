@@ -8,9 +8,6 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class JouerReseau extends JPanel {
@@ -23,19 +20,10 @@ public class JouerReseau extends JPanel {
 	JButton creer = new JButton("Créer une partie");
 	JButton rejoindre = new JButton("Rejoindre une partie");
 	JButton menuPrincipal = new JButton("Menu principal");
-	JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
-	JMenuItem mi1 = new JMenuItem("Daltonien");
 	ihm i;
 	
 	public JouerReseau(ihm ihm) {
 		i = ihm;
-		m1.add(mi1);
-		mb.add(m1);
-		mb.add(m2);
-		mb.setBounds(0, 0, 600, 20);
-		this.add(mb);
 		this.setLayout(null);
 		
 		i.addComponentListener(new ComponentAdapter() {

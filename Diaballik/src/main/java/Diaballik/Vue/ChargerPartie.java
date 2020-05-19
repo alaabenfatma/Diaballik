@@ -7,7 +7,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.io.*;
-import java.net.URL;
 import java.util.Scanner;
 
 import javax.swing.*;

@@ -29,6 +29,7 @@ public class TerrainCustomize {
         frame.setLocationRelativeTo(null);
         final JButton color1 = new JButton();
         color1.setBackground(Color.decode(cfg.damierA));
+        frame.setTitle("Personnaliser le terrain");
         color1.addActionListener(new ActionListener() {
             JFrame pickerFrame = new JFrame();
 
@@ -109,7 +110,10 @@ public class TerrainCustomize {
 }
 
 class boardZone extends JPanel {
-    ConfigJeu cfg;
+
+	private static final long serialVersionUID = 1L;
+
+	ConfigJeu cfg;
 
     Graphics2D drawable;
 

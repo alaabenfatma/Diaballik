@@ -51,6 +51,17 @@ public class words {
 	public String sauvegarde = "Sauvegarde";
 	public String reprendre = "Reprendre";
 	
+	public String niveauIA = "Niveau IA";
+	public String themes = "Thèmes";
+	public String coupsConseilles = "Coups conseillés";
+	public String niveauIAfacile = "IA facile";
+	public String niveauIAmoyen = "IA moyen";
+	public String niveauIAdifficile = "IA difficile";
+	
+	public String terrain = "Terrain";
+	public String personnage = "Personnages";
+
+	
 	@JsonCreator
 	public words() {
 		

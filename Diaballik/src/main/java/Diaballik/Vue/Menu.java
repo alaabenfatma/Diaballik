@@ -20,12 +20,6 @@ public class Menu extends JPanel {
 	JButton quitter = new JButton("Quitter");
 	JButton drapeau = new JButton();
 	JButton credit = new JButton("Credits");
-	JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
-	JMenuItem mi1 = new JMenuItem("Daltonien");
-	JMenuItem mi2 = new JMenuItem("mute");
-	JMenuItem mi3 = new JMenuItem("son");
 	Image logo, drapeauFr, drapeauGB;
 	playSound ps = new playSound();
 	ihm i;
@@ -33,13 +27,9 @@ public class Menu extends JPanel {
 	
 	public Menu(ihm ihm) {
 		i = ihm;
-		m1.add(mi1);
-		m2.add(mi2);
-		mb.add(m1);
-		mb.add(m2);
-		mb.setBounds(0, 0, 600, 20);
-		this.add(mb);
+	
 		this.setSize(600, 510);
+		
         this.setLayout(null);
         
         i.addComponentListener(new ComponentAdapter() {
@@ -96,50 +86,6 @@ public class Menu extends JPanel {
         credit.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) { 
             	new credits();
-            } 
-        } );
-  
-        mi2.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	try {
-    				if ( staticConfig.bmute == false) { 
-    		    		i.sound.setIcon(new ImageIcon(i.mute));
-    		    		m2.remove(mi2);
-    		    		m2.add(mi3);
-    		    		 staticConfig.bmute = true;
-    				} else {
-    		    		i.sound.setIcon(new ImageIcon(i.son));
-    		    		m2.remove(mi3);
-    		    		m2.add(mi2);
-    		    		 staticConfig.bmute = false;
-    				}
-    					
-    	    	}
-    	    	catch (Exception e1) {
-    	    		System.out.println(e1);
-    	    	}
-            } 
-        } );
-        
-        mi3.addActionListener(new ActionListener() { 
-            public void actionPerformed(ActionEvent e) { 
-            	try {
-    				if ( staticConfig.bmute == false) { 
-    		    		i.sound.setIcon(new ImageIcon(i.mute));
-    		    		m2.remove(mi2);
-    		    		m2.add(mi3);
-    		    		 staticConfig.bmute = true;
-    				} else {
-    		    		i.sound.setIcon(new ImageIcon(i.son));
-    		    		m2.remove(mi3);
-    		    		m2.add(mi2);
-    		    		 staticConfig.bmute = false;
-    				}
-    					
-    	    	}
-    	    	catch (Exception e1) {
-    	    		System.out.println(e1);
-    	    	}
             } 
         } );
        

@@ -1,5 +1,6 @@
 package Diaballik.Vue;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -9,9 +10,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,17 +27,9 @@ public class ihm extends JFrame {
 	Regles r = new Regles(this);
 	RejoindrePartieReseau rpr = new RejoindrePartieReseau(this);
 	Plateau plateau;
-	choisirPerso cP;
-	choisirTerrain cT;
 	Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
 	JButton sound = new JButton();
 	JButton drapeau = new JButton();
-	JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
-	JMenuItem mi1 = new JMenuItem("Daltonien");
-	JMenuItem mi2 = new JMenuItem("mute");
-	JMenuItem mi3 = new JMenuItem("son");
 	Image son, mute, drapeauFr, drapeauGB;
 	
 	playSound ps = new playSound();
@@ -50,6 +40,8 @@ public class ihm extends JFrame {
 		
 		this.setTitle("Menu principal");
 		this.setSize(600, 510);
+		this.setMaximumSize(new Dimension(700, 510));
+		this.setMinimumSize(new Dimension(500, 500));
 		
 		
 		this.addWindowListener(new java.awt.event.WindowAdapter() {

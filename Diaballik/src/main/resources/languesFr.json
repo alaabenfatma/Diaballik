@@ -47,5 +47,16 @@
 	"passe" : "Passe",
 	"indicateur" : "Indicateur coups joués",
 	"sauvegarde" : "Sauvegarder",
-	"reprendre": "Reprendre"
+	"reprendre": "Reprendre",
+	
+	"niveauIA" : "Niveau IA",
+	"themes": "Thèmes",
+	"coupsConseilles" : "Coups conseillés",
+	
+	"niveauIAfacile" : "IA facile",
+	"niveauIAmoyen" : "IA moyen",
+	"niveauIAdifficile" : "IA difficile",
+	
+	"terrain" : "Terrain",
+	"personnage": "Personnages"
  }

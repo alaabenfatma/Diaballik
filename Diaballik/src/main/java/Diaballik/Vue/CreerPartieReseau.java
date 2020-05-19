@@ -8,9 +8,6 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.DocumentEvent;
@@ -18,9 +15,7 @@ import javax.swing.event.DocumentListener;
 
 public class CreerPartieReseau extends JPanel {
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	JLabel titre = new JLabel("Créer une partie");
 	JLabel nomJoueur = new JLabel("Nom du joueur");
@@ -28,22 +23,13 @@ public class CreerPartieReseau extends JPanel {
 	JTextArea name = new JTextArea("Joueur 1");
 	JButton ok = new JButton("Ok");
 	JButton retour = new JButton("Retour");
-	JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu("Thèmes");
-	JMenu m2 = new JMenu("Options");
-	JMenuItem mi1 = new JMenuItem("Daltonien");
 	ihm i;
 	
 	public CreerPartieReseau(ihm ihm) {
 		i = ihm;
-		m1.add(mi1);
-		mb.add(m1);
-		mb.add(m2);
-		mb.setBounds(0, 0, 600, 20);
-		this.add(mb);
+	
 		this.setLayout(null);
-		
-		
+	
 		i.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent evt) {
                 titre.setBounds((i.getWidth()/2) - 110, (i.getHeight()/4) - 100, 300, 100);
