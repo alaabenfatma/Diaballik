@@ -176,7 +176,7 @@ public class Serveur {
 				out = numC_out.get(C2);
 				//out = AllClient.get(1);
 				if(out != null) {
-					out.println("rep");
+					out.println("test_json");
 					out.flush();
 					
 					out.println(message);
@@ -189,7 +189,7 @@ public class Serveur {
 			}else {
 				out = numC_out.get(C1);
 				if(out != null) {
-					out.println("rep");
+					out.println("test_json");
 					out.flush();
 					
 					out.println(message);
