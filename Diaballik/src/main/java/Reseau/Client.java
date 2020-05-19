@@ -31,7 +31,7 @@ public class Client implements Runnable {
 	}
 	static void init_test_jeu() {
 		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
-		//numP="123";
+		j = p.j;
 	}
 	/*
 	static void init_test_jeu() {

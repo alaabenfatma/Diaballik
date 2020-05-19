@@ -2,11 +2,13 @@ package Reseau.Serveur;
 
 import java.util.Scanner;
 
+import Diaballik.Models.Jeu;
+
 
 
 public class Partie implements Runnable{
     private Thread T;
-
+    public Jeu j;
     public Partie(){
         T = new Thread(this);
 		T.start();
@@ -20,7 +22,7 @@ public class Partie implements Runnable{
     }
     
     public void run() {
-        Diaballik.Models.Jeu j = new Diaballik.Models.Jeu();
+        j = new Diaballik.Models.Jeu();
         Diaballik.Models.ConfigJeu C = new Diaballik.Models.ConfigJeu();
         paraPartie(C);
 		
