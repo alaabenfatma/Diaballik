@@ -51,7 +51,7 @@ public class Connexion implements Runnable {
 				else if(message.equals("rep")){
 					Serv.C_rep(numClient,in,numPartie);
 				}
-					else {
+				else {
 					System.out.println("Message du client :"+ numClient);
 					System.out.println(message);
 				}
