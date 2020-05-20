@@ -22,7 +22,7 @@ public class Client implements Runnable {
 	static String numP;
 	static PrintWriter out;
 	static BufferedReader in;
-	
+	static boolean hote;
 	private Thread T;
 	public Client(String c){
 		numP = c;
@@ -30,8 +30,11 @@ public class Client implements Runnable {
 		T.start();
 	}
 	static void init_test_jeu() {
-		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie();
+		Reseau.Serveur.Partie p = new Reseau.Serveur.Partie(hote);
 		_j = p.j;
+		/*_j = new Jeu();
+		_j.configurer(new ConfigJeu());
+		_j.start();*/
 	}
 	/*
 	static void init_test_jeu() {
@@ -46,7 +49,6 @@ public class Client implements Runnable {
 		System.out.println("je suis le client");
 		System.out.println("Connexion au serveur");
 		try {
-			init_test_jeu();
 			s = new Socket(host,port);
 			in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out = new PrintWriter(s.getOutputStream());
@@ -72,7 +74,12 @@ public class Client implements Runnable {
 			PrintWriter out = new PrintWriter(s.getOutputStream());
 
 			Commandes_Client C = new Commandes_Client(s,s_in,in,out,_j);
-			
+			if(Joueur.equals("j1")) {
+				hote = true;
+			}else {
+				hote = false;
+			}
+			init_test_jeu();
 			if(Joueur.equals("j1") && in.readLine().equals("j2_ok")) {
 				System.out.println("Initialisation de la partie");
 				C.C_init_partie(attente);

@@ -9,8 +9,10 @@ import Diaballik.Models.Jeu;
 public class Partie implements Runnable{
     private Thread T;
     public Jeu j;
-    public Partie(){
+    static boolean hote;
+    public Partie(boolean h){
     	j = new Diaballik.Models.Jeu();
+    	hote = h;
         T = new Thread(this);
 		T.start();
     }
@@ -19,7 +21,7 @@ public class Partie implements Runnable{
 
     public static void paraPartie(Diaballik.Models.ConfigJeu C){
         C.setMode(Diaballik.Models.ConfigJeu.Mode.humain);
-        Menu menu = new Menu(C);
+        if(hote) {new Menu(C);}
     }
     
     public void run() {
