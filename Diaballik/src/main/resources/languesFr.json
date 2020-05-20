@@ -25,7 +25,7 @@
 	"name1": "Joueur 1",
 	"name2": "Joueur 2",
 	"name3": "IA",
-	"choisirTerrain" : "Terrain par défaut",
+	"choisirTerrain" : "Personnaliser le damier",
 	"choisirTerrainlabel": "Choisir un terrain : ",
 	"retour" : "Retour",
 	"jouer" : "Jouer",

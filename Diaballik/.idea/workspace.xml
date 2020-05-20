@@ -7,7 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b756a9d9-d43b-49eb-9a32-5d8e9464e35f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Diaballik/Vue/NewGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Diaballik/Vue/NewGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Diaballik/Vue/words.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Diaballik/Vue/words.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/languesFr.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/languesFr.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

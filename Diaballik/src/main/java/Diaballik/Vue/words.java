@@ -28,7 +28,7 @@ public class words {
 	public String name2 = "Joueur 2";
 	public String name3 = "IA";
 	public String choisirTerrainlabel = "Choisir un terrain : ";
-	public String choisirTerrain = "Terrain par défaut";
+	public String choisirTerrain = "Personnaliser le damier";
 	public String retour = "Return";
 	public String jouer = "Play";
 	
