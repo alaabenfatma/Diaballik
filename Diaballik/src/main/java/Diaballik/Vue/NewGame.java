@@ -64,7 +64,7 @@ public class NewGame extends JPanel {
 	
 	JButton choixPersoJoueur1 = new JButton("Personnaliser");
 	JButton choixPersoJoueur2 = new JButton("Personnaliser");
-	JButton choisirTerrain = new JButton("Terrain par défaut");
+	JButton choisirTerrain = new JButton("Personnaliser le damier");
 	JLabel choisirTerrainlabel = new JLabel("Choisir terrain : ");
 	public static choisirPerso cp1,cp2;
 

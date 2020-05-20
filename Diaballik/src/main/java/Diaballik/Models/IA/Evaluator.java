@@ -12,7 +12,7 @@ class EvaluationConfig {
     int valueOfPiece = 10;
     int diagonalBonus = 5;
     int hasBallBonus = 10;
-    int onOtherSide = 50;
+    int onOtherSide = 100;
 
     /**
      * Configures the values that are needed to calculate the final score of the
