@@ -21,12 +21,23 @@ public class VuePlateau extends PlateauGraphique {
         try {
             j = jeu;
             j.ajouteObservateur(this);
-            caseA = ImageIO.read(this.getClass().getResourceAsStream(("/caseA.png")));
-            caseB = ImageIO.read(this.getClass().getResourceAsStream(("/caseB.png")));
-            pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_ballon.png")));
-            pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_ballon.png")));
-            pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")));
-            pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")));
+            if(NewGame.cp1 == null){
+                pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_ballon.png")));
+                pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")));
+            }
+            else {
+                pionA_bas = NewGame.cp1.panel.joueur1;
+                pionA_ballon =  NewGame.cp1.panel.pionBallon;
+            }
+            if(NewGame.cp2 == null){
+                pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_ballon.png")));
+                pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")));
+            }
+            else {
+                pionB_bas = NewGame.cp2.panel.joueur2;
+                pionB_ballon =  NewGame.cp2.panel.pionBallon;
+            }
+        
 
         } catch (IOException e) {
 
@@ -45,6 +56,30 @@ public class VuePlateau extends PlateauGraphique {
 
     @Override
     void tracerPlateau() {
+
+        try {
+            if(NewGame.cp1 == null){
+                pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_ballon.png")));
+                pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")));
+            }
+            else {
+                pionA_bas = NewGame.cp1.panel.joueur1;
+                pionA_ballon =  NewGame.cp1.panel.pionBallon;
+            }
+            if(NewGame.cp2 == null){
+                pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_ballon.png")));
+                pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")));
+            }
+            else {
+                pionB_bas = NewGame.cp2.panel.joueur2;
+                pionB_ballon =  NewGame.cp2.panel.pionBallon;
+            }
+        
+
+        } catch (IOException e) {
+
+        }
+        
 
         largeurCase = largeur() / 7;
         hauteurCase = hauteur() / 7;

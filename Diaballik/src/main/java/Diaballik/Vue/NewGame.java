@@ -66,6 +66,16 @@ public class NewGame extends JPanel {
 	JButton choixPersoJoueur2 = new JButton("Personnaliser");
 	JButton choisirTerrain = new JButton("Terrain par défaut");
 	JLabel choisirTerrainlabel = new JLabel("Choisir terrain : ");
+	public static choisirPerso cp1,cp2;
+
+	// Parametres de la nouvelle partie
+	/*
+	 * public enum Joueur { humain, ordinateur; }
+	 * 
+	 * public enum temps { illimite, 0 un, 1 deux, 2 trois; 3 }
+	 * 
+	 * public enum premier { joueurun, true joueurdeux; false }
+	 */
 
 	int tempschrono = 0; // illimite
 	boolean human = true; // joueur humain
@@ -348,7 +358,7 @@ public class NewGame extends JPanel {
 		choixPersoJoueur1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				persoJoueur = 1;
-				new choisirPerso(persoJoueur);
+				cp1 = new choisirPerso(persoJoueur);
 				
 			}
 		});
@@ -356,7 +366,7 @@ public class NewGame extends JPanel {
 		choixPersoJoueur2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				persoJoueur = 2;
-				new choisirPerso(persoJoueur);
+				cp2 = new choisirPerso(persoJoueur);
 				
 			}
 		});

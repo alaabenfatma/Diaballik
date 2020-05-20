@@ -49,6 +49,7 @@ public class Plateau implements Runnable, Observateur {
     JLabel joueur = new JLabel();
     JLabel passe = new JLabel();
     playSound ps = new playSound();
+
     
 
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
@@ -224,8 +225,8 @@ public class Plateau implements Runnable, Observateur {
         
         menuPerso.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new choisirPerso(1);
-                new choisirPerso(2);
+                NewGame.cp1 = new choisirPerso(1);
+                NewGame.cp2 = new choisirPerso(2);
             }
         });
        
@@ -402,6 +403,7 @@ public class Plateau implements Runnable, Observateur {
         joueur.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         // icone pion joueur
+        /*
         try {
             pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
                     .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
@@ -416,6 +418,39 @@ public class Plateau implements Runnable, Observateur {
         } else {
             iconePion = new JLabel(pionA_bas);
         }
+    */
+    if(NewGame.cp1 == null){
+        try {
+            pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
+                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+    }else {
+        Image newimg = NewGame.cp1.panel.joueur1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); 
+        pionA_bas = new ImageIcon(newimg);
+
+    }
+    if(NewGame.cp2 == null){
+        try {
+        pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")))
+                .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+} else {
+    Image newimg2 = NewGame.cp2.panel.joueur2.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
+    pionA_bas = new ImageIcon(newimg2);
+}
+   
+    if (j.joueurCourant == j.joueur1) {
+        iconePion = new JLabel(pionB_bas);
+
+    } else {
+        iconePion = new JLabel(pionA_bas);
+    }
+
+    
         iconePion.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(iconePion);
         boiteTexte.add(joueur);
