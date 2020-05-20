@@ -18,7 +18,13 @@ public class IA_utils {
         }
         return result;
     }
-
+    /**
+     * Gets all the possible moves that are *distance* away from the current position
+     * @param type Type of the pieces 
+     * @param tr
+     * @param distance
+     * @return
+     */
     public static ArrayList<Couple_piece_pos> getAllPossibleMovesDistance(PieceType type, Terrain tr, int distance) {
         ArrayList<Couple_piece_pos> result = new ArrayList<Couple_piece_pos>();
         for (int i = 0; i < tr.taille(); i++) {

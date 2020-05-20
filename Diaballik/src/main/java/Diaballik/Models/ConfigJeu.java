@@ -1,6 +1,5 @@
 package Diaballik.Models;
 
-
 public class ConfigJeu {
     private Mode mode = Mode.humain;
     private Timer timer = Timer.illimite;

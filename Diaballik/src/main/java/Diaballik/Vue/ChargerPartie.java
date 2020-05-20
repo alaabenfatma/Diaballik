@@ -55,26 +55,32 @@ public class ChargerPartie extends JPanel {
 
 		this.setSize(600, 600);
 		try {
-			InputStream is = new FileInputStream("Data.json");
-			scan = new Scanner(is);
-			while (scan.hasNextLine()) {
-				String line = scan.nextLine();
-				try {
-					JeuJSON j = mapper.readValue(line, JeuJSON.class);
-					Object[] innerData = { j.player1, j.player2, j.CreationDate };
-					data.addRow(innerData);
-				} catch (JsonParseException e) {
-					e.printStackTrace();
-				} catch (JsonMappingException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			try {
+				InputStream is = new FileInputStream("Data.json");
+
+				scan = new Scanner(is);
+				while (scan.hasNextLine()) {
+					String line = scan.nextLine();
+					try {
+						JeuJSON j = mapper.readValue(line, JeuJSON.class);
+						Object[] innerData = { j.player1, j.player2, j.CreationDate };
+						data.addRow(innerData);
+					} catch (JsonParseException e) {
+						e.printStackTrace();
+					} catch (JsonMappingException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			} catch (FileNotFoundException e) {
+				System.out.println("Data.json does not exist yet. This means : no game has been saved.");
+			}
+		} catch (Exception e) {
+			// Ignored;
 		}
+
 		retour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (menu == false) {
@@ -177,7 +183,7 @@ public class ChargerPartie extends JPanel {
 						Jeu realJeu = new Jeu();
 
 						ConfigJeu cfg = new ConfigJeu();
-						
+
 						cfg.setName1(j.config.getName1());
 						cfg.setName2(j.config.getName2());
 						cfg.setMode(j.config.getMode());

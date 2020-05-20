@@ -34,6 +34,7 @@ public class MiniMax {
     public Jeu Game;
     ArrayList<State> AllM2PStates = new ArrayList<State>();
     public LoadingScreen loadingScreen = new LoadingScreen();
+
     /**
      * M2P = Move 2 times & Pass the Ball. DISCARDED : We can use MMP!!
      * 
@@ -338,11 +339,7 @@ public class MiniMax {
         MMP(s);
         MPM(s);
         PMM(s);
-/*
-        shuffle(AllMMPStates);
-        shuffle(AllMPMStates);
-        shuffle(AllPMMStates);
-*/
+
         sort(AllMMPStates);
         sort(AllMPMStates);
         sort(AllPMMStates);

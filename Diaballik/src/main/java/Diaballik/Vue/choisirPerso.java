@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import Diaballik.Models.Jeu;
 
-public class choisirPerso extends JFrame{
+public class choisirPerso extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	JButton suivant = new JButton(">");
@@ -22,10 +22,15 @@ public class choisirPerso extends JFrame{
 
 	public choisirPerso(int persoJoueur) {
 		numJoueur = persoJoueur;
-		panel = new choisirPersoPanel(this, persoJoueur,numJoueur);
-		this.setTitle("Personnalisation");
+		panel = new choisirPersoPanel(this, persoJoueur, numJoueur);
+		this.setTitle("Joueur : " + persoJoueur);
 		this.setSize(300, 300);
 		this.setLocationRelativeTo(null);
+		if (persoJoueur == 1)
+			this.setLocation(this.getLocation().x - this.getWidth()/2, this.getLocation().y);
+		else{
+			this.setLocation(this.getLocation().x + this.getWidth()/2, this.getLocation().y);
+		}
 		this.setResizable(false);
 
 		addComponentListener(new ComponentAdapter() {
@@ -52,13 +57,12 @@ public class choisirPerso extends JFrame{
 					panel.persoJoueur = 4;
 					repaint();
 					revalidate();
-				}
-				else if (panel.persoJoueur == 3) {
+				} else if (panel.persoJoueur == 3) {
 					panel.persoJoueur = 2;
 					repaint();
 					revalidate();
-				}else if (panel.persoJoueur == 4) {
-					panel.persoJoueur =3;
+				} else if (panel.persoJoueur == 4) {
+					panel.persoJoueur = 3;
 					repaint();
 					revalidate();
 				}
@@ -79,7 +83,7 @@ public class choisirPerso extends JFrame{
 					panel.persoJoueur = 4;
 					repaint();
 					revalidate();
-				}else if (panel.persoJoueur == 4) {
+				} else if (panel.persoJoueur == 4) {
 					panel.persoJoueur = 1;
 					repaint();
 					revalidate();
