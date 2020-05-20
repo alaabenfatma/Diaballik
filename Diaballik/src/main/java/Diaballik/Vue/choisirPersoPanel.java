@@ -31,13 +31,13 @@ public class choisirPersoPanel extends JPanel {
 		try {
 			if (numJoueur == 1) {
 				if (persoJoueur == 1) {
-					joueur1 = ImageIO.read(this.getClass().getResourceAsStream("/pionB_bas.png"));
-					drawable.drawImage(joueur1, 70, 30, 170, 200, null);
-					pionBallon = ImageIO.read(this.getClass().getResourceAsStream("/pionB_ballon.png"));
-				} else if (persoJoueur == 2) {
 					joueur1 = ImageIO.read(this.getClass().getResourceAsStream("/pionA_bas.png"));
 					drawable.drawImage(joueur1, 70, 30, 170, 200, null);
 					pionBallon = ImageIO.read(this.getClass().getResourceAsStream("/pionA_ballon.png"));
+				} else if (persoJoueur == 2) {
+					joueur1 = ImageIO.read(this.getClass().getResourceAsStream("/pionB_bas.png"));
+					drawable.drawImage(joueur1, 70, 30, 170, 200, null);
+					pionBallon = ImageIO.read(this.getClass().getResourceAsStream("/pionB_ballon.png"));
 				} else if (persoJoueur == 3) {
 					joueur1 = ImageIO.read(this.getClass().getResourceAsStream("/pion3_bas.png"));
 					drawable.drawImage(joueur1, 70, 30, 170, 200, null);
@@ -49,13 +49,13 @@ public class choisirPersoPanel extends JPanel {
 				}
 			} else {
 				if (persoJoueur == 1) {
-					joueur2 = ImageIO.read(this.getClass().getResourceAsStream("/pionB_bas.png"));
-					drawable.drawImage(joueur2, 70, 30, 170, 200, null);
-					pionBallon = ImageIO.read(this.getClass().getResourceAsStream("/pionB_ballon.png"));
-				} else if (persoJoueur == 2) {
 					joueur2 = ImageIO.read(this.getClass().getResourceAsStream("/pionA_bas.png"));
 					drawable.drawImage(joueur2, 70, 30, 170, 200, null);
 					pionBallon = ImageIO.read(this.getClass().getResourceAsStream("/pionA_ballon.png"));
+				} else if (persoJoueur == 2) {
+					joueur2 = ImageIO.read(this.getClass().getResourceAsStream("/pionB_bas.png"));
+					drawable.drawImage(joueur2, 70, 30, 170, 200, null);
+					pionBallon = ImageIO.read(this.getClass().getResourceAsStream("/pionB_ballon.png"));
 				} else if (persoJoueur == 3) {
 					joueur2 = ImageIO.read(this.getClass().getResourceAsStream("/pion3_bas.png"));
 					drawable.drawImage(joueur2, 70, 30, 170, 200, null);

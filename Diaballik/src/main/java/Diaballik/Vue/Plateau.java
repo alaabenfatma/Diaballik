@@ -23,7 +23,7 @@ public class Plateau implements Runnable, Observateur {
     JButton boutonRejouer = new JButton("Rejouer");
     JButton sound = new JButton();
     JButton drapeau = new JButton();
-    Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");  
+    Image icon = Toolkit.getDefaultToolkit().getImage("src/main/java/Diaballik/Vue/img/pionA_ballon.png");
     JLabel boutonInfo;
     PlateauGraphique plat;
     Jeu j;
@@ -31,13 +31,13 @@ public class Plateau implements Runnable, Observateur {
     CollecteurEvenements control;
     boolean maximized;
     JMenuBar mb = new JMenuBar();
-	JMenu m1 = new JMenu();
-	JMenu m2 = new JMenu();
-	JMenuItem menuTerrain = new JMenuItem("Terrain");
-	JMenuItem menuPerso = new JMenuItem("Personnages");
-	JCheckBoxMenuItem niveauIAfacile = new JCheckBoxMenuItem("IA facile");
-	JCheckBoxMenuItem niveauIAmoyen = new JCheckBoxMenuItem("IA moyen");
-	JCheckBoxMenuItem niveauIAdifficile = new JCheckBoxMenuItem("IA difficile");
+    JMenu m1 = new JMenu();
+    JMenu m2 = new JMenu();
+    JMenuItem menuTerrain = new JMenuItem("Terrain");
+    JMenuItem menuPerso = new JMenuItem("Personnages");
+    JCheckBoxMenuItem niveauIAfacile = new JCheckBoxMenuItem("IA facile");
+    JCheckBoxMenuItem niveauIAmoyen = new JCheckBoxMenuItem("IA moyen");
+    JCheckBoxMenuItem niveauIAdifficile = new JCheckBoxMenuItem("IA difficile");
 
     static ihm interHM;
     public static Timer timer;
@@ -50,8 +50,6 @@ public class Plateau implements Runnable, Observateur {
     JLabel passe = new JLabel();
     playSound ps = new playSound();
 
-    
-
     JCheckBox buttonViewArrow = new JCheckBox("Indicateur coups joués");
     ActionListener al;
 
@@ -62,11 +60,10 @@ public class Plateau implements Runnable, Observateur {
         interHM = i;
     }
 
-
     Plateau(Jeu jeu, CollecteurEvenements c, ConfigJeu cj) {
         j = jeu;
         control = c;
-        conf = cj; 
+        conf = cj;
     }
 
     public static void demarrer(Jeu j, CollecteurEvenements c, ConfigJeu cj) {
@@ -80,26 +77,26 @@ public class Plateau implements Runnable, Observateur {
     }
 
     public void run() {
-    	 final BoutonSuggestion suggestion = new BoutonSuggestion(j) ; 
+        final BoutonSuggestion suggestion = new BoutonSuggestion(j);
         // Creation d'une fenetre
         frame = new JFrame("Diaballik");
         frame.setIconImage(icon);
-    	m1.add(menuTerrain);
-		m1.add(menuPerso);
-		m2.add(niveauIAfacile);
-		m2.add(niveauIAmoyen);
-		m2.add(niveauIAdifficile);
-		
-		niveauIAfacile.setMnemonic(KeyEvent.VK_C);  
-		niveauIAmoyen.setMnemonic(KeyEvent.VK_C);  
-		niveauIAdifficile.setMnemonic(KeyEvent.VK_C);  
+        m1.add(menuTerrain);
+        m1.add(menuPerso);
+        m2.add(niveauIAfacile);
+        m2.add(niveauIAmoyen);
+        m2.add(niveauIAdifficile);
 
-		mb.add(m1);
-		mb.add(m2);
-		mb.setBounds(0, 0, 800, 20);
-		m2.setMnemonic(KeyEvent.VK_F);  
-		frame.add(mb);
-		frame.add(mb, BorderLayout.NORTH);
+        niveauIAfacile.setMnemonic(KeyEvent.VK_C);
+        niveauIAmoyen.setMnemonic(KeyEvent.VK_C);
+        niveauIAdifficile.setMnemonic(KeyEvent.VK_C);
+
+        mb.add(m1);
+        mb.add(m2);
+        mb.setBounds(0, 0, 800, 20);
+        m2.setMnemonic(KeyEvent.VK_F);
+        frame.add(mb);
+        frame.add(mb, BorderLayout.NORTH);
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -132,7 +129,7 @@ public class Plateau implements Runnable, Observateur {
         // Texte et contrôles à droite de la fenêtre
         Box boiteTexte = Box.createVerticalBox();
         boiteTexte.setOpaque(true);
-        //boiteTexte.setBackground(Color.decode( "#6699ff"));
+        // boiteTexte.setBackground(Color.decode( "#6699ff"));
 
         Image img = null;
         try {
@@ -149,7 +146,6 @@ public class Plateau implements Runnable, Observateur {
             } else {
                 sound.setIcon(new ImageIcon(son));
             }
-            
 
             if (staticConfig.blang == false) {
                 drapeauGB = ImageIO.read(this.getClass().getResourceAsStream("/drapeauuk.jpg")).getScaledInstance(20,
@@ -163,17 +159,16 @@ public class Plateau implements Runnable, Observateur {
                 joueur.setText("Player : " + j.joueurCourant.name);
                 m1.setText(wEn.themes);
                 m2.setText(wEn.niveauIA);
-            	suggestion.setText(wEn.coupsConseilles);
-            	niveauIAfacile.setText(wEn.niveauIAfacile);
-            	niveauIAmoyen.setText(wEn.niveauIAmoyen);
-            	niveauIAdifficile.setText(wEn.niveauIAdifficile);
-            	menuTerrain.setText(wEn.terrain);
-            	menuPerso.setText(wEn.personnage);
-
+                suggestion.setText(wEn.coupsConseilles);
+                niveauIAfacile.setText(wEn.niveauIAfacile);
+                niveauIAmoyen.setText(wEn.niveauIAmoyen);
+                niveauIAdifficile.setText(wEn.niveauIAdifficile);
+                menuTerrain.setText(wEn.terrain);
+                menuPerso.setText(wEn.personnage);
 
             } else {
-                drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png")))
-                        .getScaledInstance(20, 20, Image.SCALE_DEFAULT);
+                drapeauFr = ImageIO.read(this.getClass().getResourceAsStream(("/drapeaufr.png"))).getScaledInstance(20,
+                        20, Image.SCALE_DEFAULT);
                 drapeau.setIcon(new ImageIcon(drapeauFr));
                 words wFr = objectMapper.readValue(this.getClass().getResourceAsStream("/languesFr.json"), words.class);
                 boutonFinTour.setText(wFr.finTour);
@@ -182,16 +177,15 @@ public class Plateau implements Runnable, Observateur {
                 passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
                 joueur.setText("Joue : " + j.joueurCourant.name);
                 m1.setText(wFr.themes);
-               	m2.setText(wFr.niveauIA);
-            	suggestion.setText(wFr.coupsConseilles);
-            	niveauIAfacile.setText(wFr.niveauIAfacile);
-            	niveauIAmoyen.setText(wFr.niveauIAmoyen);
-            	niveauIAdifficile.setText(wFr.niveauIAdifficile);
-            	menuTerrain.setText(wFr.terrain);
-            	menuPerso.setText(wFr.personnage);
+                m2.setText(wFr.niveauIA);
+                suggestion.setText(wFr.coupsConseilles);
+                niveauIAfacile.setText(wFr.niveauIAfacile);
+                niveauIAmoyen.setText(wFr.niveauIAmoyen);
+                niveauIAdifficile.setText(wFr.niveauIAdifficile);
+                menuTerrain.setText(wFr.terrain);
+                menuPerso.setText(wFr.personnage);
 
             }
-            
 
         } catch (Exception e) {
             System.out.println(e);
@@ -213,8 +207,7 @@ public class Plateau implements Runnable, Observateur {
                 }
             }
         });
-        
-        
+
         menuTerrain.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new TerrainCustomize(conf);
@@ -222,60 +215,59 @@ public class Plateau implements Runnable, Observateur {
                 frame.revalidate();
             }
         });
-        
+
         menuPerso.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 NewGame.cp1 = new choisirPerso(1);
                 NewGame.cp2 = new choisirPerso(2);
             }
         });
-       
+
         if (j.IA == false) {
-        	niveauIAfacile.setEnabled(false);
-    		niveauIAmoyen.setEnabled(false);
-    		niveauIAdifficile.setEnabled(false);
+            niveauIAfacile.setEnabled(false);
+            niveauIAmoyen.setEnabled(false);
+            niveauIAdifficile.setEnabled(false);
         } else if (j.IA == true) {
-        	if (conf.getIALevel() == ConfigJeu.IALevel.facile) {
-        		niveauIAfacile.setSelected(true);
-    			niveauIAmoyen.setSelected(false);
-    			niveauIAdifficile.setSelected(false);
+            if (conf.getIALevel() == ConfigJeu.IALevel.facile) {
+                niveauIAfacile.setSelected(true);
+                niveauIAmoyen.setSelected(false);
+                niveauIAdifficile.setSelected(false);
             } else if (conf.getIALevel() == ConfigJeu.IALevel.moyen) {
-            	niveauIAfacile.setSelected(false);
-            	niveauIAmoyen.setSelected(true);
-    			niveauIAdifficile.setSelected(false);
-            } else if (conf.getIALevel() == ConfigJeu.IALevel.difficile){
-            	niveauIAfacile.setSelected(false);
-    			niveauIAmoyen.setSelected(false);
-            	niveauIAdifficile.setSelected(true);
-            }	
-        	
+                niveauIAfacile.setSelected(false);
+                niveauIAmoyen.setSelected(true);
+                niveauIAdifficile.setSelected(false);
+            } else if (conf.getIALevel() == ConfigJeu.IALevel.difficile) {
+                niveauIAfacile.setSelected(false);
+                niveauIAmoyen.setSelected(false);
+                niveauIAdifficile.setSelected(true);
+            }
+
         }
-        
+
         niveauIAfacile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	conf.setIALevel(ConfigJeu.IALevel.facile);            		
-        		niveauIAfacile.setSelected(true);
-        		niveauIAmoyen.setSelected(false);
-        		niveauIAdifficile.setSelected(false);
+                conf.setIALevel(ConfigJeu.IALevel.facile);
+                niveauIAfacile.setSelected(true);
+                niveauIAmoyen.setSelected(false);
+                niveauIAdifficile.setSelected(false);
             }
         });
-        
-        
+
         niveauIAmoyen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	conf.setIALevel(ConfigJeu.IALevel.moyen);            		
-        		niveauIAfacile.setSelected(false);
-        		niveauIAmoyen.setSelected(true);
-        		niveauIAdifficile.setSelected(false);
+                conf.setIALevel(ConfigJeu.IALevel.moyen);
+                niveauIAfacile.setSelected(false);
+                niveauIAmoyen.setSelected(true);
+                niveauIAdifficile.setSelected(false);
             }
         });
-        
+
         niveauIAdifficile.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-            	conf.setIALevel(ConfigJeu.IALevel.difficile);            		
-        		niveauIAfacile.setSelected(false);
-        		niveauIAmoyen.setSelected(false);
-        		niveauIAdifficile.setSelected(true);
+                conf.setIALevel(ConfigJeu.IALevel.difficile);
+                niveauIAfacile.setSelected(false);
+                niveauIAmoyen.setSelected(false);
+                niveauIAdifficile.setSelected(true);
 
             }
         });
@@ -297,13 +289,12 @@ public class Plateau implements Runnable, Observateur {
                         joueur.setText("Player : " + j.joueurCourant.name);
                         m1.setText(wEn.themes);
                         m2.setText(wEn.niveauIA);
-                    	suggestion.setText(wEn.coupsConseilles);
-                    	niveauIAfacile.setText(wEn.niveauIAfacile);
-                    	niveauIAmoyen.setText(wEn.niveauIAmoyen);
-                    	niveauIAdifficile.setText(wEn.niveauIAdifficile);
-                    	menuTerrain.setText(wEn.terrain);
-                    	menuPerso.setText(wEn.personnage);
-
+                        suggestion.setText(wEn.coupsConseilles);
+                        niveauIAfacile.setText(wEn.niveauIAfacile);
+                        niveauIAmoyen.setText(wEn.niveauIAmoyen);
+                        niveauIAdifficile.setText(wEn.niveauIAdifficile);
+                        menuTerrain.setText(wEn.terrain);
+                        menuPerso.setText(wEn.personnage);
 
                         staticConfig.blang = false;
 
@@ -320,14 +311,13 @@ public class Plateau implements Runnable, Observateur {
                         passe.setText(wFr.passe + " : " + j.joueurCourant.passeDispo);
                         joueur.setText("Joue : " + j.joueurCourant.name);
                         m1.setText(wFr.themes);
-                       	m2.setText(wFr.niveauIA);
-                    	suggestion.setText(wFr.coupsConseilles);
-                    	niveauIAfacile.setText(wFr.niveauIAfacile);
-                    	niveauIAmoyen.setText(wFr.niveauIAmoyen);
-                    	niveauIAdifficile.setText(wFr.niveauIAdifficile);
-                    	menuTerrain.setText(wFr.terrain);
-                    	menuPerso.setText(wFr.personnage);
-
+                        m2.setText(wFr.niveauIA);
+                        suggestion.setText(wFr.coupsConseilles);
+                        niveauIAfacile.setText(wFr.niveauIAfacile);
+                        niveauIAmoyen.setText(wFr.niveauIAmoyen);
+                        niveauIAdifficile.setText(wFr.niveauIAdifficile);
+                        menuTerrain.setText(wFr.terrain);
+                        menuPerso.setText(wFr.personnage);
 
                         staticConfig.blang = true;
 
@@ -360,7 +350,6 @@ public class Plateau implements Runnable, Observateur {
                 f.setVisible(true);
             }
         });
-
 
         // Ajout des boutons en haut
         drapeau.setFocusable(false);
@@ -403,54 +392,37 @@ public class Plateau implements Runnable, Observateur {
         joueur.setAlignmentY(Component.CENTER_ALIGNMENT);
 
         // icone pion joueur
-        /*
-        try {
-            pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
-                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-            pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")))
-                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        if (j.joueurCourant == j.joueur1) {
-            iconePion = new JLabel(pionB_bas);
-
-        } else {
-            iconePion = new JLabel(pionA_bas);
-        }
-    */
-    if(NewGame.cp1 == null){
-        try {
-            pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
-                    .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-    }else {
-        Image newimg = NewGame.cp1.panel.joueur1.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH); 
-        pionA_bas = new ImageIcon(newimg);
-
-    }
-    if(NewGame.cp2 == null){
-        try {
-        pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")))
-                .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        if (NewGame.cp1 == null) {
+            try {
+                pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
+                        .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-} else {
-    Image newimg2 = NewGame.cp2.panel.joueur2.getScaledInstance(100, 100,  java.awt.Image.SCALE_SMOOTH);
-    pionA_bas = new ImageIcon(newimg2);
-}
-   
-    if (j.joueurCourant == j.joueur1) {
-        iconePion = new JLabel(pionB_bas);
+        } else {
+            Image newimg = NewGame.cp1.panel.joueur1.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+            pionA_bas = new ImageIcon(newimg);
 
-    } else {
-        iconePion = new JLabel(pionA_bas);
-    }
+        }
+        if (NewGame.cp2 == null) {
+            try {
+                pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")))
+                        .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } else {
+            Image newimg2 = NewGame.cp2.panel.joueur2.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+            pionB_bas = new ImageIcon(newimg2);
+        }
 
-    
+        if (j.joueurCourant == j.joueur1) {
+            iconePion = new JLabel(pionA_bas);
+
+        } else {
+            iconePion = new JLabel(pionB_bas);
+        }
+
         iconePion.setAlignmentX(Component.CENTER_ALIGNMENT);
         boiteTexte.add(iconePion);
         boiteTexte.add(joueur);
@@ -536,19 +508,8 @@ public class Plateau implements Runnable, Observateur {
                 j.start();
             }
         });
-        
-      
-        /*
-         * //bouton rejouer boutonRejouer.setFocusable(false);
-         * boiteTexte.add(boutonRejouer); //boiteTexte.add(Box.createRigidArea(new
-         * Dimension(0, 100))); boutonRejouer.addActionListener(new ActionListener() {
-         * public void actionPerformed(ActionEvent e) { interHM.setVisible(true);
-         * interHM.fenetreNouvellePartie();
-         * 
-         * } });
-         */
+
         // suggestion
-       
         boiteTexte.add(Box.createGlue());
         suggestion.setFocusable(false);
         suggestion.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -634,7 +595,6 @@ public class Plateau implements Runnable, Observateur {
                     mouvements.setVisible(false);
                 passe.setVisible(false);
                 boutonFinTour.setVisible(false);
-                // joueur.setSize(20, 20);
                 joueur.setText("Victoire de " + j.joueurCourant.name + " ! ");
                 boutonRecommencer.setVisible(true);
                 clock.setVisible(false);
@@ -643,27 +603,51 @@ public class Plateau implements Runnable, Observateur {
                 mouvements.setVisible(true);
                 passe.setVisible(true);
                 boutonFinTour.setVisible(true);
-               
+
                 if (staticConfig.blang == false) {
-                	joueur.setText("Player : " + j.joueurCourant.name);
+                    joueur.setText("Player : " + j.joueurCourant.name);
                     mouvements.setText("Moves : " + j.joueurCourant.nbMove);
                     passe.setText("Pass : " + j.joueurCourant.passeDispo);
                 } else {
-                	joueur.setText("Joue : " + j.joueurCourant.name);
+                    joueur.setText("Joue : " + j.joueurCourant.name);
                     mouvements.setText("Déplacements : " + j.joueurCourant.nbMove);
                     passe.setText("Passe : " + j.joueurCourant.passeDispo);
                 }
-                
+
                 if (conf.getTimer() != ConfigJeu.Timer.illimite)
                     clock.setVisible(true);
-                if (j.joueurCourant == j.joueur1)
-                    iconePion.setIcon(pionB_bas);
-                else {
-                    iconePion.setIcon(pionA_bas);
-                }
-                
-            }
+                // maj icon pion
+                if (NewGame.cp1 == null) {
+                    try {
+                        pionA_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")))
+                                .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    Image newimg = NewGame.cp1.panel.joueur1.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+                    pionA_bas = new ImageIcon(newimg);
 
+                }
+                if (NewGame.cp2 == null) {
+                    try {
+                        pionB_bas = new ImageIcon(ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")))
+                                .getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                } else {
+                    Image newimg2 = NewGame.cp2.panel.joueur2.getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH);
+                    pionB_bas = new ImageIcon(newimg2);
+                }
+
+                if (j.joueurCourant == j.joueur1) {
+                    iconePion.setIcon(pionA_bas);
+
+                } else {
+                    iconePion.setIcon(pionB_bas);
+                }
+            }
         } catch (Exception e) {
         }
 

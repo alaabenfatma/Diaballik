@@ -21,23 +21,20 @@ public class VuePlateau extends PlateauGraphique {
         try {
             j = jeu;
             j.ajouteObservateur(this);
-            if(NewGame.cp1 == null){
+            if (NewGame.cp1 == null) {
                 pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_ballon.png")));
                 pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")));
-            }
-            else {
+            } else {
                 pionA_bas = NewGame.cp1.panel.joueur1;
-                pionA_ballon =  NewGame.cp1.panel.pionBallon;
+                pionA_ballon = NewGame.cp1.panel.pionBallon;
             }
-            if(NewGame.cp2 == null){
+            if (NewGame.cp2 == null) {
                 pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_ballon.png")));
                 pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")));
-            }
-            else {
+            } else {
                 pionB_bas = NewGame.cp2.panel.joueur2;
-                pionB_ballon =  NewGame.cp2.panel.pionBallon;
+                pionB_ballon = NewGame.cp2.panel.pionBallon;
             }
-        
 
         } catch (IOException e) {
 
@@ -58,28 +55,24 @@ public class VuePlateau extends PlateauGraphique {
     void tracerPlateau() {
 
         try {
-            if(NewGame.cp1 == null){
+            if (NewGame.cp1 == null) {
                 pionA_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_ballon.png")));
                 pionA_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionA_bas.png")));
-            }
-            else {
+            } else {
                 pionA_bas = NewGame.cp1.panel.joueur1;
-                pionA_ballon =  NewGame.cp1.panel.pionBallon;
+                pionA_ballon = NewGame.cp1.panel.pionBallon;
             }
-            if(NewGame.cp2 == null){
+            if (NewGame.cp2 == null) {
                 pionB_ballon = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_ballon.png")));
                 pionB_bas = ImageIO.read(this.getClass().getResourceAsStream(("/pionB_bas.png")));
-            }
-            else {
+            } else {
                 pionB_bas = NewGame.cp2.panel.joueur2;
-                pionB_ballon =  NewGame.cp2.panel.pionBallon;
+                pionB_ballon = NewGame.cp2.panel.pionBallon;
             }
-        
 
         } catch (IOException e) {
 
         }
-        
 
         largeurCase = largeur() / 7;
         hauteurCase = hauteur() / 7;
@@ -110,15 +103,15 @@ public class VuePlateau extends PlateauGraphique {
                 // Affichage des pions
                 if (j.tr._terrain[ligne][colonne].Type == PieceType.Black) {
                     if (j.tr._terrain[ligne][colonne].HasBall == true) {
-                        tracer(pionA_ballon, x, y, largeurCase, hauteurCase);
-                    } else {
-                        tracer(pionA_bas, x, y, largeurCase, hauteurCase);
-                    }
-                } else if (j.tr._terrain[ligne][colonne].Type == PieceType.White) {
-                    if (j.tr._terrain[ligne][colonne].HasBall == true) {
                         tracer(pionB_ballon, x, y, largeurCase, hauteurCase);
                     } else {
                         tracer(pionB_bas, x, y, largeurCase, hauteurCase);
+                    }
+                } else if (j.tr._terrain[ligne][colonne].Type == PieceType.White) {
+                    if (j.tr._terrain[ligne][colonne].HasBall == true) {
+                        tracer(pionA_ballon, x, y, largeurCase, hauteurCase);
+                    } else {
+                        tracer(pionA_bas, x, y, largeurCase, hauteurCase);
                     }
                 }
                 // Affichage des marques
@@ -135,13 +128,13 @@ public class VuePlateau extends PlateauGraphique {
         // Affichage des feeedback mouvements
         if (viewArrow) {
             for (Couple cpl2 : j.listeDeplacementJ2) {
-                drawArrowLine(Color.blue, cpl2.p2.c * largeurCase + largeurCase / 2,
+                drawArrowLine(Color.yellow, cpl2.p2.c * largeurCase + largeurCase / 2,
                         cpl2.p2.l * hauteurCase + hauteurCase / 2, cpl2.p1.c * largeurCase + largeurCase / 2,
                         cpl2.p1.l * hauteurCase + hauteurCase / 2, 4, 4, false, largeurCase, hauteurCase);
             }
 
             for (Couple cpl : j.listeDeplacementJ1) {
-                drawArrowLine(Color.yellow, cpl.p2.c * largeurCase + largeurCase / 2,
+                drawArrowLine(Color.blue, cpl.p2.c * largeurCase + largeurCase / 2,
                         cpl.p2.l * hauteurCase + hauteurCase / 2, cpl.p1.c * largeurCase + largeurCase / 2,
                         cpl.p1.l * hauteurCase + hauteurCase / 2, 4, 4, false, largeurCase, hauteurCase);
             }
