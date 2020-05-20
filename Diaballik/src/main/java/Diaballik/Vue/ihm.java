@@ -33,7 +33,13 @@ public class ihm extends JFrame {
 	Image son, mute, drapeauFr, drapeauGB;
 	
 	playSound ps = new playSound();
-
+	/**
+	 * On utilise cette classe JFrame pour contenir tous les JPanel suivants :
+	 * menu principal, nouvelle partie, charger partie, jouer en reseau et regles
+	 * Pour le plateau, on ouvre un autre frame
+	 * 
+	 * @author Hedi
+	 */
 
 	public ihm() {
 		this.setIconImage(icon); 

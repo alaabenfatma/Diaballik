@@ -67,15 +67,6 @@ public class NewGame extends JPanel {
 	JButton choisirTerrain = new JButton("Terrain par défaut");
 	JLabel choisirTerrainlabel = new JLabel("Choisir terrain : ");
 
-	// Parametres de la nouvelle partie
-	/*
-	 * public enum Joueur { humain, ordinateur; }
-	 * 
-	 * public enum temps { illimite, 0 un, 1 deux, 2 trois; 3 }
-	 * 
-	 * public enum premier { joueurun, true joueurdeux; false }
-	 */
-
 	int tempschrono = 0; // illimite
 	boolean human = true; // joueur humain
 	boolean first = true; // joueur 1
