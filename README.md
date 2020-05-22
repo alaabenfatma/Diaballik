@@ -6,7 +6,7 @@
 ### Introduction to Diaballik
 ```Diaballik is an abstract strategy board game designed by Philippe Lefrançois. It attempts to simulate a sport wherein 2 teams are simultaneously trying to get their ball to the opposite team's goal line. The board depicts a 7x7 grid. ```
 
-Source : [Wikipedia](https://en.wikipedia.org/wiki/Diaballik =250x250)
+Source : [Wikipedia](https://en.wikipedia.org/wiki/Diaballik)
 
 <img src="https://i.imgur.com/VgthpRo.jpg" width="700">
 
