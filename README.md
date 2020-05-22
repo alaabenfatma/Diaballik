@@ -16,3 +16,10 @@ Source : [Wikipedia](https://en.wikipedia.org/wiki/Diaballik)
 
 <img src="https://i.imgur.com/YDHiilU.png" width="700">
 
+# Credits
+
+• Alaa : AI & UI/UX & Project architecture
+• Hedi : UI/UX
+• Wassim : Game programming
+• Ludo : Game design & UI/UX
+• Thomas : Tests & Debugging
