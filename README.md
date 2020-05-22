@@ -22,6 +22,15 @@ Source : [Wikipedia](https://en.wikipedia.org/wiki/Diaballik)
 
 <img src="https://i.imgur.com/4OOFFE4.jpg" width="700">
 
+#### Mixture
+
+<img src="https://i.imgur.com/a5FBg4I.jpg" width="100">
+<img src="https://i.imgur.com/afLaAkr.jpg" width="700">
+
+### Load Game
+
+<img src="https://i.imgur.com/xduaWV2.jpg" width="700">
+
 <img src="https://i.imgur.com/YDHiilU.png" width="700">
 
 # Credits
