@@ -20,7 +20,7 @@ public class IA_vs_IA {
                 //Black
                 //easy.joueTourIAEasy();
                 hard.VanillaMiniMax(new State(j), 3, true);
-                //j.JoueTourIAMiniMax(hard.bestMove);
+                j.JoueTourIAMiniMax(hard.bestMove);
                 //White
                 moyen.VanillaMiniMax(new State(j), 1, false);
                 j.JoueTourIAMiniMax(moyen.bestMove);
