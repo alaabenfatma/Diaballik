@@ -8,9 +8,17 @@
 
 Source : [Wikipedia](https://en.wikipedia.org/wiki/Diaballik)
 
+### New Game
+
+#### Play Human vs Human
+
 <img src="https://i.imgur.com/VgthpRo.jpg" width="700">
 
+#### Play Human vs AI
+
 <img src="https://i.imgur.com/xYI28j3.jpg" width="700">
+
+#### Customization
 
 <img src="https://i.imgur.com/4OOFFE4.jpg" width="700">
 
@@ -19,8 +27,8 @@ Source : [Wikipedia](https://en.wikipedia.org/wiki/Diaballik)
 # Credits
 
 * Alaa : AI & UI/UX & Project architecture
-* Hedi : UI/UX
+* Hedi : UI/UX & Tests
 * Wassim : Game programming
 * Ludo : Game design & UI/UX
-* Thomas : Tests & Debugging
+* Thomas : Tests & Debugging & Ramdom AI (Easy)
 
